@@ -4,8 +4,8 @@ const ObjectId = require('mongodb').ObjectId
 
 const store = {
   things: [
-    { _id: ObjectId('1a9999999999'), name: 'Baseball Bat', sporty: true },
-    { _id: ObjectId('1b9999999999'), name: 'French Fry', sporty: false },
+    { _id: ObjectId('1a9999999999'), name: 'Baseball Bat', sporty: true, createdAt: new Date() },
+    { _id: ObjectId('1b9999999999'), name: 'French Fry', sporty: false, createdAt: new Date() },
   ],
   people: [
     { _id: '2b', name: 'Alan Parsons', musical: true },
@@ -142,12 +142,21 @@ describe('Common DB Tasks', () => {
       })
     ))
 
-    // test('should update with supplied params', () => (
-    //   common.update(db, '1a', { name: 'Cricket Bat' }, 'things').then((r) => {
-    //     expect(r).toBeDefined()
-    //     console.log(r);
-    //     // expect(r).toMatchObject(store.things[0])
-    //   })
-    // ))
+    test('should update updatedAt', () => (
+      db.collection('things').findOne({}).then(first => (
+        common.update(db, first._id, { name: 'Waffle', sporty: false }, 'things').then((r) => {
+          expect(r.updatedAt).not.toBe(first.updatedAt)
+        })
+      ))
+    ))
+
+    test('should update with supplied params', () => (
+      db.collection('things').findOne({}).then(first => (
+        common.update(db, first._id, { name: 'Cricket Bat' }, 'things').then((r) => {
+          expect(r.name).toBe('Cricket Bat')
+          expect(r.sporty).toBe(first.sporty)
+        })
+      ))
+    ))
   })
 })

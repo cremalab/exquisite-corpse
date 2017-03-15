@@ -9,8 +9,11 @@ function getValue(prop) {
   return prop.value
 }
 
-function timestamp(attrs) {
-  return Object.assign({}, attrs, { createdAt: new Date(), updatedAt: new Date() })
+function timestamp(attrs, isNew) {
+  const now = new Date()
+  const stamps = { updatedAt: now }
+  if (isNew) stamps.createdAt = now
+  return Object.assign({}, attrs, stamps)
 }
 
 module.exports = {
@@ -31,7 +34,7 @@ module.exports = {
     })
   },
   create(db, params, collection) {
-    return db.collection(collection).insertOne(timestamp(params)).then(res => (
+    return db.collection(collection).insertOne(timestamp(params, true)).then(res => (
       db.collection(collection).findOne({ _id: res.insertedId })
     ))
   },
@@ -46,7 +49,8 @@ module.exports = {
         return reject(e)
       }
       const opts = { returnOriginal: false }
-      return db.collection(collection).findOneAndUpdate({ _id: id }, { $set: params }, opts)
+      return db.collection(collection)
+        .findOneAndUpdate({ _id: id }, { $set: timestamp(params) }, opts)
         .then(getValue).then(resolve)
         .catch(reject)
     })
