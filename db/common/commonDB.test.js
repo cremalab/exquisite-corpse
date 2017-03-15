@@ -1,10 +1,11 @@
 const common = require('./index')
-const MongoMock = require('mongodb-test-mock')
+const testHelper = require('../testHelper')
+const ObjectId = require('mongodb').ObjectId
 
 const store = {
   things: [
-    { _id: '1a', name: 'Baseball Bat', sporty: true },
-    { _id: '1b', name: 'French Fry', sporty: false },
+    { _id: ObjectId('1a9999999999'), name: 'Baseball Bat', sporty: true },
+    { _id: ObjectId('1b9999999999'), name: 'French Fry', sporty: false },
   ],
   people: [
     { _id: '2b', name: 'Alan Parsons', musical: true },
@@ -12,16 +13,24 @@ const store = {
   ],
 }
 
+
 describe('Common DB Tasks', () => {
   let db
 
-  beforeEach(() => {
-    db = new MongoMock(store)
-  })
+  beforeAll(() => (
+    testHelper.connectDB().then((database) => {
+      db = database
+      return db.collection('things').deleteMany({}).then(() => (
+        db.collection('things').insertMany(store.things)
+      ))
+    })
+  ))
+
+  afterAll(() => db.close())
 
   describe('find', () => {
     test('should reject with error if missing db instance', () => (
-      common.find(undefined, '1a', 'things').then((r) => {
+      common.find(undefined, '1a9999999999', 'things').then((r) => {
         expect(r).not.toBeDefined()
       })
       .catch((err) => {
@@ -41,7 +50,7 @@ describe('Common DB Tasks', () => {
     ))
 
     test('should return error if missing collection', () => (
-      common.find(db, '1a', undefined).then((r) => {
+      common.find(db, '1a9999999999', undefined).then((r) => {
         expect(r).not.toBeDefined()
       })
       .catch((err) => {
@@ -51,18 +60,18 @@ describe('Common DB Tasks', () => {
     ))
 
     test('should return one result if found', () => (
-      common.find(db, '1a', 'things').then((r) => {
+      common.find(db, '1a9999999999', 'things').then((r) => {
         expect(r).toBeDefined()
-        expect(r).toBe(store.things[0])
+        expect(r._id.toHexString()).toBe(store.things[0]._id.toHexString())
       })
     ))
 
     test('should reject if not found', () => (
-      common.find(db, '22', 'things').then((r) => {
+      common.find(db, '229999999999', 'things').then((r) => {
         expect(r).not.toBeDefined()
       }).catch((err) => {
         expect(err).toBeDefined()
-        expect(err.message).toBe('Record with id 22 not found')
+        expect(err.message).toBe('Record with id 229999999999 not found')
       })
     ))
   })

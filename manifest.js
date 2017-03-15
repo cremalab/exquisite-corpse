@@ -65,8 +65,8 @@ module.exports = {
         },
       },
     },
-    {
-      plugin: './server/features' // Feature/Route manifest
-    }
+    { plugin: './server/corpses/routes' },
+    { plugin: './server/sessions/routes' },
+    { plugin: './server/drawings/routes' },
   ],
 }

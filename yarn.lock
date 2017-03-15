@@ -2864,7 +2864,7 @@ mongodb-test-mock@^0.1.5:
   dependencies:
     bson "*"
 
-mongodb@2.x.x:
+mongodb@2.x.x, mongodb@^2.2.24:
   version "2.2.24"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-2.2.24.tgz#80f40d6ec5bdec0ddecf0f9ce0144e794c46449a"
   dependencies:
