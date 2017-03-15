@@ -1,6 +1,6 @@
 const handlers = require('../handlers')
 const responses = require('../responses')
-const schemas = require('../../../db/drawings/drawingSchemas')
+const schemas = require('../../drawings/db/drawingSchemas')
 const Joi = require('joi')
 
 exports.register = (server, options, next) => {
