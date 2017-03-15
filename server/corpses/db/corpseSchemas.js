@@ -1,10 +1,11 @@
 const Joi = require('joi')
 
 const objectId = Joi.alternatives().try(Joi.string(), Joi.object())
+
 const corpseSection = Joi.object().keys({
   description: Joi.string().example('Torso')
     .description('description of what should be drawn for this section'),
-  drawing: Joi.objectId().description('ObjectId of drawing for this section'),
+  drawing: objectId.description('ObjectId of drawing for this section'),
 })
 
 module.exports = {

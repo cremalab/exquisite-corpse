@@ -1,22 +1,43 @@
-const corpseHandlers = require('../handlers/corpseHandlers')
+const Joi = require('joi')
+const handlers = require('../handlers/corpseHandlers')
+const schemas = require('../db/corpseSchemas')
 const responses = require('../responses')
 
 exports.register = (server, options, next) => {
-  server.route({
-    method: 'GET',
-    path: '/corpses',
-    config: {
-      handler: corpseHandlers.index,
-      description: 'Returns all corpses',
-      notes: ['They are all dead'],
-      tags: ['api', 'corpse'],
-      validate: {
-      },
-      response: {
-        schema: responses.list,
+  server.route([
+    {
+      method: 'GET',
+      path: '/corpses/{id}',
+      config: {
+        handler: handlers.show,
+        description: 'Returns a corpse',
+        tags: ['api', 'corpse'],
+        validate: {
+          params: {
+            id: Joi.string().required(),
+          },
+        },
+        response: {
+          schema: responses.single,
+        },
       },
     },
-  })
+    {
+      method: 'POST',
+      path: '/corpses',
+      config: {
+        handler: handlers.create,
+        description: 'Creates a new Corpse',
+        tags: ['api', 'corpse'],
+        validate: {
+          payload: schemas.create,
+        },
+        response: {
+          schema: responses.single,
+        },
+      },
+    },
+  ])
 
   next()
 }
