@@ -8,13 +8,12 @@ const store = [
 
 const validModel = {
   creator: '1a',
-  anchorPoints: {
-    top: [10, 200],
-    bottom: [20, 180],
-  },
-  canvas: {
-    Layer: {},
-  },
+  sections: [
+    { description: 'Head' },
+    { description: 'Torso' },
+    { description: 'Legs' },
+    { description: 'Feet' },
+  ],
 }
 
 describe('Corpses DB Tasks', () => {
@@ -30,6 +29,18 @@ describe('Corpses DB Tasks', () => {
   ))
 
   afterAll(() => db.close())
+
+  describe('idSections', () => {
+    test('should convert sections to object', () => {
+      const res = corpses.idSections([
+        { description: 'Head' },
+        { description: 'Torso' },
+        { description: 'Legs' },
+      ])
+      expect(Array.isArray(res)).toBe(true)
+      expect(res[0]._id).not.toBeUndefined()
+    })
+  })
 
   describe('create', () => {
     test('should require creator', () => {
@@ -68,6 +79,20 @@ describe('Corpses DB Tasks', () => {
         expect(err).not.toBeUndefined()
         expect(err.name).toBe('ValidationError')
         expect(err.details[0].message).toBe(`"sections" must contain at least 2 items`)
+      })
+    })
+
+    test('should create _ids for sections', () => {
+      const params = Object.assign({}, validModel, { sections: [
+        { description: 'Head' },
+        { description: 'Torso' },
+      ] })
+      return corpses.create(db, params).then((corpse) => {
+        console.log(corpse);
+        expect(corpse.sections[0]._id).not.toBeUndefined()
+      })
+      .catch((err) => {
+        expect(err).toBeUndefined()
       })
     })
   })

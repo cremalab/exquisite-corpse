@@ -2,10 +2,16 @@ const Joi = require('joi')
 const Boom = require('boom')
 const common = require('../../../db/common')
 const corpseSchemas = require('./corpseSchemas')
+const ObjectID = require('mongodb').ObjectID
 
 const dbSchema = Joi.object().required()
 
 module.exports = {
+  idSections(sections) {
+    return sections.map(s => (
+      Object.assign({}, s, { _id: new ObjectID() })
+    ))
+  },
   getAll(db) {
     return new Promise((resolve, reject) => {
       Joi.validate(db, dbSchema, (err) => {
@@ -26,7 +32,10 @@ module.exports = {
       } catch (e) {
         reject(e)
       }
-      return common.create(db, params, 'corpses').then(resolve).catch(reject)
+      const attrs = Object.assign({}, params, {
+        sections: this.idSections(params.sections),
+      })
+      return common.create(db, attrs, 'corpses').then(resolve).catch(reject)
     })
   },
   update(db, id, params) {

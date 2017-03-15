@@ -20,13 +20,14 @@ module.exports = {
   create(db, params) {
     return new Promise((resolve, reject) => {
       if (!params) { reject(Boom.create(422, 'Params are required')) }
+      let attrs
       try {
         Joi.assert(db, dbSchema)
-        Joi.assert(params, drawingSchemas.create)
+        attrs = Joi.attempt(params, drawingSchemas.create)
       } catch (e) {
         reject(e)
       }
-      return common.create(db, params, 'drawings').then(resolve).catch(reject)
+      return common.create(db, attrs, 'drawings').then(resolve).catch(reject)
     })
   },
   update(db, id, params) {

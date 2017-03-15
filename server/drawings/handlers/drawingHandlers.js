@@ -21,7 +21,6 @@ module.exports = {
     const { db } = request.mongo
     drawingsDB.update(db, request.params.id, request.payload)
     .then((r) => {
-      console.log(r);
       reply({ result: r })
     })
     .catch(err => reply(err))

@@ -15,6 +15,7 @@ const validModel = {
   canvas: {
     Layer: {},
   },
+  section: '22',
 }
 
 describe('Drawings DB Tasks', () => {

@@ -1,5 +1,7 @@
 const Joi = require('joi')
 
+const objectId = Joi.alternatives().try(Joi.string(), Joi.object())
+
 const drawingSchema = Joi.object().keys({
   _id: Joi.any().required(),
   creator: Joi.string().required(),
@@ -14,6 +16,7 @@ const drawingSchema = Joi.object().keys({
       .notes('min and max x coordinate for bottom anchors'),
   }).required(),
   canvas: Joi.object().required(),
+  section: objectId.required(),
   createdAt: Joi.date().timestamp('javascript').required(),
   updatedAt: Joi.date().timestamp('javascript').required(),
 })

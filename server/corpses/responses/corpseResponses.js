@@ -6,6 +6,7 @@ const corpseSection = Joi.object().keys({
   description: Joi.string().example('Torso')
     .description('description of what should be drawn for this section'),
   drawing: objectId.description('ObjectId of drawing for this section'),
+  _id: objectId.required(),
 })
 
 

@@ -1,4 +1,7 @@
 const Joi = require('joi')
+const ObjectId = require('mongodb').ObjectId
+
+const objectId = Joi.alternatives().try(Joi.string(), Joi.object())
 
 const anchorPointsSchema = Joi.object().keys({
   top: Joi.array()
@@ -20,6 +23,7 @@ module.exports = {
       .description('min and max x coords for top and bottom anchorPoints')
       .example({ top: [10, 100], bottom: [15, 140] }),
     canvas: Joi.object(),
+    section: objectId.required().example(new ObjectId()),
   }).required(),
   update: Joi.object().keys({
     anchorPoints: Joi.any().strip(),
