@@ -92,6 +92,13 @@ describe('Common DB Tasks', () => {
         expect(r).toMatchObject({ name: 'Waffle', sporty: false })
       })
     ))
+
+    test('should add timestamps', () => (
+      common.create(db, { name: 'Waffle', sporty: false }, 'things').then((r) => {
+        expect(r.createdAt).not.toBeUndefined()
+        expect(r.updatedAt).not.toBeUndefined()
+      })
+    ))
   })
 
   describe('update', () => {

@@ -9,6 +9,10 @@ function getValue(prop) {
   return prop.value
 }
 
+function timestamp(attrs) {
+  return Object.assign({}, attrs, { createdAt: new Date(), updatedAt: new Date() })
+}
+
 module.exports = {
   find(db, id, collection) {
     return new Promise((resolve, reject) => {
@@ -27,7 +31,7 @@ module.exports = {
     })
   },
   create(db, params, collection) {
-    return db.collection(collection).insertOne(params).then(res => (
+    return db.collection(collection).insertOne(timestamp(params)).then(res => (
       db.collection(collection).findOne({ _id: res.insertedId })
     ))
   },

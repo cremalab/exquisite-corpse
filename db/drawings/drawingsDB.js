@@ -1,13 +1,9 @@
 const Joi = require('joi')
 const Boom = require('boom')
 const common = require('../common')
-const doodleSchemas = require('./drawingSchemas')
+const drawingSchemas = require('./drawingSchemas')
 
 const dbSchema = Joi.object().required()
-
-function getValue(prop) {
-  return prop.value
-}
 
 module.exports = {
   getAll(db) {
@@ -26,7 +22,7 @@ module.exports = {
       if (!params) { reject(Boom.create(422, 'Params are required')) }
       try {
         Joi.assert(db, dbSchema)
-        Joi.assert(params, doodleSchemas.create)
+        Joi.assert(params, drawingSchemas.create)
       } catch (e) {
         reject(e)
       }
@@ -39,7 +35,7 @@ module.exports = {
       if (!params) { reject(Boom.create(422, 'Params are required')) }
       try {
         Joi.assert(db, dbSchema)
-        attributes = Joi.attempt(params, doodleSchemas.update)
+        attributes = Joi.attempt(params, drawingSchemas.update)
       } catch (e) {
         reject(e)
       }
