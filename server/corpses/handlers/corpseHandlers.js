@@ -16,4 +16,12 @@ module.exports = {
     })
     .catch(err => reply(err))
   },
+  update(request, reply) {
+    const { db } = request.mongo
+    corpsesDB.update(db, request.params.id, request.payload)
+    .then((r) => {
+      reply({ result: r })
+    })
+    .catch(err => reply(err))
+  },
 }

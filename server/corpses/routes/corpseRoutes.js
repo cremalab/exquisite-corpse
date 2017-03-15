@@ -30,7 +30,25 @@ exports.register = (server, options, next) => {
         description: 'Creates a new Corpse',
         tags: ['api', 'corpse'],
         validate: {
-          payload: schemas.create,
+          payload: schemas.create.required(),
+        },
+        response: {
+          schema: responses.single,
+        },
+      },
+    },
+    {
+      method: 'PUT',
+      path: '/corpses/{id}',
+      config: {
+        handler: handlers.update,
+        description: 'Updates a Corpse',
+        tags: ['api', 'corpse'],
+        validate: {
+          payload: schemas.update.required(),
+          params: Joi.object().keys({
+            id: Joi.string().required(),
+          }),
         },
         response: {
           schema: responses.single,

@@ -30,7 +30,26 @@ exports.register = (server, options, next) => {
         description: 'Creates a new drawing',
         tags: ['api', 'drawing'],
         validate: {
-          payload: schemas.create,
+          payload: schemas.create.required(),
+        },
+        response: {
+          schema: responses.single,
+        },
+      },
+    },
+    {
+      method: 'PUT',
+      path: '/drawings/{id}',
+      config: {
+        handler: handlers.update,
+        description: 'Updates a drawing',
+        notes: ['Ignores everything but canvas changes'],
+        tags: ['api', 'drawing'],
+        validate: {
+          payload: schemas.update.required(),
+          params: Joi.object().keys({
+            id: Joi.string().required(),
+          }),
         },
         response: {
           schema: responses.single,

@@ -12,7 +12,7 @@ function getValue(prop) {
 function timestamp(attrs, isNew) {
   const now = new Date()
   const stamps = { updatedAt: now }
-  if (isNew) stamps.createdAt = now
+  if (isNew || !attrs.createdAt) stamps.createdAt = now
   return Object.assign({}, attrs, stamps)
 }
 
@@ -50,7 +50,7 @@ module.exports = {
       }
       const opts = { returnOriginal: false }
       return db.collection(collection)
-        .findOneAndUpdate({ _id: id }, { $set: timestamp(params) }, opts)
+        .findOneAndUpdate({ _id: ObjectId(id) }, { $set: timestamp(params) }, opts)
         .then(getValue).then(resolve)
         .catch(reject)
     })
