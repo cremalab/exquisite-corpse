@@ -1,5 +1,5 @@
 const common = require('../../../db/common')
-const drawingsDB = require('../../../db/drawings')
+const drawingsDB = require('../db/drawingsDB')
 
 module.exports = {
   show(request, reply) {

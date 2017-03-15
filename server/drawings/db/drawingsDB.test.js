@@ -1,5 +1,5 @@
 const drawings = require('./drawingsDB')
-const testHelper = require('../testHelper')
+const testHelper = require('../../../db/testHelper')
 
 const store = [
   { creator: '2a', anchorPoints: { top: [10, 100], bottom: [40, 80] } },

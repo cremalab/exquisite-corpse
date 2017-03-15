@@ -1,6 +1,6 @@
 const Joi = require('joi')
 const Boom = require('boom')
-const common = require('../common')
+const common = require('../../../db/common')
 const drawingSchemas = require('./drawingSchemas')
 
 const dbSchema = Joi.object().required()
