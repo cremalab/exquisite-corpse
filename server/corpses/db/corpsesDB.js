@@ -3,8 +3,47 @@ const Boom = require('boom')
 const common = require('../../../db/common')
 const corpseSchemas = require('./corpseSchemas')
 const ObjectID = require('mongodb').ObjectID
+const utils = require('../../utils')
 
 const dbSchema = Joi.object().required()
+
+function generateAnchorPoint() {
+  const left = utils.randomBetween(0, utils.canvasWidth / 2)
+  const right = utils.randomBetween(utils.canvasWidth / 2, utils.canvasWidth)
+  return [left, right]
+}
+
+function addBottom(section) {
+  return Object.assign({}, section, {
+    anchorPoints: {
+      bottom: generateAnchorPoint(),
+    },
+  })
+}
+
+function addTop(section, i, arr) {
+  const prev = arr[i - 1]
+  let top
+  if (prev) {
+    top = prev.anchorPoints.bottom
+  } else {
+    top = generateAnchorPoint()
+  }
+  const mod = Object.assign({}, section, {
+    anchorPoints: Object.assign(section.anchorPoints, { top }),
+  })
+  return mod
+}
+
+function defaultCorpse() {
+  const sections = [
+    { description: 'Head' },
+    { description: 'Torso' },
+    { description: 'Legs' },
+    { description: 'Feet' },
+  ].map(addBottom).map(addTop)
+  return { sections }
+}
 
 module.exports = {
   idSections(sections) {
@@ -14,29 +53,37 @@ module.exports = {
   },
   getAll(db) {
     return new Promise((resolve, reject) => {
-      Joi.validate(db, dbSchema, (err) => {
-        if (err) reject(err)
-        db.collection('corpses').find({}).then(resolve)
-      })
+      try {
+        Joi.assert(db, dbSchema)
+      } catch (e) {
+        console.log(e);
+        return reject(Boom.wrap(e))
+      }
+      console.log('hi!');
+      return db.collection('corpses').find({}).toArray().then(resolve)
     })
   },
   find(db, id) {
     return common.find(db, id, 'corpses')
   },
-  create(db, params) {
+  create(db, params = {}) {
     return new Promise((resolve, reject) => {
-      if (!params) { reject(Boom.create(422, 'Params are required')) }
+      // Merge with default Corpse and add IDs to sections
+      const generated = defaultCorpse()
+      const attrs = Object.assign({ }, params, generated, {
+        sections: this.idSections(generated.sections),
+      })
       try {
         Joi.assert(db, dbSchema)
-        Joi.assert(params, corpseSchemas.create)
+        Joi.assert(attrs, corpseSchemas.create)
       } catch (e) {
-        reject(e)
+        return reject(Boom.wrap(e))
       }
-      const attrs = Object.assign({}, params, {
-        sections: this.idSections(params.sections),
-      })
       return common.create(db, attrs, 'corpses').then(resolve).catch(reject)
     })
+  },
+  generate(params = {}) {
+    return Object.assign({}, params, defaultCorpse())
   },
   update(db, id, params) {
     return new Promise((resolve, reject) => {

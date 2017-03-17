@@ -1,13 +1,14 @@
 const drawings = require('./drawingsDB')
 const testHelper = require('../../../db/testHelper')
+const ObjectID = require('mongodb').ObjectID
 
 const store = [
-  { creator: '2a', anchorPoints: { top: [10, 100], bottom: [40, 80] } },
-  { creator: '2a', anchorPoints: { top: [10, 80], bottom: [10, 110] } },
+  { creator: '58cc21c72fbe8c108ba17fb8', anchorPoints: { top: [10, 100], bottom: [40, 80] } },
+  { creator: '58cc21c72fbe8c108ba17fb4', anchorPoints: { top: [10, 80], bottom: [10, 110] } },
 ]
 
 const validModel = {
-  creator: '1a',
+  creator: 'drawingsDBTest',
   anchorPoints: {
     top: [10, 200],
     bottom: [20, 180],
@@ -15,17 +16,32 @@ const validModel = {
   canvas: {
     Layer: {},
   },
-  section: '22',
+  section: '58cc21c72fbe8c108ba17fb8',
 }
 
 describe('Drawings DB Tasks', () => {
   let db
+  let corpse
 
   beforeAll(() => (
     testHelper.connectDB().then((database) => {
       db = database
       return db.collection('drawings').deleteMany({}).then(() => (
         db.collection('drawings').insertMany(store)
+      ))
+      .then(() => (
+        db.collection('corpses').insertOne({
+          creator: 'one',
+          sections: [
+            { description: 'Head', anchorPoints: { top: [0, 50], bottom: [51, 100] }, _id: ObjectID('123456789101') },
+            { description: 'Torso', anchorPoints: { top: [51, 100], bottom: [51, 100] }, _id: ObjectID('123456789102') },
+          ],
+        })
+      ))
+      .then(() => (
+        db.collection('corpses').findOne({ creator: 'one' }).then((result) => {
+          corpse = result
+        })
       ))
     })
   ))
@@ -45,7 +61,7 @@ describe('Drawings DB Tasks', () => {
 
   describe('create', () => {
     test('should require creator', () => {
-      const params = Object.assign({}, validModel)
+      const params = Object.assign({}, validModel, { section: corpse.sections[0]._id })
       delete params.creator
       return drawings.create(db, params).then((drawing) => {
         expect(drawing).toBeUndefined()
@@ -56,52 +72,14 @@ describe('Drawings DB Tasks', () => {
         expect(err.details[0].message).toBe(`"creator" is required`)
       })
     })
-    test('should require anchorPoints', () => {
-      const params = Object.assign({}, validModel)
+    test('should copy anchorPoints', () => {
+      const params = Object.assign({}, validModel, { section: corpse.sections[0]._id })
       delete params.anchorPoints
       return drawings.create(db, params).then((drawing) => {
-        expect(drawing).toBeUndefined()
+        expect(drawing.anchorPoints).not.toBeUndefined()
       })
       .catch((err) => {
-        expect(err).not.toBeUndefined()
-        expect(err.name).toBe('ValidationError')
-        expect(err.details[0].message).toBe(`"anchorPoints" is required`)
-      })
-    })
-
-    test('should require anchorPoints to be an object', () => {
-      const params = Object.assign({}, validModel, { anchorPoints: [] })
-      return drawings.create(db, params).then((drawing) => {
-        expect(drawing).toBeUndefined()
-      })
-      .catch((err) => {
-        expect(err).not.toBeUndefined()
-        expect(err.name).toBe('ValidationError')
-        expect(err.details[0].message).toBe(`"anchorPoints" must be an object`)
-      })
-    })
-
-    test('should require anchorPoints to have top', () => {
-      const params = Object.assign({}, validModel, { anchorPoints: {} })
-      return drawings.create(db, params).then((drawing) => {
-        expect(drawing).toBeUndefined()
-      })
-      .catch((err) => {
-        expect(err).not.toBeUndefined()
-        expect(err.name).toBe('ValidationError')
-        expect(err.details[0].message).toBe(`"top" is required`)
-      })
-    })
-
-    test('should require anchorPoints.top to have two values', () => {
-      const params = Object.assign({}, validModel, { anchorPoints: { top: [1, 2, 3] } })
-      return drawings.create(db, params).then((drawing) => {
-        expect(drawing).toBeUndefined()
-      })
-      .catch((err) => {
-        expect(err).not.toBeUndefined()
-        expect(err.name).toBe('ValidationError')
-        expect(err.details[0].message).toBe(`"top" must contain 2 items`)
+        expect(err).toBeUndefined()
       })
     })
   })

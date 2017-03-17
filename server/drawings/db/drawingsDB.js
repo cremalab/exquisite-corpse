@@ -1,6 +1,7 @@
 const Joi = require('joi')
 const Boom = require('boom')
 const common = require('../../../db/common')
+const corpseSections = require('../../corpseSections/db/corpseSectionsDB')
 const drawingSchemas = require('./drawingSchemas')
 
 const dbSchema = Joi.object().required()
@@ -20,14 +21,16 @@ module.exports = {
   create(db, params) {
     return new Promise((resolve, reject) => {
       if (!params) { reject(Boom.create(422, 'Params are required')) }
-      let attrs
       try {
         Joi.assert(db, dbSchema)
-        attrs = Joi.attempt(params, drawingSchemas.create)
       } catch (e) {
         reject(e)
       }
-      return common.create(db, attrs, 'drawings').then(resolve).catch(reject)
+      corpseSections.find(db, params.section).then((section) => {
+        const attrs = Object.assign({}, params, { anchorPoints: section.anchorPoints })
+        Joi.attempt(attrs, drawingSchemas.create)
+        return common.create(db, attrs, 'drawings').then(resolve).catch(reject)
+      }).catch(reject)
     })
   },
   update(db, id, params) {
