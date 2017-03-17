@@ -1,10 +1,10 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 import { apiMiddleware } from 'redux-api-middleware';
 import reducers from './reducers';
 
-const reducer = combineReducers(reducers);
-const createStoreWithMiddleware = applyMiddleware(apiMiddleware)(createStore);
+const createStoreWithMiddleware = compose(
+  applyMiddleware(apiMiddleware),
+  window.devToolsExtension ? window.devToolsExtension() : f => f,
+)(createStore);
 
-export default function configureStore(initialState) {
-  return createStoreWithMiddleware(reducer, initialState);
-}
+export default createStoreWithMiddleware(reducers);

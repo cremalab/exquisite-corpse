@@ -5,7 +5,7 @@
   "repository": {},
   "license": "MIT",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently \"npm run dev\" \"npm run client\"",
     "test": "jest",
     "test-watch": "jest --watch",
     "dev": "concurrently \"nodemon index.js\" \"webpack --progress --watch\"",

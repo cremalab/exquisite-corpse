@@ -1,20 +1,20 @@
-import {
-  CORPSES_SET,
-  CORPSES_RESET,
-  CORPSES_LOAD
-} from 'config/constants'
-
 const initialState = {
   loading: false,
-  list: []
+  drawings: []
 }
 
 function corpses(state = initialState, action) {
   switch (action.type) {
-    case CORPSES_SET:
+    case 'REQUEST_CORPSE':
+      return {
+        ...state,
+        loading: true
+      }
+
+    case 'SUCCESS_CORPSE':
       return {
         loading: false,
-        list: action.payload
+        drawings: action.payload.result.sections
       }
     default:
       return state
