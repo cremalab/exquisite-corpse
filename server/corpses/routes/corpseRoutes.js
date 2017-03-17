@@ -9,6 +9,7 @@ exports.register = (server, options, next) => {
       method: 'GET',
       path: '/corpses',
       config: {
+        auth: 'slack',
         handler: handlers.index,
         description: 'Returns all corpses',
         tags: ['api', 'corpse'],
@@ -21,6 +22,7 @@ exports.register = (server, options, next) => {
       method: 'GET',
       path: '/corpses/{id}',
       config: {
+        auth: 'slack',
         handler: handlers.show,
         description: 'Returns a corpse',
         tags: ['api', 'corpse'],
@@ -38,6 +40,7 @@ exports.register = (server, options, next) => {
       method: 'POST',
       path: '/corpses',
       config: {
+        auth: 'slack',
         handler: handlers.create,
         description: 'Creates a new Corpse',
         notes: [`No params needed, default corpse generated and added to current user`],
@@ -51,6 +54,7 @@ exports.register = (server, options, next) => {
       method: 'PUT',
       path: '/corpses/{id}',
       config: {
+        auth: 'slack',
         handler: handlers.update,
         description: 'Updates a Corpse',
         tags: ['api', 'corpse'],
@@ -72,4 +76,5 @@ exports.register = (server, options, next) => {
 
 exports.register.attributes = {
   name: 'corpseRoutes',
+  dependencies: ['exquisiteAuth'],
 }

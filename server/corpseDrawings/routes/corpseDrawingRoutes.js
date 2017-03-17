@@ -37,5 +37,5 @@ exports.register = (server, options, next) => {
 
 exports.register.attributes = {
   name: 'corpseDrawingRoutes',
-  dependencies: ['drawingRoutes', 'corpseRoutes'],
+  dependencies: ['drawingRoutes', 'corpseRoutes', 'exquisiteAuth'],
 }
