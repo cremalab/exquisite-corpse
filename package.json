@@ -11,6 +11,7 @@
     "dev": "concurrently \"nodemon index.js\" \"webpack --progress --watch\""
   },
   "dependencies": {
+    "bell": "^8.5.0",
     "boom": "^4.2.0",
     "dotenv": "^4.0.0",
     "glue": "^4.1.0",
