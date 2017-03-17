@@ -1,5 +1,6 @@
 const common = require('../../../db/common')
 const drawingsDB = require('../db/drawingsDB')
+const Boom = require('boom')
 
 module.exports = {
   show(request, reply) {
@@ -11,11 +12,12 @@ module.exports = {
   },
   create(request, reply) {
     const { db } = request.mongo
-    drawingsDB.create(db, request.payload)
+    const attrs = Object.assign({}, request.payload, { creator: 'currentUser' })
+    drawingsDB.create(db, attrs)
     .then((r) => {
       reply({ result: r })
     })
-    .catch(err => reply(err))
+    .catch(err => reply(Boom.wrap(err)))
   },
   update(request, reply) {
     const { db } = request.mongo
