@@ -9,7 +9,8 @@ import { Link } from 'react-router-dom'
 
 class Corpse extends React.Component {
   componentWillMount() {
-    this.props.dispatch(loadCorpse('58cc32a4bbf3b742adf1bbb8'))
+    const { dispatch, corpseId } = this.props
+    dispatch(loadCorpse(corpseId))
   }
 
   render() {
@@ -32,9 +33,10 @@ class Corpse extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
   return {
-    corpse: state.corpse
+    corpse: state.corpse,
+    corpseId: props.match.params.corpseId
   }
 }
 

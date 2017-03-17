@@ -6,15 +6,27 @@ import {
 
 const initialState = {
   loading: false,
-  list: []
+  result: []
 }
 
 function corpses(state = initialState, action) {
   switch (action.type) {
-    case CORPSES_SET:
+    case 'REQUEST_CORPSES':
+      return {
+        ...state,
+        loading: true
+      }
+
+    case 'SUCCESS_CORPSES':
       return {
         loading: false,
-        list: action.payload
+        result: action.payload.result
+      }
+
+    case 'SUCCESS_CORPSE_CREATE':
+      return {
+        ...state,
+        result: [...state.result, action.payload.result]
       }
     default:
       return state

@@ -5,13 +5,12 @@ export function loadCorpses() {
     [CALL_API]: {
       endpoint: '/corpses',
       method: 'GET',
-      types: ['REQUEST', 'SUCCESS_CORPSES', 'FAILURE']
+      types: ['REQUEST_CORPSES', 'SUCCESS_CORPSES', 'FAILURE']
     }
   }
 }
 
 export function loadCorpse(id) {
-  console.log(">>>", id)
   return {
     [CALL_API]: {
       endpoint: `/corpses/${id}`, //58cc32a4bbf3b742adf1bbb8'
@@ -26,20 +25,7 @@ export function createCorpse() {
     [CALL_API]: {
       endpoint: '/corpses',
       method: 'POST',
-      types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-      body: JSON.stringify({
-        "creator": "string",
-        "sections": [
-          {
-            "description": "Head",
-            "drawing": "string"
-          },
-          {
-            "description": "Torso",
-            "drawing": "string"
-          }
-        ]
-      })
+      types: ['REQUEST_CORPSE_CREATE', 'SUCCESS_CORPSE_CREATE', 'FAILURE'],
     }
   }
 }

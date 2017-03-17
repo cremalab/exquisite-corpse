@@ -13,7 +13,7 @@ const anchorPointsSchema = Joi.object().keys({
     .required()
     .example([50, 210])
     .notes('min and max x coordinate for bottom anchors'),
-}).required()
+})
 
 const corpseSection = Joi.object().keys({
   description: Joi.string().example('Torso')
