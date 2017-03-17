@@ -4,7 +4,6 @@ module.exports = {
   index(request, reply) {
     const { db } = request.mongo
     return corpsesDB.getAll(db).then((r) => {
-      console.log(r);
       reply({ result: r })
     })
     .catch(err => reply(err))
@@ -18,7 +17,8 @@ module.exports = {
   },
   create(request, reply) {
     const { db } = request.mongo
-    const attrs = Object.assign({}, request.payload, { creator: 'currentUser' })
+    const { user } = request.auth.credentials.profile
+    const attrs = Object.assign({}, request.payload, { creator: user })
     corpsesDB.create(db, attrs)
     .then((r) => {
       reply({ result: r })

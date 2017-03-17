@@ -390,6 +390,16 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
+bell@^8.5.0:
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/bell/-/bell-8.5.0.tgz#059da3db877d84db73e2e64dff5ca25fdb5fe242"
+  dependencies:
+    boom "4.x.x"
+    cryptiles "3.x.x"
+    hoek "4.x.x"
+    joi "10.x.x"
+    wreck "10.x.x"
+
 big.js@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-3.1.3.tgz#4cada2193652eb3ca9ec8e55c9015669c9806978"
@@ -421,6 +431,12 @@ boom@2.x.x:
   resolved "https://registry.yarnpkg.com/boom/-/boom-2.10.1.tgz#39c8918ceff5799f83f9492a848f625add0c766f"
   dependencies:
     hoek "2.x.x"
+
+boom@3.x.x:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/boom/-/boom-3.2.2.tgz#0f0cc5d04adc5003b8c7d71f42cca7271fef0e78"
+  dependencies:
+    hoek "4.x.x"
 
 boom@4.x.x, boom@^4.0.0, boom@^4.2.0:
   version "4.2.0"
@@ -1772,6 +1788,14 @@ handlebars@^4.0.3, handlebars@^4.0.5:
   optionalDependencies:
     uglify-js "^2.6"
 
+hapi-auth-cookie@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/hapi-auth-cookie/-/hapi-auth-cookie-6.1.1.tgz#927db39e434916d81ab870d4181d70d53e745572"
+  dependencies:
+    boom "3.x.x"
+    hoek "3.x.x"
+    joi "7.x.x"
+
 hapi-mongodb@^6.2.1:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/hapi-mongodb/-/hapi-mongodb-6.2.1.tgz#1c040a8211e0645dab4ceb693bbc418c6dd49b7e"
@@ -1890,6 +1914,10 @@ hmac-drbg@^1.0.0:
 hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
+
+hoek@3.x.x:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/hoek/-/hoek-3.0.4.tgz#268adff66bb6695c69b4789a88b1e0847c3f3123"
 
 hoek@4.x.x, hoek@^4.0.1:
   version "4.1.0"
@@ -2509,6 +2537,15 @@ joi@10.2.2, joi@10.x.x, joi@^10.2.2:
     hoek "4.x.x"
     isemail "2.x.x"
     items "2.x.x"
+    topo "2.x.x"
+
+joi@7.x.x:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/joi/-/joi-7.3.0.tgz#4d9c9f181830444083665b5b6cd5b8ca6779a5e9"
+  dependencies:
+    hoek "3.x.x"
+    isemail "2.x.x"
+    moment "2.x.x"
     topo "2.x.x"
 
 joi@8.1.x:

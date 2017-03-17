@@ -65,6 +65,7 @@ module.exports = {
         },
       },
     },
+    { plugin: './server/auth' },
     { plugin: './server/corpses/routes' },
     { plugin: './server/drawings/routes' },
     { plugin: './server/corpseDrawings/routes' },
