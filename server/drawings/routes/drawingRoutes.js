@@ -30,7 +30,7 @@ exports.register = (server, options, next) => {
         description: 'Creates a new drawing',
         tags: ['api', 'drawing'],
         validate: {
-          payload: schemas.create.required(),
+          payload: schemas.createPayload.required(),
         },
         response: {
           schema: responses.single,

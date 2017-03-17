@@ -7,6 +7,18 @@ exports.register = (server, options, next) => {
   server.route([
     {
       method: 'GET',
+      path: '/corpses',
+      config: {
+        handler: handlers.index,
+        description: 'Returns all corpses',
+        tags: ['api', 'corpse'],
+        response: {
+          schema: responses.list,
+        },
+      },
+    },
+    {
+      method: 'GET',
       path: '/corpses/{id}',
       config: {
         handler: handlers.show,
@@ -28,10 +40,8 @@ exports.register = (server, options, next) => {
       config: {
         handler: handlers.create,
         description: 'Creates a new Corpse',
+        notes: [`No params needed, default corpse generated and added to current user`],
         tags: ['api', 'corpse'],
-        validate: {
-          payload: schemas.create.required(),
-        },
         response: {
           schema: responses.single,
         },
