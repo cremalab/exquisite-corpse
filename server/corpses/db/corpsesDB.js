@@ -56,10 +56,8 @@ module.exports = {
       try {
         Joi.assert(db, dbSchema)
       } catch (e) {
-        console.log(e);
         return reject(Boom.wrap(e))
       }
-      console.log('hi!');
       return db.collection('corpses').find({}).toArray().then(resolve)
     })
   },
