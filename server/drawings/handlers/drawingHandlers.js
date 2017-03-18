@@ -12,7 +12,8 @@ module.exports = {
   },
   create(request, reply) {
     const { db } = request.mongo
-    const attrs = Object.assign({}, request.payload, { creator: 'currentUser' })
+    const { user } = request.auth.credentials.profile
+    const attrs = Object.assign({}, request.payload, { creator: user })
     drawingsDB.create(db, attrs)
     .then((r) => {
       reply({ result: r })

@@ -13,6 +13,7 @@
     "client": "NODE_PATH=./src/ npm start --prefix client"
   },
   "dependencies": {
+    "bell": "^8.5.0",
     "boom": "^4.2.0",
     "dotenv": "^4.0.0",
     "glue": "^4.1.0",
@@ -20,6 +21,7 @@
     "good-console": "^6.4.0",
     "good-squeeze": "^5.0.1",
     "hapi": "^16.1.0",
+    "hapi-auth-cookie": "^6.1.1",
     "hapi-mongodb": "^6.2.1",
     "hapi-swagger": "^7.7.0",
     "inert": "^4.1.0",
