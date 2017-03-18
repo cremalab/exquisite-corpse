@@ -5,8 +5,8 @@ import {Provider} from 'react-redux';
 import store from 'store';
 import Corpses from 'components/Corpses';
 import Corpse from 'components/Corpse';
-import Drawing from 'components/Drawing';
-import createBrowserHistory from 'history/createBrowserHistory'
+import { syncHistoryWithStore } from 'react-router-redux';
+import history from 'config/history'
 
 import {
   BrowserRouter as Router,
@@ -19,11 +19,10 @@ class Root extends Component {
     return (
       <Provider store={store}>
         <MuiThemeProvider>
-          <Router history={createBrowserHistory()}>
+          <Router history={syncHistoryWithStore(history, store)}>
             <div>
               <Route exact path="/" component={Corpses}/>
               <Route path="/corpse/:corpseId" component={Corpse}/>
-              <Route path="/drawing/:drawingId" component={Drawing}/>
             </div>
           </Router>
         </MuiThemeProvider>

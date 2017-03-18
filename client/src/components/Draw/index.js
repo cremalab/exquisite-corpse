@@ -41,12 +41,21 @@ class Draw extends Component {
           onTouchTap={() => this.undo()}
           disabled={paths.length <= 0}
         />
+        <RaisedButton
+          label="Save"
+          onTouchTap={() => this.save()}
+          disabled={paths.length <= 0}
+        />
       </div>
     </div>
   }
 
   undo() {
     this.removePath()
+  }
+
+  save() {
+    console.log(this.paper.project.exportJSON())
   }
 
   getCurrentPath() {

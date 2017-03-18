@@ -1,3 +1,4 @@
+import { push } from 'react-router-redux';
 import { CALL_API } from 'redux-api-middleware';
 
 export function loadDrawing(id) {
@@ -7,5 +8,11 @@ export function loadDrawing(id) {
       method: 'GET',
       types: ['REQUEST', 'SUCCESS_CORPSE', 'FAILURE']
     }
+  }
+}
+
+export function setDrawing(payload) {
+  return dispatch => {
+    dispatch({ type: 'DRAWING_SET', payload })
   }
 }
