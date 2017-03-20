@@ -3,9 +3,10 @@ import { loadCorpses, createCorpse } from 'actions/corpses'
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import {List, ListItem} from 'material-ui/List';
-import CircularProgress from 'material-ui/CircularProgress';
-import RaisedButton from 'material-ui/RaisedButton';
+import Spinner from 'react-md-spinner'
+import Button from 'react-bootstrap/lib/Button';
+import ListGroup from 'react-bootstrap/lib/ListGroup'
+import ListGroupItem from 'react-bootstrap/lib/ListGroupItem'
 
 class Corpses extends React.Component {
   componentWillMount() {
@@ -14,22 +15,23 @@ class Corpses extends React.Component {
   render() {
     const { corpses: { result, loading } } = this.props
 
-    if ( loading ) return <CircularProgress />
+    if ( loading ) return <Spinner />
 
     return <div>
-      {
-        result.map((corpse, i) => {
-          return <ListItem
-            key={i}
-            primaryText={`Corpse with ${corpse.sections.length} spots`}
-            containerElement={<Link to={`/corpse/${corpse._id}`} />}
-          />
-        })
-      }
-      <RaisedButton
+      <ListGroup>
+        {
+          result.map((corpse, i) => {
+            return <ListGroupItem
+              key={i}
+              children={`Corpse with ${corpse.sections.length} spots`}
+              containerElement={<Link to={`/corpse/${corpse._id}`} />}
+            />
+          })
+        }
+      </ListGroup>
+      <Button
         onClick={() => this.props.dispatch(createCorpse())}
-        label="Create Corpse"
-      />
+      >Create Corpse</Button>
     </div>
   }
 }

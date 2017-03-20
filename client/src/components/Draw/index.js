@@ -1,7 +1,7 @@
 import paperjs from 'paper'
 import React, { Component } from 'react'
 import canvasStyle from './canvasStyle'
-import RaisedButton from 'material-ui/RaisedButton'
+import Button from 'react-bootstrap/lib/Button';
 
 class Draw extends Component {
 
@@ -36,13 +36,13 @@ class Draw extends Component {
         {this.state.paper ? this.props.children : false}
       </canvas>
       <div>
-        <RaisedButton
-          label="Undo"
+        <Button
+          children="Undo"
           onTouchTap={() => this.undo()}
           disabled={paths.length <= 0}
         />
-        <RaisedButton
-          label="Save"
+        <Button
+          children="Save"
           onTouchTap={() => this.save()}
           disabled={paths.length <= 0}
         />

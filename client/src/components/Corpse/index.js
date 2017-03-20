@@ -2,11 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Draw from '../Draw'
 import { loadCorpse } from 'actions/corpses'
-import CircularProgress from 'material-ui/CircularProgress';
-import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
 import { Link } from 'react-router-dom'
 import { setDrawing } from 'actions/drawings'
+import ListGroup from 'react-bootstrap/lib/ListGroup'
+import ListGroupItem from 'react-bootstrap/lib/ListGroupItem'
+import Spinner from 'react-md-spinner'
 
 class Corpse extends React.Component {
   componentWillMount() {
@@ -17,22 +17,21 @@ class Corpse extends React.Component {
   render() {
     const { drawing, corpse: { loading, drawings } } = this.props
 
-    if ( loading ) return <CircularProgress />
+    if ( loading ) return <Spinner />
 
     if ( drawing._id ) return <Draw drawing={drawing} />
 
-    return <List>
-      <Subheader>Choose a drawing</Subheader>
+    return <ListGroup>
       {
         drawings.map((drawing, i) => {
-          return <ListItem
+          return <ListGroupItem
             key={i}
-            primaryText={drawing.description}
+            children={drawing.description}
             onTouchTap={() => this.setDrawing(drawing)}
           />
         })
       }
-    </List>
+    </ListGroup>
   }
 
   setDrawing(drawing) {
