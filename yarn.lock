@@ -2935,9 +2935,9 @@ ncname@1.0.x:
   dependencies:
     xml-char-classes "^1.0.0"
 
-nes@^6.4.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/nes/-/nes-6.4.0.tgz#35831781df19cbe5a8014169bbd70887bc5c63d0"
+nes@^6.4.2:
+  version "6.4.2"
+  resolved "https://registry.yarnpkg.com/nes/-/nes-6.4.2.tgz#80c48db98b49f3bd4e6308f76ee6174643d2191d"
   dependencies:
     boom "4.x.x"
     call "3.x.x"
