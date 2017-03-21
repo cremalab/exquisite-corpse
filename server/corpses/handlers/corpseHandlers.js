@@ -1,4 +1,5 @@
 const corpsesDB = require('../db/corpsesDB')
+const corpsesRT = require('../realtime/corpsesRT')
 
 module.exports = {
   index(request, reply) {
@@ -29,6 +30,7 @@ module.exports = {
     const { db } = request.mongo
     corpsesDB.update(db, request.params.id, request.payload)
     .then((r) => {
+      corpsesRT.notifyChange(request.server, r)
       reply({ result: r })
     })
     .catch(err => reply(err))
