@@ -1,5 +1,6 @@
 const corpsesDB = require('../db/corpsesDB')
 const corpsesRT = require('../realtime/corpsesRT')
+const lobbyRT = require('../../lobby/realtime/lobbyRT')
 
 module.exports = {
   index(request, reply) {
@@ -22,6 +23,7 @@ module.exports = {
     const attrs = Object.assign({}, request.payload, { creator: user })
     corpsesDB.create(db, attrs)
     .then((r) => {
+      lobbyRT.notifyCorpseChange(request.server, r)
       reply({ result: r })
     })
     .catch(err => reply(err))
@@ -31,6 +33,7 @@ module.exports = {
     corpsesDB.update(db, request.params.id, request.payload)
     .then((r) => {
       corpsesRT.notifyChange(request.server, r)
+      lobbyRT.notifyCorpseChange(request.server, r)
       reply({ result: r })
     })
     .catch(err => reply(err))

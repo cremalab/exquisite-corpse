@@ -69,5 +69,6 @@ module.exports = {
     { plugin: './server/corpses' },
     { plugin: './server/drawings' },
     { plugin: './server/corpseDrawings' },
+    { plugin: './server/lobby' },
   ],
 }
