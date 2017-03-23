@@ -1,5 +1,6 @@
 const Boom = require('boom')
 const ObjectID = require('mongodb').ObjectID
+const rt = require('../../corpses/realtime/corpsesRT')
 
 const drawingsDB = require('../../drawings/db/drawingsDB')
 
@@ -19,6 +20,7 @@ module.exports = {
       })
     ))
   .then((r) => {
+    rt.notifyChange(request.server, r.value)
     if (!r.value) { return reply(Boom.create(404, `Can't find Corpse with Section`)) }
     return reply({ result: r.value })
   })

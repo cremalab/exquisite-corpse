@@ -12,4 +12,16 @@ module.exports = {
       })
     })
   },
+  addDrawer(db, id, user) {
+    return new Promise((resolve, reject) => {
+      db.collection('corpses').findOneAndUpdate({
+        'sections._id': ObjectID(id),
+      }, {
+        $set: { 'sections.$.drawer': user },
+      }).then((result) => {
+        if (!result) { reject(Boom.create(404, `Section with id ${id} not found`)) }
+        resolve(result.value.sections.find(x => ObjectID(id).equals(x._id)))
+      })
+    })
+  }
 }

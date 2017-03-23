@@ -52,6 +52,7 @@ module.exports = [
     config: {
       handler: handlers.update,
       description: 'Updates a Corpse',
+      notes: ['Publishes a socket event to `/corpses/_id` on successful update'],
       tags: ['api', 'corpse'],
       validate: {
         payload: schemas.update.required(),

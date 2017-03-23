@@ -26,7 +26,7 @@ module.exports = {
       } catch (e) {
         reject(e)
       }
-      corpseSections.find(db, params.section).then((section) => {
+      corpseSections.addDrawer(db, params.section, params.creator).then((section) => {
         const attrs = Object.assign({}, params, { anchorPoints: section.anchorPoints })
         Joi.attempt(attrs, drawingSchemas.create)
         return common.create(db, attrs, 'drawings').then(resolve).catch(reject)
