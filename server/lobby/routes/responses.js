@@ -14,4 +14,11 @@ module.exports = {
     corpses: Joi.array().items(corpseResponses.corpse),
   }),
   connectedUsers: users,
+  chatMessage: Joi.object().keys({
+    result: Joi.object().keys({
+      user: Joi.string().required().example('Ross'),
+      user_id: Joi.string().required().example('238f828f8hg'),
+      content: Joi.string().required().example('Everything is great.'),
+    }),
+  })
 }

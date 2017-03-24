@@ -3,9 +3,11 @@ const urlPrefix = `/lobby`
 const types = {
   USERS_CHANGE: 'usersChange',
   CORPSE_CHANGE: 'corpseChange',
+  CHAT_MESSAGE: 'chatMessage',
 }
 
 module.exports = {
+  users: [],
   registerSubscription(server) {
     server.subscription(`${urlPrefix}`)
   },
@@ -32,5 +34,15 @@ module.exports = {
     this.users = this.users.filter(u => u.id !== user_id)
     this.notifyUserChange(server)
   },
-  users: [],
+  notifyChatMessage(server, profile, content) {
+    const message = {
+      user: profile.user,
+      user_id: profile.user_id,
+      content,
+    }
+    server.publish(urlPrefix, {
+      type: types.CHAT_MESSAGE,
+      data: message,
+    })
+  }
 }

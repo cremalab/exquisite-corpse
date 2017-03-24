@@ -37,4 +37,24 @@ describe('lobbyRT', () => {
       expect(rt.users).toEqual(expect.arrayContaining([]))
     })
   })
+  describe('notifyChatMessage', () => {
+    test('should broadcast with payload', () => {
+      const publish = jest.fn()
+      const server = {
+        publish,
+      }
+      const content = 'Hi everybody!'
+      expect(publish).not.toBeCalled()
+      rt.notifyChatMessage(server, { user: 'ross', user_id: 1 }, content)
+      const expectedPayload = {
+        data: {
+          user: 'ross',
+          user_id: 1,
+          content: content,
+        },
+        type: 'chatMessage'
+      }
+      expect(publish).toBeCalledWith('/lobby', expectedPayload)
+    })
+  })
 })
