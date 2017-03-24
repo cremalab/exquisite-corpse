@@ -5,15 +5,13 @@ const types = {
   CORPSE_CHANGE: 'corpseChange',
 }
 
-const users = []
-
 module.exports = {
   registerSubscription(server) {
     server.subscription(`${urlPrefix}`)
   },
   notifyUserChange(server) {
     server.publish(`${urlPrefix}`, {
-      type: types.USERS_CHANGE, data: this.connectUsers,
+      type: types.USERS_CHANGE, data: this.users,
     })
   },
   notifyCorpseChange(server, payload) {
@@ -23,11 +21,16 @@ module.exports = {
   },
   connectUser(server, credentials) {
     const { user_id, user } = credentials.profile
-    const existing = users.find(u => u.id === user_id)
+    const existing = this.users.find(u => u.id === user_id)
     if (!existing) {
-      users.push({ id: user_id, name: user })
+      this.users = this.users.concat({ id: user_id, name: user })
     }
     this.notifyUserChange(server)
   },
-  users,
+  disconnectUser(server, credentials) {
+    const { user_id, user } = credentials.profile
+    this.users = this.users.filter(u => u.id !== user_id)
+    this.notifyUserChange(server)
+  },
+  users: [],
 }

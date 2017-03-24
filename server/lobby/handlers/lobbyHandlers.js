@@ -18,6 +18,10 @@ module.exports = {
     lobbyRT.connectUser(request.server, request.auth.credentials)
     reply(lobbyRT.users)
   },
+  disconnectUser(request, reply) {
+    lobbyRT.disconnectUser(request.server, request.auth.credentials)
+    reply(lobbyRT.users)
+  },
   lobby(request, reply) {
     const { db } = request.mongo
     return corpsesDB.getAll(db).then(list => (

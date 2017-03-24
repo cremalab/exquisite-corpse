@@ -33,4 +33,14 @@ module.exports = [
       tags: ['api', 'realtime', 'lobby'],
     },
   },
+  {
+    method: 'DELETE',
+    path: '/lobby',
+    config: {
+      handler: handlers.disconnectUser,
+      description: 'Removes the current user from the lobby',
+      notes: ['Can be requested over HTTP or sockets'],
+      tags: ['api', 'realtime', 'lobby'],
+    },
+  },
 ]
