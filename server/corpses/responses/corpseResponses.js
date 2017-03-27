@@ -34,7 +34,7 @@ const corpse = Joi.object().keys({
 
 module.exports = {
   list: Joi.object().keys({
-    result: Joi.array(),
+    result: Joi.array().items(corpse),
   }),
   single: Joi.object().keys({
     result: corpse.required(),
