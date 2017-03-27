@@ -58,7 +58,6 @@ describe('corpseDrawingRoutes', () => {
         payload: { drawing: drawing._id },
       })
       .then((res) => {
-        console.log(res.result);
         expect(res.statusCode).toBe(200)
         expect(res.result.result.sections).not.toBeUndefined()
       })

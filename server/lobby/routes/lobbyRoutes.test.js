@@ -55,4 +55,28 @@ describe('lobbyRoutes', () => {
         })
     ))
   })
+
+  describe('disconnect user', () => {
+    test('returns a 200', () => {
+      server.inject({
+        method: 'DELETE',
+        url: '/lobby',
+        credentials: helper.session,
+      })
+        .then((result) => {
+          expect(result.statusCode).toBe(200)
+        })
+    })
+    test('returns array without user', () => (
+      server.inject({
+        method: 'DELETE',
+        url: '/lobby',
+        credentials: helper.session,
+      })
+        .then((response) => {
+          expect(response.result.map(u => u.name))
+            .not.toContain(helper.session.profile.user)
+        })
+    ))
+  })
 })
