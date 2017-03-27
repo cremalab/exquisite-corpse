@@ -22,7 +22,7 @@ module.exports = {
         corpseRT.notifyChange(request.server, corpse)
       }).catch(err => console.log(err))
 
-      reply({ result: r })
+      reply({ result: r }).code(201)
     })
     .catch(err => reply(Boom.wrap(err)))
   },
