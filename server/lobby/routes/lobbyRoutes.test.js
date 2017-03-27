@@ -79,4 +79,20 @@ describe('lobbyRoutes', () => {
         })
     ))
   })
+
+  describe('chat message', () => {
+    test('returns a 200', () => {
+      server.inject({
+        method: 'POST',
+        url: '/lobby/chat',
+        credentials: helper.session,
+        payload: {
+          content: `I love to talk!`,
+        },
+      })
+        .then((result) => {
+          expect(result.statusCode).toBe(201)
+        })
+    })
+  })
 })
