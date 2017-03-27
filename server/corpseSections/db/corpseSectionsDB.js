@@ -16,7 +16,7 @@ module.exports = {
     }, {
       $set: { 'sections.$.drawer': user },
     }, {
-      returnNewDocument: true,
+      returnOriginal: false,
     }).then((result) => {
       const section = result.value.sections.find(x => ObjectID(id).equals(x._id))
       if (!result) { throw Boom.create(404, `Section with id ${id} not found`) }
