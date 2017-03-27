@@ -45,7 +45,7 @@ describe('CorpseSections DB', () => {
         .then((section) => {
           expect(section).not.toBeNull()
           expect(section.drawer).not.toBeUndefined()
-          expect(section).toBe('Bozo')
+          expect(section.drawer.name).toBe('Bozo')
         })
     ))
     test('should update corpse record', () => (
