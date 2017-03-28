@@ -1,7 +1,7 @@
 ## Dev
 * `yarn install`
-* `npm run dev`
-* `http://localhost:8000`
+* `yarn run dev`
+* `http://localhost:3000`
 
 ## Test
 * `npm test` or `npm run test-watch`

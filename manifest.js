@@ -45,7 +45,7 @@ const manifest = {
         register: 'nes',
         options: {
           auth: {
-            type: 'cookie',
+            type: 'token',
             isSecure: false,
             isHttpOnly: false,
           },
