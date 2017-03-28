@@ -21,12 +21,12 @@ module.exports = {
   },
   create(request, reply) {
     const { db } = request.mongo
-    const { user } = request.auth.credentials.profile
+    const user = request.auth.credentials.profile
     const attrs = Object.assign({}, request.payload, { creator: user })
     corpsesDB.create(db, attrs)
       .then((r) => {
         lobbyRT.notifyCorpseChange(request.server, r)
-        reply({ result: r })
+        reply({ result: r }).code(201)
       })
       .catch(err => reply(err))
   },

@@ -38,6 +38,6 @@ module.exports = {
       content: request.payload.content,
       user: profile.user,
       user_id: profile.user_id,
-    } })
-  }
+    } }).code(201)
+  },
 }
