@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
   dotEnv.config()
 }
 
-module.exports = {
+const manifest = {
   connections: [
     {
       port: process.env.PORT || 8000,
@@ -36,38 +36,47 @@ module.exports = {
         },
       },
     },
-    {
-      plugin: {
-        register: 'good',
-        options: {
-          reporters: {
-            console: [{
-              module: 'good-squeeze',
-              name: 'Squeeze',
-              args: [{
-                response: '*',
-                log: '*',
-              }],
-            }, {
-              module: 'good-console',
-            }, 'stdout'],
-          },
-        },
-      },
-    },
-    {
-      plugin: {
-        register: 'hapi-swagger',
-        swaggerOptions: {
-          info: {
-            title: 'Exquisite Corpse API Documentation',
-          },
-        },
-      },
-    },
     { plugin: './server/auth' },
-    { plugin: './server/corpses/routes' },
-    { plugin: './server/drawings/routes' },
-    { plugin: './server/corpseDrawings/routes' },
+    { plugin: './server/corpses' },
+    { plugin: './server/drawings' },
+    { plugin: './server/corpseDrawings' },
+    { plugin: './server/lobby' },
   ],
 }
+
+// DEV TOOLS
+if (process.env.NODE_ENV !== 'test') {
+  // Good
+  manifest.registrations.push({
+    plugin: {
+      register: 'good',
+      options: {
+        reporters: {
+          console: [{
+            module: 'good-squeeze',
+            name: 'Squeeze',
+            args: [{
+              response: '*',
+              log: '*',
+            }],
+          }, {
+            module: 'good-console',
+          }, 'stdout'],
+        },
+      },
+    },
+  })
+  // Swagger
+  manifest.registrations.push({
+    plugin: {
+      register: 'hapi-swagger',
+      swaggerOptions: {
+        info: {
+          title: 'Exquisite Corpse API Documentation',
+        },
+      },
+    },
+  })
+}
+
+module.exports = manifest

@@ -1,16 +1,11 @@
 require('dotenv').config()
-const Glue = require('glue')
-const manifest = require('./manifest')
+const compose = require('./serverComposer')
 
-const options = {
-  relativeTo: __dirname,
-}
-
-Glue.compose(manifest, options, (err, server) => {
-  if (err) {
-    throw err
-  }
+compose().then((server) => {
   server.start(() => {
     console.log('Server running yay')
   })
+}).catch((err) => {
+  console.log(err)
+  throw err
 })
