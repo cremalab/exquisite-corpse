@@ -33,6 +33,21 @@ module.exports = {
       }).catch(reject)
     })
   },
+  findBy(db, criteria, collection) {
+    return new Promise((resolve, reject) => {
+      try {
+        Joi.assert(collection, Joi.string().required(), 'Collection')
+        Joi.assert(criteria, Joi.object().required(), 'Criteria')
+        Joi.assert(db, dbSchema, 'DB instance')
+      } catch (e) {
+        return reject(e)
+      }
+      return db.collection(collection).findOne(criteria).then((result) => {
+        if (!result) { reject(Boom.create(404, `Record with criteria ${criteria} not found`)) }
+        resolve(result)
+      }).catch(reject)
+    })
+  },
   create(db, params, collection) {
     return db.collection(collection).insertOne(timestamp(params, true)).then(res => (
       db.collection(collection).findOne({ _id: res.insertedId })

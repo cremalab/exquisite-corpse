@@ -64,6 +64,9 @@ module.exports = {
   find(db, id) {
     return common.find(db, id, 'corpses')
   },
+  findBySection(db, section) {
+    return common.findBy(db, { 'sections._id': ObjectID(section) }, 'corpses')
+  },
   create(db, params = {}) {
     return new Promise((resolve, reject) => {
       // Merge with default Corpse and add IDs to sections

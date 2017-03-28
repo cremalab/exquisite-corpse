@@ -5,11 +5,11 @@
   "repository": {},
   "license": "MIT",
   "scripts": {
-    "start": "concurrently \"npm run dev\" \"npm run client\"",
-    "test": "jest",
-    "test-watch": "jest --watch",
-    "dev": "concurrently \"nodemon index.js\" \"webpack --progress --watch\"",
-    "server": "node index.js",
+    "start": "node index.js",
+    "test": "NODE_ENV=test jest",
+    "test-watch": "NODE_ENV=test jest --watch",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\"",
+    "server": "nodemon index.js",
     "client": "NODE_PATH=./src/ npm start --prefix client"
   },
   "dependencies": {
@@ -27,7 +27,8 @@
     "inert": "^4.1.0",
     "joi": "^10.2.2",
     "mongodb": "^2.2.24",
-    "nes": "^6.4.0",
+    "nes": "^6.4.2",
+    "nunjucks": "^3.0.0",
     "paper": "^0.10.3",
     "vision": "^4.1.1"
   },
@@ -42,6 +43,7 @@
     "html-webpack-plugin": "^2.28.0",
     "jest": "^19.0.2",
     "mongodb-test-mock": "^0.1.5",
+    "nodemon": "^1.11.0",
     "webpack": "^2.2.1"
   }
 }

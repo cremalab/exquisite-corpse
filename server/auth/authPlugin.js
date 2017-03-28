@@ -13,6 +13,7 @@ exports.register = (server, options, next) => {
       cookie: 'exquisite-auth',
       isSecure: false,
       redirectTo: '/login',
+      clearInvalid: true,
     }
 
     server.auth.strategy('userCookie', 'cookie', authCookieOptions)
@@ -39,6 +40,18 @@ exports.register = (server, options, next) => {
             return reply.redirect('/')
           }
           return reply('Not logged in...').code(401)
+        },
+      },
+    })
+
+    server.route({
+      method: 'GET',
+      path: '/logout',
+      config: {
+        auth: false,
+        handler(request, reply) {
+          request.cookieAuth.clear()
+          return reply.redirect('/')
         },
       },
     })

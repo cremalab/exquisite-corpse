@@ -1,5 +1,7 @@
 const common = require('../../../db/common')
 const drawingsDB = require('../db/drawingsDB')
+const corpsesDB = require('../../corpses/db/corpsesDB')
+const corpseRT = require('../../corpses/realtime/corpsesRT')
 const Boom = require('boom')
 
 module.exports = {
@@ -16,7 +18,11 @@ module.exports = {
     const attrs = Object.assign({}, request.payload, { creator: user })
     drawingsDB.create(db, attrs)
     .then((r) => {
-      reply({ result: r })
+      corpsesDB.findBySection(db, r.section).then((corpse) => {
+        corpseRT.notifyChange(request.server, corpse)
+      }).catch(err => console.log(err))
+
+      reply({ result: r }).code(201)
     })
     .catch(err => reply(Boom.wrap(err)))
   },

@@ -20,6 +20,7 @@ const corpseSection = Joi.object().keys({
     .description('description of what should be drawn for this section'),
   drawing: objectId.description('ObjectId of drawing for this section'),
   anchorPoints: anchorPointsSchema,
+  drawer: objectId.optional(),
   _id: objectId.required(),
 })
 
@@ -33,9 +34,10 @@ const corpse = Joi.object().keys({
 
 module.exports = {
   list: Joi.object().keys({
-    result: Joi.array(),
+    result: Joi.array().items(corpse),
   }),
   single: Joi.object().keys({
     result: corpse.required(),
   }),
+  corpse,
 }

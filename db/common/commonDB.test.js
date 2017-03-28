@@ -76,6 +76,35 @@ describe('Common DB Tasks', () => {
     ))
   })
 
+  describe('findBy', () => {
+    test('should reject with error if missing criteria', () => (
+      common.findBy(db, undefined, 'things').then((r) => {
+        expect(r).not.toBeDefined()
+      })
+      .catch((err) => {
+        expect(err).toBeDefined()
+        expect(err.name).toBe('ValidationError')
+      })
+    ))
+
+    test('should return one result if found', () => (
+      common.findBy(db, { name: 'Baseball Bat' }, 'things').then((r) => {
+        expect(r).toBeDefined()
+        expect(r._id.toHexString()).toBe(store.things[0]._id.toHexString())
+        expect(r.name).toBe('Baseball Bat')
+      })
+    ))
+
+    test('should reject if not found', () => (
+      common.findBy(db, { name: 'Domino' }, 'things').then((r) => {
+        expect(r).not.toBeDefined()
+      }).catch((err) => {
+        expect(err).toBeDefined()
+        expect(err.output.statusCode).toBe(404)
+      })
+    ))
+  })
+
   describe('create', () => {
     test('should insert record into collection', () => (
       common.create(db, { name: 'Waffle', sporty: false }, 'things').then(() => {
