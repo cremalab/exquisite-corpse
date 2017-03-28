@@ -23,6 +23,22 @@ To subscribe to the lobby, first create a connection with the socket server:
 ```js
 import Nes from 'nes'
 
+const wsClient = new Nes.Client('ws://localhost:8000')
+
+function handleLobbyMsg(msg) {
+  console.log(msg);
+}
+// Fetch to get a Websocket cookie...
+fetch('/nes/auth', { credentials: 'include' })
+  .then(() => {
+    // then connect to the server
+    wsClient.connect({ delay: 2000, retries: 3 }, err => {
+      if (err) { return console.log(err) }
+      console.log('Connected to the Socket.');
+      wsClient.subscribe('/lobby', handleLobbyMsg, (err) => console.log(err))
+    })
+})
+
 const host = location.origin.replace(/^http/, 'ws') // ws://localhost:8000
 const wsClient = new Nes.Client('ws://localhost')
 

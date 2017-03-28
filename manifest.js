@@ -12,6 +12,10 @@ const manifest = {
       host: process.env.HOST || '0.0.0.0',
       labels: ['web'],
       routes: {
+        cors: {
+          origin: ['*'],
+          credentials: true,
+        },
         files: {
           relativeTo: Path.join(__dirname, 'public/build'),
         },
@@ -21,7 +25,6 @@ const manifest = {
   registrations: [
     { plugin: 'inert' },
     { plugin: 'vision' },
-    { plugin: 'nes' },
     {
       plugin: {
         register: 'hapi-mongodb',
@@ -37,6 +40,18 @@ const manifest = {
       },
     },
     { plugin: './server/auth' },
+    {
+      plugin: {
+        register: 'nes',
+        options: {
+          auth: {
+            type: 'cookie',
+            isSecure: false,
+            isHttpOnly: false,
+          },
+        },
+      },
+    },
     { plugin: './server/corpses' },
     { plugin: './server/drawings' },
     { plugin: './server/corpseDrawings' },

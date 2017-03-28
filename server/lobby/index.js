@@ -1,4 +1,5 @@
 const lobbyRoutes = require('./routes/lobbyRoutes')
+const lobbyRt = require('./realtime/lobbyRT')
 const Nunjucks = require('nunjucks')
 const Path = require('path')
 
@@ -22,6 +23,7 @@ exports.register = (server, options, next) => {
   })
 
   server.route(lobbyRoutes)
+  lobbyRt.registerSubscription(server)
 
   next()
 }
