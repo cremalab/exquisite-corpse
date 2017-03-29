@@ -22,7 +22,8 @@ module.exports = {
     })
   },
   connectUser(server, credentials) {
-    const { user_id, user } = credentials.profile
+    console.log(credentials);
+    const { user_id, user } = credentials
     const existing = this.users.find(u => u.id === user_id)
     if (!existing) {
       this.users = this.users.concat({ id: user_id, name: user })

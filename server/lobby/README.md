@@ -7,14 +7,14 @@ The root URL of the application will hit the lobby's index endpoint and render a
 See [Swagger docs](http://localhost:8000/documentation#/lobby) for API operations. Requests can also be made over sockets with
 ```js
 // after connected to socket server (see below)...
-client.request({
+wsClient.request({
     path: '/lobby',
     method: 'POST',
   }, (err, payload) => {
     if (err) { console.log(err) }
     console.log(payload)
-  })
-})
+  }
+)
 ```
 
 ## Realtime API
@@ -28,24 +28,16 @@ const wsClient = new Nes.Client('ws://localhost:8000')
 function handleLobbyMsg(msg) {
   console.log(msg);
 }
-// Fetch to get a Websocket cookie...
+// Fetch to get a Websocket token...
 fetch('/nes/auth', { credentials: 'include' })
-  .then(() => {
-    // then connect to the server
-    wsClient.connect({ delay: 2000, retries: 3 }, err => {
+  .then(res => res.json())
+  .then((res) => {
+    // then connect to the server with the token as the auth option
+    wsClient.connect({ auth: res.token }, err => {
       if (err) { return console.log(err) }
-      console.log('Connected to the Socket.');
       wsClient.subscribe('/lobby', handleLobbyMsg, (err) => console.log(err))
     })
-})
-
-const host = location.origin.replace(/^http/, 'ws') // ws://localhost:8000
-const wsClient = new Nes.Client('ws://localhost')
-
-wsClient.connect((err) => {
-  if (err) { return console.log(err) }
-  console.log('You are connected!')
-})
+  })
 ```
 
 Then subscribe to the lobby:
