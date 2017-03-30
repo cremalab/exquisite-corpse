@@ -9,6 +9,10 @@ import RouteAuth from 'components/RouteAuth'
 import { BrowserRouter, Route } from 'react-router-dom'
 import Home from 'components/Home'
 
+function handleLobbyMsg(msg) {
+  console.log(msg);
+}
+
 class Root extends Component {
   render() {
     return (

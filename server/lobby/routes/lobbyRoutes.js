@@ -5,15 +5,6 @@ const responses = require('./responses')
 module.exports = [
   {
     method: 'GET',
-    path: '/',
-    config: {
-      handler: handlers.index,
-      description: 'The lobby!',
-      tags: ['lobby'],
-    },
-  },
-  {
-    method: 'GET',
     path: '/lobby',
     config: {
       handler: handlers.lobby,
@@ -28,6 +19,7 @@ module.exports = [
     method: 'POST',
     path: '/lobby',
     config: {
+      auth: 'userCookie',
       handler: handlers.connectUser,
       description: 'Adds the current user to the lobby',
       notes: ['Can be requested over HTTP or sockets'],
