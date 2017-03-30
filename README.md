@@ -1,7 +1,7 @@
 ## Dev
 * `yarn install`
 * `yarn run dev`
-* `http://localhost:3000`
+* Go to `http://localhost:8000` (don't use port 3000)
 
 ## Test
 * `npm test` or `npm run test-watch`
@@ -17,5 +17,5 @@ Docs at `http://localhost:8000/documentation`
 yarn install
 cd client
 yarn install
-npm start
+yarn run dev
 ```

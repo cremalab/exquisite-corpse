@@ -5,15 +5,6 @@ const responses = require('./responses')
 module.exports = [
   {
     method: 'GET',
-    path: '/',
-    config: {
-      handler: handlers.index,
-      description: 'The lobby!',
-      tags: ['lobby'],
-    },
-  },
-  {
-    method: 'GET',
     path: '/lobby',
     config: {
       handler: handlers.lobby,

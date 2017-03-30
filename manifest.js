@@ -56,6 +56,7 @@ const manifest = {
     { plugin: './server/drawings' },
     { plugin: './server/corpseDrawings' },
     { plugin: './server/lobby' },
+    { plugin: './server/client' },
   ],
 }
 
