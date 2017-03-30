@@ -28,16 +28,18 @@ const wsClient = new Nes.Client('ws://localhost:8000')
 function handleLobbyMsg(msg) {
   console.log(msg);
 }
-// Fetch to get a Websocket token...
-fetch('/nes/auth', { credentials: 'include' })
-  .then(res => res.json())
-  .then((res) => {
-    // then connect to the server with the token as the auth option
-    wsClient.connect({ auth: res.token }, err => {
-      if (err) { return console.log(err) }
-      wsClient.subscribe('/lobby', handleLobbyMsg, (err) => console.log(err))
-    })
+// First fetch auth endpoint to authorize the socket connection
+fetch('/nes/auth', {
+  credentials: 'include', // need to pass cookie to auth endpoint
+})
+.then((res) => {
+  // Then connect a socket client
+  const wsClient = new Nes.Client('ws://localhost:8000')
+  wsClient.connect(err => {
+    if (err) { throw err }
+    wsClient.subscribe('/lobby', (msg) => console.log(msg), (err) => console.log(err))
   })
+})
 ```
 
 Then subscribe to the lobby:

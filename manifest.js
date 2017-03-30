@@ -45,9 +45,13 @@ const manifest = {
         register: 'nes',
         options: {
           auth: {
-            type: 'token',
+            type: 'cookie',
+            cookie: 'exquisite-socket-auth',
+            password: process.env.COOKIE_PASSWORD,
+            ttl: 24 * 60 * 60 * 1000,
             isSecure: false,
             isHttpOnly: false,
+            route: 'userCookie',
           },
         },
       },

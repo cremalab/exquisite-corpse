@@ -28,10 +28,16 @@ module.exports = [
     method: 'GET',
     path: '/static/{p*}',
     handler: clientHandler(),
+    config: {
+      auth: false,
+    },
   },
   {
     method: '*',
     path: '/sockjs-node/{p*}',
     handler: clientHandler(),
+    config: {
+      auth: false,
+    },
   },
 ]

@@ -19,6 +19,7 @@ module.exports = [
     method: 'POST',
     path: '/lobby',
     config: {
+      auth: 'userCookie',
       handler: handlers.connectUser,
       description: 'Adds the current user to the lobby',
       notes: ['Can be requested over HTTP or sockets'],
