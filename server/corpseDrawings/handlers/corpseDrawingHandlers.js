@@ -17,7 +17,6 @@ function notifyCompletion(server, payload) {
 
 function checkCompletion(server, db, payload) {
   if (isComplete(payload)) {
-    lo
     return corpsesDB.update(db, payload._id, {
       canvas: canvasCombiner.stitch(payload.sections.map(s => s.drawing.canvas)),
       status: 'complete',
