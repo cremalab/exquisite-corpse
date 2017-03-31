@@ -62,8 +62,10 @@ export function commitDrawing(drawingId) {
         {
           type: 'SUCCESS_COMMIT_DRAWING',
           payload: (action, state, res) => {
-            dispatch(push(`/`))
-            return res;
+            getJSON(res).then(json => {
+              dispatch(push(`/corpse/${json.result._id}`))
+              return res;
+            });
           }
         },
         'FAILURE_DRAWING'
