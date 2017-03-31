@@ -8,21 +8,21 @@ import { Route} from 'react-router-dom'
 import RouteDrawing from 'components/RouteDrawing'
 import RouteHome from 'components/RouteHome'
 import App from 'components/App';
-import NesConnector from 'components/NesConnector'
+import sockets from 'actions/sockets'
+
+sockets();
 
 class Root extends Component {
   render() {
     return (
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <NesConnector>
-            <App>
-              <Route exact path="/welcome" component={RouteHome}/>
-              <Route exact path="/" component={RouteCorpses}/>
-              <Route path="/corpse/:corpseId" component={RouteCorpse}/>
-              <Route path="/drawing/:drawingId" component={RouteDrawing}/>
-            </App>
-          </NesConnector>
+          <App>
+            <Route exact path="/welcome" component={RouteHome}/>
+            <Route exact path="/" component={RouteCorpses}/>
+            <Route path="/corpse/:corpseId" component={RouteCorpse}/>
+            <Route path="/drawing/:drawingId" component={RouteDrawing}/>
+          </App>
         </ConnectedRouter>
       </Provider>
     );

@@ -41,7 +41,6 @@ class Corpse extends React.Component {
 }
 
 function mapStateToProps(state, props) {
-  console.log(state)
   return {
     corpse: state.corpse,
     corpseId: props.match.params.corpseId,

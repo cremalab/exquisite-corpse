@@ -6,8 +6,7 @@ import Box from 'react-boxen'
 class ItemCorpse extends PureComponent {
   render() {
     const {dispatch, corpse } = this.props
-    console.log(corpse)
-
+    
     return (
       <Box
         backgroundColor='whitesmoke'
