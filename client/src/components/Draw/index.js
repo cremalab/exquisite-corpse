@@ -33,7 +33,7 @@ class Draw extends Component {
   }
 
   render() {
-    const {drawing} = this.props;
+    const {drawing, saving} = this.props;
     return <div>
       <canvas ref="canvas" style={canvasStyle} />
       <div>
@@ -44,15 +44,20 @@ class Draw extends Component {
         />
         <Button
           type="button"
-          children="Save"
-          onTouchTap={() => this.save()}
+          children="Commit"
+          onTouchTap={() => this.commit()}
         />
+        { saving && 'saving...'}
       </div>
     </div>
   }
 
   undo() {
     this.removePath()
+  }
+
+  commit() {
+    this.props.onCommit();
   }
 
   save() {
@@ -90,6 +95,7 @@ class Draw extends Component {
 
   onMouseUp(event) {
     this.getCurrentPath().simplify();
+    this.save()
   }
 }
 
