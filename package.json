@@ -8,7 +8,7 @@
     "start": "node index.js",
     "test": "NODE_ENV=test jest",
     "test-watch": "NODE_ENV=test jest --watch",
-    "dev": "concurrently \"yarn server\" \"yarn run client\"",
+    "dev": "concurrently \"yarn server\" \"webpack --progress --watch\"",
     "server": "nodemon index.js",
     "client": "NODE_PATH=./src/ npm start --prefix client"
   },
@@ -31,6 +31,18 @@
     "nes": "^6.4.2",
     "nunjucks": "^3.0.0",
     "paper": "^0.10.3",
+    "react": "^15.4.2",
+    "react-bootstrap": "^0.30.8",
+    "react-dom": "^15.4.2",
+    "react-md-spinner": "^0.2.1",
+    "react-redux": "^5.0.3",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0",
+    "react-router-redux": "^4.0.8",
+    "react-tap-event-plugin": "^2.0.1",
+    "redux-multi": "^0.1.12",
+    "redux-thunk": "^2.2.0",
+    "styled-components": "^1.4.4",
     "vision": "^4.1.1"
   },
   "devDependencies": {

@@ -3,9 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-  entry: './public/src/index.js',
+  entry: './client/src/index.js',
   output: {
-    path: path.resolve(__dirname, 'public/build/'),
+    path: path.resolve(__dirname, './server/client/build'),
     filename: '[name]_bundle.js',
   },
   plugins: [
