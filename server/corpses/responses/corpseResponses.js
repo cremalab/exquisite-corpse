@@ -31,6 +31,7 @@ const corpse = Joi.object().keys({
   canvas: Joi.string(),
   createdAt: Joi.date().required(),
   updatedAt: Joi.date().required(),
+  status: Joi.string().valid(['new', 'incomplete', 'complete']),
 })
 
 module.exports = {
