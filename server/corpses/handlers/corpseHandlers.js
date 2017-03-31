@@ -21,7 +21,7 @@ module.exports = {
   },
   create(request, reply) {
     const { db } = request.mongo
-    const user = request.cookieAuth.credentials.profile
+    const user = request.auth.credentials.profile
     const attrs = Object.assign({}, request.payload, { creator: user })
     corpsesDB.create(db, attrs)
       .then((r) => {
