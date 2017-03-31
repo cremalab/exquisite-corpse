@@ -17,6 +17,7 @@ function notifyCompletion(server, payload) {
 
 function checkCompletion(server, db, payload) {
   if (isComplete(payload)) {
+    lo
     return corpsesDB.update(db, payload._id, {
       canvas: canvasCombiner.stitch(payload.sections.map(s => s.drawing.canvas)),
       status: 'complete',
@@ -33,13 +34,9 @@ module.exports = {
   create(request, reply) {
     const { db } = request.mongo
     const { payload } = request
-    if (payload.section && !ObjectID.isValid(payload.section)) {
-      return reply(Boom.create(400, 'Section is not a valid ObjectID'))
-    }
-    return drawingsDB.find(db, request.payload.drawing).then(drawing => (
+    return drawingsDB.find(db, request.params.id).then(drawing => (
       db.collection('corpses').findOneAndUpdate({
-        _id: ObjectID(request.params.id),
-        'sections._id': ObjectID(request.payload.section || drawing.section),
+        'sections._id': ObjectID(drawing.section),
       }, {
         $set: { 'sections.$.drawing': drawing },
       }, {

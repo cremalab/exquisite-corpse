@@ -29,7 +29,7 @@ describe('corpseDrawingRoutes', () => {
     test('should redirect if no auth', () => (
       server.inject({
         method: 'POST',
-        url: `/corpses/${corpse._id}/drawings`,
+        url: `/drawings/${drawing._id}/commit`,
       })
       .then(res => res.statusCode)
       .then((code) => {
@@ -37,24 +37,10 @@ describe('corpseDrawingRoutes', () => {
       })
     ))
 
-    test('should require drawing id', () => (
-      server.inject({
-        method: 'POST',
-        url: `/corpses/${corpse._id}/drawings`,
-        credentials: helper.session,
-        payload: {}
-      })
-      .then((res) => {
-        expect(res.statusCode).toBe(400)
-        expect(res.result.validation).not.toBeUndefined()
-        expect(res.result.validation.keys).toContain('drawing')
-      })
-    ))
-
     test('should copy return corpse', () => (
       server.inject({
         method: 'POST',
-        url: `/corpses/${corpse._id}/drawings`,
+        url: `/drawings/${drawing._id}/commit`,
         credentials: helper.session,
         payload: { drawing: drawing._id },
       })
@@ -77,9 +63,8 @@ describe('corpseDrawingRoutes', () => {
         return Promise.all(corpse.sections.map((section, i) => {
           return server.inject({
             method: 'POST',
-            url: `/corpses/${corpse._id}/drawings`,
+            url: `/drawings/${drawing._id}/commit`,
             credentials: helper.session,
-            payload: { drawing: drawings[i]._id },
           })
         }))
       })
