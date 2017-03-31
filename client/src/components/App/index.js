@@ -7,7 +7,8 @@ class App extends Component {
     return (
       <Box height='100%'>
         <Box
-          backgroundColor='whitesmoke'
+          backgroundColor='rgba(255, 165, 0, 0.79)'
+          color='white'
           padding='20px'>
           <header>Exquisite Corpse</header>
         </Box>
