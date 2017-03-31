@@ -10,10 +10,10 @@ describe('lobbyRT', () => {
       const payload = { profile: { user: 'Ross', user_id: '1' } }
       expect(publish).not.toBeCalled()
       rt.connectUser(server, payload)
-      const userObj = {id: '1', name: 'Ross'}
+      const userObj = { id: '1', name: 'Ross' }
       const expectedPayload = {
         data: [userObj],
-        type: 'usersChange'
+        type: 'usersChange',
       }
       expect(publish).toBeCalledWith('/lobby', expectedPayload)
       expect(rt.users).toEqual(expect.arrayContaining([userObj]))
@@ -31,7 +31,7 @@ describe('lobbyRT', () => {
       rt.disconnectUser(server, payload)
       const expectedPayload = {
         data: [],
-        type: 'usersChange'
+        type: 'usersChange',
       }
       expect(publish).toBeCalledWith('/lobby', expectedPayload)
       expect(rt.users).toEqual(expect.arrayContaining([]))
@@ -53,7 +53,7 @@ describe('lobbyRT', () => {
           content,
           timestamp: new Date().toISOString(),
         },
-        type: 'chatMessage'
+        type: 'chatMessage',
       }
       expect(publish).toBeCalledWith('/lobby', expectedPayload)
     })
