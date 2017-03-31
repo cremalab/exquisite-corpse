@@ -15,7 +15,12 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
-    <style> body { margin: 0; padding: 0; } </style>
+    <style>
+      * {
+        margin: 0;
+      }
+      body, html, #root, [data-reactroot] { margin: 0; padding: 0; height: 100% }
+    </style>
   </head>
   <body>
     <div id="root"></div>

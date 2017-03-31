@@ -2,8 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Draw from '../Draw'
 import { loadCorpse } from 'actions/corpses'
-import { Link } from 'react-router-dom'
-import { setDrawing } from 'actions/drawings'
+import { createDrawing } from 'actions/drawings'
 import ListGroup from 'react-bootstrap/lib/ListGroup'
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem'
 import Spinner from 'react-md-spinner'
@@ -15,33 +14,33 @@ class Corpse extends React.Component {
   }
 
   render() {
-    const { drawing, corpse: { loading, drawings } } = this.props
+    const { dispatch, drawing, corpseId, corpse: { loading, sections } } = this.props
 
     if ( loading ) return <Spinner />
 
-    if ( drawing._id ) return <Draw drawing={drawing} />
-
     return <ListGroup>
       {
-        drawings.map((drawing, i) => {
+        sections.map((section, i) => {
           return <ListGroupItem
             key={i}
-            children={drawing.description}
-            onTouchTap={() => this.setDrawing(drawing)}
-          />
+            onClick={() => this.createDrawing(section)}
+          >
+            { section.drawer ? `[${section.description}]` : section.description }
+          </ListGroupItem>
         })
       }
     </ListGroup>
   }
 
-  setDrawing(drawing) {
+  createDrawing(section) {
     const { dispatch } = this.props
-    dispatch(setDrawing(drawing))
+    if ( !section.drawer )
+      dispatch(createDrawing(section._id));
   }
+
 }
 
 function mapStateToProps(state, props) {
-  console.log(state)
   return {
     corpse: state.corpse,
     corpseId: props.match.params.corpseId,
