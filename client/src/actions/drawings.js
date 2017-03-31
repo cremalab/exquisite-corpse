@@ -58,8 +58,14 @@ export function commitDrawing(drawingId) {
       endpoint: `/drawings/${drawingId}/commit`,
       method: 'POST',
       types: [
-        'REQUEST_SAVE_DRAWING',
-        'SUCCESS_SAVE_DRAWING',
+        'REQUEST_COMMIT_DRAWING',
+        {
+          type: 'SUCCESS_COMMIT_DRAWING',
+          payload: (action, state, res) => {
+            dispatch(push(`/`))
+            return res;
+          }
+        },
         'FAILURE_DRAWING'
       ],
       credentials: 'include',
