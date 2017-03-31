@@ -19,8 +19,6 @@ class Corpse extends React.Component {
 
     if ( loading ) return <Spinner />
 
-    if ( drawing._id ) return <Draw drawing={drawing} />
-
     return <ListGroup>
       {
         sections.map((section, i) => {

@@ -51,3 +51,18 @@ export function saveDrawing(drawingId, canvas) {
     },
   })
 }
+
+export function commitDrawing(drawingId) {
+  return (dispatch) => dispatch({
+    [CALL_API]: {
+      endpoint: `/drawings/${drawingId}/commit`,
+      method: 'POST',
+      types: [
+        'REQUEST_SAVE_DRAWING',
+        'SUCCESS_SAVE_DRAWING',
+        'FAILURE_DRAWING'
+      ],
+      credentials: 'include',
+    },
+  })
+}
