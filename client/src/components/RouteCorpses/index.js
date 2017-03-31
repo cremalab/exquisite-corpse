@@ -1,8 +1,6 @@
 import React from 'react'
 import { loadCorpses, createCorpse } from 'actions/corpses'
 import { connect } from 'react-redux'
-import { Route } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 import Spinner from 'react-md-spinner'
 import Button from 'react-bootstrap/lib/Button';
 import ListGroup from 'react-bootstrap/lib/ListGroup'

@@ -1,9 +1,3 @@
-import {
-  CORPSES_SET,
-  CORPSES_RESET,
-  CORPSES_LOAD
-} from 'config/constants'
-
 const initialState = {
   loading: false,
   result: []

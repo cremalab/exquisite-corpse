@@ -3,9 +3,8 @@ import {Provider} from 'react-redux';
 import store, {history} from 'store';
 import RouteCorpses from 'components/RouteCorpses';
 import RouteCorpse from 'components/RouteCorpse';
-import { ConnectedRouter, syncHistoryWithStore } from 'react-router-redux';
-import RouteAuth from 'components/RouteAuth'
-import { BrowserRouter, Route} from 'react-router-dom'
+import { ConnectedRouter } from 'react-router-redux';
+import { Route} from 'react-router-dom'
 import RouteDrawing from 'components/RouteDrawing'
 import RouteHome from 'components/RouteHome'
 
@@ -16,9 +15,9 @@ class Root extends Component {
         <ConnectedRouter history={history}>
           <div>
             <Route exact path="/welcome" component={RouteHome}/>
-            <RouteAuth exact path="/" component={RouteCorpses}/>
-            <RouteAuth path="/corpse/:corpseId" component={RouteCorpse}/>
-            <RouteAuth path="/drawing/:drawingId" component={RouteDrawing}/>
+            <Route exact path="/" component={RouteCorpses}/>
+            <Route path="/corpse/:corpseId" component={RouteCorpse}/>
+            <Route path="/drawing/:drawingId" component={RouteDrawing}/>
           </div>
         </ConnectedRouter>
       </Provider>
