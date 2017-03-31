@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import Draw from '../Draw'
 import { loadCorpse } from 'actions/corpses'
 import { createDrawing } from 'actions/drawings'
-import { setDrawing } from 'actions/drawings'
 import ListGroup from 'react-bootstrap/lib/ListGroup'
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem'
 import Spinner from 'react-md-spinner'
@@ -24,18 +23,21 @@ class Corpse extends React.Component {
         sections.map((section, i) => {
           return <ListGroupItem
             key={i}
-            children={section.description}
-            onClick={() => dispatch(createDrawing(section._id))}
-          />
+            onClick={() => this.createDrawing(section)}
+          >
+            { section.drawer ? `[${section.description}]` : section.description }
+          </ListGroupItem>
         })
       }
     </ListGroup>
   }
 
-  setDrawing(drawing) {
+  createDrawing(section) {
     const { dispatch } = this.props
-    dispatch(setDrawing(drawing))
+    if ( !section.drawer )
+      dispatch(createDrawing(section._id));
   }
+
 }
 
 function mapStateToProps(state, props) {
