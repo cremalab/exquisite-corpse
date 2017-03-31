@@ -29,6 +29,7 @@ module.exports = {
   }).required(),
   update: Joi.object().keys({
     creator: objectId.strip(),
-    sections: Joi.array().items(corpseSection).min(2).required(),
+    sections: Joi.array().items(corpseSection).min(2),
+    canvas: Joi.string(),
   }),
 }

@@ -1,6 +1,8 @@
 const Boom = require('boom')
 const ObjectID = require('mongodb').ObjectID
+const canvasCombiner = require('../lib/canvasCombiner')
 const rt = require('../../corpses/realtime/corpsesRT')
+const corpsesDB = require('../../corpses/db/corpsesDB')
 
 const drawingsDB = require('../../drawings/db/drawingsDB')
 
@@ -10,9 +12,20 @@ function isComplete(payload) {
 }
 
 function notifyCompletion(server, payload) {
+  rt.notifyCompletion(server, payload)
+}
+
+function checkCompletion(server, db, payload) {
   if (isComplete(payload)) {
-    rt.notifyCompletion(server, payload)
+    return corpsesDB.update(db, payload._id, {
+      canvas: canvasCombiner.stitch(payload.sections.map(s => s.drawing.canvas)),
+    }).then((result) => {
+      notifyCompletion(server, result)
+      return result
+    })
   }
+
+  return Promise.resolve(payload)
 }
 
 module.exports = {
@@ -35,8 +48,9 @@ module.exports = {
     .then((r) => {
       if (!r.value) { return reply(Boom.create(404, `Can't find Corpse with Section`)) }
       rt.notifyChange(request.server, r.value)
-      notifyCompletion(request.server, r.value)
-      return reply({ result: r.value })
+      return checkCompletion(request.server, db, r.value).then(result => (
+        reply({ result })
+      ))
     })
       .catch(err => reply(err))
   },

@@ -13,9 +13,7 @@ const validModel = {
     top: [10, 200],
     bottom: [20, 180],
   },
-  canvas: {
-    Layer: {},
-  },
+  canvas: `[[Layer: {}]]`,
   section: '58cc21c72fbe8c108ba17fb8',
 }
 
@@ -87,10 +85,10 @@ describe('Drawings DB Tasks', () => {
   describe('update', () => {
     test('should not set anchorPoints', () => {
       return db.collection('drawings').findOne({}).then((first) => {
-        const params = Object.assign({ anchorPoints: { top: [1, 1] }, canvas: { Layer: 'hello' } })
+        const params = Object.assign({ anchorPoints: { top: [1, 1] }, canvas: `[[Layer: 'hello']]` })
         return drawings.update(db, first._id, params).then((drawing) => {
           expect(drawing.anchorPoints).not.toBe([1, 1])
-          expect(drawing.canvas.Layer).toBe('hello')
+          expect(drawing.canvas).toEqual(`[[Layer: 'hello']]`)
         })
         .catch((err) => {
           expect(err).toBeUndefined()
