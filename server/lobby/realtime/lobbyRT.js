@@ -22,7 +22,6 @@ module.exports = {
     })
   },
   connectUser(server, credentials) {
-    console.log(credentials);
     const { user_id, user } = credentials.profile
     const existing = this.users.find(u => u.id === user_id)
     if (!existing) {
@@ -39,11 +38,12 @@ module.exports = {
     const message = {
       user: profile.user,
       user_id: profile.user_id,
+      timestamp: new Date().toISOString(),
       content,
     }
     server.publish(urlPrefix, {
       type: types.CHAT_MESSAGE,
       data: message,
     })
-  }
+  },
 }

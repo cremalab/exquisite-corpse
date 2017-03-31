@@ -15,7 +15,7 @@ const drawingSchema = Joi.object().keys({
       .example([50, 210])
       .notes('min and max x coordinate for bottom anchors'),
   }),
-  canvas: Joi.string().required(),
+  canvas: Joi.string(),
   section: objectId,
   createdAt: Joi.date().timestamp('javascript').required(),
   updatedAt: Joi.date().timestamp('javascript').required(),
