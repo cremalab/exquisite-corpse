@@ -26,7 +26,7 @@ module.exports = {
     section: objectId.required().example(new ObjectId()),
   }).required(),
   createPayload: Joi.object().keys({
-    canvas: Joi.string().required(),
+    canvas: Joi.string().optional(),
     section: Joi.string().required().example('58c9b9c50e66521616667ef1')
       .description('MongoID of Corpse Section the drawing is for'),
   }).required(),
