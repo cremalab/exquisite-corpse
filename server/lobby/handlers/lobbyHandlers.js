@@ -29,6 +29,7 @@ module.exports = {
       content: request.payload.content,
       user: profile.user,
       user_id: profile.user_id,
+      timestamp: new Date().toISOString(),
     } }).code(201)
   },
 }
