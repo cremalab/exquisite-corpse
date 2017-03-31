@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Draw from '../Draw'
 import Spinner from 'react-md-spinner'
-import {loadDrawing} from 'actions/drawings'
+import {loadDrawing, saveDrawing} from 'actions/drawings'
 
 class RouteDrawing extends React.Component {
   componentWillMount() {
@@ -11,19 +11,22 @@ class RouteDrawing extends React.Component {
   }
 
   render() {
-    const { drawing, corpse: { loading } } = this.props
-
+    const { drawing: { result, loading } } = this.props
     if ( loading ) return <Spinner />
+    return <Draw drawing={result} onSave={this.onSave.bind(this)} />
+  }
 
-    return <Draw drawing={drawing} />
+  onSave(canvas) {
+    console.log(canvas)
+    const { dispatch, drawing: { result } } = this.props
+    dispatch(saveDrawing(result._id, canvas))
   }
 }
 
 function mapStateToProps(state, props) {
   return {
-    corpse: state.corpse,
     drawingId: props.match.params.drawingId,
-    drawing: state.drawing.result
+    drawing: state.drawing,
   }
 }
 

@@ -12,6 +12,9 @@ class Draw extends Component {
   }
 
   componentDidMount() {
+    const { drawing } = this.props;
+    const canvas = drawing.canvas;
+
     if (!this.paper) {
       const { canvas } = this.refs;
       this.paper = new paperjs.PaperScope();
@@ -26,10 +29,13 @@ class Draw extends Component {
       this.tool.onMouseDrag = this.onMouseDrag.bind(this)
       this.tool.onMouseUp = this.onMouseUp.bind(this)
     }
+
+    this.paper.project.importJSON(canvas)
   }
 
   render() {
-    const { paths } = this.state;
+    const {drawing} = this.props;
+    const {paths} = this.state;
 
     return <div>
       <canvas ref="canvas" style={canvasStyle}>
@@ -55,7 +61,7 @@ class Draw extends Component {
   }
 
   save() {
-    console.log(this.paper.project.exportJSON())
+    this.props.onSave(this.paper.project.exportJSON());
   }
 
   getCurrentPath() {
@@ -95,6 +101,11 @@ class Draw extends Component {
   onMouseUp(event) {
     this.getCurrentPath().simplify();
   }
+}
+
+Draw.propTypes = {
+  drawing: React.PropTypes.object,
+  onSave: React.PropTypes.func,
 }
 
 export { Draw as default }

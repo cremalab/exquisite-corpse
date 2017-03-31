@@ -2,11 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Draw from '../Draw'
 import { loadCorpse } from 'actions/corpses'
+import { createDrawing } from 'actions/drawings'
 import { setDrawing } from 'actions/drawings'
 import ListGroup from 'react-bootstrap/lib/ListGroup'
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem'
 import Spinner from 'react-md-spinner'
-import {push} from 'react-router-redux'
 
 class Corpse extends React.Component {
   componentWillMount() {
@@ -15,7 +15,7 @@ class Corpse extends React.Component {
   }
 
   render() {
-    const { dispatch, drawing, corpse: { loading, drawings } } = this.props
+    const { dispatch, drawing, corpseId, corpse: { loading, sections } } = this.props
 
     if ( loading ) return <Spinner />
 
@@ -23,11 +23,11 @@ class Corpse extends React.Component {
 
     return <ListGroup>
       {
-        drawings.map((drawing, i) => {
+        sections.map((section, i) => {
           return <ListGroupItem
             key={i}
-            children={drawing.description}
-            onClick={() => dispatch(push(`/drawing/${drawing._id}`))}
+            children={section.description}
+            onClick={() => dispatch(createDrawing(section._id))}
           />
         })
       }
