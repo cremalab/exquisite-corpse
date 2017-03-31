@@ -10,9 +10,9 @@ class ItemCorpse extends PureComponent {
 
     return (
       <Box
+        backgroundColor='whitesmoke'
         borderRadius='6px'
         padding='10px'
-        backgroundColor='white'
         onClick={() => dispatch(push(`/corpse/${corpse._id}`))}>
         <Box>
           <p>Corpse with {corpse.sections.length} spots</p>

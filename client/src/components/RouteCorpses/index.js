@@ -18,20 +18,29 @@ class Corpses extends React.Component {
 
     if ( loading ) return <Spinner />
 
-    console.log(result)
-
     return <Box
       padding='20px'
-      backgroundColor='orange'
-      height='100%'
       childSpacing='20px'>
-      <h1>Lobby</h1>
-      { result.map((corpse) =>
-          <ItemCorpse key={corpse._id} corpse={corpse} />
-      )}
-      <Button
-        onClick={() => dispatch(createCorpse())}
-      >Create Corpse</Button>
+      <Box
+        childAlign='center'
+        childDirection='row'>
+        <h1 grow='1'>Lobby</h1>
+        <Button
+          onClick={() => dispatch(createCorpse())}>
+          Create Corpse
+        </Button>
+      </Box>
+      <Box
+        childDirection='row'
+        childSpacing='20px'
+        childGrow='1'
+        childWrap='wrap'
+        childWrapLastGrow={false}
+        childBasis='200px'>
+        { result.map((corpse) =>
+            <ItemCorpse key={corpse._id} corpse={corpse} />
+        )}
+      </Box>
     </Box>
   }
 }

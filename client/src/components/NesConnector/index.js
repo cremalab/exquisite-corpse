@@ -16,7 +16,7 @@ class Wrapper extends Component {
       >
         {({ connecting, connected, error, overrideReconnectionAuth, connect, disconnect }) => {
           return (
-            <div>{ children }</div>
+            children
           )
         }}
       </Connect>
