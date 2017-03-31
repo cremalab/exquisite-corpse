@@ -43,11 +43,13 @@ class Draw extends Component {
       </canvas>
       <div>
         <Button
+          type="button"
           children="Undo"
           onTouchTap={() => this.undo()}
           disabled={paths.length <= 0}
         />
         <Button
+          type="button"
           children="Save"
           onTouchTap={() => this.save()}
           disabled={paths.length <= 0}

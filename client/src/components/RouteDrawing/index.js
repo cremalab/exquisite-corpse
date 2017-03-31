@@ -17,7 +17,6 @@ class RouteDrawing extends React.Component {
   }
 
   onSave(canvas) {
-    console.log(canvas)
     const { dispatch, drawing: { result } } = this.props
     dispatch(saveDrawing(result._id, canvas))
   }

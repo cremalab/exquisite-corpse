@@ -17,7 +17,7 @@ export function createDrawing(section) {
     [CALL_API]: {
       endpoint: `/drawings`,
       method: 'POST',
-      body: JSON.stringify({ section, canvas: {} }),
+      body: JSON.stringify({ section }),
       types: [
         'REQUEST_CREATE_DRAWING',
         {

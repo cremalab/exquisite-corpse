@@ -7,18 +7,22 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route} from 'react-router-dom'
 import RouteDrawing from 'components/RouteDrawing'
 import RouteHome from 'components/RouteHome'
+import App from 'components/App';
+import NesConnector from 'components/NesConnector'
 
 class Root extends Component {
   render() {
     return (
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <div>
-            <Route exact path="/welcome" component={RouteHome}/>
-            <Route exact path="/" component={RouteCorpses}/>
-            <Route path="/corpse/:corpseId" component={RouteCorpse}/>
-            <Route path="/drawing/:drawingId" component={RouteDrawing}/>
-          </div>
+          <NesConnector>
+            <App>
+              <Route exact path="/welcome" component={RouteHome}/>
+              <Route exact path="/" component={RouteCorpses}/>
+              <Route path="/corpse/:corpseId" component={RouteCorpse}/>
+              <Route path="/drawing/:drawingId" component={RouteDrawing}/>
+            </App>
+          </NesConnector>
         </ConnectedRouter>
       </Provider>
     );
