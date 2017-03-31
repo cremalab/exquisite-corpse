@@ -4317,9 +4317,9 @@ react-bootstrap@^0.30.8:
     uncontrollable "^4.0.1"
     warning "^3.0.0"
 
-react-boxen@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/react-boxen/-/react-boxen-0.0.3.tgz#53780caf27375e85896c14f1c613b8f48463e6f4"
+react-boxen@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-boxen/-/react-boxen-0.0.4.tgz#8b5085fc3a515b7f0063821d445684b1099ed455"
   dependencies:
     ramda "^0.23.0"
     styled-components "^1.0.0"
