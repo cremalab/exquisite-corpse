@@ -50,7 +50,8 @@ describe('lobbyRT', () => {
         data: {
           user: 'ross',
           user_id: 1,
-          content: content,
+          content,
+          timestamp: new Date().toISOString(),
         },
         type: 'chatMessage'
       }
