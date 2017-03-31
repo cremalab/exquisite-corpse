@@ -12,6 +12,7 @@ class RouteDrawing extends React.Component {
 
   render() {
     const { drawing: { result, loading, saving } } = this.props
+    console.log(result);
     if ( loading ) return <Spinner />
     return <Draw
       drawing={result}

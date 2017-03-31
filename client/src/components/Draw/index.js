@@ -33,9 +33,10 @@ class Draw extends Component {
   }
 
   render() {
-    const {drawing, saving} = this.props;
+    const {drawing, saving, width, height} = this.props;
+    const style = Object.assign(canvasStyle, { width, height})
     return <div>
-      <canvas ref="canvas" style={canvasStyle} />
+      <canvas ref="canvas" style={style} />
       <div>
         <Button
           type="button"
