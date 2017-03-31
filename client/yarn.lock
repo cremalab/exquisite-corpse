@@ -4346,6 +4346,10 @@ react-md-spinner@^0.2.1:
     exenv "^1.2.1"
     inline-style-prefixer "^3.0.1"
 
+react-nes@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-nes/-/react-nes-1.0.6.tgz#f2bf1c3eb548b8b9455be5865c77cabb15e1660c"
+
 react-overlays@^0.6.12:
   version "0.6.12"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.6.12.tgz#a079c750cc429d7db4c7474a95b4b54033e255c3"
