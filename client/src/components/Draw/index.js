@@ -7,7 +7,6 @@ class Draw extends Component {
 
   constructor() {
     super()
-    this.state = { paths: [] }
     this.paper = null
   }
 
@@ -35,24 +34,18 @@ class Draw extends Component {
 
   render() {
     const {drawing} = this.props;
-    const {paths} = this.state;
-
     return <div>
-      <canvas ref="canvas" style={canvasStyle}>
-        {this.state.paper ? this.props.children : false}
-      </canvas>
+      <canvas ref="canvas" style={canvasStyle} />
       <div>
         <Button
           type="button"
           children="Undo"
           onTouchTap={() => this.undo()}
-          disabled={paths.length <= 0}
         />
         <Button
           type="button"
           children="Save"
           onTouchTap={() => this.save()}
-          disabled={paths.length <= 0}
         />
       </div>
     </div>
@@ -67,28 +60,23 @@ class Draw extends Component {
   }
 
   getCurrentPath() {
-    const { paths } = this.state
-    return paths.length > 0 ? paths[paths.length - 1] : undefined
+    const paths = this.allPaths()
+    return paths[paths.length - 1]
+  }
+
+  allPaths() {
+    return this.paper && this.paper.project ? this.paper.project.activeLayer.children || [] : []
   }
 
   addPath() {
-    const { paths } = this.state
     const path = new this.paper.Path();
     path.strokeColor = 'black';
     path.strokeWidth = 2;
-    paths.push(path);
-    this.setState({ paths })
   }
 
   removePath() {
-    const { paths } = this.state;
-    const currentPath = this.getCurrentPath();
-    if ( currentPath )
-      currentPath.remove();
-
-    paths.pop()
-
-    this.setState({ paths })
+    const currentPath = this.getCurrentPath()
+    if (currentPath) currentPath.remove();
   }
 
   onMouseDown(event) {
