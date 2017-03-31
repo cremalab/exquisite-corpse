@@ -26,10 +26,12 @@ module.exports = {
   create: Joi.object().keys({
     creator: objectId.required().description('ObjectId of creator Doodler'),
     sections: Joi.array().items(corpseSection).min(2).required(),
+    status: Joi.string().valid(['new', 'incomplete', 'complete']),
   }).required(),
   update: Joi.object().keys({
     creator: objectId.strip(),
     sections: Joi.array().items(corpseSection).min(2),
     canvas: Joi.string(),
+    status: Joi.string().valid(['new', 'incomplete', 'complete']),
   }),
 }

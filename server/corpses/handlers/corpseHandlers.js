@@ -32,7 +32,8 @@ module.exports = {
   },
   update(request, reply) {
     const { db } = request.mongo
-    corpsesDB.update(db, request.params.id, request.payload)
+    const updates = Object.assign({}, request.payload, { status: 'incomplete' })
+    corpsesDB.update(db, request.params.id, updates)
       .then((r) => {
         corpsesRT.notifyChange(request.server, r)
         lobbyRT.notifyCorpseChange(request.server, r)
