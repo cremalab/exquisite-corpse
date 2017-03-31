@@ -9,21 +9,17 @@ function getYpositions(arr) {
 
 function stitch(sections) {
   const project = new Paper.Project()
-  sections.forEach((section, i) => {
+  sections.forEach((section) => {
     project.importJSON(section)
   })
-
-
   const positions = getYpositions(project.layers.map(l => l.bounds.height))
-
   project.layers.forEach((layer, i) => {
     const { center } = layer.bounds
-    const point = new Paper.Point(center, positions[i])
+    layer.pivot = new Paper.Point(0, layer.bounds.top)
+    const point = new Paper.Point(0, positions[i])
     layer.position = point
   })
 
-  // console.log(`${project.exportJSON()}`);
-  console.log(project.layers.map(l => l.position));
   return project.exportJSON()
 }
 

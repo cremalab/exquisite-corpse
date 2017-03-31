@@ -43,7 +43,7 @@ describe('drawingRoutes', () => {
         url: '/drawings',
         credentials: helper.session,
         payload: {
-          canvas: {},
+          canvas: `['Layer': []]`,
           section: corpse.sections[0]._id,
         },
       })
