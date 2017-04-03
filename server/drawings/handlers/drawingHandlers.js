@@ -8,7 +8,10 @@ module.exports = {
   show(request, reply) {
     const { db } = request.mongo
     common.find(db, request.params.id, 'drawings').then((r) => {
-      reply({ result: r })
+      if (request.auth.credentials.id !== r.creator.id) {
+        return reply(Boom.create(404, `Drawing by the current user with that ID cannot be found.`))
+      }
+      return reply({ result: r })
     })
     .catch(err => reply(err))
   },
