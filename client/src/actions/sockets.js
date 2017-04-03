@@ -12,8 +12,7 @@ function socket() {
 }
 
 const handleLobbyMsg = ({ type, data }) => {
-  console.log(type, data);
-  store.dispatch({ type: 'FOO', payload: {} })
+  store.dispatch({ type: `nes/${type}`, payload: data })
 }
 
 function handleError() {
