@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Draw from '../Draw'
+import Surface from '../Surface'
 import { loadCorpse } from 'actions/corpses'
 import { createDrawing } from 'actions/drawings'
 import ListGroup from 'react-bootstrap/lib/ListGroup'
@@ -18,7 +18,7 @@ class Corpse extends React.Component {
 
     if ( loading ) return <Spinner />
     const finalDrawing = canvas ? (
-      <Draw drawing={this.props.corpse} height={200 * 4 + 'px'} />
+      <Surface drawing={this.props.corpse} height={200 * 4 + 'px'} />
     ) : null
 
     return <div><ListGroup>
