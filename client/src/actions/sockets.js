@@ -20,7 +20,16 @@ function socket() {
 
 const handleLobbyMsg = ({ type, data }) => {
   console.log(type, data);
-  store.dispatch({ type: 'FOO', payload: {} })
+  switch (type) {
+    case 'usersChange':
+      break
+    case 'corpseChange':
+      console.log('corpseChange!');
+      return store.dispatch({ type: 'MERGE_CORPSE', payload: data })
+    default:
+      return null
+  }
+  // store.dispatch({ type: 'FOO', payload: {} })
 }
 
 function handleError() {
