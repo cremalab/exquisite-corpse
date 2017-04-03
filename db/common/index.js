@@ -53,7 +53,13 @@ module.exports = {
       db.collection(collection).findOne({ _id: res.insertedId })
     ))
   },
-  update(db, id, params, collection) {
+  update(db, finder, params, collection) {
+    let lookup
+    if (typeof finder === 'string') {
+      lookup = { _id: ObjectId(finder) }
+    } else {
+      lookup = finder
+    }
     return new Promise((resolve, reject) => {
       try {
         Joi.assert(params, Joi.object({}).unknown().required(), 'Params')
@@ -65,7 +71,7 @@ module.exports = {
       }
       const opts = { returnOriginal: false }
       return db.collection(collection)
-        .findOneAndUpdate({ _id: ObjectId(id) }, { $set: timestamp(params) }, opts)
+        .findOneAndUpdate(lookup, { $set: timestamp(params) }, opts)
         .then(getValue).then(resolve)
         .catch(reject)
     })

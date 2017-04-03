@@ -1,7 +1,8 @@
 const common = require('../../../db/common')
 const drawingsDB = require('../db/drawingsDB')
-const corpsesDB = require('../../corpses/db/corpsesDB')
+const corpseSectionsDB = require('../../corpseSections/db/corpseSectionsDB')
 const corpseRT = require('../../corpses/realtime/corpsesRT')
+const lobbyRT = require('../../lobby/realtime/lobbyRT')
 const Boom = require('boom')
 
 module.exports = {
@@ -21,8 +22,10 @@ module.exports = {
     const attrs = Object.assign({}, request.payload, { creator: credentials })
     drawingsDB.create(db, attrs)
     .then((r) => {
-      corpsesDB.findBySection(db, r.section).then((corpse) => {
+      corpseSectionsDB.addDrawingId(db, r.section, r._id, true)
+      .then((corpse) => {
         corpseRT.notifyChange(request.server, corpse)
+        lobbyRT.notifyCorpseChange(request.server, corpse)
       }).catch(err => console.log(err))
 
       reply({ result: r }).code(201)

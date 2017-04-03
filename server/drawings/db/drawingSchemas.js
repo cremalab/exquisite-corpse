@@ -18,7 +18,11 @@ const anchorPointsSchema = Joi.object().keys({
 
 module.exports = {
   create: Joi.object().keys({
-    creator: Joi.any().required().description('MongoID of creator Doodler'),
+    creator: Joi.object().keys({
+      name: Joi.string(),
+      id: Joi.string().required(),
+      provider: Joi.string(),
+    }).required().description('MongoID of creator Doodler'),
     anchorPoints: anchorPointsSchema
       .description('min and max x coords for top and bottom anchorPoints')
       .example({ top: [10, 100], bottom: [15, 140] }),

@@ -24,7 +24,6 @@ const handleLobbyMsg = ({ type, data }) => {
     case 'usersChange':
       break
     case 'corpseChange':
-      console.log('corpseChange!');
       return store.dispatch({ type: 'MERGE_CORPSE', payload: data })
     default:
       return null
