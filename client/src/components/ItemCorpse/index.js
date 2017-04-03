@@ -6,7 +6,7 @@ import Box from 'react-boxen'
 class ItemCorpse extends PureComponent {
   render() {
     const {dispatch, corpse } = this.props
-    
+    const openSections = corpse.sections.filter(s => !s.drawing || !s.drawing.canvas)
     return (
       <Box
         backgroundColor='whitesmoke'
@@ -14,8 +14,9 @@ class ItemCorpse extends PureComponent {
         padding='10px'
         onClick={() => dispatch(push(`/corpse/${corpse._id}`))}>
         <Box>
-          <p>Corpse with {corpse.sections.length} spots</p>
-          <p>{corpse.creator.user}</p>
+          <p>Corpse with {openSections.length}/{corpse.sections.length} open spots</p>
+          <p>Created by {corpse.creator.user} on {corpse.createdAt}</p>
+          <cite>{corpse.status}</cite>
         </Box>
       </Box>
     )

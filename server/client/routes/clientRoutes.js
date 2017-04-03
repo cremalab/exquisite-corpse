@@ -40,4 +40,9 @@ module.exports = [
       auth: false,
     },
   },
+  {
+    method: 'GET',
+    path: '/{p*}',
+    handler: clientHandler(),
+  },
 ]
