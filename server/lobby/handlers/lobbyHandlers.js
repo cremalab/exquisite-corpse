@@ -7,7 +7,7 @@ module.exports = {
   },
   connectUser(request, reply) {
     lobbyRT.connectUser(request.server, request.auth.credentials)
-    reply(lobbyRT.users)
+    reply(request.auth.credentials)
   },
   disconnectUser(request, reply) {
     lobbyRT.disconnectUser(request.server, request.auth.credentials)

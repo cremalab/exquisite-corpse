@@ -50,8 +50,7 @@ describe('lobbyRoutes', () => {
         credentials: helper.session,
       })
         .then((response) => {
-          expect(response.result.map(u => u.name))
-            .toContain(helper.session.name)
+          expect(response.result).toEqual(helper.session)
         })
     ))
   })

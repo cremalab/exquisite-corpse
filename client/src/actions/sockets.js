@@ -7,6 +7,13 @@ function socket() {
     wsClient.connect(err => {
       if (err) { throw err }
       wsClient.subscribe('/lobby', handleLobbyMsg, handleError)
+      wsClient.request({
+        path: '/lobby',
+        method: 'POST',
+      }, (err, user) => {
+        if (err) { throw err }
+        store.dispatch({ type: 'SET_USER', payload: user })
+      })
     })
   })
 }

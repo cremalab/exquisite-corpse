@@ -33,7 +33,7 @@ class Surface extends Component {
 
   render() {
     const {drawing, saving, width, height, interactive} = this.props;
-    const style = Object.assign(canvasStyle, { width, height})
+    const style = Object.assign(canvasStyle, { height })
     return <div>
       <canvas ref="canvas" style={style} />
       { interactive ?

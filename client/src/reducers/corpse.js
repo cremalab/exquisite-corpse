@@ -16,6 +16,7 @@ function corpses(state = initialState, action) {
         loading: false,
         sections: action.payload.result.sections,
         canvas: action.payload.result.canvas,
+        status: action.payload.result.status,
       }
     default:
       return state
