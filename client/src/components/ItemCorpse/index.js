@@ -5,8 +5,10 @@ import Box from 'react-boxen'
 
 class ItemCorpse extends PureComponent {
   render() {
-    const {dispatch, corpse } = this.props
-    const openSections = corpse.sections.filter(s => !s.drawing || !s.drawing.canvas)
+    const { dispatch, corpse } = this.props
+    const openSections = corpse.sections.filter((section) => {
+      return !section.drawer
+    })
     return (
       <Box
         backgroundColor='whitesmoke'

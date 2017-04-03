@@ -5,6 +5,7 @@ const objectId = Joi.alternatives().try(Joi.string(), Joi.object())
 const user = Joi.object().keys({
   name: Joi.string().required().example('John'),
   id: Joi.string().required().example('12345J'),
+  provider: Joi.string().example('Slack'),
 })
 
 const drawingSchema = Joi.object().keys({

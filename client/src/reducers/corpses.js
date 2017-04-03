@@ -1,6 +1,23 @@
 const initialState = {
   loading: false,
-  result: []
+  result: [],
+}
+
+
+function updateObjectInArray(array, corpse) {
+  if (array.find(item => item._id === corpse._id)) {
+    return array.map((item) => {
+      if (item._id !== corpse._id) {
+        return item
+      }
+      return {
+        ...item,
+        ...corpse,
+      }
+    })
+  }
+
+  return [...array, corpse]
 }
 
 function corpses(state = initialState, action) {
@@ -8,23 +25,28 @@ function corpses(state = initialState, action) {
     case 'REQUEST_CORPSES':
       return {
         ...state,
-        loading: true
+        loading: true,
       }
 
     case 'SUCCESS_CORPSES':
       return {
         loading: false,
-        result: action.payload.result
+        result: action.payload.result,
       }
 
     case 'SUCCESS_CORPSE_CREATE':
       return {
         ...state,
-        result: [...state.result, action.payload.result]
+        result: updateObjectInArray(state.result, action.payload.result),
+      }
+    case 'MERGE_CORPSE':
+      return {
+        ...state,
+        result: updateObjectInArray(state.result, action.payload),
       }
     default:
       return state
   }
 }
 
-export default corpses;
+export default corpses

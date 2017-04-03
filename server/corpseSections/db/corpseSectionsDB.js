@@ -22,5 +22,19 @@ module.exports = {
       if (!result) { throw Boom.create(404, `Section with id ${id} not found`) }
       return section
     })
-  }
+  },
+  addDrawingId(db, id, drawingId, returnFullCorpse) {
+    return db.collection('corpses').findOneAndUpdate({
+      'sections._id': ObjectID(id),
+    }, {
+      $set: { 'sections.$.drawing': { _id: drawingId } },
+    }, {
+      returnOriginal: false,
+    }).then((result) => {
+      if (returnFullCorpse) { return result.value }
+      const section = result.value.sections.find(x => ObjectID(id).equals(x._id))
+      if (!result) { throw Boom.create(404, `Section with id ${id} not found`) }
+      return section
+    })
+  },
 }
