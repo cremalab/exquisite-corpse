@@ -1,6 +1,10 @@
 const dotEnv = require('dotenv')
 const Path = require('path')
 
+const mongoURI = process.env.NODE_ENV === 'test' ?
+  'mongodb://localhost:27017/exquisite-test' :
+  'mongodb://localhost:27017/exquisite-corpse'
+
 if (process.env.NODE_ENV !== 'production') {
   dotEnv.config()
 }
@@ -29,7 +33,7 @@ const manifest = {
       plugin: {
         register: 'hapi-mongodb',
         options: {
-          url: process.env.MONGODB_URI || 'mongodb://localhost:27017/exquisite-corpse',
+          url: process.env.MONGODB_URI || mongoURI,
           settings: {
             db: {
               native_parser: false,

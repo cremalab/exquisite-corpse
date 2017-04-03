@@ -23,12 +23,12 @@ module.exports = {
     )).catch(reply)
   },
   createMessage(request, reply) {
-    const { profile } = request.auth.credentials
-    lobbyRT.notifyChatMessage(request.server, profile, request.payload.content)
+    const { credentials } = request.auth
+    lobbyRT.notifyChatMessage(request.server, credentials, request.payload.content)
     reply({ result: {
       content: request.payload.content,
-      user: profile.user,
-      user_id: profile.user_id,
+      name: credentials.name,
+      id: credentials.id,
       timestamp: new Date().toISOString(),
     } }).code(201)
   },

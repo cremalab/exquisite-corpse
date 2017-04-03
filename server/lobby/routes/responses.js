@@ -16,8 +16,8 @@ module.exports = {
   connectedUsers: users,
   chatMessage: Joi.object().keys({
     result: Joi.object().keys({
-      user: Joi.string().required().example('Ross'),
-      user_id: Joi.string().required().example('238f828f8hg'),
+      name: Joi.string().required().example('Ross'),
+      id: Joi.string().required().example('238f828f8hg'),
       timestamp: Joi.string().required().example('2017-03-31T18:50:27.113Z'),
       content: Joi.string().required().example('Everything is great.'),
     }),

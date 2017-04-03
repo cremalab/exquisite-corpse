@@ -73,7 +73,7 @@ describe('corpseRoutes', () => {
       .then((res) => {
         expect(res.statusCode).toBe(201)
         expect(res.result.result).not.toBeUndefined()
-        expect(res.result.result.creator).toMatchObject(helper.session.profile)
+        expect(res.result.result.creator).toMatchObject(helper.session)
       })
     ))
 

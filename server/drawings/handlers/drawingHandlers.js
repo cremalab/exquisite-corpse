@@ -14,8 +14,8 @@ module.exports = {
   },
   create(request, reply) {
     const { db } = request.mongo
-    const { user } = request.auth.credentials.profile
-    const attrs = Object.assign({}, request.payload, { creator: user })
+    const { credentials } = request.auth
+    const attrs = Object.assign({}, request.payload, { creator: credentials })
     drawingsDB.create(db, attrs)
     .then((r) => {
       corpsesDB.findBySection(db, r.section).then((corpse) => {

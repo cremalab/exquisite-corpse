@@ -28,7 +28,7 @@ class Corpse extends React.Component {
             key={i}
             onClick={() => this.createDrawing(section)}
           >
-            { section.drawer ? `[${section.description} - ${section.drawer}]` : section.description }
+            { section.drawer ? `[${section.description} - ${section.drawer.name}]` : section.description }
           </ListGroupItem>
         })
       }

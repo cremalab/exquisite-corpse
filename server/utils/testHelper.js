@@ -2,10 +2,8 @@ const compose = require('../../serverComposer')
 
 module.exports = {
   session: {
-    profile: {
-      user_id: '1',
-      user: 'Elmer',
-    },
+    id: '1',
+    name: 'Elmer',
   },
   testServer() {
     return compose()
