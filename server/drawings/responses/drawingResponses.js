@@ -2,9 +2,14 @@ const Joi = require('joi')
 
 const objectId = Joi.alternatives().try(Joi.string(), Joi.object())
 
+const user = Joi.object().keys({
+  name: Joi.string().required().example('John'),
+  id: Joi.string().required().example('12345J'),
+})
+
 const drawingSchema = Joi.object().keys({
   _id: Joi.any().required(),
-  creator: Joi.string().required(),
+  creator: user.required(),
   anchorPoints: Joi.object({
     top: Joi.array().max(2).items([Joi.number(), Joi.number()])
       .required()

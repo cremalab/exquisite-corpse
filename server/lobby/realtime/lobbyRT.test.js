@@ -7,7 +7,7 @@ describe('lobbyRT', () => {
       publish,
     }
     test('add payload to users array', () => {
-      const payload = { profile: { user: 'Ross', user_id: '1' } }
+      const payload = { name: 'Ross', id: '1' }
       expect(publish).not.toBeCalled()
       rt.connectUser(server, payload)
       const userObj = { id: '1', name: 'Ross' }
@@ -26,7 +26,7 @@ describe('lobbyRT', () => {
         publish,
       }
       rt.users = [{ name: 'Fred', id: '2' }]
-      const payload = { profile: { user: 'Fred', user_id: '2' } }
+      const payload = { name: 'Fred', id: '2' }
       expect(publish).not.toBeCalled()
       rt.disconnectUser(server, payload)
       const expectedPayload = {
@@ -45,11 +45,11 @@ describe('lobbyRT', () => {
       }
       const content = 'Hi everybody!'
       expect(publish).not.toBeCalled()
-      rt.notifyChatMessage(server, { user: 'ross', user_id: 1 }, content)
+      rt.notifyChatMessage(server, { name: 'ross', id: 1 }, content)
       const expectedPayload = {
         data: {
-          user: 'ross',
-          user_id: 1,
+          name: 'ross',
+          id: 1,
           content,
           timestamp: new Date().toISOString(),
         },

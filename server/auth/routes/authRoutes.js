@@ -1,3 +1,5 @@
+const providers = require('../lib/authProviders')
+
 module.exports = [
   {
     method: 'GET',
@@ -6,7 +8,7 @@ module.exports = [
       auth: 'slack',
       handler(request, reply) {
         if (request.auth.isAuthenticated) {
-          request.cookieAuth.set(request.auth.credentials)
+          request.cookieAuth.set(providers.standardizeProfile(request.auth.credentials))
           return reply.redirect('/')
         }
         return reply('Not logged in...').code(401)
@@ -31,7 +33,7 @@ module.exports = [
     path: '/me',
     config: {
       handler(request, reply) {
-        return reply({ result: request.auth.credentials.profile.raw })
+        return reply({ result: request.auth.credentials })
       },
       tags: ['api', 'auth'],
     },
