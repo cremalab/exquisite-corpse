@@ -3,12 +3,22 @@ const testHelper = require('../../../db/testHelper')
 const ObjectID = require('mongodb').ObjectID
 
 const store = [
-  { creator: '58cc21c72fbe8c108ba17fb8', anchorPoints: { top: [10, 100], bottom: [40, 80] } },
-  { creator: '58cc21c72fbe8c108ba17fb4', anchorPoints: { top: [10, 80], bottom: [10, 110] } },
+  {
+    creator: {
+      name: 'drawingsDBTest', id: '58cc21c72fbe8c108ba17fb8',
+    },
+    anchorPoints: { top: [10, 100], bottom: [40, 80] },
+  },
+  {
+    creator: {
+      name: 'drawingsDBTest', id: '58cc21c72fbe8c108ba17fb8',
+    },
+    anchorPoints: { top: [10, 80], bottom: [10, 110] },
+  },
 ]
 
 const validModel = {
-  creator: 'drawingsDBTest',
+  creator: { name: 'drawingsDBTest', id: '58cc21c72fbe8c108ba17fb8' },
   anchorPoints: {
     top: [10, 200],
     bottom: [20, 180],

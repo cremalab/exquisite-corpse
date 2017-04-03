@@ -53,13 +53,7 @@ module.exports = {
       db.collection(collection).findOne({ _id: res.insertedId })
     ))
   },
-  update(db, finder, params, collection) {
-    let lookup
-    if (typeof finder === 'string') {
-      lookup = { _id: ObjectId(finder) }
-    } else {
-      lookup = finder
-    }
+  update(db, id, params, collection) {
     return new Promise((resolve, reject) => {
       try {
         Joi.assert(params, Joi.object({}).unknown().required(), 'Params')
@@ -71,7 +65,24 @@ module.exports = {
       }
       const opts = { returnOriginal: false }
       return db.collection(collection)
-        .findOneAndUpdate(lookup, { $set: timestamp(params) }, opts)
+        .findOneAndUpdate({ _id: ObjectId(id) }, { $set: timestamp(params) }, opts)
+        .then(getValue).then(resolve)
+        .catch(reject)
+    })
+  },
+  updateBy(db, finder, params, collection) {
+    return new Promise((resolve, reject) => {
+      try {
+        Joi.assert(params, Joi.object({}).unknown().required(), 'Params')
+        Joi.assert(finder, Joi.object().required(), 'Finder')
+        Joi.assert(collection, Joi.string().required(), 'Collection')
+        Joi.assert(db, dbSchema, 'DB instance')
+      } catch (e) {
+        return reject(e)
+      }
+      const opts = { returnOriginal: false }
+      return db.collection(collection)
+        .findOneAndUpdate(finder, { $set: timestamp(params) }, opts)
         .then(getValue).then(resolve)
         .catch(reject)
     })
