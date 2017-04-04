@@ -1,6 +1,7 @@
 const common = require('../../../db/common')
 const drawingsDB = require('../db/drawingsDB')
 const corpseSectionsDB = require('../../corpseSections/db/corpseSectionsDB')
+const corpsesDB = require('../../corpses/db/corpsesDB')
 const corpseRT = require('../../corpses/realtime/corpsesRT')
 const lobbyRT = require('../../lobby/realtime/lobbyRT')
 const Boom = require('boom')
@@ -26,7 +27,7 @@ module.exports = {
       .then((corpse) => {
         corpseRT.notifyChange(request.server, corpse)
         lobbyRT.notifyCorpseChange(request.server, corpse)
-      }).catch(err => console.log(err))
+      }).catch(err => { throw err })
 
       reply({ result: r }).code(201)
     })
@@ -40,4 +41,15 @@ module.exports = {
     })
     .catch(err => reply(err))
   },
+  destroy(request, reply) {
+    const { db } = request.mongo
+    return drawingsDB.destroy(db, request.params.id, true).then((res) => {
+      corpsesDB.findBySection(db, res).then((corpse) => {
+        lobbyRT.notifyCorpseChange(request.server, corpse)
+        corpseRT.notifyChange(request.server, corpse)
+      })
+      reply({ result: { message: 'It is no more!' }})
+    })
+    .catch(err => reply(Boom.wrap(err)))
+  }
 }
