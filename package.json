@@ -16,6 +16,7 @@
   "dependencies": {
     "bell": "^8.5.0",
     "boom": "^4.2.0",
+    "date-fns": "^1.28.2",
     "dotenv": "^4.0.0",
     "glue": "^4.1.0",
     "good": "^7.1.0",
@@ -34,7 +35,7 @@
     "paper": "^0.10.3",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.8",
-    "react-boxen": "0.0.9",
+    "react-boxen": "0.0.10",
     "react-dom": "^15.4.2",
     "react-md-spinner": "^0.2.1",
     "react-redux": "^5.0.3",

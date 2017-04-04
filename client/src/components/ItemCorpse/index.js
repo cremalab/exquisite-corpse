@@ -3,32 +3,36 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import Box from 'react-boxen'
 import propTypesCorpse from 'propTypes/Corpse'
+import { distanceInWordsToNow } from 'date-fns'
 
 const css = {
   container: `
-    padding: 20px;
     borderRadius: 6px;
-    background-color: hsl(0, 0%, 98%);
+    background-color: #67B6C8;
     cursor: pointer;
-    &:hover {
-      background-color: hsl(0, 0%, 95%)
-    }
+  `,
+  section: section => `
+    opacity: 0.75;
+    padding: 20px;
+    background-color: ${section.drawer ? '#0A93C4' : 'hsla(0,0%,100%, 0.25)'};
   `
 }
 
 class ItemCorpse extends PureComponent {
   render() {
     const { dispatch, corpse } = this.props
-    const openSections = corpse.sections.filter((section) => {
-      return !section.drawer
-    })
+    const createdAt = distanceInWordsToNow(corpse.createdAt)
     return (
       <Box
+        childDirection='row'
         onClick={() => dispatch(push(`/corpse/${corpse._id}`))}
         css={css.container}>
-        <p>Corpse with {openSections.length}/{corpse.sections.length} open spots</p>
-        <p>Created by {corpse.creator.name} on {corpse.createdAt}</p>
-        <cite>{corpse.status}</cite>
+        <Box childSpacing='1px' width='200px'>
+          { corpse.sections.map((section, i) => <Box key={i} css={css.section(section)}>{(section.drawer && section.drawer.name) || 'empty'}</Box>) }
+        </Box>
+        <Box padding="20px">
+          <p><small>Created by {corpse.creator.name} {createdAt}</small></p>
+        </Box>
       </Box>
     )
   }
