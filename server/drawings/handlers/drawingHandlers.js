@@ -40,4 +40,11 @@ module.exports = {
     })
     .catch(err => reply(err))
   },
+  destroy(request, reply) {
+    const { db } = request.mongo
+    return drawingsDB.destroy(db, request.params.id).then(() => {
+      reply({ result: { message: 'It is no more!' }})
+    })
+    .catch(err => reply(Boom.wrap(err)))
+  }
 }
