@@ -19,6 +19,8 @@ class Surface extends Component {
       this.paper = new paperjs.PaperScope();
       this.paper.setup(canvas);
       this.paper.view.play();
+      this.mainLayer = new this.paper.Layer({ name: 'drawing' })
+      this.guideLayer = new this.paper.Layer({ name: 'guides' })
       this.forceUpdate();
     }
     if ( !this.tool && interactive ) {
@@ -29,6 +31,7 @@ class Surface extends Component {
     }
 
     this.paper.project.importJSON(canvas)
+    if (drawing.anchorPoints) { this.drawGuides() }
   }
 
   render() {
@@ -55,6 +58,22 @@ class Surface extends Component {
     </div>
   }
 
+  drawGuides() {
+    function plotGuide(xCoord, dir) {
+      return new paperjs.Path.Circle({
+        center: [xCoord * 4, this.paper.view.bounds[dir]],
+        radius: 5,
+        fillColor: 'red',
+      })
+    }
+    const { anchorPoints } = this.props.drawing
+    const points = anchorPoints.top.map(x => plotGuide.bind(this)(x, 'top'))
+      .concat(anchorPoints.bottom.map(x => plotGuide.bind(this)(x, 'bottom')))
+    this.guideLayer.addChildren(points)
+    this.guideLayer.sendToBack()
+    this.mainLayer.activate()
+  }
+
   undo() {
     this.removePath()
   }
@@ -64,7 +83,7 @@ class Surface extends Component {
   }
 
   save() {
-    this.props.onSave(this.paper.project.exportJSON());
+    this.props.onSave(this.mainLayer.exportJSON());
   }
 
   getCurrentPath() {
