@@ -1,13 +1,11 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { loadCorpses, createCorpse } from 'actions/corpses'
 import { connect } from 'react-redux'
 import Spinner from 'react-md-spinner'
 import Button from 'react-bootstrap/lib/Button'
-import ListGroup from 'react-bootstrap/lib/ListGroup'
-import ListGroupItem from 'react-bootstrap/lib/ListGroupItem'
-import { push } from 'react-router-redux'
 import Box from 'react-boxen'
 import ItemCorpse from 'components/ItemCorpse'
+import propTypesCorpse from 'propTypes/Corpse'
 
 class Corpses extends React.Component {
   componentWillMount() {
@@ -16,7 +14,7 @@ class Corpses extends React.Component {
   render() {
     const { dispatch, corpses: { result, loading } } = this.props
 
-    // if (loading) return <Spinner />
+    if (loading) return <Spinner />
 
     return (<Box
       padding="20px"
@@ -40,14 +38,21 @@ class Corpses extends React.Component {
         childGrow="1"
         childWrap="wrap"
         childWrapLastGrow={false}
-        childBasis="200px"
+        childBasis="250px"
       >
         { result.map(corpse =>
-          <ItemCorpse key={corpse._id} corpse={corpse} />,
+          <ItemCorpse key={corpse._id} corpse={corpse} />
         )}
       </Box>
     </Box>)
   }
+}
+
+Corpses.propTypes = {
+  dispatch: PropTypes.func,
+  corpses: PropTypes.shape({
+    result: PropTypes.arrayOf(PropTypes.shape(propTypesCorpse))
+  })
 }
 
 function mapStateToProps(state) {
@@ -56,6 +61,4 @@ function mapStateToProps(state) {
   }
 }
 
-Corpses = connect(mapStateToProps)(Corpses)
-
-export default Corpses
+export default connect(mapStateToProps)(Corpses)
