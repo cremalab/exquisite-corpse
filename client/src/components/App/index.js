@@ -6,15 +6,15 @@ class App extends Component {
     return (
       <Box height="100%">
         <Box
-          backgroundColor="rgba(255, 165, 0, 0.79)"
+          backgroundColor="#C3C1AA"
           color="white"
           padding="20px"
         >
           <header>Exquisite Corpse</header>
         </Box>
-        <div>
+        <Box color="white">
           { this.props.children }
-        </div>
+        </Box>
       </Box>
     )
   }

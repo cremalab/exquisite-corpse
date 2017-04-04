@@ -9,6 +9,11 @@ module.exports = {
     path: path.resolve(__dirname, './client/build'),
     filename: '[name]_bundle.js',
   },
+  node: {
+    net: 'empty',
+    tls: 'empty',
+    dns: 'empty'
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './client/public/index.html',
