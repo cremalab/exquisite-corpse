@@ -7,6 +7,7 @@ import { push } from 'react-router-redux'
 import { loadCorpse } from '../../actions/corpses'
 import { createDrawing } from '../../actions/drawings'
 import Surface from '../Surface'
+import Box from 'react-boxen'
 
 class Corpse extends React.Component {
   componentWillMount() {
@@ -24,18 +25,27 @@ class Corpse extends React.Component {
 
     return (
       <div>
-        <ListGroup>
+        <Box>
           {
             sections.map((section, i) => (
-              <ListGroupItem
+              <Box
                 key={i}
                 onClick={() => this.handleDrawing(section)}
+                padding="20px"
+                borderWidth="0 0 1px"
+                borderColor="whitesmoke"
+                css={`
+                  cursor: pointer;
+                  &:hover {
+                    background-color: hsl(0, 0%, 98%)
+                  }
+                `}
               >
                 { section.drawer ? `[${section.description} - ${section.drawer.name}]` : section.description }
-              </ListGroupItem>
+              </Box>
             ))
           }
-        </ListGroup>
+        </Box>
         {finalDrawing}
       </div>
     )
