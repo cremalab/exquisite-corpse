@@ -800,6 +800,48 @@ module.exports = {
 
 /***/ }),
 /* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MemoryRouter__ = __webpack_require__(495);
+/* unused harmony reexport MemoryRouter */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Prompt__ = __webpack_require__(496);
+/* unused harmony reexport Prompt */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Redirect__ = __webpack_require__(497);
+/* unused harmony reexport Redirect */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Route__ = __webpack_require__(214);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__Route__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Router__ = __webpack_require__(127);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_4__Router__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__StaticRouter__ = __webpack_require__(498);
+/* unused harmony reexport StaticRouter */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Switch__ = __webpack_require__(499);
+/* unused harmony reexport Switch */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__matchPath__ = __webpack_require__(128);
+/* unused harmony reexport matchPath */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__withRouter__ = __webpack_require__(500);
+/* unused harmony reexport withRouter */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1139,7 +1181,7 @@ module.exports = ReactComponentTreeHook;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1167,48 +1209,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = { debugTool: debugTool };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MemoryRouter__ = __webpack_require__(495);
-/* unused harmony reexport MemoryRouter */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Prompt__ = __webpack_require__(496);
-/* unused harmony reexport Prompt */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Redirect__ = __webpack_require__(497);
-/* unused harmony reexport Redirect */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Route__ = __webpack_require__(214);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__Route__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Router__ = __webpack_require__(127);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_4__Router__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__StaticRouter__ = __webpack_require__(498);
-/* unused harmony reexport StaticRouter */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Switch__ = __webpack_require__(499);
-/* unused harmony reexport Switch */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__matchPath__ = __webpack_require__(128);
-/* unused harmony reexport matchPath */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__withRouter__ = __webpack_require__(500);
-/* unused harmony reexport withRouter */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /***/ }),
 /* 12 */
@@ -2306,88 +2306,31 @@ module.exports = PooledClass;
 
 /***/ }),
 /* 27 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ConnectedRouter__ = __webpack_require__(493);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__ConnectedRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducer__ = __webpack_require__(213);
+/* unused harmony reexport LOCATION_CHANGE */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__reducer__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions__ = __webpack_require__(212);
+/* unused harmony reexport CALL_HISTORY_METHOD */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__actions__["a"]; });
+/* unused harmony reexport replace */
+/* unused harmony reexport go */
+/* unused harmony reexport goBack */
+/* unused harmony reexport goForward */
+/* unused harmony reexport routerActions */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__middleware__ = __webpack_require__(494);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__middleware__["a"]; });
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.routerMiddleware = exports.routerActions = exports.goForward = exports.goBack = exports.go = exports.replace = exports.push = exports.CALL_HISTORY_METHOD = exports.routerReducer = exports.LOCATION_CHANGE = exports.syncHistoryWithStore = undefined;
 
-var _reducer = __webpack_require__(213);
 
-Object.defineProperty(exports, 'LOCATION_CHANGE', {
-  enumerable: true,
-  get: function get() {
-    return _reducer.LOCATION_CHANGE;
-  }
-});
-Object.defineProperty(exports, 'routerReducer', {
-  enumerable: true,
-  get: function get() {
-    return _reducer.routerReducer;
-  }
-});
 
-var _actions = __webpack_require__(212);
 
-Object.defineProperty(exports, 'CALL_HISTORY_METHOD', {
-  enumerable: true,
-  get: function get() {
-    return _actions.CALL_HISTORY_METHOD;
-  }
-});
-Object.defineProperty(exports, 'push', {
-  enumerable: true,
-  get: function get() {
-    return _actions.push;
-  }
-});
-Object.defineProperty(exports, 'replace', {
-  enumerable: true,
-  get: function get() {
-    return _actions.replace;
-  }
-});
-Object.defineProperty(exports, 'go', {
-  enumerable: true,
-  get: function get() {
-    return _actions.go;
-  }
-});
-Object.defineProperty(exports, 'goBack', {
-  enumerable: true,
-  get: function get() {
-    return _actions.goBack;
-  }
-});
-Object.defineProperty(exports, 'goForward', {
-  enumerable: true,
-  get: function get() {
-    return _actions.goForward;
-  }
-});
-Object.defineProperty(exports, 'routerActions', {
-  enumerable: true,
-  get: function get() {
-    return _actions.routerActions;
-  }
-});
 
-var _sync = __webpack_require__(494);
-
-var _sync2 = _interopRequireDefault(_sync);
-
-var _middleware = __webpack_require__(493);
-
-var _middleware2 = _interopRequireDefault(_middleware);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports.syncHistoryWithStore = _sync2['default'];
-exports.routerMiddleware = _middleware2['default'];
 
 /***/ }),
 /* 28 */
@@ -3582,7 +3525,7 @@ module.exports = EventPropagators;
 
 
 var ReactRef = __webpack_require__(410);
-var ReactInstrumentation = __webpack_require__(10);
+var ReactInstrumentation = __webpack_require__(11);
 
 var warning = __webpack_require__(2);
 
@@ -6984,7 +6927,7 @@ exports.f = __webpack_require__(38);
 var DOMLazyTree = __webpack_require__(39);
 var Danger = __webpack_require__(372);
 var ReactDOMComponentTree = __webpack_require__(6);
-var ReactInstrumentation = __webpack_require__(10);
+var ReactInstrumentation = __webpack_require__(11);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(117);
 var setInnerHTML = __webpack_require__(79);
@@ -7581,7 +7524,7 @@ var _prodInvariant = __webpack_require__(4);
 
 var ReactCurrentOwner = __webpack_require__(15);
 var ReactInstanceMap = __webpack_require__(61);
-var ReactInstrumentation = __webpack_require__(10);
+var ReactInstrumentation = __webpack_require__(11);
 var ReactUpdates = __webpack_require__(14);
 
 var invariant = __webpack_require__(1);
@@ -9382,7 +9325,6 @@ function createCorpse() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux_api_middleware__ = __webpack_require__(136);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux_api_middleware___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_redux_api_middleware__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_redux__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_router_redux__);
 /* harmony export (immutable) */ __webpack_exports__["a"] = loadDrawing;
 /* harmony export (immutable) */ __webpack_exports__["d"] = createDrawing;
 /* harmony export (immutable) */ __webpack_exports__["b"] = saveDrawing;
@@ -9411,7 +9353,7 @@ function createDrawing(section) {
         type: 'SUCCESS_CREATE_DRAWING',
         payload: function payload(action, state, res) {
           __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux_api_middleware__["getJSON"])(res).then(function (json) {
-            dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_router_redux__["push"])('/drawing/' + json.result._id));
+            dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_router_redux__["b" /* push */])('/drawing/' + json.result._id));
           });
           return res;
         }
@@ -9442,7 +9384,7 @@ function commitDrawing(drawingId) {
         type: 'SUCCESS_COMMIT_DRAWING',
         payload: function payload(action, state, res) {
           __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux_api_middleware__["getJSON"])(res).then(function (json) {
-            dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_router_redux__["push"])('/corpse/' + json.result._id));
+            dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_router_redux__["b" /* push */])('/corpse/' + json.result._id));
             return res;
           });
         }
@@ -9666,7 +9608,6 @@ Surface.propTypes = (_Surface$propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_redux_thunk__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers__ = __webpack_require__(242);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_router_redux__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_router_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_router_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_history_createBrowserHistory__ = __webpack_require__(163);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_history_createBrowserHistory__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
@@ -9679,9 +9620,10 @@ Surface.propTypes = (_Surface$propTypes = {
 
 
 var history = __WEBPACK_IMPORTED_MODULE_5_history_createBrowserHistory___default()();
-var createStoreWithMiddleware = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* compose */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* applyMiddleware */])(__WEBPACK_IMPORTED_MODULE_1_redux_api_middleware__["apiMiddleware"], __WEBPACK_IMPORTED_MODULE_2_redux_thunk___default.a, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_react_router_redux__["routerMiddleware"])(history)), window.devToolsExtension ? window.devToolsExtension() : function (f) {
+var createStoreWithMiddleware = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* compose */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* applyMiddleware */])(__WEBPACK_IMPORTED_MODULE_1_redux_api_middleware__["apiMiddleware"], __WEBPACK_IMPORTED_MODULE_2_redux_thunk___default.a, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_react_router_redux__["c" /* routerMiddleware */])(history)), window.devToolsExtension ? window.devToolsExtension() : function (f) {
   return f;
 })(__WEBPACK_IMPORTED_MODULE_0_redux__["d" /* createStore */]);
+
 var store = createStoreWithMiddleware(__WEBPACK_IMPORTED_MODULE_3__reducers__["a" /* default */]);
 
 
@@ -28998,7 +28940,7 @@ module.exports = PooledClass.addPoolingTo(CallbackQueue);
 
 var DOMProperty = __webpack_require__(23);
 var ReactDOMComponentTree = __webpack_require__(6);
-var ReactInstrumentation = __webpack_require__(10);
+var ReactInstrumentation = __webpack_require__(11);
 
 var quoteAttributeValueForBrowser = __webpack_require__(437);
 var warning = __webpack_require__(2);
@@ -29745,7 +29687,7 @@ var ReactDOMContainerInfo = __webpack_require__(383);
 var ReactDOMFeatureFlags = __webpack_require__(385);
 var ReactFeatureFlags = __webpack_require__(189);
 var ReactInstanceMap = __webpack_require__(61);
-var ReactInstrumentation = __webpack_require__(10);
+var ReactInstrumentation = __webpack_require__(11);
 var ReactMarkupChecksum = __webpack_require__(405);
 var ReactReconciler = __webpack_require__(42);
 var ReactUpdateQueue = __webpack_require__(115);
@@ -31742,20 +31684,23 @@ Link.contextTypes = {
 
 /***/ }),
 /* 212 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CALL_HISTORY_METHOD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return push; });
+/* unused harmony export replace */
+/* unused harmony export go */
+/* unused harmony export goBack */
+/* unused harmony export goForward */
+/* unused harmony export routerActions */
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 /**
  * This action type will be dispatched by the history actions below.
  * If you're writing a middleware to watch for navigation events, be sure to
  * look for actions of this type.
  */
-var CALL_HISTORY_METHOD = exports.CALL_HISTORY_METHOD = '@@router/CALL_HISTORY_METHOD';
+var CALL_HISTORY_METHOD = '@@router/CALL_HISTORY_METHOD';
 
 function updateLocation(method) {
   return function () {
@@ -31775,36 +31720,31 @@ function updateLocation(method) {
  * The associated routerMiddleware will capture these events before they get to
  * your reducer and reissue them as the matching function on your history.
  */
-var push = exports.push = updateLocation('push');
-var replace = exports.replace = updateLocation('replace');
-var go = exports.go = updateLocation('go');
-var goBack = exports.goBack = updateLocation('goBack');
-var goForward = exports.goForward = updateLocation('goForward');
+var push = updateLocation('push');
+var replace = updateLocation('replace');
+var go = updateLocation('go');
+var goBack = updateLocation('goBack');
+var goForward = updateLocation('goForward');
 
-var routerActions = exports.routerActions = { push: push, replace: replace, go: go, goBack: goBack, goForward: goForward };
+var routerActions = { push: push, replace: replace, go: go, goBack: goBack, goForward: goForward };
 
 /***/ }),
 /* 213 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LOCATION_CHANGE; });
+/* harmony export (immutable) */ __webpack_exports__["b"] = routerReducer;
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-exports.routerReducer = routerReducer;
 /**
  * This action type will be dispatched when your history
  * receives a location change.
  */
-var LOCATION_CHANGE = exports.LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
+var LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
 
 var initialState = {
-  locationBeforeTransitions: null
+  location: null
 };
 
 /**
@@ -31821,7 +31761,7 @@ function routerReducer() {
       payload = _ref.payload;
 
   if (type === LOCATION_CHANGE) {
-    return _extends({}, state, { locationBeforeTransitions: payload });
+    return _extends({}, state, { location: payload });
   }
 
   return state;
@@ -32020,7 +31960,7 @@ module.exports = REACT_ELEMENT_TYPE;
 
 
 var ReactCurrentOwner = __webpack_require__(15);
-var ReactComponentTreeHook = __webpack_require__(9);
+var ReactComponentTreeHook = __webpack_require__(10);
 var ReactElement = __webpack_require__(28);
 
 var checkReactTypeSpec = __webpack_require__(512);
@@ -32954,7 +32894,6 @@ module.exports = function(module) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_components_RouteCorpses__ = __webpack_require__(233);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_components_RouteCorpse__ = __webpack_require__(232);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_redux__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_router_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_router_dom__ = __webpack_require__(490);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_components_RouteDrawing__ = __webpack_require__(234);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_components_RouteHome__ = __webpack_require__(235);
@@ -32998,7 +32937,7 @@ var Root = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_1_react_redux__["a" /* Provider */],
         { store: __WEBPACK_IMPORTED_MODULE_2_store__["a" /* default */] },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_5_react_router_redux__["ConnectedRouter"],
+          __WEBPACK_IMPORTED_MODULE_5_react_router_redux__["a" /* ConnectedRouter */],
           { history: __WEBPACK_IMPORTED_MODULE_2_store__["b" /* history */] },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             __WEBPACK_IMPORTED_MODULE_9_components_App__["a" /* default */],
@@ -33267,7 +33206,6 @@ Draw.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_redux__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_router_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_boxen__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_boxen___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_boxen__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -33309,7 +33247,7 @@ var ItemCorpse = function (_PureComponent) {
           borderRadius: '6px',
           padding: '10px',
           onClick: function onClick() {
-            return dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_router_redux__["push"])('/corpse/' + corpse._id));
+            return dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_router_redux__["b" /* push */])('/corpse/' + corpse._id));
           },
           css: '\n          cursor: pointer;\n          &:hover {\n            background-color: hsl(0, 0%, 95%)\n          }\n        ' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -33362,7 +33300,6 @@ var ItemCorpse = function (_PureComponent) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_md_spinner__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_md_spinner___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_md_spinner__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_redux__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_router_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__actions_corpses__ = __webpack_require__(138);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_drawings__ = __webpack_require__(139);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Surface__ = __webpack_require__(140);
@@ -33461,7 +33398,7 @@ var Corpse = function (_React$Component) {
         return;
       }
       if (section.drawer && section.drawer.id === currentUser.id) {
-        dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_react_router_redux__["push"])('/drawing/' + section.drawing._id));
+        dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_react_router_redux__["b" /* push */])('/drawing/' + section.drawing._id));
       }
       if (!section.drawer) {
         dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__actions_drawings__["d" /* createDrawing */])(section._id));
@@ -33501,7 +33438,6 @@ function mapStateToProps(state, props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_bootstrap_lib_ListGroupItem__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_bootstrap_lib_ListGroupItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_bootstrap_lib_ListGroupItem__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_router_redux__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_router_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_router_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react_boxen__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react_boxen___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_react_boxen__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_components_ItemCorpse__ = __webpack_require__(231);
@@ -33547,8 +33483,7 @@ var Corpses = function (_React$Component) {
           result = _props$corpses.result,
           loading = _props$corpses.loading;
 
-
-      if (loading) return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_react_md_spinner___default.a, null);
+      // if (loading) return <Spinner />
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_8_react_boxen___default.a,
@@ -33965,7 +33900,6 @@ function users() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers_drawing__ = __webpack_require__(240);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reducers_users__ = __webpack_require__(241);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_redux__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_router_redux__);
 
 
 
@@ -33975,7 +33909,7 @@ function users() {
 
 /* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["e" /* combineReducers */])({
   corpses: __WEBPACK_IMPORTED_MODULE_1__reducers_corpses__["a" /* default */], corpse: __WEBPACK_IMPORTED_MODULE_2__reducers_corpse__["a" /* default */], drawing: __WEBPACK_IMPORTED_MODULE_3__reducers_drawing__["a" /* default */], users: __WEBPACK_IMPORTED_MODULE_4__reducers_users__["a" /* default */],
-  routing: __WEBPACK_IMPORTED_MODULE_5_react_router_redux__["routerReducer"]
+  routing: __WEBPACK_IMPORTED_MODULE_5_react_router_redux__["d" /* routerReducer */]
 }));
 
 /***/ }),
@@ -43997,7 +43931,7 @@ module.exports = BeforeInputEventPlugin;
 
 var CSSProperty = __webpack_require__(183);
 var ExecutionEnvironment = __webpack_require__(7);
-var ReactInstrumentation = __webpack_require__(10);
+var ReactInstrumentation = __webpack_require__(11);
 
 var camelizeStyleName = __webpack_require__(287);
 var dangerousStyleValue = __webpack_require__(429);
@@ -45156,7 +45090,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(9);
+  ReactComponentTreeHook = __webpack_require__(10);
 }
 
 function instantiateChild(childInstances, child, name, selfDebugID) {
@@ -45164,7 +45098,7 @@ function instantiateChild(childInstances, child, name, selfDebugID) {
   var keyUnique = childInstances[name] === undefined;
   if (process.env.NODE_ENV !== 'production') {
     if (!ReactComponentTreeHook) {
-      ReactComponentTreeHook = __webpack_require__(9);
+      ReactComponentTreeHook = __webpack_require__(10);
     }
     if (!keyUnique) {
       process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -45343,7 +45277,7 @@ var ReactComponentEnvironment = __webpack_require__(113);
 var ReactCurrentOwner = __webpack_require__(15);
 var ReactErrorUtils = __webpack_require__(114);
 var ReactInstanceMap = __webpack_require__(61);
-var ReactInstrumentation = __webpack_require__(10);
+var ReactInstrumentation = __webpack_require__(11);
 var ReactNodeTypes = __webpack_require__(193);
 var ReactReconciler = __webpack_require__(42);
 
@@ -46330,7 +46264,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 if (process.env.NODE_ENV !== 'production') {
-  var ReactInstrumentation = __webpack_require__(10);
+  var ReactInstrumentation = __webpack_require__(11);
   var ReactDOMUnknownPropertyHook = __webpack_require__(395);
   var ReactDOMNullInputValuePropHook = __webpack_require__(389);
   var ReactDOMInvalidARIAHook = __webpack_require__(388);
@@ -46380,7 +46314,7 @@ var ReactDOMInput = __webpack_require__(387);
 var ReactDOMOption = __webpack_require__(390);
 var ReactDOMSelect = __webpack_require__(187);
 var ReactDOMTextarea = __webpack_require__(393);
-var ReactInstrumentation = __webpack_require__(10);
+var ReactInstrumentation = __webpack_require__(11);
 var ReactMultiChild = __webpack_require__(406);
 var ReactServerRenderingTransaction = __webpack_require__(411);
 
@@ -47819,7 +47753,7 @@ module.exports = ReactDOMInput;
 
 
 var DOMProperty = __webpack_require__(23);
-var ReactComponentTreeHook = __webpack_require__(9);
+var ReactComponentTreeHook = __webpack_require__(10);
 
 var warning = __webpack_require__(2);
 
@@ -47917,7 +47851,7 @@ module.exports = ReactDOMInvalidARIAHook;
 
 
 
-var ReactComponentTreeHook = __webpack_require__(9);
+var ReactComponentTreeHook = __webpack_require__(10);
 
 var warning = __webpack_require__(2);
 
@@ -48792,7 +48726,7 @@ module.exports = {
 
 var DOMProperty = __webpack_require__(23);
 var EventPluginRegistry = __webpack_require__(73);
-var ReactComponentTreeHook = __webpack_require__(9);
+var ReactComponentTreeHook = __webpack_require__(10);
 
 var warning = __webpack_require__(2);
 
@@ -48911,7 +48845,7 @@ module.exports = ReactDOMUnknownPropertyHook;
 
 var ReactInvalidSetStateWarningHook = __webpack_require__(404);
 var ReactHostOperationHistoryHook = __webpack_require__(402);
-var ReactComponentTreeHook = __webpack_require__(9);
+var ReactComponentTreeHook = __webpack_require__(10);
 var ExecutionEnvironment = __webpack_require__(7);
 
 var performanceNow = __webpack_require__(300);
@@ -49842,7 +49776,7 @@ var _prodInvariant = __webpack_require__(4);
 
 var ReactComponentEnvironment = __webpack_require__(113);
 var ReactInstanceMap = __webpack_require__(61);
-var ReactInstrumentation = __webpack_require__(10);
+var ReactInstrumentation = __webpack_require__(11);
 
 var ReactCurrentOwner = __webpack_require__(15);
 var ReactReconciler = __webpack_require__(42);
@@ -50431,7 +50365,7 @@ var CallbackQueue = __webpack_require__(184);
 var PooledClass = __webpack_require__(26);
 var ReactBrowserEventEmitter = __webpack_require__(75);
 var ReactInputSelection = __webpack_require__(191);
-var ReactInstrumentation = __webpack_require__(10);
+var ReactInstrumentation = __webpack_require__(11);
 var Transaction = __webpack_require__(77);
 var ReactUpdateQueue = __webpack_require__(115);
 
@@ -50707,7 +50641,7 @@ var _assign = __webpack_require__(5);
 
 var PooledClass = __webpack_require__(26);
 var Transaction = __webpack_require__(77);
-var ReactInstrumentation = __webpack_require__(10);
+var ReactInstrumentation = __webpack_require__(11);
 var ReactServerUpdateQueue = __webpack_require__(412);
 
 /**
@@ -52259,7 +52193,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(9);
+  ReactComponentTreeHook = __webpack_require__(10);
 }
 
 var loggedTypeFailures = {};
@@ -52301,7 +52235,7 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
 
         if (process.env.NODE_ENV !== 'production') {
           if (!ReactComponentTreeHook) {
-            ReactComponentTreeHook = __webpack_require__(9);
+            ReactComponentTreeHook = __webpack_require__(10);
           }
           if (debugID !== null) {
             componentStackInfo = ReactComponentTreeHook.getStackAddendumByID(debugID);
@@ -52500,7 +52434,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(9);
+  ReactComponentTreeHook = __webpack_require__(10);
 }
 
 /**
@@ -52516,7 +52450,7 @@ function flattenSingleChildIntoContext(traverseContext, child, name, selfDebugID
     var keyUnique = result[name] === undefined;
     if (process.env.NODE_ENV !== 'production') {
       if (!ReactComponentTreeHook) {
-        ReactComponentTreeHook = __webpack_require__(9);
+        ReactComponentTreeHook = __webpack_require__(10);
       }
       if (!keyUnique) {
         process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -55228,7 +55162,7 @@ function shallowEqual(objA, objB) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_history_createBrowserHistory__ = __webpack_require__(163);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_history_createBrowserHistory__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(9);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -55259,7 +55193,7 @@ var BrowserRouter = function (_React$Component) {
   }
 
   BrowserRouter.prototype.render = function render() {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router__["b" /* Router */], { history: this.history, children: this.props.children });
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router__["a" /* Router */], { history: this.history, children: this.props.children });
   };
 
   return BrowserRouter;
@@ -55285,7 +55219,7 @@ BrowserRouter.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_history_createHashHistory__ = __webpack_require__(301);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_history_createHashHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_history_createHashHistory__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(9);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -55316,7 +55250,7 @@ var HashRouter = function (_React$Component) {
   }
 
   HashRouter.prototype.render = function render() {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router__["b" /* Router */], { history: this.history, children: this.props.children });
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router__["a" /* Router */], { history: this.history, children: this.props.children });
   };
 
   return HashRouter;
@@ -55337,7 +55271,7 @@ HashRouter.propTypes = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(9);
 /* unused harmony reexport default */
 
 
@@ -55348,7 +55282,7 @@ HashRouter.propTypes = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(211);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -55374,7 +55308,7 @@ var NavLink = function NavLink(_ref) {
       getIsActive = _ref.isActive,
       rest = _objectWithoutProperties(_ref, ['to', 'exact', 'strict', 'activeClassName', 'className', 'activeStyle', 'style', 'isActive']);
 
-  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["a" /* Route */], {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["b" /* Route */], {
     path: (typeof to === 'undefined' ? 'undefined' : _typeof(to)) === 'object' ? to.pathname : to,
     exact: exact,
     strict: strict,
@@ -55415,7 +55349,7 @@ NavLink.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(9);
 /* unused harmony reexport default */
 
 
@@ -55424,7 +55358,7 @@ NavLink.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(9);
 /* unused harmony reexport default */
 
 
@@ -55433,8 +55367,8 @@ NavLink.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(11);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0_react_router__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(9);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0_react_router__["b"]; });
 
 
 /***/ }),
@@ -55442,7 +55376,7 @@ NavLink.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(9);
 /* unused harmony reexport default */
 
 
@@ -55451,7 +55385,7 @@ NavLink.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(9);
 /* unused harmony reexport default */
 
 
@@ -55460,7 +55394,7 @@ NavLink.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(9);
 /* unused harmony reexport default */
 
 
@@ -55527,7 +55461,7 @@ NavLink.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(9);
 /* unused harmony reexport default */
 
 
@@ -55536,25 +55470,92 @@ NavLink.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(9);
 /* unused harmony reexport default */
 
 
 /***/ }),
 /* 493 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reducer__ = __webpack_require__(213);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports['default'] = routerMiddleware;
 
-var _actions = __webpack_require__(212);
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+
+var ConnectedRouter = function (_Component) {
+  _inherits(ConnectedRouter, _Component);
+
+  function ConnectedRouter() {
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, ConnectedRouter);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.handleLocationChange = function (location) {
+      _this.store.dispatch({
+        type: __WEBPACK_IMPORTED_MODULE_2__reducer__["a" /* LOCATION_CHANGE */],
+        payload: location
+      });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  ConnectedRouter.prototype.componentWillMount = function componentWillMount() {
+    var _props = this.props,
+        propsStore = _props.store,
+        history = _props.history;
+
+    this.store = propsStore || this.context.store;
+
+    this.unsubscribeFromHistory = history.listen(this.handleLocationChange);
+    this.handleLocationChange(history.location);
+  };
+
+  ConnectedRouter.prototype.componentWillUnmount = function componentWillUnmount() {
+    if (this.unsubscribeFromHistory) this.unsubscribeFromHistory();
+  };
+
+  ConnectedRouter.prototype.render = function render() {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["a" /* Router */], this.props);
+  };
+
+  return ConnectedRouter;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+ConnectedRouter.propTypes = {
+  store: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].object,
+  history: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].object,
+  children: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].node
+};
+ConnectedRouter.contextTypes = {
+  store: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].object
+};
+
+
+/* harmony default export */ __webpack_exports__["a"] = (ConnectedRouter);
+
+/***/ }),
+/* 494 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(212);
+/* harmony export (immutable) */ __webpack_exports__["a"] = routerMiddleware;
+
 
 /**
  * This middleware captures CALL_HISTORY_METHOD actions to redirect to the
@@ -55565,7 +55566,7 @@ function routerMiddleware(history) {
   return function () {
     return function (next) {
       return function (action) {
-        if (action.type !== _actions.CALL_HISTORY_METHOD) {
+        if (action.type !== __WEBPACK_IMPORTED_MODULE_0__actions__["b" /* CALL_HISTORY_METHOD */]) {
           return next(action);
         }
 
@@ -55573,171 +55574,10 @@ function routerMiddleware(history) {
             method = _action$payload.method,
             args = _action$payload.args;
 
-        history[method].apply(history, _toConsumableArray(args));
+        history[method].apply(history, args);
       };
     };
   };
-}
-
-/***/ }),
-/* 494 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-exports['default'] = syncHistoryWithStore;
-
-var _reducer = __webpack_require__(213);
-
-var defaultSelectLocationState = function defaultSelectLocationState(state) {
-  return state.routing;
-};
-
-/**
- * This function synchronizes your history state with the Redux store.
- * Location changes flow from history to the store. An enhanced history is
- * returned with a listen method that responds to store updates for location.
- *
- * When this history is provided to the router, this means the location data
- * will flow like this:
- * history.push -> store.dispatch -> enhancedHistory.listen -> router
- * This ensures that when the store state changes due to a replay or other
- * event, the router will be updated appropriately and can transition to the
- * correct router state.
- */
-function syncHistoryWithStore(history, store) {
-  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
-      _ref$selectLocationSt = _ref.selectLocationState,
-      selectLocationState = _ref$selectLocationSt === undefined ? defaultSelectLocationState : _ref$selectLocationSt,
-      _ref$adjustUrlOnRepla = _ref.adjustUrlOnReplay,
-      adjustUrlOnReplay = _ref$adjustUrlOnRepla === undefined ? true : _ref$adjustUrlOnRepla;
-
-  // Ensure that the reducer is mounted on the store and functioning properly.
-  if (typeof selectLocationState(store.getState()) === 'undefined') {
-    throw new Error('Expected the routing state to be available either as `state.routing` ' + 'or as the custom expression you can specify as `selectLocationState` ' + 'in the `syncHistoryWithStore()` options. ' + 'Ensure you have added the `routerReducer` to your store\'s ' + 'reducers via `combineReducers` or whatever method you use to isolate ' + 'your reducers.');
-  }
-
-  var initialLocation = void 0;
-  var isTimeTraveling = void 0;
-  var unsubscribeFromStore = void 0;
-  var unsubscribeFromHistory = void 0;
-  var currentLocation = void 0;
-
-  // What does the store say about current location?
-  var getLocationInStore = function getLocationInStore(useInitialIfEmpty) {
-    var locationState = selectLocationState(store.getState());
-    return locationState.locationBeforeTransitions || (useInitialIfEmpty ? initialLocation : undefined);
-  };
-
-  // Init initialLocation with potential location in store
-  initialLocation = getLocationInStore();
-
-  // If the store is replayed, update the URL in the browser to match.
-  if (adjustUrlOnReplay) {
-    var handleStoreChange = function handleStoreChange() {
-      var locationInStore = getLocationInStore(true);
-      if (currentLocation === locationInStore || initialLocation === locationInStore) {
-        return;
-      }
-
-      // Update address bar to reflect store state
-      isTimeTraveling = true;
-      currentLocation = locationInStore;
-      history.transitionTo(_extends({}, locationInStore, {
-        action: 'PUSH'
-      }));
-      isTimeTraveling = false;
-    };
-
-    unsubscribeFromStore = store.subscribe(handleStoreChange);
-    handleStoreChange();
-  }
-
-  // Whenever location changes, dispatch an action to get it in the store
-  var handleLocationChange = function handleLocationChange(location) {
-    // ... unless we just caused that location change
-    if (isTimeTraveling) {
-      return;
-    }
-
-    // Remember where we are
-    currentLocation = location;
-
-    // Are we being called for the first time?
-    if (!initialLocation) {
-      // Remember as a fallback in case state is reset
-      initialLocation = location;
-
-      // Respect persisted location, if any
-      if (getLocationInStore()) {
-        return;
-      }
-    }
-
-    // Tell the store to update by dispatching an action
-    store.dispatch({
-      type: _reducer.LOCATION_CHANGE,
-      payload: location
-    });
-  };
-  unsubscribeFromHistory = history.listen(handleLocationChange);
-
-  // History 3.x doesn't call listen synchronously, so fire the initial location change ourselves
-  if (history.getCurrentLocation) {
-    handleLocationChange(history.getCurrentLocation());
-  }
-
-  // The enhanced history uses store as source of truth
-  return _extends({}, history, {
-    // The listeners are subscribed to the store instead of history
-    listen: function listen(listener) {
-      // Copy of last location.
-      var lastPublishedLocation = getLocationInStore(true);
-
-      // Keep track of whether we unsubscribed, as Redux store
-      // only applies changes in subscriptions on next dispatch
-      var unsubscribed = false;
-      var unsubscribeFromStore = store.subscribe(function () {
-        var currentLocation = getLocationInStore(true);
-        if (currentLocation === lastPublishedLocation) {
-          return;
-        }
-        lastPublishedLocation = currentLocation;
-        if (!unsubscribed) {
-          listener(lastPublishedLocation);
-        }
-      });
-
-      // History 2.x listeners expect a synchronous call. Make the first call to the
-      // listener after subscribing to the store, in case the listener causes a
-      // location change (e.g. when it redirects)
-      if (!history.getCurrentLocation) {
-        listener(lastPublishedLocation);
-      }
-
-      // Let user unsubscribe later
-      return function () {
-        unsubscribed = true;
-        unsubscribeFromStore();
-      };
-    },
-
-
-    // It also provides a way to destroy internal listeners
-    unsubscribe: function unsubscribe() {
-      if (adjustUrlOnReplay) {
-        unsubscribeFromStore();
-      }
-      unsubscribeFromHistory();
-    }
-  });
 }
 
 /***/ }),
@@ -58300,7 +58140,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(9);
+  ReactComponentTreeHook = __webpack_require__(10);
 }
 
 var loggedTypeFailures = {};
@@ -58342,7 +58182,7 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
 
         if (process.env.NODE_ENV !== 'production') {
           if (!ReactComponentTreeHook) {
-            ReactComponentTreeHook = __webpack_require__(9);
+            ReactComponentTreeHook = __webpack_require__(10);
           }
           if (debugID !== null) {
             componentStackInfo = ReactComponentTreeHook.getStackAddendumByID(debugID);
