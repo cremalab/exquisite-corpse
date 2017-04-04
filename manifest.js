@@ -21,7 +21,7 @@ const manifest = {
           credentials: true,
         },
         files: {
-          relativeTo: Path.join(__dirname, 'public/build'),
+          relativeTo: Path.join(__dirname, 'client/build'),
         },
       },
     },
