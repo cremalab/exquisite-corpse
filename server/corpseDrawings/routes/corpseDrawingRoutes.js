@@ -5,23 +5,16 @@ const Joi = require('joi')
 module.exports = [
   {
     method: 'POST',
-    path: '/corpses/{id}/drawings',
+    path: '/drawings/{id}/commit',
     config: {
       handler: handlers.create,
-      description: 'Copies Drawing to Corpse Section',
+      description: 'Copies Drawing to its Corpse Section',
+      notes: [`This should happen when a user is done with their drawing and ready to commit it.`],
       tags: ['api', 'drawing'],
       validate: {
         params: Joi.object().keys({
           id: Joi.string().required()
-              .description('ObjectID of Corpse that Drawing should be added to'),
-        }),
-        payload: Joi.object().keys({
-          drawing: Joi.string().required()
-              .description('ObjectID of Drawing that should be added'),
-          section: Joi.string().optional()
-              .description(`ObjectID of the Section within the Corpse to add drawing to.
-                Defaults to 'section' field of Drawing.
-            `),
+              .description('ObjectID of Drawing to commit'),
         }),
       },
       response: {

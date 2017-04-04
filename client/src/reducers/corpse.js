@@ -1,6 +1,6 @@
 const initialState = {
   loading: false,
-  drawings: []
+  sections: []
 }
 
 function corpses(state = initialState, action) {
@@ -14,7 +14,9 @@ function corpses(state = initialState, action) {
     case 'SUCCESS_CORPSE':
       return {
         loading: false,
-        drawings: action.payload.result.sections
+        sections: action.payload.result.sections,
+        canvas: action.payload.result.canvas,
+        status: action.payload.result.status,
       }
     default:
       return state

@@ -152,7 +152,7 @@ describe('Common DB Tasks', () => {
     ))
 
     test('should reject with error if missing params', () => (
-      common.update(db, '1a', undefined, 'things').then((r) => {
+      common.update(db, '1a9999999991', undefined, 'things').then((r) => {
         expect(r).not.toBeDefined()
       })
       .catch((err) => {
@@ -162,7 +162,7 @@ describe('Common DB Tasks', () => {
     ))
 
     test('should reject with error if missing collection', () => (
-      common.update(db, '1a', { name: 'Tumeric' }).then((r) => {
+      common.update(db, '1a9999999992', { name: 'Tumeric' }).then((r) => {
         expect(r).not.toBeDefined()
       })
       .catch((err) => {

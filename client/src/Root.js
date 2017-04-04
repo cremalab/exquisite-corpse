@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
-import {Provider} from 'react-redux';
-import store from 'store';
-import Corpses from 'components/Corpses';
-import Corpse from 'components/Corpse';
-import { syncHistoryWithStore } from 'react-router-redux';
-import history from 'config/history'
-import RouteAuth from 'components/RouteAuth'
-import { BrowserRouter, Route } from 'react-router-dom'
-import Home from 'components/Home'
+import React, { Component } from 'react'
+import {Provider} from 'react-redux'
+import store, {history} from 'store'
+import RouteCorpses from 'components/RouteCorpses'
+import RouteCorpse from 'components/RouteCorpse'
+import { ConnectedRouter } from 'react-router-redux'
+import { Route} from 'react-router-dom'
+import RouteDrawing from 'components/RouteDrawing'
+import RouteHome from 'components/RouteHome'
+import App from 'components/App'
+import sockets from 'actions/sockets'
 
-function handleLobbyMsg(msg) {
-  console.log(msg);
-}
+sockets()
 
 class Root extends Component {
   render() {
     return (
       <Provider store={store}>
-        <BrowserRouter history={syncHistoryWithStore(history, store)}>
-          <div>
-            <Route exact path="/welcome" component={Home}/>
-            <RouteAuth exact path="/" component={Corpses}/>
-            <RouteAuth path="/corpse/:corpseId" component={Corpse}/>
-          </div>
-        </BrowserRouter>
+        <ConnectedRouter history={history}>
+          <App>
+            <Route exact path="/welcome" component={RouteHome}/>
+            <Route exact path="/" component={RouteCorpses}/>
+            <Route path="/corpse/:corpseId" component={RouteCorpse}/>
+            <Route path="/drawing/:drawingId" component={RouteDrawing}/>
+          </App>
+        </ConnectedRouter>
       </Provider>
-    );
+    )
   }
 }
 
-export default Root;
+export default Root

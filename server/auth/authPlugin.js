@@ -1,5 +1,6 @@
 const Bell = require('bell')
 const AuthCookie = require('hapi-auth-cookie')
+const authRoutes = require('./routes/authRoutes')
 
 exports.register = (server, options, next) => {
   server.register([Bell, AuthCookie], (err) => {
@@ -29,34 +30,9 @@ exports.register = (server, options, next) => {
 
     server.auth.default('userCookie')
 
-    server.route({
-      method: 'GET',
-      path: '/login',
-      config: {
-        auth: 'slack',
-        handler(request, reply) {
-          if (request.auth.isAuthenticated) {
-            request.cookieAuth.set(request.auth.credentials)
-            return reply.redirect('/')
-          }
-          return reply('Not logged in...').code(401)
-        },
-      },
-    })
+    server.route(authRoutes)
 
-    server.route({
-      method: 'GET',
-      path: '/logout',
-      config: {
-        auth: false,
-        handler(request, reply) {
-          request.cookieAuth.clear()
-          return reply.redirect('/')
-        },
-      },
-    })
-
-    next()
+    return next()
   })
 }
 

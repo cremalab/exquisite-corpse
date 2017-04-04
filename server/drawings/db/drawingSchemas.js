@@ -18,21 +18,25 @@ const anchorPointsSchema = Joi.object().keys({
 
 module.exports = {
   create: Joi.object().keys({
-    creator: Joi.any().required().description('MongoID of creator Doodler'),
+    creator: Joi.object().keys({
+      name: Joi.string(),
+      id: Joi.string().required(),
+      provider: Joi.string(),
+    }).required().description('User info of drawer'),
     anchorPoints: anchorPointsSchema
       .description('min and max x coords for top and bottom anchorPoints')
       .example({ top: [10, 100], bottom: [15, 140] }),
-    canvas: Joi.object(),
+    canvas: Joi.string(),
     section: objectId.required().example(new ObjectId()),
   }).required(),
   createPayload: Joi.object().keys({
-    canvas: Joi.object().required(),
+    canvas: Joi.string().optional(),
     section: Joi.string().required().example('58c9b9c50e66521616667ef1')
       .description('MongoID of Corpse Section the drawing is for'),
   }).required(),
   update: Joi.object().keys({
     anchorPoints: Joi.any().strip(),
     creator: Joi.any().strip(),
-    canvas: Joi.object(),
+    canvas: Joi.string(),
   }).required(),
 }

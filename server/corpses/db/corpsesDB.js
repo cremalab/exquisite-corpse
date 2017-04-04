@@ -42,7 +42,7 @@ function defaultCorpse() {
     { description: 'Legs' },
     { description: 'Feet' },
   ].map(addBottom).map(addTop)
-  return { sections }
+  return { sections, status: 'new' }
 }
 
 module.exports = {

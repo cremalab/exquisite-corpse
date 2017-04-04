@@ -1,6 +1,7 @@
 const helper = require('../../utils/testHelper')
 const corpsesDB = require('../../corpses/db/corpsesDB')
 const drawingsDB = require('../../drawings/db/drawingsDB')
+const combinerTest = require('../lib/canvasCombiner.test')
 
 describe('corpseDrawingRoutes', () => {
   let server
@@ -28,7 +29,7 @@ describe('corpseDrawingRoutes', () => {
     test('should redirect if no auth', () => (
       server.inject({
         method: 'POST',
-        url: `/corpses/${corpse._id}/drawings`,
+        url: `/drawings/${drawing._id}/commit`,
       })
       .then(res => res.statusCode)
       .then((code) => {
@@ -36,24 +37,10 @@ describe('corpseDrawingRoutes', () => {
       })
     ))
 
-    test('should require drawing id', () => (
-      server.inject({
-        method: 'POST',
-        url: `/corpses/${corpse._id}/drawings`,
-        credentials: helper.session,
-        payload: {}
-      })
-      .then((res) => {
-        expect(res.statusCode).toBe(400)
-        expect(res.result.validation).not.toBeUndefined()
-        expect(res.result.validation.keys).toContain('drawing')
-      })
-    ))
-
     test('should copy return corpse', () => (
       server.inject({
         method: 'POST',
-        url: `/corpses/${corpse._id}/drawings`,
+        url: `/drawings/${drawing._id}/commit`,
         credentials: helper.session,
         payload: { drawing: drawing._id },
       })
@@ -62,5 +49,30 @@ describe('corpseDrawingRoutes', () => {
         expect(res.result.result.sections).not.toBeUndefined()
       })
     ))
+
+    test('should stitch together canvases when complete', () => {
+      // complete all drawings but last
+      return Promise.all(corpse.sections.map((section, i) => {
+        return drawingsDB.create(db, {
+          section: section._id,
+          creator: helper.session,
+          canvas: combinerTest.exampleLayers[i],
+        })
+      }))
+      .then((drawings) => {
+        return Promise.all(corpse.sections.map((section, i) => {
+          return server.inject({
+            method: 'POST',
+            url: `/drawings/${drawing._id}/commit`,
+            credentials: helper.session,
+          })
+        }))
+      })
+      .then((results) => {
+        const last = results[results.length - 1]
+        expect(last.statusCode).toBe(200)
+        expect(last.result.result.canvas).not.toBeUndefined()
+      })
+    })
   })
 })
