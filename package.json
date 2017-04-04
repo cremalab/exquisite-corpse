@@ -11,7 +11,8 @@
     "test-watch": "NODE_ENV=test jest --watch",
     "dev": "concurrently \"yarn server\" \"webpack --progress --watch\"",
     "server": "nodemon index.js",
-    "client": "NODE_PATH=./src/ npm start --prefix client"
+    "client": "NODE_PATH=./src/ npm start --prefix client",
+    "postinstall": "webpack -p"
   },
   "dependencies": {
     "bell": "^8.5.0",
