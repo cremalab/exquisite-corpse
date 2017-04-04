@@ -47,15 +47,20 @@ module.exports = {
         .then(resolve).catch(reject)
     })
   },
-  destroy(db, id) {
+  destroy(db, id, returnSection) {
     return new Promise((resolve, reject) => {
-      common.find(db, id, 'drawings').then(drawing => (
-        corpseSections.removeDrawing(db, drawing.section)
-      ))
+      let sectionId
+      common.find(db, id, 'drawings').then(drawing => {
+        sectionId = drawing.section
+        return corpseSections.removeDrawing(db, drawing.section)
+      })
       .then(() => (
         common.destroy(db, id, 'drawings')
       ))
-      .then(resolve)
+      .then(() => {
+        if (returnSection) { return resolve(sectionId)}
+        return resolve()
+      })
       .catch(reject)
     })
   }
