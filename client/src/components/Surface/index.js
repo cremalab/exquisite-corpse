@@ -15,13 +15,13 @@ class Surface extends Component {
     const canvas = drawing.canvas;
 
     if (!this.paper) {
-      const { canvas } = this.refs;
       this.paper = new paperjs.PaperScope();
-      this.paper.setup(canvas);
+      this.paper.setup(this.refs.canvas);
       this.paper.view.play();
       this.mainLayer = new this.paper.Layer({ name: 'drawing' })
       this.guideLayer = new this.paper.Layer({ name: 'guides' })
       this.forceUpdate();
+      //console.log(this.paper.project)
     }
     if ( !this.tool && interactive ) {
       this.tool = new paperjs.Tool();
@@ -30,7 +30,9 @@ class Surface extends Component {
       this.tool.onMouseUp = this.onMouseUp.bind(this)
     }
 
-    this.paper.project.importJSON(canvas)
+    //console.log(canvas)
+
+    this.mainLayer.importJSON(canvas)
     if (drawing.anchorPoints) { this.drawGuides() }
   }
 
@@ -95,24 +97,32 @@ class Surface extends Component {
     return this.paper && this.paper.project ? this.paper.project.activeLayer.children || [] : []
   }
 
-  addPath() {
-    const path = new this.paper.Path();
-    path.strokeColor = 'black';
-    path.strokeWidth = 2;
-  }
-
   removePath() {
     const currentPath = this.getCurrentPath()
     if (currentPath) currentPath.remove();
   }
 
   onMouseDown(event) {
-    this.addPath();
+    const path = new this.paper.Path();
+    path.fillColor = {
+      hue: 0.8,
+      saturation: 0.8,
+      brightness: 0,
+      alpha: 0.6
+    };
+    path.add(event.point);
   }
 
   onMouseDrag(event) {
+    const step = event.delta.divide(6);
+    step.angle += 90;
+    var top = event.middlePoint.add(step);
+	  var bottom = event.middlePoint.subtract(step);
+
     const path = this.getCurrentPath()
-    path.add(event.point);
+    path.add(top);
+    path.insert(0, bottom);
+    path.smooth;
   }
 
   onMouseUp(event) {
