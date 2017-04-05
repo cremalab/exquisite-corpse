@@ -8,6 +8,18 @@ class Surface extends Component {
   constructor() {
     super()
     this.paper = null
+    this.state = {
+      pathType: 'brush',
+      pencil: {
+        strokeWidth: 3,
+        strokeColor: 'black',
+        opacity: .5,
+      },
+      brush: {
+        fillColor: 'black',
+        opacity: 1,
+      }
+    }
   }
 
   componentDidMount() {
@@ -38,6 +50,7 @@ class Surface extends Component {
 
   render() {
     const {drawing, saving, width, height, interactive} = this.props;
+    const {pathType} = this.state
     const style = Object.assign(canvasStyle, { height })
     return <div>
       <canvas ref="canvas" style={style} />
@@ -53,6 +66,10 @@ class Surface extends Component {
             children="Commit"
             onTouchTap={() => this.commit()}
           />
+          <Button
+            type="button"
+            onTouchTap={() => this.setState({ pathType: pathType === 'brush' ? 'pencil' : 'brush' })}
+          >Draw With: { pathType }</Button>
           { saving && 'saving...'}
         </div>
         : null
@@ -76,12 +93,13 @@ class Surface extends Component {
     this.mainLayer.activate()
   }
 
-  undo() {
-    this.removePath()
-  }
-
   commit() {
     this.props.onCommit();
+  }
+
+  undo() {
+    this.removeLastPath()
+    this.save()
   }
 
   save() {
@@ -97,32 +115,30 @@ class Surface extends Component {
     return this.paper && this.paper.project ? this.paper.project.activeLayer.children || [] : []
   }
 
-  removePath() {
+  removeLastPath() {
     const currentPath = this.getCurrentPath()
     if (currentPath) currentPath.remove();
   }
 
   onMouseDown(event) {
-    const path = new this.paper.Path();
-    path.fillColor = {
-      hue: 0.8,
-      saturation: 0.8,
-      brightness: 0,
-      alpha: 0.6
-    };
+    const { pathType } = this.state
+    const options = this.state[pathType];
+    const path = new this.paper.Path(this.state[pathType]);
     path.add(event.point);
   }
 
   onMouseDrag(event) {
-    const step = event.delta.divide(6);
-    step.angle += 90;
-    var top = event.middlePoint.add(step);
-	  var bottom = event.middlePoint.subtract(step);
-
     const path = this.getCurrentPath()
-    path.add(top);
-    path.insert(0, bottom);
-    path.smooth;
+    if ( this.state.pathType === 'brush' ) {
+      const step = event.delta.divide(6);
+      step.angle += 90;
+      var top = event.middlePoint.add(step);
+  	  var bottom = event.middlePoint.subtract(step);
+      path.add(top);
+      path.insert(0, bottom);
+    } else {
+      path.add(event.middlePoint);
+    }
   }
 
   onMouseUp(event) {
