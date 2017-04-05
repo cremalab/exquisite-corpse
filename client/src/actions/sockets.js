@@ -1,5 +1,6 @@
-import Nes from 'nes'
-import store from 'store'
+import Nes from 'nes';
+import store from 'store';
+import {MERGE_CORPSE} from 'config/actionTypes';
 
 function socket() {
   fetch('/nes/auth', {credentials: 'include'})
@@ -26,7 +27,7 @@ const handleLobbyMsg = ({ type, data }) => {
     case 'usersChange':
       break
     case 'corpseChange':
-      return store.dispatch({ type: 'MERGE_CORPSE', payload: data })
+      return store.dispatch({ type: MERGE_CORPSE, payload: data })
     default:
       return null
   }

@@ -8,6 +8,18 @@ class Surface extends Component {
   constructor() {
     super()
     this.paper = null
+    this.state = {
+      pathType: 'brush',
+      pencil: {
+        strokeWidth: 3,
+        strokeColor: 'black',
+        opacity: .5,
+      },
+      brush: {
+        fillColor: 'black',
+        opacity: 1,
+      }
+    }
   }
 
   componentDidMount() {
@@ -15,13 +27,13 @@ class Surface extends Component {
     const canvas = drawing.canvas;
 
     if (!this.paper) {
-      const { canvas } = this.refs;
       this.paper = new paperjs.PaperScope();
-      this.paper.setup(canvas);
+      this.paper.setup(this.refs.canvas);
       this.paper.view.play();
       this.mainLayer = new this.paper.Layer({ name: 'drawing' })
       this.guideLayer = new this.paper.Layer({ name: 'guides' })
       this.forceUpdate();
+      //console.log(this.paper.project)
     }
     if ( !this.tool && interactive ) {
       this.tool = new paperjs.Tool();
@@ -30,12 +42,15 @@ class Surface extends Component {
       this.tool.onMouseUp = this.onMouseUp.bind(this)
     }
 
-    this.paper.project.importJSON(canvas)
+    //console.log(canvas)
+
+    this.mainLayer.importJSON(canvas)
     if (drawing.anchorPoints) { this.drawGuides() }
   }
 
   render() {
     const {drawing, saving, width, height, interactive} = this.props;
+    const {pathType} = this.state
     const style = Object.assign(canvasStyle, { height })
     return <div>
       <canvas ref="canvas" style={style} />
@@ -51,6 +66,10 @@ class Surface extends Component {
             children="Commit"
             onTouchTap={() => this.commit()}
           />
+          <Button
+            type="button"
+            onTouchTap={() => this.setState({ pathType: pathType === 'brush' ? 'pencil' : 'brush' })}
+          >Draw With: { pathType }</Button>
           { saving && 'saving...'}
         </div>
         : null
@@ -74,12 +93,13 @@ class Surface extends Component {
     this.mainLayer.activate()
   }
 
-  undo() {
-    this.removePath()
-  }
-
   commit() {
     this.props.onCommit();
+  }
+
+  undo() {
+    this.removeLastPath()
+    this.save()
   }
 
   save() {
@@ -95,24 +115,30 @@ class Surface extends Component {
     return this.paper && this.paper.project ? this.paper.project.activeLayer.children || [] : []
   }
 
-  addPath() {
-    const path = new this.paper.Path();
-    path.strokeColor = 'black';
-    path.strokeWidth = 2;
-  }
-
-  removePath() {
+  removeLastPath() {
     const currentPath = this.getCurrentPath()
     if (currentPath) currentPath.remove();
   }
 
   onMouseDown(event) {
-    this.addPath();
+    const { pathType } = this.state
+    const options = this.state[pathType];
+    const path = new this.paper.Path(this.state[pathType]);
+    path.add(event.point);
   }
 
   onMouseDrag(event) {
     const path = this.getCurrentPath()
-    path.add(event.point);
+    if ( this.state.pathType === 'brush' ) {
+      const step = event.delta.divide(6);
+      step.angle += 90;
+      var top = event.middlePoint.add(step);
+  	  var bottom = event.middlePoint.subtract(step);
+      path.add(top);
+      path.insert(0, bottom);
+    } else {
+      path.add(event.middlePoint);
+    }
   }
 
   onMouseUp(event) {
