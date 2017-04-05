@@ -5,6 +5,9 @@
   "repository": {},
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": "7.4.0"
+  },
   "scripts": {
     "start": "node index.js",
     "test": "NODE_ENV=test jest",
