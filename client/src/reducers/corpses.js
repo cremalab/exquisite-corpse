@@ -1,7 +1,8 @@
 import {
   REQUEST_CORPSES,
   SUCCESS_CORPSES,
-  SUCCESS_CORPSE_CREATE
+  SUCCESS_CORPSE_CREATE,
+  MERGE_CORPSE
 } from 'config/actionTypes'
 
 const initialState = {
@@ -45,7 +46,7 @@ function corpses(state = initialState, action) {
         ...state,
         result: updateObjectInArray(state.result, action.payload.result),
       }
-    case 'MERGE_CORPSE':
+    case MERGE_CORPSE:
       return {
         ...state,
         result: updateObjectInArray(state.result, action.payload),
