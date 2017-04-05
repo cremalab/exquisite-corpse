@@ -1,6 +1,10 @@
 const dotEnv = require('dotenv')
 const Path = require('path')
 
+const mongoURI = process.env.NODE_ENV === 'test' ?
+  'mongodb://localhost:27017/exquisite-test' :
+  'mongodb://localhost:27017/exquisite-corpse'
+
 if (process.env.NODE_ENV !== 'production') {
   dotEnv.config()
 }
@@ -17,7 +21,7 @@ const manifest = {
           credentials: true,
         },
         files: {
-          relativeTo: Path.join(__dirname, 'public/build'),
+          relativeTo: Path.join(__dirname, 'client/build'),
         },
       },
     },
@@ -29,7 +33,7 @@ const manifest = {
       plugin: {
         register: 'hapi-mongodb',
         options: {
-          url: process.env.MONGODB_URI || 'mongodb://localhost:27017/exquisite-corpse',
+          url: process.env.MONGODB_URI || mongoURI,
           settings: {
             db: {
               native_parser: false,
@@ -45,13 +49,9 @@ const manifest = {
         register: 'nes',
         options: {
           auth: {
-            type: 'cookie',
-            cookie: 'exquisite-socket-auth',
-            password: process.env.COOKIE_PASSWORD,
-            ttl: 24 * 60 * 60 * 1000,
+            type: 'token',
             isSecure: false,
             isHttpOnly: false,
-            route: 'userCookie',
           },
         },
       },

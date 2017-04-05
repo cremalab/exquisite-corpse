@@ -32,5 +32,6 @@ node_modules
 
 public/build
 public/build/**/*
+client/build/**/*
 
 node_modules/

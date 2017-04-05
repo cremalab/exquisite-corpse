@@ -55,4 +55,18 @@ module.exports = [
       },
     },
   },
+  {
+    method: 'DELETE',
+    path: '/drawings/{id}',
+    config: {
+      handler: handlers.destroy,
+      description: 'Deletes a drawing, removes it from the corpse',
+      tags: ['api', 'drawing', 'corpse'],
+      validate: {
+        params: Joi.object().keys({
+          id: Joi.string().required(),
+        }),
+      },
+    },
+  },
 ]

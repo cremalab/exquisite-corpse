@@ -1,5 +1,6 @@
 const helper = require('../../utils/testHelper')
 const corpsesDB = require('../../corpses/db/corpsesDB')
+const drawingsDB = require('../../drawings/db/drawingsDB')
 
 describe('drawingRoutes', () => {
   let server
@@ -53,5 +54,53 @@ describe('drawingRoutes', () => {
         expect(String(res.result.result.section)).toBe(String(corpse.sections[0]._id))
       })
     ))
+  })
+
+  describe('destroy', () => {
+    test('should delete drawing', () => {
+      let drawId
+      return db.collection('drawings').insertOne({
+        canvas: `['Layer': []]`,
+        section: corpse.sections[0]._id,
+      }).then((drawing) => {
+        drawId = drawing.insertedId
+        return server.inject({
+          method: 'DELETE',
+          url: `/drawings/${drawId}`,
+          credentials: helper.session,
+        })
+      })
+      .then((res) => {
+        expect(res.statusCode).toBe(200)
+        return drawingsDB.find(db, drawId).catch((err) => {
+          expect(err).not.toBeUndefined()
+          expect(err.output.statusCode).toEqual(404)
+        })
+      })
+      .catch((err) => console.log(err))
+    })
+
+    test('should remove drawing and drawer from corpse', () => {
+      let drawId
+      return db.collection('drawings').insertOne({
+        canvas: `['Layer': []]`,
+        section: corpse.sections[0]._id,
+      }).then((drawing) => {
+        drawId = drawing.insertedId
+        return server.inject({
+          method: 'DELETE',
+          url: `/drawings/${drawId}`,
+          credentials: helper.session,
+        })
+      })
+      .then((res) => {
+        expect(res.statusCode).toBe(200)
+        return corpsesDB.find(db, corpse._id).then((c) => {
+          expect(c.sections[0].drawer).toBeUndefined()
+          expect(c.sections[0].drawing).toBeUndefined()
+        })
+      })
+      .catch((err) => console.log(err))
+    })
   })
 })

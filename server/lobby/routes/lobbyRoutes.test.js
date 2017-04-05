@@ -50,8 +50,7 @@ describe('lobbyRoutes', () => {
         credentials: helper.session,
       })
         .then((response) => {
-          expect(response.result.map(u => u.name))
-            .toContain(helper.session.profile.user)
+          expect(response.result).toEqual(helper.session)
         })
     ))
   })
@@ -75,7 +74,7 @@ describe('lobbyRoutes', () => {
       })
         .then((response) => {
           expect(response.result.map(u => u.name))
-            .not.toContain(helper.session.profile.user)
+            .not.toContain(helper.session.name)
         })
     ))
   })

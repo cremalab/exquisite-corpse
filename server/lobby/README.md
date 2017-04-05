@@ -8,13 +8,12 @@ See [Swagger docs](http://localhost:8000/documentation#/lobby) for API operation
 ```js
 // after connected to socket server (see below)...
 wsClient.request({
-    path: '/lobby',
-    method: 'POST',
-  }, (err, payload) => {
-    if (err) { console.log(err) }
-    console.log(payload)
-  }
-)
+  path: '/lobby',
+  method: 'POST',
+}, (err, res) => {
+    console.log(res);
+    // res === current user. Save this to store.
+})
 ```
 
 ## Realtime API
