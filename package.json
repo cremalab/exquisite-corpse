@@ -15,7 +15,7 @@
     "dev": "concurrently \"yarn server\" \"webpack --progress --watch\"",
     "server": "nodemon index.js",
     "client": "NODE_PATH=./src/ npm start --prefix client",
-    "postinstall": "webpack -p"
+    "postinstall": "yarn webpack -p"
   },
   "dependencies": {
     "bell": "^8.5.0",
