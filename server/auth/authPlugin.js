@@ -23,7 +23,7 @@ exports.register = (server, options, next) => {
       provider: 'slack',
       password: process.env.COOKIE_PASSWORD || 'cookie_encryption_password_secure',
       isSecure: false,
-      location: 'http://localhost:8000',
+      location: `${server.info.protocol}://${server.info.host}`,
       clientId: process.env.SLACK_CLIENT_ID,
       clientSecret: process.env.SLACK_CLIENT_SECRET,
     })

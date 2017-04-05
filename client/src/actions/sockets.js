@@ -6,7 +6,8 @@ function socket() {
   fetch('/nes/auth', {credentials: 'include'})
     .then(res => res.json())
     .then((res) => {
-      const wsClient = new Nes.Client('ws://localhost:8000')
+      const host = location.origin.replace(/^http/, 'ws')
+      const wsClient = new Nes.Client(host)
       wsClient.connect({ auth: res.token }, err => {
         if (err) { throw err }
         wsClient.subscribe('/lobby', handleLobbyMsg, handleError)
