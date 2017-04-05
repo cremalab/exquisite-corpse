@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/lib/Button'
 import Box from 'react-boxen'
 import ItemCorpse from 'components/ItemCorpse'
 import propTypesCorpse from 'propTypes/Corpse'
+import {push} from 'react-router-redux'
 
 class Corpses extends React.Component {
   componentWillMount() {
@@ -27,7 +28,7 @@ class Corpses extends React.Component {
       >
         <h1>Lobby</h1>
         <Button
-          onClick={() => dispatch(createCorpse())}
+          onClick={() => dispatch(push('/create'))}
         >
           Create Corpse
         </Button>

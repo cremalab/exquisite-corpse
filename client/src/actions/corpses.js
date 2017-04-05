@@ -1,4 +1,5 @@
-import { CALL_API } from 'redux-api-middleware'
+import { CALL_API, getJSON } from 'redux-api-middleware'
+import {push} from 'react-router-redux'
 
 export function loadCorpses() {
   return {
@@ -23,12 +24,24 @@ export function loadCorpse(id) {
 }
 
 export function createCorpse() {
-  return {
+  return (dispatch) => dispatch({
     [CALL_API]: {
       endpoint: '/corpses',
       method: 'POST',
-      types: ['REQUEST_CORPSE_CREATE', 'SUCCESS_CORPSE_CREATE', 'FAILURE'],
+      types: [
+        'REQUEST_CORPSE_CREATE',
+        {
+          type: 'SUCCESS_CORPSE_CREATE_REDIRECT',
+          payload: (action, state, res) => {
+            return getJSON(res).then(payload => {
+              dispatch(push(`/corpse/${payload.result._id}`))
+              dispatch({ type: 'SUCCESS_CORPSE_CREATE', payload })
+            });
+          }
+        },
+        'FAILURE'
+      ],
       credentials: 'include',
     },
-  }
+  })
 }

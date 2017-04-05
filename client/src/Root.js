@@ -7,6 +7,7 @@ import { ConnectedRouter } from 'react-router-redux'
 import { Route } from 'react-router-dom'
 import RouteDrawing from 'components/RouteDrawing'
 import RouteHome from 'components/RouteHome'
+import RouteCreateCorpse from 'components/RouteCreateCorpse'
 import App from 'components/App'
 import sockets from 'actions/sockets'
 
@@ -20,6 +21,7 @@ class Root extends Component {
           <App>
             <Route exact path="/welcome" component={RouteHome}/>
             <Route exact path="/" component={RouteCorpses}/>
+            <Route path="/create" component={RouteCreateCorpse} />
             <Route path="/corpse/:corpseId" component={RouteCorpse}/>
             <Route path="/drawing/:drawingId" component={RouteDrawing}/>
           </App>
