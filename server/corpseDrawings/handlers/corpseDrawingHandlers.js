@@ -1,6 +1,7 @@
 const Boom = require('boom')
 const ObjectID = require('mongodb').ObjectID
 const canvasCombiner = require('../lib/canvasCombiner')
+const canvasUploader = require('../lib/canvasUploader')
 const rt = require('../../corpses/realtime/corpsesRT')
 const lobbyRT = require('../../lobby/realtime/lobbyRT')
 const corpsesDB = require('../../corpses/db/corpsesDB')
@@ -18,12 +19,17 @@ function notifyCompletion(server, payload) {
 
 function checkCompletion(server, db, payload) {
   if (isComplete(payload)) {
-    return corpsesDB.update(db, payload._id, {
-      canvas: canvasCombiner.stitch(payload.sections.map(s => s.drawing.canvas)),
-      status: 'complete',
-    }).then((result) => {
-      notifyCompletion(server, result)
-      return result
+    const canvas = canvasCombiner.stitch(payload.sections.map(s => s.drawing.canvas))
+    console.log('isCOMPLETE');
+    return canvasUploader.upload(server, canvasCombiner.toSVG(canvas), String(payload._id)).then((res) => {
+      console.log(res);
+      return corpsesDB.update(db, payload._id, {
+        canvas: canvas,
+        status: 'complete',
+      }).then((result) => {
+        notifyCompletion(server, result)
+        return result
+      })
     })
   }
 

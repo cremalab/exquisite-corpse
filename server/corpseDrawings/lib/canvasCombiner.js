@@ -23,6 +23,12 @@ function stitch(sections) {
   return project.exportJSON()
 }
 
+function toSVG(canvas) {
+  const project = new Paper.Project()
+  project.importJSON(canvas)
+  return project.exportSVG({ asString: true })
+}
+
 module.exports = {
-  stitch, getYpositions,
+  stitch, getYpositions, toSVG,
 }

@@ -56,6 +56,25 @@ const manifest = {
         },
       },
     },
+    {
+      plugin: {
+        register: 'hapi-aws',
+        options: {
+          global: {
+            accessKeyId: process.env.AWS_KEY,
+            secretAccessKey: process.env.AWS_SECRET,
+            region: process.env.AWS_REGION,
+          },
+          services: [{
+            name: 's3',
+            service: 'S3',
+            options: {
+              region: process.env.AWS_REGION,
+            },
+          }]
+        }
+      },
+    },
     { plugin: './server/corpses' },
     { plugin: './server/drawings' },
     { plugin: './server/corpseDrawings' },
