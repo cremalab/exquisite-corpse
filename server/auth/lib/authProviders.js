@@ -1,3 +1,5 @@
+const ObjectId = require('mongodb').ObjectId
+
 module.exports = {
   standardizeProfile(credentials) {
     let base = {}
@@ -6,6 +8,12 @@ module.exports = {
         base = {
           name: credentials.profile.user,
           id: credentials.profile.user_id,
+        }
+        break
+      case 'guest':
+        base = {
+          name: credentials.name,
+          id: ObjectId().str,
         }
         break
       default:
