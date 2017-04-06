@@ -87,4 +87,12 @@ module.exports = {
         .catch(reject)
     })
   },
+  destroy(db, id, collection) {
+    return new Promise((resolve, reject) => {
+      db.collection(collection).remove({_id: ObjectId(id)}, (err, result) => {
+        if (err) { reject(err) }
+        resolve(result)
+      })
+    })
+  }
 }

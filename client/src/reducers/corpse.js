@@ -1,3 +1,8 @@
+import {
+  REQUEST_CORPSE,
+  SUCCESS_CORPSE
+} from 'config/actionTypes'
+
 const initialState = {
   loading: false,
   sections: []
@@ -5,13 +10,13 @@ const initialState = {
 
 function corpses(state = initialState, action) {
   switch (action.type) {
-    case 'REQUEST_CORPSE':
+    case REQUEST_CORPSE:
       return {
         ...state,
         loading: true
       }
 
-    case 'SUCCESS_CORPSE':
+    case SUCCESS_CORPSE:
       return {
         loading: false,
         sections: action.payload.result.sections,
@@ -23,4 +28,4 @@ function corpses(state = initialState, action) {
   }
 }
 
-export default corpses;
+export {corpses as default, initialState};
