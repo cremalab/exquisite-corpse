@@ -27,6 +27,7 @@ class ItemCorpse extends Component {
         onClick={() => dispatch(push(`/corpse/${corpse._id}`))}
         style={css.container}>
         <Box childSpacing='1px'>
+          <img src={corpse.svgUrl} />
           { corpse.sections.map((section, i) => <div key={i} style={css.section}>{(section.drawer && section.drawer.name) || 'empty'}</div>) }
         </Box>
         <Box padding="20px" width="25%">
