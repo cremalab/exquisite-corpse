@@ -7,15 +7,17 @@ class App extends Component {
     return (
       <Box height="100%">
         <Box
-          backgroundColor="#C3C1AA"
-          color="white"
           padding="20px"
+          style={{
+            backgroundColor: '#0A93C4',
+            color: 'white'
+          }}
         >
           <header><Link to="/">Scribble Corpse</Link></header>
         </Box>
-        <Box color="white">
+        <div>
           { this.props.children }
-        </Box>
+        </div>
       </Box>
     )
   }
