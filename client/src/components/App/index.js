@@ -15,9 +15,9 @@ class App extends Component {
         >
           <header><Link to="/">Scribble Corpse</Link></header>
         </Box>
-        <Box>
+        <div>
           { this.props.children }
-        </Box>
+        </div>
       </Box>
     )
   }
