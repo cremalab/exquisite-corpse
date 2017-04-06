@@ -16,14 +16,13 @@ function socket() {
           method: 'POST',
         }, (err, user) => {
           if (err) { throw err }
-          store.dispatch({ type: 'SET_USER', payload: user })
+          store.dispatch({ type: 'SET_USER', payload: user.credentials })
         })
       })
     })
 }
 
 const handleLobbyMsg = ({ type, data }) => {
-  console.log(type, data)
   switch (type) {
     case 'usersChange':
       break

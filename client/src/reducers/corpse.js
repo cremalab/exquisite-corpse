@@ -1,7 +1,7 @@
 import {
   REQUEST_CORPSE,
   SUCCESS_CORPSE
-} from 'config/actionTypes'
+} from '../config/actionTypes'
 
 const initialState = {
   loading: false,
