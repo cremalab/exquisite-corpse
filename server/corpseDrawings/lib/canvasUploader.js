@@ -1,4 +1,7 @@
 const AWS = require('aws-sdk')
+const corpsesDB = require('../../corpses/db/corpsesDB')
+const corpseRt = require('../../corpses/realtime/corpsesRT')
+const lobbyRT = require('../../lobby/realtime/lobbyRT')
 
 AWS.config.update({
   accessKeyId: process.env.AWS_KEY,
@@ -30,6 +33,18 @@ module.exports = {
         const url = `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${basePath}/${filename}.svg`
         resolve(url)
       })
+    })
+  },
+  uploadAndUpdate(server, svg, filename) {
+    return this.upload(server, svg, filename).then((url) => {
+      return corpsesDB.update(server.mongo.db, filename, {
+        svgUrl: url,
+      })
+    })
+    .then((result) => {
+      corpseRt.notifyChange(server, result)
+      lobbyRT.notifyCorpseChange(server, result)
+      return result
     })
   }
 }
