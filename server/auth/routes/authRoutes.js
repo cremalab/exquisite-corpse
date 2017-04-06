@@ -5,13 +5,48 @@ module.exports = [
     method: 'GET',
     path: '/login',
     config: {
-      auth: 'slack',
+      auth: false,
       handler(request, reply) {
         if (request.auth.isAuthenticated) {
           request.cookieAuth.set(providers.standardizeProfile(request.auth.credentials))
           return reply.redirect('/')
         }
-        return reply('Not logged in...').code(401)
+        return reply.view('index')
+      },
+      tags: ['auth'],
+    },
+  },
+  {
+    method: 'GET',
+    path: '/login/slack',
+    config: {
+      auth: 'slack',
+      description: 'Login with Slack',
+      handler(request, reply) {
+        if (request.auth.isAuthenticated) {
+          request.cookieAuth.set(providers.standardizeProfile(request.auth.credentials))
+          return reply.redirect('/')
+        }
+        return reply.view('index')
+      },
+      tags: ['auth'],
+    },
+  },
+  {
+    method: 'POST',
+    path: '/login/guest',
+    config: {
+      auth: false,
+      description: 'Login as a guest',
+      handler(request, reply) {
+        const creds = {
+          provider: 'guest',
+          name: request.payload.name,
+        }
+        if (!request.auth.isAuthenticated) {
+          request.cookieAuth.set(providers.standardizeProfile(creds))
+        }
+        return reply.redirect('/')
       },
       tags: ['auth'],
     },

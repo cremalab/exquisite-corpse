@@ -1,4 +1,6 @@
 const Bell = require('bell')
+const Nunjucks = require('nunjucks')
+const Path = require('path')
 const AuthCookie = require('hapi-auth-cookie')
 const authRoutes = require('./routes/authRoutes')
 
@@ -8,6 +10,24 @@ exports.register = (server, options, next) => {
       console.error(err)
       return process.exit(1)
     }
+
+    server.views({
+      engines: {
+        html: {
+          compile(src, opts) {
+            const template = Nunjucks.compile(src, opts.environment)
+
+            return context => template.render(context)
+          },
+
+          prepare(opts, n) {
+            opts.compileOptions.environment = Nunjucks.configure(opts.path, { watch: false })
+            return n()
+          },
+        },
+      },
+      path: Path.join(__dirname, 'templates'),
+    })
 
     const authCookieOptions = {
       password: process.env.COOKIE_PASSWORD || 'cookie-super-secret-encryption-password-wow',
