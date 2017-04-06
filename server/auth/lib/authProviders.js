@@ -16,9 +16,15 @@ module.exports = {
           id: credentials.profile.id,
         }
         break
+      case 'github':
+        base = {
+          name: credentials.profile.displayName,
+          id: credentials.profile.id,
+        }
+        break
       case 'guest':
         base = {
-          name: credentials.name,
+          name: credentials.displayName,
           id: ObjectId().toString(),
         }
         break
