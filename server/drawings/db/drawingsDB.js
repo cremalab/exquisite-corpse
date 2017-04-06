@@ -15,6 +15,14 @@ module.exports = {
       })
     })
   },
+  getByUser(db, user) {
+    return new Promise((resolve, reject) => {
+      Joi.validate(db, dbSchema, (err) => {
+        if (err) reject(err)
+        db.collection('drawings').find({ 'creator.id': user }).then(resolve)
+      })
+    })
+  },
   find(db, id) {
     return common.find(db, id, 'drawings')
   },
