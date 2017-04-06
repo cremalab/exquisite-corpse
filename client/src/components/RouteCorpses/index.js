@@ -38,7 +38,7 @@ class Corpses extends React.Component {
         childGrow="1"
         childWrap="wrap"
         childWrapLastGrow={false}
-        childBasis="250px"
+        childBasis="300px"
       >
         { result.map(corpse =>
           <ItemCorpse key={corpse._id} corpse={corpse} />

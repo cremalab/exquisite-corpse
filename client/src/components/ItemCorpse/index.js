@@ -7,13 +7,13 @@ import { distanceInWordsToNow } from 'date-fns'
 const css = {
   container: {
     borderRadius: '6px',
-    backgroundColor: '#67B6C8',
+    backgroundColor: '#0A93C4',
     cursor: 'pointer',
   },
   section: {
     opacity: '0.75',
     padding: '20px',
-    backgroundColor: 'red'
+    backgroundColor: '#67B6C8'
   }
 }
 
@@ -27,10 +27,11 @@ class ItemCorpse extends Component {
         onClick={() => dispatch(push(`/corpse/${corpse._id}`))}
         style={css.container}>
         <Box childSpacing='1px'>
-          { corpse.sections.map((section, i) => <Box key={i} style={css.section}>{(section.drawer && section.drawer.name) || 'empty'}</Box>) }
+          { corpse.sections.map((section, i) => <div key={i} style={css.section}>{(section.drawer && section.drawer.name) || 'empty'}</div>) }
         </Box>
-        <Box padding="20px">
-          <p><small>Created by j askfkkjjkl alskfjkkjklasdf kjklas djflkj kjask ldfkl klasdfj {corpse.creator.name} {createdAt}</small></p>
+        <Box padding="20px" width="25%">
+          <p>Created by {corpse.creator.name}</p>
+          <p><small>{createdAt}</small></p>
         </Box>
       </Box>
     )
