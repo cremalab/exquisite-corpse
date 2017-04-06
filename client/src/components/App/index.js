@@ -7,6 +7,10 @@ class App extends Component {
       <Box height="100%">
         <Box
           padding="20px"
+          style={{
+            backgroundColor: '#0A93C4',
+            color: 'white'
+          }}
         >
           <header>Exquisite Corpse</header>
         </Box>
