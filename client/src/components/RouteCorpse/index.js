@@ -42,6 +42,7 @@ class Corpse extends React.Component {
                 }}
               >
                 { section.drawer ? `[${section.description} - ${section.drawer.name}]` : section.description }
+                <em>{ section.drawing && section.drawing.canvas ? 'Complete' : 'Incomplete' }</em>
               </Box>
             ))
           }

@@ -3,7 +3,7 @@ const helper = require('../../utils/testHelper')
 describe('lobbyRoutes', () => {
   let server
   beforeAll(() => (
-    helper.testServer().then((s) => { server = s; db = s.mongo.db })
+    helper.testServer().then((s) => { server = s })
   ))
   afterAll(() => server.mongo.db.connection.close())
 
