@@ -13,7 +13,7 @@ module.exports = {
       case 'guest':
         base = {
           name: credentials.name,
-          id: ObjectId().str,
+          id: ObjectId().toString(),
         }
         break
       default:
