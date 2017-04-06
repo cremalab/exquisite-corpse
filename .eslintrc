@@ -21,6 +21,10 @@
     "no-case-declarations": 2
   },
   "parserOptions": {
-    "sourceType": "module",
-  }
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
 }

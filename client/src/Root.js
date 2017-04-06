@@ -14,6 +14,7 @@ sockets()
 
 class Root extends Component {
   render() {
+    console.log('ROOT')
     return (
       <Provider store={store}>
         <ConnectedRouter history={history}>

@@ -6,13 +6,11 @@ class App extends Component {
     return (
       <Box height="100%">
         <Box
-          backgroundColor="#C3C1AA"
-          color="white"
           padding="20px"
         >
           <header>Exquisite Corpse</header>
         </Box>
-        <Box color="white">
+        <Box>
           { this.props.children }
         </Box>
       </Box>
