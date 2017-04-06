@@ -12,7 +12,7 @@
     "start": "node index.js",
     "test": "NODE_ENV=test jest",
     "test-watch": "NODE_ENV=test jest --watch",
-    "dev": "concurrently \"yarn server\" \"webpack --progress --watch\"",
+    "dev": "concurrently \"yarn server\" \"webpack --watch\"",
     "server": "nodemon index.js",
     "client": "NODE_PATH=./src/ npm start --prefix client",
     "postinstall": "yarn webpack -p"
