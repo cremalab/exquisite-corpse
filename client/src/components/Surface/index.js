@@ -70,6 +70,10 @@ class Surface extends Component {
             type="button"
             onTouchTap={() => this.setState({ pathType: pathType === 'brush' ? 'pencil' : 'brush' })}
           >Draw With: { pathType }</Button>
+          <Button
+            type="button"
+            onTouchTap={() => this.cancel()}
+          >Cancel</Button>
           { saving && 'saving...'}
         </div>
         : null
@@ -91,6 +95,10 @@ class Surface extends Component {
     this.guideLayer.addChildren(points)
     this.guideLayer.sendToBack()
     this.mainLayer.activate()
+  }
+
+  cancel() {
+    this.props.onCancel()
   }
 
   commit() {
@@ -149,6 +157,7 @@ class Surface extends Component {
 Surface.propTypes = {
   drawing: PropTypes.object,
   onSave: PropTypes.func,
+  onCancel: PropTypes.func,
   onCommit: PropTypes.func,
   interactive: PropTypes.bool,
   saving: PropTypes.bool,

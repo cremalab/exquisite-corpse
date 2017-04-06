@@ -9,6 +9,8 @@ import {
   FAILURE_DRAWING,
   REQUEST_SAVE_DRAWING,
   SUCCESS_SAVE_DRAWING,
+  REQUEST_CANCEL_DRAWING,
+  SUCCESS_CANCEL_DRAWING,
   REQUEST_COMMIT_DRAWING,
   SUCCESS_COMMIT_DRAWING,
 } from 'config/actionTypes'
@@ -37,8 +39,8 @@ export function createDrawing(section) {
           payload: (action, state, res) => {
             getJSON(res).then(json => {
               dispatch(push(`/drawing/${json.result._id}`))
-            });
-            return res;
+            })
+            return res
           }
         },
         FAILURE_DRAWING
@@ -64,6 +66,26 @@ export function saveDrawing(drawingId, canvas) {
   })
 }
 
+export function cancelDrawing(drawingId) {
+  return (dispatch) => dispatch({
+    [CALL_API]: {
+      endpoint: `/drawings/${drawingId}`,
+      method: 'DELETE',
+      types: [
+        REQUEST_CANCEL_DRAWING,
+        {
+          type: SUCCESS_CANCEL_DRAWING,
+          payload: () => {
+            return dispatch(push(`/`))
+          }
+        },
+        FAILURE_DRAWING
+      ],
+      credentials: 'include',
+    },
+  })
+}
+
 export function commitDrawing(drawingId) {
   return (dispatch) => dispatch({
     [CALL_API]: {
@@ -76,8 +98,8 @@ export function commitDrawing(drawingId) {
           payload: (action, state, res) => {
             getJSON(res).then(json => {
               dispatch(push(`/corpse/${json.result._id}`))
-              return res;
-            });
+              return res
+            })
           }
         },
         FAILURE_DRAWING
