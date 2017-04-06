@@ -4,35 +4,41 @@ import { push } from 'react-router-redux'
 import Box from 'react-boxen'
 import { distanceInWordsToNow } from 'date-fns'
 
-const css = {
-  container: {
-    borderRadius: '6px',
-    backgroundColor: '#0A93C4',
-    cursor: 'pointer',
-  },
-  section: {
-    opacity: '0.75',
-    padding: '20px',
-    backgroundColor: '#67B6C8'
-  }
-}
-
 class ItemCorpse extends Component {
   render() {
     const { dispatch, corpse } = this.props
     const createdAt = distanceInWordsToNow(corpse.createdAt)
+
+    const css = {
+      container: {
+        borderRadius: '6px',
+        backgroundColor: corpse.status === 'complete' ? '#fafafa' : '#0A93C4',
+        cursor: 'pointer',
+      },
+      section: {
+        opacity: '0.75',
+        padding: '20px',
+        backgroundColor: '#67B6C8'
+      }
+    }
+
     return (
       <Box
         childDirection='row'
         onClick={() => dispatch(push(`/corpse/${corpse._id}`))}
         style={css.container}>
         <Box childSpacing='1px'>
-          <img src={corpse.svgUrl} />
           { corpse.sections.map((section, i) => <div key={i} style={css.section}>{(section.drawer && section.drawer.name) || 'empty'}</div>) }
         </Box>
-        <Box padding="20px" width="25%">
-          <p>Created by {corpse.creator.name}</p>
-          <p><small>{createdAt}</small></p>
+        <Box width="25%">
+          {
+            corpse.svgUrl ? <img src={corpse.svgUrl} style={{maxHeight: '230px'}} />
+            :
+            <Box padding="20px">
+              <p>Created by {corpse.creator.name}</p>
+              <p><small>{createdAt}</small></p>
+            </Box>
+          }
         </Box>
       </Box>
     )
