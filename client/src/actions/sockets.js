@@ -15,7 +15,6 @@ function socket() {
           path: '/lobby',
           method: 'POST',
         }, (err, user) => {
-          console.log(user);
           if (err) { throw err }
           store.dispatch({ type: 'SET_USER', payload: user.credentials })
         })
