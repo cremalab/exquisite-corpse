@@ -43,7 +43,6 @@ module.exports = [
           provider: 'guest',
           name: request.payload.name,
         }
-        console.log(creds);
         if (!request.auth.isAuthenticated) {
           request.cookieAuth.set(providers.standardizeProfile(creds))
         }
