@@ -48,6 +48,24 @@ exports.register = (server, options, next) => {
       clientSecret: process.env.SLACK_CLIENT_SECRET,
     })
 
+    server.auth.strategy('instagram', 'bell', {
+      provider: 'instagram',
+      password: process.env.COOKIE_PASSWORD || 'cookie_encryption_password_secure',
+      isSecure: false,
+      location: `${process.env.PUBLIC_URL}`,
+      clientId: process.env.INSTAGRAM_CLIENT_ID,
+      clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
+    })
+
+    server.auth.strategy('github', 'bell', {
+      provider: 'github',
+      password: process.env.COOKIE_PASSWORD || 'cookie_encryption_password_secure',
+      isSecure: false,
+      location: `${process.env.PUBLIC_URL}`,
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    })
+
     server.auth.default('userCookie')
 
     server.route(authRoutes)
