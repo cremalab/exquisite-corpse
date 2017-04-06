@@ -1,5 +1,10 @@
 const providers = require('../lib/authProviders')
 
+const enabledProviders = [
+  {name: 'Slack', route: '/login/slack' },
+  // {name: 'Instagram', route: '/login/instagram' },
+]
+
 module.exports = [
   {
     method: 'GET',
@@ -11,7 +16,7 @@ module.exports = [
           request.cookieAuth.set(providers.standardizeProfile(request.auth.credentials))
           return reply.redirect('/')
         }
-        return reply.view('index')
+        return reply.view('index', { enabledProviders })
       },
       tags: ['auth'],
     },
@@ -29,7 +34,23 @@ module.exports = [
         }
         return reply.view('index')
       },
-      tags: ['auth'],
+      tags: ['auth', 'bell'],
+    },
+  },
+  {
+    method: 'GET',
+    path: '/login/instagram',
+    config: {
+      auth: 'instagram',
+      description: 'Login with Instagram',
+      handler(request, reply) {
+        if (request.auth.isAuthenticated) {
+          request.cookieAuth.set(providers.standardizeProfile(request.auth.credentials))
+          return reply.redirect('/')
+        }
+        return reply.view('index')
+      },
+      tags: ['auth', 'bell'],
     },
   },
   {
