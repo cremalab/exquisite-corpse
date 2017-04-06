@@ -17,14 +17,13 @@ function notifyCompletion(server, payload) {
   rt.notifyCompletion(server, payload)
 }
 
-function checkCompletion(server, db, payload) {
+function handleCompletion(server, db, payload) {
   if (isComplete(payload)) {
     const canvas = canvasCombiner.stitch(payload.sections.map(s => s.drawing.canvas))
-    console.log('isCOMPLETE');
-    return canvasUploader.upload(server, canvasCombiner.toSVG(canvas), String(payload._id)).then((res) => {
-      console.log(res);
+    return canvasUploader.upload(server, canvasCombiner.toSVG(canvas), String(payload._id)).then((url) => {
       return corpsesDB.update(db, payload._id, {
         canvas: canvas,
+        svgUrl: url,
         status: 'complete',
       }).then((result) => {
         notifyCompletion(server, result)
@@ -52,7 +51,7 @@ module.exports = {
       if (!r.value) { return reply(Boom.create(404, `Can't find Corpse with Section`)) }
       rt.notifyChange(request.server, r.value)
       lobbyRT.notifyCorpseChange(request.server, r.value)
-      return checkCompletion(request.server, db, r.value).then(result => (
+      return handleCompletion(request.server, db, r.value).then(result => (
         reply({ result })
       ))
     })

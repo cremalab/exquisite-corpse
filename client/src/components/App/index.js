@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import Box from 'react-boxen'
 
 class App extends Component {
@@ -10,7 +11,7 @@ class App extends Component {
           color="white"
           padding="20px"
         >
-          <header>Exquisite Corpse</header>
+          <header><Link to="/">Scribble Corpse</Link></header>
         </Box>
         <Box color="white">
           { this.props.children }
