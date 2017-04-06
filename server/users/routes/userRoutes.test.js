@@ -1,5 +1,4 @@
 const helper = require('../../utils/testHelper')
-const corpsesDB = require('../db/corpsesDB')
 
 describe('userRoutes', () => {
   let server
@@ -19,6 +18,7 @@ describe('userRoutes', () => {
       server.inject({
         method: 'GET',
         url: '/me/drawings',
+        credentials: helper.session,
       })
       .then((res) => {
         expect(res.statusCode).toBe(200)

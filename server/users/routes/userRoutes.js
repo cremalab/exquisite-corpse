@@ -4,7 +4,7 @@ const handlers = require('../handlers/userHandlers')
 module.exports = [
   {
     method: 'GET',
-    url: '/me/drawings',
+    path: '/me/drawings',
     config: {
       handler: handlers.drawings,
       description: 'Returns drawings by current user',
