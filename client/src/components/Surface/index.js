@@ -1,7 +1,9 @@
 import paperjs from 'paper'
 import React, { Component } from 'react'
-import canvasStyle from './canvasStyle'
 import Button from 'react-bootstrap/lib/Button';
+
+const WIDTH = 400;
+const HEIGHT = 200;
 
 class Surface extends Component {
 
@@ -11,13 +13,13 @@ class Surface extends Component {
     this.state = {
       pathType: 'brush',
       pencil: {
-        strokeWidth: 3,
+        strokeWidth: 2,
         strokeColor: 'black',
-        opacity: .5,
+        opacity: 1,
       },
       brush: {
         fillColor: 'black',
-        opacity: 1,
+        opacity: .5,
       }
     }
   }
@@ -30,10 +32,13 @@ class Surface extends Component {
       this.paper = new paperjs.PaperScope();
       this.paper.setup(this.refs.canvas);
       this.paper.view.play();
+      this.resize();
+      this.paper.view.onResize = e => {
+        this.resize();
+      }
       this.mainLayer = new this.paper.Layer({ name: 'drawing' })
       this.guideLayer = new this.paper.Layer({ name: 'guides' })
       this.forceUpdate();
-      //console.log(this.paper.project)
     }
     if ( !this.tool && interactive ) {
       this.tool = new paperjs.Tool();
@@ -42,8 +47,6 @@ class Surface extends Component {
       this.tool.onMouseUp = this.onMouseUp.bind(this)
     }
 
-    //console.log(canvas)
-
     this.mainLayer.importJSON(canvas)
     if (drawing.anchorPoints) { this.drawGuides() }
   }
@@ -51,9 +54,14 @@ class Surface extends Component {
   render() {
     const {drawing, saving, width, height, interactive} = this.props;
     const {pathType} = this.state
-    const style = Object.assign(canvasStyle, { height })
-    return <div>
-      <canvas ref="canvas" style={style} />
+    const style = {
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'white',
+      height: height,
+    }
+    return <div style={{ paddingBottom: '50%', position: 'relative' }}>
+      <canvas ref="canvas" style={style} data-paper-resize={true} />
       { interactive ?
         <div>
           <Button
@@ -77,17 +85,35 @@ class Surface extends Component {
     </div>
   }
 
+  resize() {
+    const { view } = this.paper;
+    const { width, height } = view.viewSize;
+    const x = width / 2;
+    const y = height / 2;
+    const center = new paperjs.Point(x, y)
+    this.paper.view.center = new paperjs.Point(WIDTH/2, HEIGHT/2);
+    this.paper.view.zoom = width / WIDTH;
+  }
+
   drawGuides() {
-    function plotGuide(xCoord, dir) {
+    function plotGuide(x, y) {
+      //const topLeft = WIDTH * (x/100)
+      //return new paperjs.Path.Rectangle({
+      //  point: [topLeft, y],
+      //  size: [3, 6],
+      //  fillColor: 'red',
+      //  opacity: .5,
+      //})
       return new paperjs.Path.Circle({
-        center: [xCoord * 4, this.paper.view.bounds[dir]],
+        center: [WIDTH * (x/100), y],
         radius: 5,
         fillColor: 'red',
+        opacity: .5,
       })
     }
     const { anchorPoints } = this.props.drawing
-    const points = anchorPoints.top.map(x => plotGuide.bind(this)(x, 'top'))
-      .concat(anchorPoints.bottom.map(x => plotGuide.bind(this)(x, 'bottom')))
+    const points = anchorPoints.top.map(x => plotGuide.bind(this)(x, 0))
+      .concat(anchorPoints.bottom.map(x => plotGuide.bind(this)(x, HEIGHT)))
     this.guideLayer.addChildren(points)
     this.guideLayer.sendToBack()
     this.mainLayer.activate()
