@@ -14,7 +14,7 @@ class Corpses extends React.Component {
   render() {
     const { dispatch, corpses: { result, loading } } = this.props
 
-    if (loading) return <Spinner />
+    if (loading === true) return <Spinner />
 
     return (<Box
       padding="20px"
