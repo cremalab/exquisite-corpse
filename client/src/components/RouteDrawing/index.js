@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import Draw from '../Draw'
+import Surface from '../Surface'
 import Spinner from 'react-md-spinner'
 import {loadDrawing, saveDrawing, commitDrawing, cancelDrawing, clearDrawing } from 'actions/drawings'
 
@@ -19,13 +19,16 @@ class RouteDrawing extends Component {
   render() {
     const { drawing: { result, loading, saving } } = this.props
     if ( loading ) return <Spinner />
-    return (<Draw
-      drawing={result}
-      saving={saving}
-      onSave={this.onSave.bind(this)}
-      onCancel={this.onCancel.bind(this)}
-      onCommit={this.onCommit.bind(this)}
-    />)
+    return (
+      <Surface
+        drawing={result}
+        saving={saving}
+        onSave={this.onSave.bind(this)}
+        onCancel={this.onCancel.bind(this)}
+        onCommit={this.onCommit.bind(this)}
+        interactive={true}
+      />
+    )
   }
 
   onSave(canvas) {
