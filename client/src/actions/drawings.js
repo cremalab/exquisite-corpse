@@ -84,3 +84,9 @@ export function commitDrawing(drawingId) {
     dispatch(push(`/corpse/${response.payload.result._id}`))
   })
 }
+
+export function clearDrawing() {
+  return {
+    type: actionTypes.CLEAR_DRAWING,
+  }
+}

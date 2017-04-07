@@ -31,4 +31,7 @@ module.exports = {
   single: Joi.object().keys({
     result: drawingSchema,
   }),
+  list: Joi.object().keys({
+    result: Joi.array().items(drawingSchema),
+  }),
 }

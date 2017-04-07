@@ -45,3 +45,9 @@ export function createCorpse() {
     },
   }
 }
+
+export function clearCorpse() {
+  return {
+    type: actionTypes.CLEAR_CORPSE,
+  }
+}
