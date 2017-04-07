@@ -28,27 +28,10 @@ class Surface extends Component {
     const { drawing, interactive } = this.props
     const canvas = drawing.canvas
 
-    if (!this.paper) {
-      this.paper = new paperjs.PaperScope();
-      this.paper.setup(this.refs.canvas);
-      this.paper.view.play();
-      this.resize();
-      this.paper.view.onResize = e => {
-        this.resize();
-      }
-      this.mainLayer = new this.paper.Layer({ name: 'drawing' })
-      this.guideLayer = new this.paper.Layer({ name: 'guides' })
-      this.forceUpdate();
-    }
-    if ( !this.tool && interactive ) {
-      this.tool = new paperjs.Tool()
-      this.tool.onMouseDown = this.onMouseDown.bind(this)
-      this.tool.onMouseDrag = this.onMouseDrag.bind(this)
-      this.tool.onMouseUp = this.onMouseUp.bind(this)
-    }
-
+    if (!this.paper) this.setupCanvas()
+    if ( !this.tool && interactive ) this.makeInteractive()
     this.mainLayer.importJSON(canvas)
-    if (drawing.anchorPoints) { this.drawGuides() }
+    if (drawing.anchorPoints) this.drawGuides()
   }
 
   render() {
@@ -60,7 +43,7 @@ class Surface extends Component {
       backgroundColor: 'white',
       height: height,
     }
-    return <div style={{ paddingBottom: '50%', position: 'relative' }}>
+    return <div style={{ paddingBottom: '50%', position: 'relative', maxWidth: '1200px' }}>
       <canvas ref="canvas" style={style} data-paper-resize={true} />
       { interactive ?
         <div>
@@ -97,6 +80,26 @@ class Surface extends Component {
     const center = new paperjs.Point(x, y)
     this.paper.view.center = new paperjs.Point(WIDTH/2, HEIGHT/2);
     this.paper.view.zoom = width / WIDTH;
+  }
+
+  setupCanvas() {
+    this.paper = new paperjs.PaperScope();
+    this.paper.setup(this.refs.canvas);
+    this.paper.view.play();
+    this.resize();
+    this.paper.view.onResize = e => {
+      this.resize();
+    }
+    this.mainLayer = new this.paper.Layer({ name: 'drawing' })
+    this.guideLayer = new this.paper.Layer({ name: 'guides' })
+    this.forceUpdate();
+  }
+
+  makeInteractive() {
+    this.tool = new paperjs.Tool()
+    this.tool.onMouseDown = this.onMouseDown.bind(this)
+    this.tool.onMouseDrag = this.onMouseDrag.bind(this)
+    this.tool.onMouseUp = this.onMouseUp.bind(this)
   }
 
   drawGuides() {
@@ -165,7 +168,7 @@ class Surface extends Component {
     if ( this.state.pathType === 'brush' ) {
       const step = event.delta.divide(6)
       step.angle += 90
-      var top = event.middlePoint.add(step)
+      var top = event.middlePoint.add(step).subtract(1)
       var bottom = event.middlePoint.subtract(step)
       path.add(top)
       path.insert(0, bottom)
