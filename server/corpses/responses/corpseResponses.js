@@ -33,6 +33,7 @@ const corpse = Joi.object().keys({
   creator: objectId.required().description('ObjectId of creator Doodler'),
   sections: Joi.array().items(corpseSection).required(),
   canvas: Joi.string(),
+  svgUrl: Joi.string().optional().example('http://exq-corpse.s3.amazonaws.com/uploads/corpses/58e64e693f98444ee9c5f5b2.svg'),
   createdAt: Joi.date().required(),
   updatedAt: Joi.date().required(),
   status: Joi.string().valid(['new', 'incomplete', 'complete']),

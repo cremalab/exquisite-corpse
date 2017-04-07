@@ -1,4 +1,4 @@
-import joiToPropType from 'joi-react'
-import { corpse } from '../../../server/corpses/responses/corpseResponses'
+// import joiToPropType from 'joi-react'
+// import { corpse } from '../../../server/corpses/responses/corpseResponses'
 
-export default joiToPropType(corpse)
+export default {}

@@ -1,5 +1,5 @@
 import reducer, {initialState} from './corpse'
-import * as types from 'config/actionTypes'
+import * as types from '../config/actionTypes'
 
 let storeData = initialState;
 const payload = {

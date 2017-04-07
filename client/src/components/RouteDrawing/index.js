@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Draw from '../Draw'
 import Spinner from 'react-md-spinner'
-import {loadDrawing, saveDrawing, commitDrawing} from 'actions/drawings'
+import {loadDrawing, saveDrawing, commitDrawing, cancelDrawing } from 'actions/drawings'
 
 class RouteDrawing extends React.Component {
   componentWillMount() {
@@ -17,6 +17,7 @@ class RouteDrawing extends React.Component {
       drawing={result}
       saving={saving}
       onSave={this.onSave.bind(this)}
+      onCancel={this.onCancel.bind(this)}
       onCommit={this.onCommit.bind(this)}
     />
   }
@@ -30,6 +31,11 @@ class RouteDrawing extends React.Component {
     const { dispatch, drawing: { result } } = this.props
     dispatch(commitDrawing(result._id))
   }
+
+  onCancel() {
+    const { dispatch, drawing: { result } } = this.props
+    dispatch(cancelDrawing(result._id))
+  }
 }
 
 function mapStateToProps(state, props) {
@@ -39,6 +45,4 @@ function mapStateToProps(state, props) {
   }
 }
 
-RouteDrawing = connect(mapStateToProps)(RouteDrawing)
-
-export default RouteDrawing;
+export default connect(mapStateToProps)(RouteDrawing)

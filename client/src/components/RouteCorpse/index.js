@@ -31,17 +31,18 @@ class Corpse extends React.Component {
               <Box
                 key={i}
                 onClick={() => this.handleDrawing(section)}
-                padding="20px"
-                borderWidth="0 0 1px"
-                borderColor="whitesmoke"
-                css={`
-                  cursor: pointer;
-                  &:hover {
-                    background-color: hsl(0, 0%, 98%)
+                style={{
+                  padding: '20px',
+                  borderWidth: '0 0 1px',
+                  borderColor: 'whitesmoke',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    backgroundColor: 'hsl(0, 0%, 98%)'
                   }
-                `}
+                }}
               >
                 { section.drawer ? `[${section.description} - ${section.drawer.name}]` : section.description }
+                <em>{ section.drawing && section.drawing.canvas ? 'Complete' : 'Incomplete' }</em>
               </Box>
             ))
           }

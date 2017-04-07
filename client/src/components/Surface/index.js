@@ -1,5 +1,5 @@
-import paperjs from 'paper'
-import React, { Component } from 'react'
+import React, { PropTypes, Component } from 'react'
+import paperjs from 'paper';
 import Button from 'react-bootstrap/lib/Button';
 
 const WIDTH = 400;
@@ -25,8 +25,8 @@ class Surface extends Component {
   }
 
   componentDidMount() {
-    const { drawing, interactive } = this.props;
-    const canvas = drawing.canvas;
+    const { drawing, interactive } = this.props
+    const canvas = drawing.canvas
 
     if (!this.paper) {
       this.paper = new paperjs.PaperScope();
@@ -41,7 +41,7 @@ class Surface extends Component {
       this.forceUpdate();
     }
     if ( !this.tool && interactive ) {
-      this.tool = new paperjs.Tool();
+      this.tool = new paperjs.Tool()
       this.tool.onMouseDown = this.onMouseDown.bind(this)
       this.tool.onMouseDrag = this.onMouseDrag.bind(this)
       this.tool.onMouseUp = this.onMouseUp.bind(this)
@@ -52,7 +52,7 @@ class Surface extends Component {
   }
 
   render() {
-    const {drawing, saving, width, height, interactive} = this.props;
+    const { saving, height, interactive} = this.props
     const {pathType} = this.state
     const style = {
       width: '100%',
@@ -78,6 +78,10 @@ class Surface extends Component {
             type="button"
             onTouchTap={() => this.setState({ pathType: pathType === 'brush' ? 'pencil' : 'brush' })}
           >Draw With: { pathType }</Button>
+          <Button
+            type="button"
+            onTouchTap={() => this.cancel()}
+          >Cancel</Button>
           { saving && 'saving...'}
         </div>
         : null
@@ -119,8 +123,12 @@ class Surface extends Component {
     this.mainLayer.activate()
   }
 
+  cancel() {
+    this.props.onCancel()
+  }
+
   commit() {
-    this.props.onCommit();
+    this.props.onCommit()
   }
 
   undo() {
@@ -129,7 +137,7 @@ class Surface extends Component {
   }
 
   save() {
-    this.props.onSave(this.mainLayer.exportJSON());
+    this.props.onSave(this.mainLayer.exportJSON())
   }
 
   getCurrentPath() {
@@ -143,42 +151,44 @@ class Surface extends Component {
 
   removeLastPath() {
     const currentPath = this.getCurrentPath()
-    if (currentPath) currentPath.remove();
+    if (currentPath) currentPath.remove()
   }
 
   onMouseDown(event) {
     const { pathType } = this.state
-    const options = this.state[pathType];
-    const path = new this.paper.Path(this.state[pathType]);
-    path.add(event.point);
+    const path = new this.paper.Path(this.state[pathType])
+    path.add(event.point)
   }
 
   onMouseDrag(event) {
     const path = this.getCurrentPath()
     if ( this.state.pathType === 'brush' ) {
-      const step = event.delta.divide(6);
-      step.angle += 90;
-      var top = event.middlePoint.add(step);
-  	  var bottom = event.middlePoint.subtract(step);
-      path.add(top);
-      path.insert(0, bottom);
+      const step = event.delta.divide(6)
+      step.angle += 90
+      var top = event.middlePoint.add(step)
+      var bottom = event.middlePoint.subtract(step)
+      path.add(top)
+      path.insert(0, bottom)
     } else {
-      path.add(event.middlePoint);
+      path.add(event.middlePoint)
     }
   }
 
-  onMouseUp(event) {
-    this.getCurrentPath().simplify();
+  onMouseUp() {
+    this.getCurrentPath().simplify()
     this.save()
   }
 }
 
 Surface.propTypes = {
-  drawing: React.PropTypes.object,
-  onSave: React.PropTypes.func,
-  onSave: React.PropTypes.func,
-  onCommit: React.PropTypes.func,
-  interactive: React.PropTypes.bool,
+  drawing: PropTypes.object,
+  onSave: PropTypes.func,
+  onCancel: PropTypes.func,
+  onCommit: PropTypes.func,
+  interactive: PropTypes.bool,
+  saving: PropTypes.bool,
+  width: PropTypes.string,
+  height: PropTypes.string,
 }
 
 export { Surface as default }
