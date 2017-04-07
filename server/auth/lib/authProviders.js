@@ -24,7 +24,7 @@ module.exports = {
         break
       case 'guest':
         base = {
-          name: credentials.displayName,
+          name: credentials.name || 'anonymous',
           id: ObjectId().toString(),
         }
         break
