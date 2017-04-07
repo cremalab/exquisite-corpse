@@ -13,6 +13,7 @@ import {
   SUCCESS_CANCEL_DRAWING,
   REQUEST_COMMIT_DRAWING,
   SUCCESS_COMMIT_DRAWING,
+  CLEAR_DRAWING,
 } from 'config/actionTypes'
 
 export function loadDrawing(id) {
@@ -107,4 +108,10 @@ export function commitDrawing(drawingId) {
       credentials: 'include',
     },
   })
+}
+
+export function clearDrawing() {
+  return {
+    type: CLEAR_DRAWING,
+  }
 }

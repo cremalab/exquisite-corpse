@@ -22,6 +22,17 @@ class Surface extends Component {
     }
   }
 
+  componentWillMount() {
+    if (!this.paper) return
+    this.paper.clear()
+    this.paper.projects.forEach(p => {
+      p.clear()
+      p.view.remove()
+      p.remove()
+    })
+    this.paper = null
+  }
+
   componentDidMount() {
     const { drawing, interactive } = this.props
     const canvas = drawing.canvas
@@ -30,10 +41,10 @@ class Surface extends Component {
       this.paper = new paperjs.PaperScope()
       this.paper.setup(this.refs.canvas)
       this.paper.view.play()
+      this.paper.project.clear()
       this.mainLayer = new this.paper.Layer({ name: 'drawing' })
       this.guideLayer = new this.paper.Layer({ name: 'guides' })
       this.forceUpdate()
-      //console.log(this.paper.project)
     }
     if ( !this.tool && interactive ) {
       this.tool = new paperjs.Tool()
@@ -41,11 +52,17 @@ class Surface extends Component {
       this.tool.onMouseDrag = this.onMouseDrag.bind(this)
       this.tool.onMouseUp = this.onMouseUp.bind(this)
     }
-
-    //console.log(canvas)
-
-    this.mainLayer.importJSON(canvas)
+    if (canvas) this.mainLayer.importJSON(canvas)
     if (drawing.anchorPoints) { this.drawGuides() }
+  }
+
+  componentWillUnmount() {
+    this.paper.projects.forEach(p => {
+      p.clear()
+      p.view.remove()
+      p.remove()
+    })
+    this.paper = null
   }
 
   render() {
