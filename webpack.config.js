@@ -1,14 +1,22 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = () => {
   return {
-    entry: './client/src/index.js',
+    entry: {
+      app: './client/src/index.js',
+      vendor: [
+        'babel-polyfill',
+        'core-js/es6/promise',
+        'whatwg-fetch',
+      ]
+    },
     output: {
-      publicPath: '/public/',
+      filename: '[name].[hash].js',
       path: path.resolve(__dirname, './client/build'),
-      filename: '[name]_bundle.js',
+      publicPath: '/public/'
     },
     node: {
       net: 'empty',
@@ -26,6 +34,11 @@ module.exports = () => {
         inject: 'body',
       }),
       new ExtractTextPlugin('styles.css'),
+      new webpack.optimize.CommonsChunkPlugin({
+        names: ['vendor', 'manifest'],
+        minChunks: Infinity,
+        filename: '[name].[hash].js'
+      }),
     ],
     resolve: {
       modules: ['node_modules', path.resolve(__dirname, 'client/src')],
@@ -38,10 +51,6 @@ module.exports = () => {
           exclude: /(node_modules|bower_components)/,
           use: {
             loader: 'babel-loader',
-            options: {
-              presets: ['env'],
-              plugins: [require('babel-plugin-transform-object-rest-spread')]
-            }
           }
         },
         {

@@ -6,6 +6,7 @@ import {
   FAILURE,
   REQUEST_CORPSE_CREATE,
   SUCCESS_CORPSE_CREATE,
+  CLEAR_CORPSE,
 } from 'config/actionTypes'
 import { CALL_API } from 'redux-api-middleware'
 
@@ -51,5 +52,11 @@ export function createCorpse() {
       ],
       credentials: 'include',
     },
+  }
+}
+
+export function clearCorpse() {
+  return {
+    type: CLEAR_CORPSE,
   }
 }
