@@ -3,7 +3,8 @@ import {
   REQUEST_SAVE_DRAWING,
   SUCCESS_SAVE_DRAWING,
   SUCCESS_DRAWING,
-  FAILURE_DRAWING
+  FAILURE_DRAWING,
+  CLEAR_DRAWING,
 } from 'config/actionTypes'
 
 const initialState = {
@@ -42,9 +43,13 @@ function corpses(state = initialState, action) {
         ...state,
         loading: false
       }
+
+    case CLEAR_DRAWING:
+      return initialState
+
     default:
       return state
   }
 }
 
-export default corpses;
+export default corpses

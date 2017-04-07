@@ -1,6 +1,7 @@
 import {
   REQUEST_CORPSE,
-  SUCCESS_CORPSE
+  SUCCESS_CORPSE,
+  CLEAR_CORPSE,
 } from '../config/actionTypes'
 
 const initialState = {
@@ -23,6 +24,8 @@ function corpses(state = initialState, action) {
         canvas: action.payload.result.canvas,
         status: action.payload.result.status,
       }
+    case CLEAR_CORPSE:
+      return initialState
     default:
       return state
   }
