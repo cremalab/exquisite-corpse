@@ -17,11 +17,10 @@ module.exports = {
   },
   getByUser(db, user) {
     return new Promise((resolve, reject) => {
-      console.log('HELLO THERE');
       Joi.validate(db, dbSchema, (err) => {
         if (err) reject(err)
-        db.collection('drawings').find({ 'creator.id': user }).then((result) => {
-          console.log('RESULT?!?!?!', result);
+        db.collection('drawings').find({ 'creator.id': user }).toArray()
+        .then((result) => {
           resolve(result)
         })
       })
