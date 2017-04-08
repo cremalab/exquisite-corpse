@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
-import { loadCorpses, createCorpse } from 'actions/corpses'
+import corpseCreate from 'actions/corpseCreate'
+import corpsesLoad from 'actions/corpsesLoad'
 import { connect } from 'react-redux'
 import Spinner from 'react-md-spinner'
 import Button from 'react-bootstrap/lib/Button'
@@ -9,7 +10,7 @@ import propTypesCorpse from 'propTypes/Corpse'
 
 class Corpses extends React.Component {
   componentDidMount() {
-    this.props.dispatch(loadCorpses())
+    this.props.dispatch(corpsesLoad())
   }
   render() {
     const { dispatch, corpses: { result, loading } } = this.props
@@ -27,7 +28,7 @@ class Corpses extends React.Component {
       >
         <Box grow='1'><h1>Lobby</h1></Box>
         <Box><Button
-          onClick={() => dispatch(createCorpse())}
+          onClick={() => dispatch(corpseCreate())}
         >
           Create Corpse
         </Button></Box>

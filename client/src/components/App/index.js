@@ -1,9 +1,19 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Box from 'react-boxen'
+import initialize from 'actions/initialize'
+import {connect} from 'react-redux'
 
 class App extends Component {
+  componentWillMount() {
+    this.props.dispatch(initialize())
+  }
+
   render() {
+    const { currentUser} = this.props
+
+    if (!currentUser) return null
+
     return (
       <Box height="100%">
         <Box
@@ -23,4 +33,8 @@ class App extends Component {
   }
 }
 
-export default App
+const mapStateToProps = state => ({
+  currentUser: state.users.currentUser
+})
+
+export default connect(mapStateToProps)(App)
