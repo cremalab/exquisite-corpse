@@ -30,8 +30,6 @@ node_modules
 # Ignore .DS_Store files on OS X
 .DS_Store
 
-public/build
-public/build/**/*
-client/build/**/*
+client/build
 
 node_modules/

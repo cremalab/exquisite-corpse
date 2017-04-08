@@ -1,28 +1,31 @@
-import React from 'react'
+import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import ListGroup from 'react-bootstrap/lib/ListGroup'
-import ListGroupItem from 'react-bootstrap/lib/ListGroupItem'
 import Spinner from 'react-md-spinner'
 import { push } from 'react-router-redux'
-import { loadCorpse } from '../../actions/corpses'
+import { loadCorpse, clearCorpse } from '../../actions/corpses'
 import { createDrawing } from '../../actions/drawings'
 import Surface from '../Surface'
 import Box from 'react-boxen'
 
-class Corpse extends React.Component {
+class Corpse extends Component {
   componentWillMount() {
     const { dispatch, corpseId } = this.props
+    dispatch(clearCorpse())
     dispatch(loadCorpse(corpseId))
   }
 
+  componentWillUnmount() {
+    const { dispatch } = this.props
+    dispatch(clearCorpse())
+  }
+
   render() {
-    const { dispatch, drawing, corpseId, corpse: { loading, sections, status } } = this.props
+    const { corpse: { loading, sections, status } } = this.props
 
     if ( loading ) return <Spinner />
-    const finalDrawing = status === 'complete' ? (
+    const finalDrawing = (status === 'complete') ? (
       <Surface drawing={this.props.corpse} height={200 * 4 + 'px'} />
     ) : null
-
     return (
       <div>
         <Box>
@@ -31,17 +34,18 @@ class Corpse extends React.Component {
               <Box
                 key={i}
                 onClick={() => this.handleDrawing(section)}
-                padding="20px"
-                borderWidth="0 0 1px"
-                borderColor="whitesmoke"
-                css={`
-                  cursor: pointer;
-                  &:hover {
-                    background-color: hsl(0, 0%, 98%)
+                style={{
+                  padding: '20px',
+                  borderWidth: '0 0 1px',
+                  borderColor: 'whitesmoke',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    backgroundColor: 'hsl(0, 0%, 98%)'
                   }
-                `}
+                }}
               >
                 { section.drawer ? `[${section.description} - ${section.drawer.name}]` : section.description }
+                <em>{ section.drawing && section.drawing.canvas ? 'Complete' : 'Incomplete' }</em>
               </Box>
             ))
           }
@@ -62,6 +66,13 @@ class Corpse extends React.Component {
     }
   }
 
+}
+
+Corpse.propTypes = {
+  dispatch: PropTypes.func,
+  corpse: PropTypes.object,
+  currentUser: PropTypes.object,
+  corpseId: PropTypes.string,
 }
 
 function mapStateToProps(state, props) {
