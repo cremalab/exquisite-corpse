@@ -1,37 +1,44 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import Box from 'react-boxen'
-import propTypesCorpse from 'propTypes/Corpse'
 import { distanceInWordsToNow } from 'date-fns'
 
-const css = {
-  container: `
-    borderRadius: 6px;
-    background-color: #67B6C8;
-    cursor: pointer;
-  `,
-  section: section => `
-    opacity: 0.75;
-    padding: 20px;
-    background-color: ${section.drawer ? '#0A93C4' : 'hsla(0,0%,100%, 0.25)'};
-  `
-}
-
-class ItemCorpse extends PureComponent {
+class ItemCorpse extends Component {
   render() {
     const { dispatch, corpse } = this.props
     const createdAt = distanceInWordsToNow(corpse.createdAt)
+
+    const css = {
+      container: {
+        borderRadius: '6px',
+        backgroundColor: corpse.status === 'complete' ? '#fafafa' : '#0A93C4',
+        cursor: 'pointer',
+      },
+      section: {
+        opacity: '0.75',
+        padding: '20px',
+        backgroundColor: '#67B6C8'
+      }
+    }
+
     return (
       <Box
         childDirection='row'
         onClick={() => dispatch(push(`/corpse/${corpse._id}`))}
-        css={css.container}>
-        <Box childSpacing='1px' width='200px'>
-          { corpse.sections.map((section, i) => <Box key={i} css={css.section(section)}>{(section.drawer && section.drawer.name) || 'empty'}</Box>) }
+        style={css.container}>
+        <Box childSpacing='1px'>
+          { corpse.sections.map((section, i) => <div key={i} style={css.section}>{(section.drawer && section.drawer.name) || 'empty'}</div>) }
         </Box>
-        <Box padding="20px">
-          <p><small>Created by {corpse.creator.name} {createdAt}</small></p>
+        <Box width="25%">
+          {
+            corpse.svgUrl ? <img src={corpse.svgUrl} style={{maxHeight: '230px'}} />
+            :
+            <Box padding="20px">
+              <p>Created by {corpse.creator.name}</p>
+              <p><small>{createdAt}</small></p>
+            </Box>
+          }
         </Box>
       </Box>
     )
@@ -40,7 +47,7 @@ class ItemCorpse extends PureComponent {
 
 ItemCorpse.propTypes = {
   dispatch: PropTypes.func,
-  corpse: propTypesCorpse
+  corpse: PropTypes.object
 }
 
 export default connect()(ItemCorpse)

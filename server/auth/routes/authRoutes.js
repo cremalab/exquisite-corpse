@@ -1,17 +1,90 @@
 const providers = require('../lib/authProviders')
 
+const enabledProviders = [
+  {name: 'Slack', route: '/login/slack' },
+  // {name: 'Instagram', route: '/login/instagram' },
+  {name: 'Github', route: '/login/github' },
+]
+
 module.exports = [
   {
     method: 'GET',
     path: '/login',
     config: {
-      auth: 'slack',
+      auth: false,
       handler(request, reply) {
         if (request.auth.isAuthenticated) {
           request.cookieAuth.set(providers.standardizeProfile(request.auth.credentials))
           return reply.redirect('/')
         }
-        return reply('Not logged in...').code(401)
+        return reply.view('index', { enabledProviders })
+      },
+      tags: ['auth'],
+    },
+  },
+  {
+    method: 'GET',
+    path: '/login/slack',
+    config: {
+      auth: 'slack',
+      description: 'Login with Slack',
+      handler(request, reply) {
+        if (request.auth.isAuthenticated) {
+          request.cookieAuth.set(providers.standardizeProfile(request.auth.credentials))
+          return reply.redirect('/')
+        }
+        return reply.view('index')
+      },
+      tags: ['auth', 'bell'],
+    },
+  },
+  {
+    method: 'GET',
+    path: '/login/instagram',
+    config: {
+      auth: 'instagram',
+      description: 'Login with Instagram',
+      handler(request, reply) {
+        if (request.auth.isAuthenticated) {
+          request.cookieAuth.set(providers.standardizeProfile(request.auth.credentials))
+          return reply.redirect('/')
+        }
+        return reply.view('index')
+      },
+      tags: ['auth', 'bell'],
+    },
+  },
+  {
+    method: 'GET',
+    path: '/login/github',
+    config: {
+      auth: 'github',
+      description: 'Login with Github',
+      handler(request, reply) {
+        if (request.auth.isAuthenticated) {
+          request.cookieAuth.set(providers.standardizeProfile(request.auth.credentials))
+          return reply.redirect('/')
+        }
+        return reply.view('index')
+      },
+      tags: ['auth', 'bell'],
+    },
+  },
+  {
+    method: 'POST',
+    path: '/login/guest',
+    config: {
+      auth: false,
+      description: 'Login as a guest',
+      handler(request, reply) {
+        const creds = {
+          provider: 'guest',
+          name: request.payload.name,
+        }
+        if (!request.auth.isAuthenticated) {
+          request.cookieAuth.set(providers.standardizeProfile(creds))
+        }
+        return reply.redirect('/')
       },
       tags: ['auth'],
     },

@@ -1,11 +1,13 @@
-import Nes from 'nes'
-import store from 'store'
+import Nes from 'nes';
+import store from 'store';
+import {MERGE_CORPSE} from 'config/actionTypes';
 
 function socket() {
   fetch('/nes/auth', {credentials: 'include'})
     .then(res => res.json())
     .then((res) => {
-      const wsClient = new Nes.Client('ws://localhost:8000')
+      const host = location.origin.replace(/^http/, 'ws')
+      const wsClient = new Nes.Client(host)
       wsClient.connect({ auth: res.token }, err => {
         if (err) { throw err }
         wsClient.subscribe('/lobby', handleLobbyMsg, handleError)
@@ -14,19 +16,18 @@ function socket() {
           method: 'POST',
         }, (err, user) => {
           if (err) { throw err }
-          store.dispatch({ type: 'SET_USER', payload: user })
+          store.dispatch({ type: 'SET_USER', payload: user.credentials })
         })
       })
     })
 }
 
 const handleLobbyMsg = ({ type, data }) => {
-  console.log(type, data)
   switch (type) {
     case 'usersChange':
       break
     case 'corpseChange':
-      return store.dispatch({ type: 'MERGE_CORPSE', payload: data })
+      return store.dispatch({ type: MERGE_CORPSE, payload: data })
     default:
       return null
   }

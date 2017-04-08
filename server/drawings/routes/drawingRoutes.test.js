@@ -21,9 +21,8 @@ describe('drawingRoutes', () => {
         method: 'POST',
         url: '/drawings',
       })
-      .then(res => res.statusCode)
-      .then((code) => {
-        expect(code).toBe(302)
+      .then((res) => {
+        expect(res.statusCode).toBe(302)
       })
     ))
     test('should require payload', () => (

@@ -8,13 +8,13 @@ import ItemCorpse from 'components/ItemCorpse'
 import propTypesCorpse from 'propTypes/Corpse'
 
 class Corpses extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch(loadCorpses())
   }
   render() {
     const { dispatch, corpses: { result, loading } } = this.props
 
-    if (loading) return <Spinner />
+    if (loading === true) return <Spinner />
 
     return (<Box
       padding="20px"
@@ -25,12 +25,12 @@ class Corpses extends React.Component {
         childDirection="row"
         childJustify="space-between"
       >
-        <h1>Lobby</h1>
-        <Button
+        <Box grow='1'><h1>Lobby</h1></Box>
+        <Box><Button
           onClick={() => dispatch(createCorpse())}
         >
           Create Corpse
-        </Button>
+        </Button></Box>
       </Box>
       <Box
         childDirection="row"
@@ -38,7 +38,7 @@ class Corpses extends React.Component {
         childGrow="1"
         childWrap="wrap"
         childWrapLastGrow={false}
-        childBasis="250px"
+        childBasis="300px"
       >
         { result.map(corpse =>
           <ItemCorpse key={corpse._id} corpse={corpse} />
@@ -53,6 +53,13 @@ Corpses.propTypes = {
   corpses: PropTypes.shape({
     result: PropTypes.arrayOf(PropTypes.shape(propTypesCorpse))
   })
+}
+
+Corpses.defaultProps = {
+  corpses: {
+    result: [],
+    loading: false
+  }
 }
 
 function mapStateToProps(state) {

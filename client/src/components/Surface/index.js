@@ -1,41 +1,73 @@
+import React, { PropTypes, Component } from 'react'
 import paperjs from 'paper'
-import React, { Component } from 'react'
 import canvasStyle from './canvasStyle'
-import Button from 'react-bootstrap/lib/Button';
+import Button from 'react-bootstrap/lib/Button'
 
 class Surface extends Component {
 
   constructor() {
     super()
     this.paper = null
+    this.state = {
+      pathType: 'brush',
+      pencil: {
+        strokeWidth: 3,
+        strokeColor: 'black',
+        opacity: .5,
+      },
+      brush: {
+        fillColor: 'black',
+        opacity: 1,
+      }
+    }
+  }
+
+  componentWillMount() {
+    if (!this.paper) return
+    this.paper.clear()
+    this.paper.projects.forEach(p => {
+      p.clear()
+      p.view.remove()
+      p.remove()
+    })
+    this.paper = null
   }
 
   componentDidMount() {
-    const { drawing, interactive } = this.props;
-    const canvas = drawing.canvas;
+    const { drawing, interactive } = this.props
+    const canvas = drawing.canvas
 
     if (!this.paper) {
-      const { canvas } = this.refs;
-      this.paper = new paperjs.PaperScope();
-      this.paper.setup(canvas);
-      this.paper.view.play();
+      this.paper = new paperjs.PaperScope()
+      this.paper.setup(this.refs.canvas)
+      this.paper.view.play()
+      this.paper.project.clear()
       this.mainLayer = new this.paper.Layer({ name: 'drawing' })
       this.guideLayer = new this.paper.Layer({ name: 'guides' })
-      this.forceUpdate();
+      this.forceUpdate()
     }
     if ( !this.tool && interactive ) {
-      this.tool = new paperjs.Tool();
+      this.tool = new paperjs.Tool()
       this.tool.onMouseDown = this.onMouseDown.bind(this)
       this.tool.onMouseDrag = this.onMouseDrag.bind(this)
       this.tool.onMouseUp = this.onMouseUp.bind(this)
     }
-
-    this.paper.project.importJSON(canvas)
+    if (canvas) this.mainLayer.importJSON(canvas)
     if (drawing.anchorPoints) { this.drawGuides() }
   }
 
+  componentWillUnmount() {
+    this.paper.projects.forEach(p => {
+      p.clear()
+      p.view.remove()
+      p.remove()
+    })
+    this.paper = null
+  }
+
   render() {
-    const {drawing, saving, width, height, interactive} = this.props;
+    const { saving, height, interactive} = this.props
+    const {pathType} = this.state
     const style = Object.assign(canvasStyle, { height })
     return <div>
       <canvas ref="canvas" style={style} />
@@ -51,6 +83,14 @@ class Surface extends Component {
             children="Commit"
             onTouchTap={() => this.commit()}
           />
+          <Button
+            type="button"
+            onTouchTap={() => this.setState({ pathType: pathType === 'brush' ? 'pencil' : 'brush' })}
+          >Draw With: { pathType }</Button>
+          <Button
+            type="button"
+            onTouchTap={() => this.cancel()}
+          >Cancel</Button>
           { saving && 'saving...'}
         </div>
         : null
@@ -74,16 +114,21 @@ class Surface extends Component {
     this.mainLayer.activate()
   }
 
-  undo() {
-    this.removePath()
+  cancel() {
+    this.props.onCancel()
   }
 
   commit() {
-    this.props.onCommit();
+    this.props.onCommit()
+  }
+
+  undo() {
+    this.removeLastPath()
+    this.save()
   }
 
   save() {
-    this.props.onSave(this.mainLayer.exportJSON());
+    this.props.onSave(this.mainLayer.exportJSON())
   }
 
   getCurrentPath() {
@@ -95,38 +140,46 @@ class Surface extends Component {
     return this.paper && this.paper.project ? this.paper.project.activeLayer.children || [] : []
   }
 
-  addPath() {
-    const path = new this.paper.Path();
-    path.strokeColor = 'black';
-    path.strokeWidth = 2;
-  }
-
-  removePath() {
+  removeLastPath() {
     const currentPath = this.getCurrentPath()
-    if (currentPath) currentPath.remove();
+    if (currentPath) currentPath.remove()
   }
 
   onMouseDown(event) {
-    this.addPath();
+    const { pathType } = this.state
+    const path = new this.paper.Path(this.state[pathType])
+    path.add(event.point)
   }
 
   onMouseDrag(event) {
     const path = this.getCurrentPath()
-    path.add(event.point);
+    if ( this.state.pathType === 'brush' ) {
+      const step = event.delta.divide(6)
+      step.angle += 90
+      var top = event.middlePoint.add(step)
+      var bottom = event.middlePoint.subtract(step)
+      path.add(top)
+      path.insert(0, bottom)
+    } else {
+      path.add(event.middlePoint)
+    }
   }
 
-  onMouseUp(event) {
-    this.getCurrentPath().simplify();
+  onMouseUp() {
+    this.getCurrentPath().simplify()
     this.save()
   }
 }
 
 Surface.propTypes = {
-  drawing: React.PropTypes.object,
-  onSave: React.PropTypes.func,
-  onSave: React.PropTypes.func,
-  onCommit: React.PropTypes.func,
-  interactive: React.PropTypes.bool,
+  drawing: PropTypes.object,
+  onSave: PropTypes.func,
+  onCancel: PropTypes.func,
+  onCommit: PropTypes.func,
+  interactive: PropTypes.bool,
+  saving: PropTypes.bool,
+  width: PropTypes.string,
+  height: PropTypes.string,
 }
 
 export { Surface as default }
