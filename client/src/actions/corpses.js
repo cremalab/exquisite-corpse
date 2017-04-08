@@ -53,7 +53,7 @@ export function createCorpse() {
       ],
       credentials: 'include',
     },
-  }).then(payload => {
+  }).then(({ payload }) => {
     dispatch(push(`/corpse/${payload.result._id}`))
     dispatch({ type: 'SUCCESS_CORPSE_CREATE', payload })
   })
