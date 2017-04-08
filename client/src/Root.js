@@ -8,9 +8,6 @@ import { Route } from 'react-router-dom'
 import RouteDrawing from 'components/RouteDrawing'
 import RouteHome from 'components/RouteHome'
 import App from 'components/App'
-import sockets from 'actions/sockets'
-
-sockets()
 
 class Root extends Component {
   render() {
