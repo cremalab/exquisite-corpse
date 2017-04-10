@@ -2,13 +2,14 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import Surface from '../Surface'
 import Spinner from 'react-md-spinner'
-import {loadDrawing, saveDrawing, commitDrawing, cancelDrawing, clearDrawing } from 'actions/drawings'
+import {saveDrawing, commitDrawing, cancelDrawing, clearDrawing } from 'actions/drawings'
+import drawingLoad from 'actions/drawingLoad'
 
 class RouteDrawing extends Component {
   componentWillMount() {
     const { dispatch, drawingId } = this.props
     dispatch(clearDrawing())
-    dispatch(loadDrawing(drawingId))
+    dispatch(drawingLoad(drawingId))
   }
 
   componentWillUnmount() {

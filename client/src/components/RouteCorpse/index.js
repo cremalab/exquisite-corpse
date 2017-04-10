@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import Spinner from 'react-md-spinner'
 import { push } from 'react-router-redux'
-import { clearCorpse } from '../../actions/corpses'
+import corpseClear from 'actions/corpseClear'
 import corpseLoad from 'actions/corpseLoad'
 import { createDrawing } from '../../actions/drawings'
 import Surface from '../Surface'
@@ -11,13 +11,13 @@ import Box from 'react-boxen'
 class Corpse extends Component {
   componentWillMount() {
     const { dispatch, corpseId } = this.props
-    dispatch(clearCorpse())
+    dispatch(corpseClear())
     dispatch(corpseLoad(corpseId))
   }
 
   componentWillUnmount() {
     const { dispatch } = this.props
-    dispatch(clearCorpse())
+    dispatch(corpseClear())
   }
 
   render() {
