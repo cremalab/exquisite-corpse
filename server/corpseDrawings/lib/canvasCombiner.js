@@ -27,6 +27,9 @@ function combineLayers(layers, project, remove = true) {
   project.addLayer(master)
   layers.filter(l => l._name !== 'master')
     .forEach((l) => { l.copyTo(master); if (remove) { l.remove() } })
+
+  const { width, height } = master.bounds
+  project.view.viewSize = new Paper.Size(width, height)
   return master
 }
 
@@ -40,9 +43,7 @@ function getDimensionsFromJSON(json) {
 function toSVG(canvas) {
   const project = new Paper.Project()
   project.importJSON(canvas)
-  const master = combineLayers(project.layers, project)
-  const { width, height } = master.bounds
-  project.view.viewSize = new Paper.Size(width, height)
+  combineLayers(project.layers, project)
   return project.exportSVG({ asString: true })
 }
 

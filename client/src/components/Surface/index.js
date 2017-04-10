@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react'
-import paperjs from 'paper';
-import Button from 'react-bootstrap/lib/Button';
+import paperjs from 'paper'
+import Button from 'react-bootstrap/lib/Button'
 
-const WIDTH = 400;
-const HEIGHT = 200;
+const WIDTH = 400
+const HEIGHT = 200
 
 class Surface extends Component {
 
@@ -55,13 +55,12 @@ class Surface extends Component {
   }
 
   render() {
-    const { saving, height, interactive} = this.props
+    const { saving, height, width, interactive} = this.props
     const {pathType} = this.state
     const style = {
-      width: '100%',
-      height: '100%',
+      width: width || '100%',
+      height: height || '100%',
       backgroundColor: 'white',
-      height: height,
     }
     return <div style={{ paddingBottom: '50%', position: 'relative', maxWidth: '1200px' }}>
       <canvas ref="canvas" style={style} data-paper-resize={true} />
@@ -93,13 +92,11 @@ class Surface extends Component {
   }
 
   resize() {
-    const { view } = this.paper;
-    const { width, height } = view.viewSize;
-    const x = width / 2;
-    const y = height / 2;
-    const center = new paperjs.Point(x, y)
-    this.paper.view.center = new paperjs.Point(WIDTH/2, HEIGHT/2);
-    this.paper.view.zoom = width / WIDTH;
+    const { view } = this.paper
+    if (this.props.height && this.props.width) { return }
+    const { width, height } = view.viewSize
+    this.paper.view.center = new paperjs.Point(WIDTH/2, HEIGHT/2)
+    this.paper.view.zoom = width / WIDTH
   }
 
   setupCanvas() {
@@ -111,7 +108,7 @@ class Surface extends Component {
     this.paper.view.onResize = e => this.resize()
     this.mainLayer = new this.paper.Layer({ name: 'drawing' })
     this.guideLayer = new this.paper.Layer({ name: 'guides' })
-    this.forceUpdate();
+    this.forceUpdate()
   }
 
   makeInteractive() {
@@ -123,13 +120,6 @@ class Surface extends Component {
 
   drawGuides() {
     function plotGuide(x, y) {
-      //const topLeft = WIDTH * (x/100)
-      //return new paperjs.Path.Rectangle({
-      //  point: [topLeft, y],
-      //  size: [3, 6],
-      //  fillColor: 'red',
-      //  opacity: .5,
-      //})
       return new paperjs.Path.Circle({
         center: [WIDTH * (x/100), y],
         radius: 5,
@@ -209,8 +199,8 @@ Surface.propTypes = {
   onCommit: PropTypes.func,
   interactive: PropTypes.bool,
   saving: PropTypes.bool,
-  width: PropTypes.string,
-  height: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
 }
 
 export { Surface as default }
