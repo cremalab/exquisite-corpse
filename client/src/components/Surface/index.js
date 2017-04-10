@@ -104,8 +104,10 @@ class Surface extends Component {
     this.paper.setup(this.refs.canvas)
     this.paper.view.play()
     this.paper.project.clear()
-    this.resize()
-    this.paper.view.onResize = e => this.resize()
+    if (this.props.interactive) {
+      this.resize()
+      this.paper.view.onResize = e => this.resize(e)
+    }
     this.mainLayer = new this.paper.Layer({ name: 'drawing' })
     this.guideLayer = new this.paper.Layer({ name: 'guides' })
     this.forceUpdate()
