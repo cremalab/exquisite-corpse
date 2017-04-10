@@ -16,6 +16,7 @@ class RouteApp extends Component {
     this.props.dispatch(initialize())
   }
   render() {
+    const { currentUser } = this.props
     return (
       <Box height="100%">
         <Box
@@ -27,12 +28,16 @@ class RouteApp extends Component {
         >
           <header><Link to="/">Scribble Corpse</Link></header>
         </Box>
-        <Box>
-          <Route exact path="/welcome" component={RouteHome}/>
-          <Route exact path="/" component={RouteCorpses}/>
-          <Route path="/corpse/:corpseId" component={RouteCorpse}/>
-          <Route path="/drawing/:drawingId" component={RouteDrawing}/>
-        </Box>
+        <div>
+          { currentUser && (
+            <div>
+              <Route exact path="/welcome" component={RouteHome}/>
+              <Route exact path="/" component={RouteCorpses}/>
+              <Route path="/corpse/:corpseId" component={RouteCorpse}/>
+              <Route path="/drawing/:drawingId" component={RouteDrawing}/>
+            </div>)
+          }
+        </div>
       </Box>
     )
   }
