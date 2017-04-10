@@ -1089,7 +1089,7 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-boom@3.x.x, boom@3.X.X:
+boom@3.X.X, boom@3.x.x:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/boom/-/boom-3.2.2.tgz#0f0cc5d04adc5003b8c7d71f42cca7271fef0e78"
   dependencies:
@@ -2862,7 +2862,7 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hoek@^4.0.1, hoek@4.X.X, hoek@4.x.x:
+hoek@^4.0.1, hoek@4.x.x, hoek@4.X.X:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.1.1.tgz#9cc573ffba2b7b408fb5e9c2a13796be94cddce9"
 
@@ -5015,9 +5015,9 @@ react-bootstrap@^0.30.8:
     uncontrollable "^4.0.1"
     warning "^3.0.0"
 
-react-boxen@0.0.13:
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/react-boxen/-/react-boxen-0.0.13.tgz#3f17cae6354977cf4d04e6d27c1f7ec819bed6ee"
+react-boxen@0.0.16:
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/react-boxen/-/react-boxen-0.0.16.tgz#5d798857226f2a3da592a52d9a91dc8c826ee805"
   dependencies:
     glamor "^2.20.24"
     ramda "^0.23.0"
