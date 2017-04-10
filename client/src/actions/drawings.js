@@ -1,27 +1,17 @@
 import { CALL_API, getJSON } from 'redux-api-middleware'
 import {push} from 'react-router-redux'
-import {
-  REQUEST_DRAWING,
-  SUCCESS_DRAWING,
-  FAILURE,
-  REQUEST_CREATE_DRAWING,
-  SUCCESS_CREATE_DRAWING,
-  FAILURE_DRAWING,
-  REQUEST_SAVE_DRAWING,
-  SUCCESS_SAVE_DRAWING,
-  REQUEST_CANCEL_DRAWING,
-  SUCCESS_CANCEL_DRAWING,
-  REQUEST_COMMIT_DRAWING,
-  SUCCESS_COMMIT_DRAWING,
-  CLEAR_DRAWING,
-} from 'config/actionTypes'
+import * as actionTypes from 'config/actionTypes'
 
 export function loadDrawing(id) {
   return {
     [CALL_API]: {
       endpoint: `/drawings/${id}`,
       method: 'GET',
-      types: [REQUEST_DRAWING, SUCCESS_DRAWING, FAILURE],
+      types: [
+        actionTypes.REQUEST_DRAWING,
+        actionTypes.SUCCESS_DRAWING,
+        actionTypes.FAILURE
+      ],
       credentials: 'include',
     },
   }
@@ -34,20 +24,14 @@ export function createDrawing(section) {
       method: 'POST',
       body: JSON.stringify({ section }),
       types: [
-        REQUEST_CREATE_DRAWING,
-        {
-          type: SUCCESS_CREATE_DRAWING,
-          payload: (action, state, res) => {
-            getJSON(res).then(json => {
-              dispatch(push(`/drawing/${json.result._id}`))
-            })
-            return res
-          }
-        },
-        FAILURE_DRAWING
+        actionTypes.REQUEST_CREATE_DRAWING,
+        actionTypes.SUCCESS_CREATE_DRAWING,
+        actionTypes.FAILURE_DRAWING,
       ],
       credentials: 'include',
     },
+  }).then(response => {
+    dispatch(push(`/drawing/${response.payload.result._id}`))
   })
 }
 
@@ -58,9 +42,9 @@ export function saveDrawing(drawingId, canvas) {
       method: 'PUT',
       body: JSON.stringify({ canvas }),
       types: [
-        REQUEST_SAVE_DRAWING,
-        SUCCESS_SAVE_DRAWING,
-        FAILURE_DRAWING
+        actionTypes.REQUEST_SAVE_DRAWING,
+        actionTypes.SUCCESS_SAVE_DRAWING,
+        actionTypes.FAILURE_DRAWING
       ],
       credentials: 'include',
     },
@@ -73,17 +57,14 @@ export function cancelDrawing(drawingId) {
       endpoint: `/drawings/${drawingId}`,
       method: 'DELETE',
       types: [
-        REQUEST_CANCEL_DRAWING,
-        {
-          type: SUCCESS_CANCEL_DRAWING,
-          payload: () => {
-            return dispatch(push(`/`))
-          }
-        },
-        FAILURE_DRAWING
+        actionTypes.REQUEST_CANCEL_DRAWING,
+        actionTypes.SUCCESS_CANCEL_DRAWING,
+        actionTypes.FAILURE_DRAWING,
       ],
       credentials: 'include',
     },
+  }).then(() => {
+    dispatch(push(`/`))
   })
 }
 
@@ -93,25 +74,19 @@ export function commitDrawing(drawingId) {
       endpoint: `/drawings/${drawingId}/commit`,
       method: 'POST',
       types: [
-        REQUEST_COMMIT_DRAWING,
-        {
-          type: SUCCESS_COMMIT_DRAWING,
-          payload: (action, state, res) => {
-            getJSON(res).then(json => {
-              dispatch(push(`/corpse/${json.result._id}`))
-              return res
-            })
-          }
-        },
-        FAILURE_DRAWING
+        actionTypes.REQUEST_COMMIT_DRAWING,
+        actionTypes.SUCCESS_COMMIT_DRAWING,
+        actionTypes.FAILURE_DRAWING,
       ],
       credentials: 'include',
     },
+  }).then(response => {
+    dispatch(push(`/corpse/${response.payload.result._id}`))
   })
 }
 
 export function clearDrawing() {
   return {
-    type: CLEAR_DRAWING,
+    type: actionTypes.CLEAR_DRAWING,
   }
 }

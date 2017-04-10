@@ -6,7 +6,7 @@ const success = payload => ({ type: SUCCESS_CORPSES, payload })
 const fail    = ()      => ({ type: FAILURE })
 
 const corpsesLoad = () => (dispatch, getState, { request }) => dispatch(
-  request({ path: '/corpses'})({ initial, success, fail })
+  request({ method: 'GET', path: '/corpses'})({ initial, success, fail })
 )
 
 export default corpsesLoad

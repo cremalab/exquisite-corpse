@@ -20,10 +20,12 @@ function notifyCompletion(server, payload) {
 function handleCompletion(server, db, payload) {
   if (isComplete(payload)) {
     const canvas = canvasCombiner.stitch(payload.sections.map(s => s.drawing.canvas))
+    const size = canvasCombiner.getDimensionsFromJSON(canvas)
     canvasUploader.uploadAndUpdate(server, canvasCombiner.toSVG(canvas), String(payload._id))
 
     return corpsesDB.update(db, payload._id, {
       canvas: canvas,
+      size,
       status: 'complete',
     }).then((result) => {
       notifyCompletion(server, result)
