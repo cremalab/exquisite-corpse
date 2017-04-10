@@ -20,11 +20,15 @@ class Corpse extends Component {
   }
 
   render() {
-    const { corpse: { loading, sections, status } } = this.props
+    const { corpse: { loading, sections, status, size } } = this.props
 
     if ( loading ) return <Spinner />
     const finalDrawing = (status === 'complete') ? (
-      <Surface drawing={this.props.corpse} height={200 * 4 + 'px'} />
+      <Surface
+        drawing={this.props.corpse}
+        height={size.height + 'px'}
+        width={size.width + 'px'}
+      />
     ) : null
     return (
       <div>
