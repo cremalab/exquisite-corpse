@@ -5,6 +5,7 @@ import { push } from 'react-router-redux'
 import corpseClear from 'actions/corpseClear'
 import corpseLoad from 'actions/corpseLoad'
 import drawingCreate from 'actions/drawingCreate'
+import subscribe from 'actions/subscribe'
 import Surface from '../Surface'
 import Box from 'react-boxen'
 
@@ -13,6 +14,7 @@ class Corpse extends Component {
     const { dispatch, corpseId } = this.props
     dispatch(corpseClear())
     dispatch(corpseLoad(corpseId))
+    dispatch(subscribe(`/corpses/${corpseId}`))
   }
 
   componentWillUnmount() {
