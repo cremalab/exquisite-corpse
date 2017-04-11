@@ -2,6 +2,7 @@ import {
   REQUEST_CORPSE,
   SUCCESS_CORPSE,
   CLEAR_CORPSE,
+  MERGE_CORPSE,
 } from '../config/actionTypes'
 
 const initialState = {
@@ -24,12 +25,26 @@ function corpses(state = initialState, action) {
         canvas: action.payload.result.canvas,
         size: action.payload.result.size,
         status: action.payload.result.status,
+        createdAt: action.payload.result.createdAt,
+        _id: action.payload.result._id,
       }
     case CLEAR_CORPSE:
       return initialState
+    case MERGE_CORPSE:
+      if (action.payload._id === state._id) {
+        const { payload } = action
+        return {
+          ...state,
+          sections: payload.sections,
+          size: payload.size,
+          status: payload.status,
+          canvas: payload.canvas,
+        }
+      }
+      return state
     default:
       return state
   }
 }
 
-export {corpses as default, initialState};
+export { corpses as default, initialState }

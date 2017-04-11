@@ -1,8 +1,8 @@
 const urlPrefix = `/corpses`
 
 const types = {
-  CHANGE: 'change',
-  COMPLETION: 'completion',
+  CHANGE: 'corpseChange',
+  COMPLETION: 'corpseCompletion',
 }
 
 module.exports = {
