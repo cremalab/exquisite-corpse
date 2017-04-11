@@ -9,7 +9,7 @@ function statusify(r) {
 module.exports = {
   index(request, reply) {
     const { db } = request.mongo
-    return corpsesDB.getAll(db)
+    return corpsesDB.getAll(db, { sort: { createdAt: -1 }})
       .then((r) => {
         reply({ result: r })
       })

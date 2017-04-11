@@ -25,6 +25,7 @@ function corpses(state = initialState, action) {
         canvas: action.payload.result.canvas,
         size: action.payload.result.size,
         status: action.payload.result.status,
+        createdAt: action.payload.result.createdAt,
         _id: action.payload.result._id,
       }
     case CLEAR_CORPSE:

@@ -51,14 +51,14 @@ module.exports = {
       Object.assign({}, s, { _id: new ObjectID() })
     ))
   },
-  getAll(db) {
+  getAll(db, options = {}) {
     return new Promise((resolve, reject) => {
       try {
         Joi.assert(db, dbSchema)
       } catch (e) {
         return reject(Boom.wrap(e))
       }
-      return db.collection('corpses').find({}).toArray().then(resolve)
+      return db.collection('corpses').find({}, options).toArray().then(resolve)
     })
   },
   find(db, id) {

@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/lib/Button'
 import Box from 'react-boxen'
 import ItemCorpse from 'components/ItemCorpse'
 import propTypesCorpse from 'propTypes/Corpse'
+import { isBefore } from 'date-fns'
 
 class Corpses extends React.Component {
   componentDidMount() {
@@ -41,7 +42,10 @@ class Corpses extends React.Component {
         childWrapLastGrow={false}
         childBasis="300px"
       >
-        { result.map(corpse =>
+        { result.sort((a, b) => {
+          if (isBefore(a.createdAt, b.createdAt)) return 1
+          return -1
+        }).map(corpse =>
           <ItemCorpse key={corpse._id} corpse={corpse} />
         )}
       </Box>
