@@ -22,8 +22,8 @@ const drawingSchema = Joi.object().keys({
       .notes('min and max x coordinate for bottom anchors'),
   }),
   canvas: Joi.string(),
-  section: objectId,
-  corpse: objectId,
+  section: objectId.description('ObjectId of associated section of corpse'),
+  corpse: objectId.description('ObjectId of associated corpse'),
   createdAt: Joi.date().timestamp('javascript').required(),
   updatedAt: Joi.date().timestamp('javascript').required(),
 })
