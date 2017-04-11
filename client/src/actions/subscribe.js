@@ -5,7 +5,7 @@ import {
   MERGE_CORPSE,
 } from 'config/actionTypes'
 
-const handleCorpseMsg = (dispatch) => ({ type, data }) => {
+const handleEventMsg = (dispatch) => ({ type, data }) => {
   switch (type) {
     case 'corpseChange':
       return dispatch({ type: MERGE_CORPSE, payload: data })
@@ -24,7 +24,7 @@ const handleSub = (error) => dispatch => {
 
 const socketSubscribe = (channel) => (dispatch, getState, { wsClient }) => {
   dispatch({ type: REQUEST_SUBSCRIBE, payload: { channel } })
-  wsClient.subscribe(channel, handleCorpseMsg(dispatch), handleSub)
+  wsClient.subscribe(channel, handleEventMsg(dispatch), handleSub)
 }
 
 export default socketSubscribe
