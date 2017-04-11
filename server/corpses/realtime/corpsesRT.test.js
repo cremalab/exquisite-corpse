@@ -10,7 +10,7 @@ describe('corpsesRT', () => {
       rt.notifyChange(server, payload)
       expect(publish).toBeCalledWith('/corpses/1234', {
         data: payload,
-        type: 'change',
+        type: 'corpseChange',
       })
     })
   })
@@ -25,7 +25,7 @@ describe('corpsesRT', () => {
       rt.notifyCompletion(server, payload)
       expect(publish).toBeCalledWith('/corpses/1234', {
         data: payload,
-        type: 'completion',
+        type: 'corpseCompletion',
       })
     })
   })

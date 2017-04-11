@@ -30,7 +30,7 @@ wsClient.subscribe(`/corpse/${corpseID}`, handleCorpseMsg, handleErr)
 ```
 
 ### Message Types
-* `change`: the Corpse has been updated. Could mean a drawer was added, a drawing was completed, or anything else
-* `completion`: a Corpse has all of its drawings completed. Use this event to trigger a reveal.
+* `corpseChange`: the Corpse has been updated. Could mean a drawer was added, a drawing was completed, or anything else
+* `corpseCompletion`: a Corpse has all of its drawings completed. Use this event to trigger a reveal.
 
 **TODO**: final corpse canvas is not merged/created on the server, so it will need to be done client-side. Eventually I want to generate the canvas on the server and send one payload to import on the client.

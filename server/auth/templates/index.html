@@ -1,13 +1,24 @@
-<h1>Login</h1>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exquisite Corpse</title>
+  </head>
+  <body>
+    <h1>Login</h1>
 
-<h2>If you wanna be sure you can find your drawings later:</h2>
-{% for provider in enabledProviders %}
-  <h3>log in with <a href='{{ provider.route }}'>{{ provider.name }}</a></h3>
-{% endfor %}
+    <h2>If you wanna be sure you can find your drawings later:</h2>
+    {% for provider in enabledProviders %}
+      <h3>log in with <a href='{{ provider.route }}'>{{ provider.name }}</a></h3>
+    {% endfor %}
 
-<h2>If you just wanna jump in and draw:</h2>
-<form class="" action="/login/guest" method="post">
-  <label for="name">Name</label>
-  <input name="name" id="name" />
-  <button>Go!</button>
-</form>
+    <h2>If you just wanna jump in and draw:</h2>
+    <form class="" action="/login/guest" method="post">
+      <label for="name">Name</label>
+      <input name="name" id="name" />
+      <button>Go!</button>
+    </form>
+
+  </body>
+</html>

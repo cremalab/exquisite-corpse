@@ -1,5 +1,4 @@
-import Nes from 'nes';
-import {MERGE_CORPSE} from 'config/actionTypes';
+import subscribe from 'actions/subscribe'
 
 const initialize = () => (dispatch, getState, { request }) =>
   dispatch(request({ path: '/nes/auth'})({ success }))
@@ -7,7 +6,7 @@ const initialize = () => (dispatch, getState, { request }) =>
 const success = payload => (dispatch, getState, { wsClient }) => {
   wsClient.connect({ auth: payload.token }, err => {
     if (err) { throw err }
-    wsClient.subscribe('/lobby', handleLobbyMsg(dispatch), handleError)
+    dispatch(subscribe(`/lobby`))
     wsClient.request({
       path: '/lobby',
       method: 'POST',
@@ -18,19 +17,5 @@ const success = payload => (dispatch, getState, { wsClient }) => {
   })
 }
 
-const handleLobbyMsg = ({ type, data }) => dispatch => {
-  switch (type) {
-    case 'usersChange':
-      break
-    case 'corpseChange':
-      return dispatch({ type: MERGE_CORPSE, payload: data })
-    default:
-      return null
-  }
-}
-
-function handleError() {
-
-}
 
 export default initialize
