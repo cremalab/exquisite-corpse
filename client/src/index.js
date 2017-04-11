@@ -7,10 +7,3 @@ injectTapEventPlugin()
 
 const rootElement = document.getElementById('root')
 ReactDOM.render( <Root />, rootElement )
-
-if (module.hot) {
-  module.hot.accept('./Root', () => {
-    var NextApp = require('./Root').default
-    ReactDOM.render(<NextApp />, rootElement)
-  })
-}

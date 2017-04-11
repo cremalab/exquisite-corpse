@@ -3,12 +3,7 @@ import {Provider} from 'react-redux'
 import store, { history} from 'store'
 import { ConnectedRouter } from 'react-router-redux'
 import { Route } from 'react-router-dom'
-import sockets from 'actions/sockets'
-
-// Route Components
 import RouteApp from 'components/RouteApp'
-
-sockets()
 
 class Root extends Component {
   render() {
