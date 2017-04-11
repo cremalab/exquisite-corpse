@@ -2,29 +2,34 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import Spinner from 'react-md-spinner'
 import { push } from 'react-router-redux'
-import { loadCorpse, clearCorpse } from '../../actions/corpses'
-import { createDrawing } from '../../actions/drawings'
+import corpseClear from 'actions/corpseClear'
+import corpseLoad from 'actions/corpseLoad'
+import drawingCreate from 'actions/drawingCreate'
 import Surface from '../Surface'
 import Box from 'react-boxen'
 
 class Corpse extends Component {
   componentWillMount() {
     const { dispatch, corpseId } = this.props
-    dispatch(clearCorpse())
-    dispatch(loadCorpse(corpseId))
+    dispatch(corpseClear())
+    dispatch(corpseLoad(corpseId))
   }
 
   componentWillUnmount() {
     const { dispatch } = this.props
-    dispatch(clearCorpse())
+    dispatch(corpseClear())
   }
 
   render() {
-    const { corpse: { loading, sections, status } } = this.props
+    const { corpse: { loading, sections, status, size = {} } } = this.props
 
     if ( loading ) return <Spinner />
     const finalDrawing = (status === 'complete') ? (
-      <Surface drawing={this.props.corpse} height={200 * 4 + 'px'} />
+      <Surface
+        drawing={this.props.corpse}
+        height={size.height}
+        width={size.width}
+      />
     ) : null
     return (
       <div>
@@ -62,7 +67,7 @@ class Corpse extends Component {
       dispatch(push(`/drawing/${section.drawing._id}`))
     }
     if (!section.drawer) {
-      dispatch(createDrawing(section._id))
+      dispatch(drawingCreate(section._id))
     }
   }
 

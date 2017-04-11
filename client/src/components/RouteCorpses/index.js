@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { loadCorpses, createCorpse } from 'actions/corpses'
+import corpsesLoad from 'actions/corpsesLoad'
 import { connect } from 'react-redux'
 import Spinner from 'react-md-spinner'
 import Button from 'react-bootstrap/lib/Button'
@@ -10,7 +10,7 @@ import {push} from 'react-router-redux'
 
 class Corpses extends React.Component {
   componentDidMount() {
-    this.props.dispatch(loadCorpses())
+    this.props.dispatch(corpsesLoad())
   }
   render() {
     const { dispatch, corpses: { result, loading } } = this.props

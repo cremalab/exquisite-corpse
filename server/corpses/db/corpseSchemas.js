@@ -32,6 +32,10 @@ module.exports = {
     creator: objectId.strip(),
     sections: Joi.array().items(corpseSection).min(2),
     canvas: Joi.string(),
+    size: Joi.object().keys({
+      width: Joi.number(),
+      height: Joi.number(),
+    }),
     status: Joi.string().valid(['new', 'incomplete', 'complete']),
     svgUrl: Joi.string().uri().example('http://exq-corpse.s3.amazonaws.com/uploads/corpses/58e64e693f98444ee9c5f5b2.svg'),
   }),
