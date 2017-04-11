@@ -23,6 +23,7 @@ const drawingSchema = Joi.object().keys({
   }),
   canvas: Joi.string(),
   section: objectId,
+  corpse: objectId,
   createdAt: Joi.date().timestamp('javascript').required(),
   updatedAt: Joi.date().timestamp('javascript').required(),
 })

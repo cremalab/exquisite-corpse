@@ -28,6 +28,7 @@ module.exports = {
       .example({ top: [10, 100], bottom: [15, 140] }),
     canvas: Joi.string(),
     section: objectId.required().example(new ObjectId()),
+    corpse: objectId.required().example(new ObjectId()),
   }).required(),
   createPayload: Joi.object().keys({
     canvas: Joi.string().optional(),
