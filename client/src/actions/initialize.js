@@ -1,6 +1,9 @@
 import Nes from 'nes';
 import {MERGE_CORPSE} from 'config/actionTypes';
 
+const initialize = () => (dispatch, getState, { request }) =>
+  dispatch(request({ path: '/nes/auth'})({ success }))
+
 const success = payload => (dispatch, getState, { wsClient }) => {
   wsClient.connect({ auth: payload.token }, err => {
     if (err) { throw err }
@@ -14,9 +17,6 @@ const success = payload => (dispatch, getState, { wsClient }) => {
     })
   })
 }
-
-const initialize = () => (dispatch, getState, { request }) =>
-  dispatch(request({ path: '/nes/auth'})({ success }))
 
 const handleLobbyMsg = ({ type, data }) => dispatch => {
   switch (type) {
@@ -32,4 +32,5 @@ const handleLobbyMsg = ({ type, data }) => dispatch => {
 function handleError() {
 
 }
+
 export default initialize
