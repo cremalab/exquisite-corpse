@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 import reducers from './reducers'
 import { routerMiddleware } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
-import Nes from 'nes'
+import Nes from 'nes/client'
 import request from 'helpers/wsClientRequest'
 
 const wsClient = new Nes.Client(location.origin.replace(/^http/, 'ws'))

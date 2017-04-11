@@ -2,19 +2,22 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import Surface from '../Surface'
 import Spinner from 'react-md-spinner'
-import {saveDrawing, commitDrawing, cancelDrawing, clearDrawing } from 'actions/drawings'
 import drawingLoad from 'actions/drawingLoad'
+import drawingSave from 'actions/drawingSave'
+import drawingCancel from 'actions/drawingCancel'
+import drawingCommit from 'actions/drawingCommit'
+import drawingClear from 'actions/drawingClear'
 
 class RouteDrawing extends Component {
   componentWillMount() {
     const { dispatch, drawingId } = this.props
-    dispatch(clearDrawing())
+    dispatch(drawingClear())
     dispatch(drawingLoad(drawingId))
   }
 
   componentWillUnmount() {
     const { dispatch } = this.props
-    dispatch(clearDrawing())
+    dispatch(drawingClear())
   }
 
   render() {
@@ -34,17 +37,17 @@ class RouteDrawing extends Component {
 
   onSave(canvas) {
     const { dispatch, drawing: { result } } = this.props
-    dispatch(saveDrawing(result._id, canvas))
+    dispatch(drawingSave(result._id, canvas))
   }
 
   onCommit() {
     const { dispatch, drawing: { result } } = this.props
-    dispatch(commitDrawing(result._id))
+    dispatch(drawingCommit(result._id))
   }
 
   onCancel() {
     const { dispatch, drawing: { result } } = this.props
-    dispatch(cancelDrawing(result._id))
+    dispatch(drawingCancel(result._id))
   }
 }
 

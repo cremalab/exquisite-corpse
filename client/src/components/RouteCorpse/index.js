@@ -4,7 +4,7 @@ import Spinner from 'react-md-spinner'
 import { push } from 'react-router-redux'
 import corpseClear from 'actions/corpseClear'
 import corpseLoad from 'actions/corpseLoad'
-import { createDrawing } from '../../actions/drawings'
+import drawingCreate from 'actions/drawingCreate'
 import Surface from '../Surface'
 import Box from 'react-boxen'
 
@@ -21,11 +21,15 @@ class Corpse extends Component {
   }
 
   render() {
-    const { corpse: { loading, sections, status } } = this.props
+    const { corpse: { loading, sections, status, size = {} } } = this.props
 
     if ( loading ) return <Spinner />
     const finalDrawing = (status === 'complete') ? (
-      <Surface drawing={this.props.corpse} height={200 * 4 + 'px'} />
+      <Surface
+        drawing={this.props.corpse}
+        height={size.height}
+        width={size.width}
+      />
     ) : null
     return (
       <div>
@@ -63,7 +67,7 @@ class Corpse extends Component {
       dispatch(push(`/drawing/${section.drawing._id}`))
     }
     if (!section.drawer) {
-      dispatch(createDrawing(section._id))
+      dispatch(drawingCreate(section._id))
     }
   }
 

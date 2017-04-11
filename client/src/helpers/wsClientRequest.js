@@ -1,12 +1,17 @@
-const request = config => actions => (dispatch, getState, { wsClient }) => {
+const request = ({path, ...config}) => actions => (dispatch, getState, { wsClient }) => {
   if (actions.initial) dispatch(actions.initial())
-  wsClient.request(config, (err, payload) => {
-    if (err) {
-      throw err
-      if (actions.fail) dispatch(actions.fail(err))
-    } else {
-      if (actions.success) dispatch(actions.success(payload))
-    }
+  return fetch(path, {
+    ...config,
+    credentials: 'include'
+  })
+  .then(res => res.json())
+  .then(payload => {
+    if (actions.success) dispatch(actions.success(payload))
+    return payload
+  })
+  .catch(err => {
+    if (actions.fail) dispatch(actions.fail(err))
+    throw err
   })
 }
 

@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Box from 'react-boxen'
+import { connect } from 'react-redux'
+import { Route } from 'react-router-dom'
 import initialize from 'actions/initialize'
-import {connect} from 'react-redux'
+import RouteCorpses from 'components/RouteCorpses'
+import RouteCorpse from 'components/RouteCorpse'
+import RouteDrawing from 'components/RouteDrawing'
+import RouteHome from 'components/RouteHome'
 
-class App extends Component {
+class RouteApp extends Component {
   componentWillMount() {
     this.props.dispatch(initialize())
   }
@@ -25,9 +30,12 @@ class App extends Component {
         >
           <header><Link to="/">Scribble Corpse</Link></header>
         </Box>
-        <div>
-          { this.props.children }
-        </div>
+        <Box>
+          <Route exact path="/welcome" component={RouteHome}/>
+          <Route exact path="/" component={RouteCorpses}/>
+          <Route path="/corpse/:corpseId" component={RouteCorpse}/>
+          <Route path="/drawing/:drawingId" component={RouteDrawing}/>
+        </Box>
       </Box>
     )
   }
@@ -37,4 +45,4 @@ const mapStateToProps = state => ({
   currentUser: state.users.currentUser
 })
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps)(RouteApp)

@@ -1,23 +1,22 @@
 import Nes from 'nes';
 import {MERGE_CORPSE} from 'config/actionTypes';
 
-const initialize = () => (dispatch, getState, { wsClient }) => {
-  fetch('/nes/auth', {credentials: 'include'})
-    .then(res => res.json())
-    .then((res) => {
-      wsClient.connect({ auth: res.token }, err => {
-        if (err) { throw err }
-        wsClient.subscribe('/lobby', handleLobbyMsg(dispatch), handleError)
-        wsClient.request({
-          path: '/lobby',
-          method: 'POST',
-        }, (err, user) => {
-          if (err) { throw err }
-          dispatch({ type: 'SET_USER', payload: user.credentials })
-        })
-      })
+const success = payload => (dispatch, getState, { wsClient }) => {
+  wsClient.connect({ auth: payload.token }, err => {
+    if (err) { throw err }
+    wsClient.subscribe('/lobby', handleLobbyMsg(dispatch), handleError)
+    wsClient.request({
+      path: '/lobby',
+      method: 'POST',
+    }, (err, user) => {
+      if (err) { throw err }
+      dispatch({ type: 'SET_USER', payload: user.credentials })
     })
+  })
 }
+
+const initialize = () => (dispatch, getState, { request }) =>
+  dispatch(request({ path: '/nes/auth'})({ success }))
 
 const handleLobbyMsg = ({ type, data }) => dispatch => {
   switch (type) {
