@@ -30,12 +30,12 @@ class RouteApp extends Component {
         >
           <header><Link to="/">Scribble Corpse</Link></header>
         </Box>
-        <Box>
+        <div>
           <Route exact path="/welcome" component={RouteHome}/>
           <Route exact path="/" component={RouteCorpses}/>
           <Route path="/corpse/:corpseId" component={RouteCorpse}/>
           <Route path="/drawing/:drawingId" component={RouteDrawing}/>
-        </Box>
+        </div>
       </Box>
     )
   }
