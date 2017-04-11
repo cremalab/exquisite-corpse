@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { createCorpse } from 'actions/corpses'
+import corpseCreate from 'actions/corpseCreate'
 import SampleCanvas from '../SampleCanvas';
 import { Field, reduxForm } from 'redux-form';
 import RangeInput from '../RangeInput';
