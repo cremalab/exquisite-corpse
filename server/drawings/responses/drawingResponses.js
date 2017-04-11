@@ -12,11 +12,11 @@ const drawingSchema = Joi.object().keys({
   _id: Joi.any().required(),
   creator: user.required(),
   anchorPoints: Joi.object({
-    top: Joi.array().max(2).items([Joi.number(), Joi.number()])
+    top: Joi.array().items([Joi.number()])
       .required()
       .example([20, 200])
       .notes('min and max x coordinate for top anchors'),
-    bottom: Joi.array().max(2).items([Joi.number(), Joi.number()])
+    bottom: Joi.array().items([Joi.number()])
       .required()
       .example([50, 210])
       .notes('min and max x coordinate for bottom anchors'),
