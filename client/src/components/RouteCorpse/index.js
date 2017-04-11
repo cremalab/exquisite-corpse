@@ -6,6 +6,7 @@ import corpseClear from 'actions/corpseClear'
 import corpseLoad from 'actions/corpseLoad'
 import drawingCreate from 'actions/drawingCreate'
 import subscribe from 'actions/subscribe'
+import unsubscribe from 'actions/unsubscribe'
 import Surface from '../Surface'
 import Box from 'react-boxen'
 
@@ -18,7 +19,8 @@ class Corpse extends Component {
   }
 
   componentWillUnmount() {
-    const { dispatch } = this.props
+    const { dispatch, corpseId } = this.props
+    dispatch(unsubscribe(`/corpses/${corpseId}`))
     dispatch(corpseClear())
   }
 
