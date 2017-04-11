@@ -3,6 +3,7 @@ const Boom = require('boom')
 const common = require('../../../db/common')
 const corpseSections = require('../../corpseSections/db/corpseSectionsDB')
 const drawingSchemas = require('./drawingSchemas')
+const ObjectId = require('mongodb').ObjectId
 
 const dbSchema = Joi.object().required()
 
@@ -38,7 +39,11 @@ module.exports = {
         reject(e)
       }
       corpseSections.addDrawer(db, params.section, params.creator).then((section) => {
-        const attrs = Object.assign({}, params, { anchorPoints: section.anchorPoints })
+        const attrs = Object.assign({}, params, {
+          section: ObjectId(params.section),
+          anchorPoints: section.anchorPoints,
+          corpse: section.corpse,
+        })
         Joi.attempt(attrs, drawingSchemas.create)
         return common.create(db, attrs, 'drawings').then(resolve).catch(reject)
       }).catch(reject)
