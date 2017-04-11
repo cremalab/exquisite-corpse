@@ -36,7 +36,7 @@ RouteCreateCorpse = reduxForm({
     range2: defaultPoints,
     range3: defaultPoints,
   },
-  onSubmit: (values, dispatch) => dispatch(createCorpse(values))
+  onSubmit: (values, dispatch) => dispatch(corpseCreate(values))
 })(RouteCreateCorpse);
 
 export default RouteCreateCorpse;
