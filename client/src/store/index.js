@@ -7,8 +7,7 @@ import createHistory from 'history/createBrowserHistory'
 import Nes from 'nes'
 import request from 'helpers/wsClientRequest'
 
-const host = location.origin.replace(/^http/, 'ws')
-const wsClient = new Nes.Client(host)
+const wsClient = new Nes.Client(location.origin.replace(/^http/, 'ws'))
 const history = createHistory()
 
 const createStoreWithMiddleware = compose(
