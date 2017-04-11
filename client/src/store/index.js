@@ -1,5 +1,4 @@
 import { compose, createStore, applyMiddleware } from 'redux'
-import { apiMiddleware } from 'redux-api-middleware'
 import thunk from 'redux-thunk'
 import reducers from './reducers'
 import { routerMiddleware } from 'react-router-redux'
@@ -12,7 +11,6 @@ const history = createHistory()
 
 const createStoreWithMiddleware = compose(
   applyMiddleware(
-    apiMiddleware,
     thunk.withExtraArgument({ wsClient, request }),
     routerMiddleware(history)
   ),

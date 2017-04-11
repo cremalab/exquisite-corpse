@@ -1,5 +1,4 @@
 import { SUCCESS_CORPSES, REQUEST_CORPSES, FAILURE } from 'config/actionTypes'
-import { CALL_API } from 'redux-api-middleware'
 
 const initial = ()      => ({ type: REQUEST_CORPSES })
 const success = payload => ({ type: SUCCESS_CORPSES, payload })

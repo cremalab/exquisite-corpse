@@ -3,7 +3,6 @@ import {
   SUCCESS_CORPSE,
   FAILURE
 } from 'config/actionTypes'
-import { CALL_API } from 'redux-api-middleware'
 
 const initial = ()      => ({ type: REQUEST_CORPSE })
 const success = payload => ({ type: SUCCESS_CORPSE, payload })
