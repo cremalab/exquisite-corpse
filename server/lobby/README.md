@@ -56,4 +56,4 @@ wsClient.subscribe('/lobby', handleLobbyMsg, handleErr)
 ### Message Types
 * `usersChange`: a user has joined or left the lobby. Payload is an array of users currently in the lobby
 * `corpseChange`: a Corpse has been updated. Payload is the entire serialized Corpse.
-* `chatMessage`: a payload with `user`, `user_id`, and `content` keys describing a message that was sent via chat. Messages are not persisted on the server.
+* `chatMessage`: a payload with `name` of user, `id` of user, `content`, and `timestamp` keys describing a message that was sent via chat. Messages are not persisted on the server.
