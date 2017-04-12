@@ -3,12 +3,15 @@ import {
   SUCCESS_SUBSCRIBE,
   FAILURE_SUBSCRIBE,
   MERGE_CORPSE,
+  CHAT_MESSAGE_ADD,
 } from 'config/actionTypes'
 
 const handleEventMsg = (dispatch) => ({ type, data }) => {
   switch (type) {
     case 'corpseChange':
       return dispatch({ type: MERGE_CORPSE, payload: data })
+    case 'chatMessage':
+      return dispatch({ type: CHAT_MESSAGE_ADD, payload: data })
     default:
       return null
   }
