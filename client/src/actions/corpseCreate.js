@@ -12,8 +12,12 @@ const success = payload => dispatch => {
 }
 const fail    = ()      => ({ type: FAILURE })
 
-const corpsesCreate = id => (dispatch, getState, { request }) => dispatch(
-  request({ path: `/corpses`, method: 'POST' })({ initial, success, fail })
+const corpsesCreate = values => (dispatch, getState, { request }) => dispatch(
+  request({
+    path: `/corpses`,
+    method: 'POST',
+    body: JSON.stringify(values)
+  })({ initial, success, fail })
 )
 
 export default corpsesCreate

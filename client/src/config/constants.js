@@ -1,3 +1,4 @@
 export const CORPSES_LOAD = 'CORPSES_LOAD'
 export const CORPSES_SET = 'CORPSES_SET'
 export const CORPSES_RESET = 'CORPSES_RESET'
+export const FORM_CREATE_CORPSE = 'FORM_CREATE_CORPSE'
