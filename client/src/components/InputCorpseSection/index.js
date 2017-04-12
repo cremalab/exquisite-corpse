@@ -3,10 +3,10 @@ import { Field } from 'redux-form'
 import InputRange from '../InputRange'
 import InputField from '../InputField'
 
-const InputCorpseSection = ({ fields, meta: { submitFailed }, initialPoints }) => {
+const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) => {
 
   const showAdd = fields.length < 6
-  const onAdd = () => fields.push({ anchorPoints: initialPoints })
+  const onAdd = () => fields.push({ anchorPoints: anchorPoints[2] })
 
   return <div>
     {
@@ -14,6 +14,18 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, initialPoints }) =
         const showPoints = i < (fields.length - 1)
         const showRemove = i > 1
         const onRemove = () => fields.remove(i)
+        const onUpdatePoint = calcVal => e => {
+          const fieldValues = fields.get(i)
+          const newPoints = anchorPoints[calcVal(fieldValues.anchorPoints.length)]
+          if ( newPoints ) {
+            fields.remove(i)
+            fields.insert(i, {
+              ...fieldValues,
+              anchorPoints: newPoints
+            })
+          }
+        }
+
         return <div key={i}>
           <Field
             name={`${section}.description`}
@@ -26,12 +38,16 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, initialPoints }) =
           }
           {
             showPoints &&
-            <Field
-              name={`${section}.anchorPoints`}
-              step={10}
-              pushable={true}
-              component={InputRange}
-            />
+            <div>
+              <button type="button" onClick={onUpdatePoint(n => n - 1)}>-</button>
+              <button type="button" onClick={onUpdatePoint(n => n + 1)}>+</button>
+              <Field
+                name={`${section}.anchorPoints`}
+                step={10}
+                pushable={true}
+                component={InputRange}
+              />
+            </div>
           }
         </div>
       })
@@ -46,7 +62,7 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, initialPoints }) =
 InputCorpseSection.propTypes = {
   fields: PropTypes.object,
   meta: PropTypes.object,
-  initialPoints: PropTypes.array,
+  anchorPoints: PropTypes.object,
 }
 
 export default InputCorpseSection
