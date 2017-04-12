@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import corpseCreate from 'actions/corpseCreate'
 import corpsesLoad from 'actions/corpsesLoad'
 import { connect } from 'react-redux'
 import Spinner from 'react-md-spinner'
@@ -7,6 +6,7 @@ import Button from 'react-bootstrap/lib/Button'
 import Box from 'react-boxen'
 import ItemCorpse from 'components/ItemCorpse'
 import propTypesCorpse from 'propTypes/Corpse'
+import {push} from 'react-router-redux'
 import { isBefore } from 'date-fns'
 
 class Corpses extends React.Component {
@@ -29,7 +29,7 @@ class Corpses extends React.Component {
       >
         <Box grow='1'><h1>Lobby</h1></Box>
         <Box><Button
-          onClick={() => dispatch(corpseCreate())}
+          onClick={() => dispatch(push('/create'))}
         >
           Create Corpse
         </Button></Box>
