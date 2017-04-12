@@ -8,6 +8,7 @@ import ItemCorpse from 'components/ItemCorpse'
 import propTypesCorpse from 'propTypes/Corpse'
 import {push} from 'react-router-redux'
 import { isBefore } from 'date-fns'
+import ConnectedUsers from 'components/ConnectedUsers'
 
 class Corpses extends React.Component {
   componentDidMount() {
@@ -49,6 +50,7 @@ class Corpses extends React.Component {
           <ItemCorpse key={corpse._id} corpse={corpse} />
         )}
       </Box>
+      <ConnectedUsers />
     </Box>)
   }
 }
