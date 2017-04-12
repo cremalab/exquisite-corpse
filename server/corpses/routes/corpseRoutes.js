@@ -39,8 +39,14 @@ module.exports = [
     config: {
       handler: handlers.create,
       description: 'Creates a new Corpse',
-      notes: [`No params needed, default corpse generated and added to current user`],
+      notes: [
+        `Default corpse generated if no sections are passed`,
+        '`anchorPoints`: Array of X Coordinates for the **bottom** guides of each section. If defined, the `anchorPoints` for the last section will be ignored.',
+      ],
       tags: ['api', 'corpse'],
+      validate: {
+        payload: schemas.createFromRequest.optional().allow(null),
+      },
       response: {
         schema: responses.single,
       },

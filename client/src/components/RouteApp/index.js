@@ -8,6 +8,7 @@ import RouteCorpses from 'components/RouteCorpses'
 import RouteCorpse from 'components/RouteCorpse'
 import RouteDrawing from 'components/RouteDrawing'
 import RouteHome from 'components/RouteHome'
+import RouteCreateCorpse from 'components/RouteCreateCorpse'
 
 class RouteApp extends Component {
   componentWillMount() {
@@ -33,6 +34,7 @@ class RouteApp extends Component {
         <div>
           <Route exact path="/welcome" component={RouteHome}/>
           <Route exact path="/" component={RouteCorpses}/>
+          <Route path="/create" component={RouteCreateCorpse} />
           <Route path="/corpse/:corpseId" component={RouteCorpse}/>
           <Route path="/drawing/:drawingId" component={RouteDrawing}/>
         </div>

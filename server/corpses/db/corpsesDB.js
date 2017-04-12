@@ -13,11 +13,15 @@ function generateAnchorPoint() {
   return [left, right]
 }
 
-function addBottom(section) {
+function addBottom(section, i, arr, anchorPoints) {
+  let points = { bottom : [] }
+  if (i !== arr.length - 1) {
+    points = {
+      bottom: anchorPoints || generateAnchorPoint(),
+    }
+  }
   return Object.assign({}, section, {
-    anchorPoints: {
-      bottom: generateAnchorPoint(),
-    },
+    anchorPoints: points,
   })
 }
 
@@ -28,6 +32,9 @@ function addTop(section, i, arr) {
     top = prev.anchorPoints.bottom
   } else {
     top = generateAnchorPoint()
+  }
+  if (i === 0) {
+    top = []
   }
   const mod = Object.assign({}, section, {
     anchorPoints: Object.assign(section.anchorPoints, { top }),
@@ -67,12 +74,21 @@ module.exports = {
   findBySection(db, section) {
     return common.findBy(db, { 'sections._id': ObjectID(section) }, 'corpses')
   },
+  generateCorpse(params) {
+    if (!params || !params.sections) {
+      return defaultCorpse()
+    }
+    const sections = params.sections
+      .map((s, i) => addBottom(s, i, params.sections, s.anchorPoints))
+      .map(addTop)
+    return { sections, status: 'new' }
+  },
   create(db, params = {}) {
     return new Promise((resolve, reject) => {
       // Merge with default Corpse and add IDs to sections
-      const generated = defaultCorpse()
+      const generated = this.generateCorpse(params)
       const attrs = Object.assign({ }, params, generated, {
-        sections: this.idSections(generated.sections),
+        sections: this.idSections(generated.sections)
       })
       try {
         Joi.assert(db, dbSchema)
