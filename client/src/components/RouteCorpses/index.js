@@ -49,8 +49,8 @@ class Corpses extends React.Component {
         }).map(corpse =>
           <ItemCorpse key={corpse._id} corpse={corpse} />
         )}
-        <ChatMessages />
       </Box>
+      <ChatMessages />
     </Box>)
   }
 }

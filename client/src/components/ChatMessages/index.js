@@ -8,25 +8,53 @@ import { isBefore } from 'date-fns'
 import chatMessageSubmit from 'actions/chatMessageSubmit'
 
 class ChatMessages extends Component {
+  componentDidMount() {
+    this.scrollToBottom()
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom()
+  }
+
+  scrollToBottom() {
+    const node = this.messagesEnd
+    node.scrollIntoView({ behavior: 'smooth' })
+  }
+
   render() {
     const { messages, currentUser, chatMessageSubmit } = this.props
 
     function timestampDesc(a, b) {
-      if (isBefore(a.timestamp, b.timestamp)) return 1
-      return -1
+      if (isBefore(a.timestamp, b.timestamp)) return -1
+      return 1
+    }
+
+    const css = {
+      messages: {
+        maxHeight: '300px',
+        overflow: 'auto',
+      },
+      disclaimer: {
+        color: '#ccc',
+        textAlign: 'center',
+      }
     }
 
     return (
-      <Box childDirection='row'>
-        <Box childSpacing='1px'>
-          { messages.sort(timestampDesc).map((message, i) => (
-            <ChatMessage
-              key={i}
-              currentUser={currentUser.id}
-              message={message} />
-          )) }
-        </Box>
-        <ChatInput />
+      <Box>
+        <div style={css.messages}>
+          <Box childSpacing='1px'>
+            <div style={css.disclaimer}>chat messages since you've arrived</div>
+            { messages.sort(timestampDesc).map((message, i) => (
+              <ChatMessage
+                key={i}
+                currentUser={currentUser.id}
+                message={message} />
+            )) }
+            <div ref={(el) => { this.messagesEnd = el }}></div>
+          </Box>
+        </div>
+        <ChatInput onSubmit={chatMessageSubmit} />
       </Box>
     )
   }
