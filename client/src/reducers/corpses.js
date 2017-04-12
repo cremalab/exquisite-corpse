@@ -10,7 +10,6 @@ const initialState = {
   result: [],
 }
 
-
 function updateObjectInArray(array, corpse) {
   if (array.find(item => item._id === corpse._id)) {
     return array.map((item) => {
