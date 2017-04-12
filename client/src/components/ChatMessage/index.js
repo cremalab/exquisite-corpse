@@ -9,7 +9,7 @@ class ChatMessage extends Component {
     const css = {
       message: {
         borderRadius: '6px',
-        backgroundColor: message.id === currentUser.id ? '#17c0ff' : '#f0fbff',
+        backgroundColor: message.id === currentUser ? '#17c0ff' : '#f0fbff',
         color: message.id === currentUser.id ? '#fff' : '#000',
       },
       container: {
@@ -42,7 +42,8 @@ class ChatMessage extends Component {
 }
 
 ChatMessage.propTypes = {
-  message: PropTypes.object
+  message: PropTypes.object,
+  currentUser: PropTypes.string,
 }
 
 export default ChatMessage

@@ -1,12 +1,15 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import Box from 'react-boxen'
 import ChatMessage from 'components/ChatMessage'
+import ChatInput from 'components/ChatInput'
 import { isBefore } from 'date-fns'
+import chatMessageSubmit from 'actions/chatMessageSubmit'
 
 class ChatMessages extends Component {
   render() {
-    const { messages, currentUser } = this.props
+    const { messages, currentUser, chatMessageSubmit } = this.props
 
     function timestampDesc(a, b) {
       if (isBefore(a.timestamp, b.timestamp)) return 1
@@ -19,10 +22,11 @@ class ChatMessages extends Component {
           { messages.sort(timestampDesc).map((message, i) => (
             <ChatMessage
               key={i}
-              currentUser={currentUser}
+              currentUser={currentUser.id}
               message={message} />
           )) }
         </Box>
+        <ChatInput />
       </Box>
     )
   }
@@ -32,6 +36,7 @@ ChatMessages.propTypes = {
   dispatch: PropTypes.func,
   messages: PropTypes.array,
   currentUser: PropTypes.object,
+  chatMessageSubmit: PropTypes.func,
 }
 
 function mapStateToProps(state) {
@@ -41,4 +46,8 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(ChatMessages)
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ chatMessageSubmit }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatMessages)

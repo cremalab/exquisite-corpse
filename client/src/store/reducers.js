@@ -5,8 +5,9 @@ import drawing from '../reducers/drawing'
 import users from '../reducers/users'
 import chat from '../reducers/chat'
 import { routerReducer } from 'react-router-redux'
+import { reducer as form } from 'redux-form'
 
 export default combineReducers({
-  corpses, corpse, drawing, users, chat,
+  corpses, corpse, drawing, users, chat, form,
   routing: routerReducer
 })
