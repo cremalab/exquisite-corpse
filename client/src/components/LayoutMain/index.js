@@ -1,0 +1,89 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+import Box from 'react-boxen'
+import { spacing, colors } from 'config/styles'
+
+const LayoutMain = ({
+  back,
+  title,
+  actions,
+  content,
+  sidebar,
+}) => (
+  <Box
+    height="100%">
+
+    {/* TitleBar */}
+    <Box
+      shrink='0'
+      style={{
+        backgroundColor: colors.primary,
+        color: colors['white-shade-2']
+      }}
+      padding={`${spacing[4]} ${spacing[5]}`}
+      childAlign='center'
+      childDirection='row'
+      childSpacing={spacing[5]}>
+
+      {
+        // TitleBar - Back
+        back &&
+        <Box
+          children={ back }
+        />
+      }
+
+      {
+        // TitleBar - Title
+        title &&
+        <Box
+          grow='1'
+          childJustify='center'
+          children={ title }
+        />
+      }
+
+      {
+        // TitleBar - Actions
+        actions &&
+        <Box
+          children={ actions }
+        />
+      }
+    </Box>
+
+    {/* Main */}
+    <Box
+      grow='1'
+      childDirection='row'>
+
+      {/* Main - Content */}
+      <Box
+        grow='1'
+        style={{backgroundColor: colors['white-shade-1']}}
+        children={ content }/>
+
+      {
+        // Main - Sidebar
+        sidebar &&
+        <Box
+          width='350px'
+          grow='1'
+          shrink='0'
+          style={{backgroundColor: colors['white-shade-2']}}
+          children={ sidebar }
+        />
+      }
+    </Box>
+  </Box>
+)
+
+LayoutMain.propTypes = {
+  back: PropTypes.node,
+  title: PropTypes.node,
+  actions: PropTypes.node,
+  content: PropTypes.node,
+  sidebar: PropTypes.node,
+}
+
+export default LayoutMain
