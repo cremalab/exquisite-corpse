@@ -7,6 +7,8 @@ import drawingSave from 'actions/drawingSave'
 import drawingCancel from 'actions/drawingCancel'
 import drawingCommit from 'actions/drawingCommit'
 import drawingClear from 'actions/drawingClear'
+import subscribe from 'actions/subscribe'
+import unsubscribe from 'actions/unsubscribe'
 
 class RouteDrawing extends Component {
   componentWillMount() {
@@ -16,8 +18,16 @@ class RouteDrawing extends Component {
   }
 
   componentWillUnmount() {
-    const { dispatch } = this.props
+    const { dispatch, drawing: { result: { corpse }} } = this.props
     dispatch(drawingClear())
+    dispatch(unsubscribe(`/corpses/${corpse}`))
+  }
+
+  componentWillReceiveProps(props) {
+    const corpseId = props.drawing.result.corpse
+    const { dispatch } = this.props
+    if (!corpseId) return
+    dispatch(subscribe(`/corpses/${props.drawing.result.corpse}`))
   }
 
   render() {
