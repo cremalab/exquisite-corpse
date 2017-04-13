@@ -5,12 +5,13 @@ import {
   SUCCESS_DRAWING,
   FAILURE_DRAWING,
   CLEAR_DRAWING,
+  REMOVE_CORPSE,
 } from 'config/actionTypes'
 
 const initialState = {
   loading: false,
   saving: false,
-  result: {}
+  result: {},
 }
 
 function corpses(state = initialState, action) {
@@ -47,6 +48,14 @@ function corpses(state = initialState, action) {
     case CLEAR_DRAWING:
       return initialState
 
+    case REMOVE_CORPSE:
+      if (action.payload._id !== state.result.corpse) return state
+      var newResult = Object.assign({}, state.result)
+      delete newResult.corpse
+      return {
+        ...state,
+        result: newResult
+      }
     default:
       return state
   }

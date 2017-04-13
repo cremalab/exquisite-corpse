@@ -2,7 +2,8 @@ import {
   REQUEST_CORPSES,
   SUCCESS_CORPSES,
   SUCCESS_CORPSE_CREATE,
-  MERGE_CORPSE
+  MERGE_CORPSE,
+  REMOVE_CORPSE,
 } from 'config/actionTypes'
 
 const initialState = {
@@ -49,6 +50,11 @@ function corpses(state = initialState, action) {
       return {
         ...state,
         result: updateObjectInArray(state.result, action.payload),
+      }
+    case REMOVE_CORPSE:
+      return {
+        ...state,
+        result: state.result.filter(c => c._id !== action.payload._id),
       }
     default:
       return state

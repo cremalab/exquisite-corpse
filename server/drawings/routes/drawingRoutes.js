@@ -27,6 +27,8 @@ module.exports = [
     config: {
       handler: handlers.create,
       description: 'Creates a new drawing',
+      notes: ['If no `section` attribute is passed in the payload, the drawing will\
+        be created for the oldest corpse section needing a drawing'],
       tags: ['api', 'drawing'],
       validate: {
         payload: schemas.createPayload.required(),
