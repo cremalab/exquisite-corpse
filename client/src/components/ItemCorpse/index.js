@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import Box from 'react-boxen'
@@ -24,13 +25,14 @@ class ItemCorpse extends Component {
 
     return (
       <Box
+        grow='1'
         childDirection='row'
         onClick={() => dispatch(push(`/corpse/${corpse._id}`))}
         style={css.container}>
         <Box childSpacing='1px'>
           { corpse.sections.map((section, i) => <div key={i} style={css.section}>{(section.drawer && section.drawer.name) || 'empty'}</div>) }
         </Box>
-        <Box width="25%">
+        <Box grow='1'>
           {
             corpse.svgUrl ? <img src={corpse.svgUrl} style={{maxHeight: '230px'}} />
             :

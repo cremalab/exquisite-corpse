@@ -51,6 +51,7 @@
     "nes": "^6.4.2",
     "nunjucks": "^3.0.0",
     "paper": "^0.10.3",
+    "prop-types": "^15.5.7",
     "rc-slider": "^6.3.1",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.8",
