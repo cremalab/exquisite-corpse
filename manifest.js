@@ -52,6 +52,7 @@ const manifest = {
             type: 'token',
             isSecure: false,
             isHttpOnly: false,
+            index: true,
           },
         },
       },

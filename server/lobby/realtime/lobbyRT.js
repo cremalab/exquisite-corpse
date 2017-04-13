@@ -6,6 +6,8 @@ const types = {
   CHAT_MESSAGE: 'chatMessage',
 }
 
+const pruneInt = 10000 // 10 second loop to clean up disconnected users
+
 function updateObjectInArray(array, user, socketId) {
   if (array.find(item => item.socketId === socketId)) {
     return array.map((item) => {
@@ -33,6 +35,17 @@ module.exports = {
         next()
       }
     })
+    setInterval(() => this.pruneUsers(server), pruneInt)
+  },
+  pruneUsers(server) {
+    let socketIds = []
+    server.eachSocket((socket) => {
+      socketIds.push(socket.id)
+    }, {
+      subscription: '/lobby',
+    })
+    this.users = this.users.filter(u => socketIds.indexOf(u.socketId) > -1)
+    this.notifyUserChange(server)
   },
   notifyUserChange(server) {
     server.publish(`${urlPrefix}`, {
