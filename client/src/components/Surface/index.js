@@ -13,10 +13,15 @@ class Surface extends Component {
     this.paper = null
     this.state = {
       pathType: 'brush',
-      pencil: {
-        strokeWidth: 2,
-        strokeColor: 'black',
+      //pencil: {
+      //  strokeWidth: 2,
+      //  strokeColor: 'black',
+      //  opacity: 1,
+      //},
+      eraser: {
+        fillColor: 'white',
         opacity: 1,
+        blendMode: 'destination-out'
       },
       brush: {
         fillColor: 'black',
@@ -79,8 +84,14 @@ class Surface extends Component {
           />
           <Button
             type="button"
-            onTouchTap={() => this.setState({ pathType: pathType === 'brush' ? 'pencil' : 'brush' })}
-          >Draw With: { pathType }</Button>
+            disabled={ pathType === 'brush' }
+            onTouchTap={() => this.setState({ pathType: 'brush' })}
+          >Draw</Button>
+          <Button
+            type="button"
+            disabled={ pathType === 'eraser' }
+            onTouchTap={() => this.setState({ pathType: 'eraser' })}
+          >Eraser</Button>
           <Button
             type="button"
             onTouchTap={() => this.cancel()}
@@ -177,16 +188,16 @@ class Surface extends Component {
 
   onMouseDrag(event) {
     const path = this.getCurrentPath()
-    if ( this.state.pathType === 'brush' ) {
+    //if ( this.state.pathType === 'brush' ) {
       const step = event.delta.divide(6)
       step.angle += 90
       var top = event.middlePoint.add(step).subtract(1)
       var bottom = event.middlePoint.subtract(step)
       path.add(top)
       path.insert(0, bottom)
-    } else {
-      path.add(event.middlePoint)
-    }
+    //} else {
+    //  path.add(event.middlePoint)
+    //}
   }
 
   onMouseUp() {
