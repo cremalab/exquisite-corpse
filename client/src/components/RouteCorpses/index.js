@@ -40,6 +40,8 @@ class Corpses extends React.Component {
       </Box>
       <Box
         align='flex-start'
+        childSpacing="20px"
+        grow="1"
         childWrap="wrap"
         childWrapLastGrow={false}
         childSpacing="10px"
