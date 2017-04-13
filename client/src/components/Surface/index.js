@@ -111,8 +111,8 @@ class Surface extends Component {
       this.resize()
       this.paper.view.onResize = e => this.resize(e)
     }
-    this.mainLayer = new this.paper.Layer({ name: 'drawing' })
-    this.guideLayer = new this.paper.Layer({ name: 'guides' })
+    this.mainLayer = new this.paper.Group({ name: 'drawing' })
+    this.guideLayer = new this.paper.Group({ name: 'guides' })
     this.forceUpdate()
   }
 
