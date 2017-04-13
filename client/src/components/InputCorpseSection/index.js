@@ -55,6 +55,7 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) =>
                   <Field
                     name={`${section}.description`}
                     type="text"
+                    style={{ textAlign: 'center' }}
                     placeholder="Description"
                     component={InputField}
                   />
