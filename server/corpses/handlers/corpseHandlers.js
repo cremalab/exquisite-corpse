@@ -55,13 +55,14 @@ module.exports = {
       return corpse
     })
     .then(() => (
-      corpsesDB.destroy(db, request.params.id).then((r) => {
-        corpsesRT.notifyChange(request.server, r)
-        lobbyRT.notifyCorpseChange(request.server, r)
-        reply({ result: {
-          id: request.params.id,
+      corpsesDB.destroy(db, request.params.id).then(() => {
+        const result = {
+          _id: request.params.id,
           removed: true,
-        }})
+        }
+        corpsesRT.notifyChange(request.server, result)
+        lobbyRT.notifyCorpseChange(request.server, result)
+        reply({ result })
       })
     ))
     .catch((err) => reply(err))

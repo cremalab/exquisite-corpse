@@ -51,7 +51,7 @@ module.exports = {
   }),
   destroyed: Joi.object().keys({
     result: Joi.object().keys({
-      id: objectId,
+      _id: objectId,
       removed: true,
     })
   }),

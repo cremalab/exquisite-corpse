@@ -5,11 +5,15 @@ import {
   MERGE_CORPSE,
   USERS_CHANGE,
   CHAT_MESSAGE_ADD,
+  REMOVE_CORPSE,
 } from 'config/actionTypes'
 
 const handleEventMsg = (dispatch) => ({ type, data }) => {
   switch (type) {
     case 'corpseChange':
+      if (data.removed) {
+        return dispatch({ type: REMOVE_CORPSE, payload: data })
+      }
       return dispatch({ type: MERGE_CORPSE, payload: data })
     case 'usersChange':
       return dispatch({ type: USERS_CHANGE, payload: data })
