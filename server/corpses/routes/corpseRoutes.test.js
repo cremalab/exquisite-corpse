@@ -77,16 +77,115 @@ describe('corpseRoutes', () => {
       })
     ))
 
-    test(`should create a with default sections`, () => (
+    test(`should create a with default sections if no params`, () => (
       server.inject({
         method: 'POST',
         url: `/corpses`,
         credentials: helper.session,
+        payload: {},
       })
       .then((res) => {
         expect(res.result.result.sections.map(s => s.description))
           .toEqual(expect.arrayContaining(['Head', 'Torso', 'Legs', 'Feet']))
       })
     ))
+
+    test(`should create corpse with defined sections`, () => (
+      server.inject({
+        method: 'POST',
+        url: `/corpses`,
+        credentials: helper.session,
+        payload: {
+          sections: [
+            { description: 'Head', anchorPoints: [10, 190] },
+            { description: 'Torso', anchorPoints: [30, 170] },
+            { description: 'Legs', anchorPoints: [20, 180] },
+            { description: 'Rollerblades' },
+          ]
+        }
+      })
+      .then((res) => {
+        expect(res.statusCode).toEqual(201)
+        const { sections } = res.result.result
+        expect(sections.map(s => s.description))
+          .toEqual(expect.arrayContaining(['Head', 'Torso', 'Legs', 'Rollerblades']))
+        expect(sections.map(s => s.anchorPoints)).toEqual([
+          { bottom: [10, 190], top: [] },
+          { bottom: [30, 170], top: [10, 190] },
+          { bottom: [20, 180], top: [30, 170] },
+          { bottom: [], top: [20, 180] },
+        ])
+      })
+    ))
+
+    test(`can create many sections`, () => (
+      server.inject({
+        method: 'POST',
+        url: `/corpses`,
+        credentials: helper.session,
+        payload: {
+          sections: [
+            { description: 'Head', anchorPoints: [10, 190] },
+            { description: 'Neck', anchorPoints: [40, 160] },
+            { description: 'Shoulders', anchorPoints: [40, 160] },
+            { description: 'Chest', anchorPoints: [30, 170] },
+            { description: 'Belly', anchorPoints: [30, 170] },
+            { description: 'Thighs', anchorPoints: [20, 180] },
+            { description: 'Knees', anchorPoints: [20, 180] },
+            { description: 'Calves', anchorPoints: [20, 180] },
+            { description: 'Shoes' },
+          ]
+        }
+      })
+      .then((res) => {
+        expect(res.statusCode).toEqual(201)
+        expect(res.result.result.sections.map(s => s.description))
+          .toEqual(expect.arrayContaining([
+            'Head', 'Neck', 'Shoulders', 'Chest', 'Belly', 'Thighs', 'Knees',
+            'Calves', 'Shoes'
+          ]))
+      })
+    ))
+  })
+
+  describe('destroy', () => {
+    test('returns object with removed', () => {
+      return corpsesDB.create(db, { creator: helper.session }).then((corpse) => {
+        return server.inject({
+          method: 'DELETE',
+          url: `/corpses/${corpse._id}`,
+          credentials: helper.session,
+        })
+        .then((res) => {
+          expect(res.result.result.removed).toBe(true)
+          return
+        })
+        .then(() => corpsesDB.find(db, corpse._id))
+        .catch((err) => {
+          expect(err.output.statusCode).toBe(404)
+        })
+      })
+    })
+
+    test('can only be performed by creator', () => {
+      return corpsesDB.create(db, { creator: helper.session }).then((corpse) => {
+        return server.inject({
+          method: 'DELETE',
+          url: `/corpses/${corpse._id}`,
+          credentials: { id: '20', name: 'Daffy', provider: 'Guest' },
+        })
+        .catch((err) => {
+          expect(err.output.statusCode).toBe(403)
+        })
+        .then(() => corpsesDB.find(db, corpse._id))
+        .catch((err) => {
+          expect(err).toBeUndefined()
+        })
+        .then((found) => {
+          expect(found).not.toBeUndefined()
+          expect(found._id).toEqual(corpse._id)
+        })
+      })
+    })
   })
 })

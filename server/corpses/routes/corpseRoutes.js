@@ -39,8 +39,14 @@ module.exports = [
     config: {
       handler: handlers.create,
       description: 'Creates a new Corpse',
-      notes: [`No params needed, default corpse generated and added to current user`],
+      notes: [
+        `Default corpse generated if no sections are passed`,
+        '`anchorPoints`: Array of X Coordinates for the **bottom** guides of each section. If defined, the `anchorPoints` for the last section will be ignored.',
+      ],
       tags: ['api', 'corpse'],
+      validate: {
+        payload: schemas.createFromRequest.optional().allow(null),
+      },
       response: {
         schema: responses.single,
       },
@@ -62,6 +68,24 @@ module.exports = [
       },
       response: {
         schema: responses.single,
+      },
+    },
+  },
+  {
+    method: 'DELETE',
+    path: '/corpses/{id}',
+    config: {
+      handler: handlers.destroy,
+      description: 'Deletes a Corpse',
+      notes: ['Publishes a socket event to `/corpses/_id` and `lobby` on successful deletion'],
+      tags: ['api', 'corpse'],
+      validate: {
+        params: Joi.object().keys({
+          id: Joi.string().required(),
+        }),
+      },
+      response: {
+        schema: responses.destroyed,
       },
     },
   },

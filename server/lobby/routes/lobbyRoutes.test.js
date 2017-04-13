@@ -4,6 +4,8 @@ describe('lobbyRoutes', () => {
   let server
   beforeAll(() => (
     helper.testServer().then((s) => { server = s })
+    .then(() => server.mongo.db.collection('corpses').deleteMany({}))
+    .then(() => server.mongo.db.collection('drawings').deleteMany({}))
   ))
   afterAll(() => server.mongo.db.connection.close())
 

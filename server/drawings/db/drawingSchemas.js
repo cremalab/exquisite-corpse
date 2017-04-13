@@ -5,12 +5,11 @@ const objectId = Joi.alternatives().try(Joi.string(), Joi.object())
 
 const anchorPointsSchema = Joi.object().keys({
   top: Joi.array()
-    .length(2)
-    .items([Joi.number(), Joi.number()])
+    .items([Joi.number()])
     .required()
     .example([20, 200])
     .notes('min and max x coordinate for top anchors'),
-  bottom: Joi.array().max(2).items([Joi.number(), Joi.number()])
+  bottom: Joi.array().items([Joi.number(), Joi.number()])
     .required()
     .example([50, 210])
     .notes('min and max x coordinate for bottom anchors'),
@@ -32,8 +31,9 @@ module.exports = {
   }).required(),
   createPayload: Joi.object().keys({
     canvas: Joi.string().optional(),
-    section: Joi.string().required().example('58c9b9c50e66521616667ef1')
-      .description('MongoID of Corpse Section the drawing is for'),
+    section: Joi.string().optional().example('58c9b9c50e66521616667ef1')
+      .description('MongoID of Corpse Section the drawing is for')
+      .notes('If none supplied, drawing will be created for the oldest corpse section needing a drawing'),
   }).required(),
   update: Joi.object().keys({
     anchorPoints: Joi.any().strip(),

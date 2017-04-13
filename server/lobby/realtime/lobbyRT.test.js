@@ -7,10 +7,10 @@ describe('lobbyRT', () => {
       publish,
     }
     test('add payload to users array', () => {
-      const payload = { name: 'Ross', id: '1' }
+      const payload = { credentials: { name: 'Ross', id: '1' }}
       expect(publish).not.toBeCalled()
       rt.connectUser(server, payload)
-      const userObj = { id: '1', name: 'Ross' }
+      const userObj = { id: '1', name: 'Ross', socketId: undefined, status: 'idle' }
       const expectedPayload = {
         data: [userObj],
         type: 'usersChange',
@@ -25,10 +25,9 @@ describe('lobbyRT', () => {
       const server = {
         publish,
       }
-      rt.users = [{ name: 'Fred', id: '2' }]
-      const payload = { name: 'Fred', id: '2' }
+      rt.users = [{ name: 'Fred', id: '2', socketId: 1 }]
       expect(publish).not.toBeCalled()
-      rt.disconnectUser(server, payload)
+      rt.disconnectUser(server, 1)
       const expectedPayload = {
         data: [],
         type: 'usersChange',

@@ -4,12 +4,11 @@ const objectId = Joi.alternatives().try(Joi.string(), Joi.object())
 
 const anchorPointsSchema = Joi.object().keys({
   top: Joi.array()
-    .length(2)
-    .items([Joi.number(), Joi.number()])
+    .items([Joi.number()])
     .required()
     .example([20, 200])
     .notes('min and max x coordinate for top anchors'),
-  bottom: Joi.array().max(2).items([Joi.number(), Joi.number()])
+  bottom: Joi.array().items([Joi.number()])
     .required()
     .example([50, 210])
     .notes('min and max x coordinate for bottom anchors'),
@@ -49,6 +48,12 @@ module.exports = {
   }),
   single: Joi.object().keys({
     result: corpse.required(),
+  }),
+  destroyed: Joi.object().keys({
+    result: Joi.object().keys({
+      _id: objectId,
+      removed: true,
+    })
   }),
   corpse,
 }

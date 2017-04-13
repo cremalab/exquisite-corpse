@@ -8,6 +8,8 @@ import drawingSave from 'actions/drawingSave'
 import drawingCancel from 'actions/drawingCancel'
 import drawingCommit from 'actions/drawingCommit'
 import drawingClear from 'actions/drawingClear'
+import subscribe from 'actions/subscribe'
+import unsubscribe from 'actions/unsubscribe'
 
 class RouteDrawing extends Component {
   componentWillMount() {
@@ -17,22 +19,33 @@ class RouteDrawing extends Component {
   }
 
   componentWillUnmount() {
-    const { dispatch } = this.props
+    const { dispatch, drawing: { result: { corpse }} } = this.props
     dispatch(drawingClear())
+    dispatch(unsubscribe(`/corpses/${corpse}`))
+  }
+
+  componentWillReceiveProps(props) {
+    const corpseId = props.drawing.result.corpse
+    const { dispatch } = this.props
+    if (!corpseId) return
+    dispatch(subscribe(`/corpses/${props.drawing.result.corpse}`))
   }
 
   render() {
     const { drawing: { result, loading, saving } } = this.props
     if ( loading ) return <Spinner />
     return (
-      <Surface
-        drawing={result}
-        saving={saving}
-        onSave={this.onSave.bind(this)}
-        onCancel={this.onCancel.bind(this)}
-        onCommit={this.onCommit.bind(this)}
-        interactive={true}
-      />
+      <div>
+        { !result.corpse && <h4>Oh no! The creator of this corpse decided to delete it :(</h4> }
+        <Surface
+          drawing={result}
+          saving={saving}
+          onSave={this.onSave.bind(this)}
+          onCancel={this.onCancel.bind(this)}
+          onCommit={this.onCommit.bind(this)}
+          interactive={true}
+        />
+      </div>
     )
   }
 

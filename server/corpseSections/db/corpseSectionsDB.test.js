@@ -14,8 +14,16 @@ describe('CorpseSections DB', () => {
         db.collection('corpses').insertOne({
           creator: 'one',
           sections: [
-            { description: 'Head', anchorPoints: { top: [0, 50], bottom: [51, 100] }, _id: ObjectID('123456789199') },
-            { description: 'Torso', anchorPoints: { top: [51, 100], bottom: [51, 100] }, _id: ObjectID('123456789102') },
+            {
+              description: 'Head',
+              anchorPoints: { top: [0, 50], bottom: [51, 100] },
+              _id: ObjectID('123456789199'),
+              drawing: { _id: ObjectID('123456789223') } },
+            {
+              description: 'Torso',
+              anchorPoints: { top: [51, 100], bottom: [51, 100] },
+              _id: ObjectID('123456789102'),
+              drawing: { _id: ObjectID('123456789234') } },
           ],
         })
       ))
@@ -27,7 +35,12 @@ describe('CorpseSections DB', () => {
     })
   ))
 
-  afterAll(() => db.close())
+  afterAll(() => (
+    Promise.all([
+      db.collection('corpses').deleteMany({}),
+      db.close()
+    ])
+  ))
 
   describe('find', () => {
     test('should return found section', () => (
@@ -35,6 +48,30 @@ describe('CorpseSections DB', () => {
         expect(section).not.toBeNull()
         expect(section.description).toBe('Head')
         expect(section.anchorPoints).toMatchObject({ top: [0, 50], bottom: [51, 100] })
+      })
+    ))
+  })
+
+  describe('findOldestEmpty', () => {
+    test('should return found section', () => (
+      corpseSections.findOldestEmpty(db).catch((err) => {
+        expect(err).not.toBeUndefined()
+      }).then(() => (
+        db.collection('corpses').insertOne({
+          creator: 'one',
+          sections: [
+            {
+              description: 'Head',
+              anchorPoints: { top: [0, 50], bottom: [51, 100] },
+              _id: ObjectID('123456789111'),
+            },
+          ],
+        })
+      ))
+      .then(() => corpseSections.findOldestEmpty(db))
+      .then((result) => {
+        expect(result).not.toBeUndefined()
+        expect(result._id).not.toBeUndefined()
       })
     ))
   })

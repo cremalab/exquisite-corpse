@@ -5,6 +5,7 @@ import Spinner from 'react-md-spinner'
 import { push } from 'react-router-redux'
 import corpseClear from 'actions/corpseClear'
 import corpseLoad from 'actions/corpseLoad'
+import corpseDestroy from 'actions/corpseDestroy'
 import drawingCreate from 'actions/drawingCreate'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
@@ -13,8 +14,9 @@ import Box from 'react-boxen'
 
 class Corpse extends Component {
   componentWillMount() {
-    const { dispatch, corpseId } = this.props
+    const { dispatch, corpseId, corpse } = this.props
     dispatch(corpseClear())
+    if (corpse.removed) { return }
     dispatch(corpseLoad(corpseId))
     dispatch(subscribe(`/corpses/${corpseId}`))
   }
@@ -25,8 +27,19 @@ class Corpse extends Component {
     dispatch(corpseClear())
   }
 
+  shouldComponentUpdate() {
+    // Done to prevent re-mount on socket event
+    const { dispatch, corpse: { removed } } = this.props
+    if (removed) {
+      dispatch(push('/'))
+      return false
+    }
+    return true
+  }
+
   render() {
-    const { corpse: { loading, sections, status, size = {} } } = this.props
+    const { corpse: { loading, sections, status, size = {} }, currentUser } = this.props
+    const creatorId = this.props.corpse.creator.id
 
     if ( loading ) return <Spinner />
     const finalDrawing = (status === 'complete') ? (
@@ -39,6 +52,7 @@ class Corpse extends Component {
     return (
       <div>
         <Box>
+          { creatorId === currentUser.id && <button onClick={() => this.handleDestroy()}>Delete corpse</button> }
           {
             sections.map((section, i) => (
               <Box
@@ -74,6 +88,12 @@ class Corpse extends Component {
     if (!section.drawer) {
       dispatch(drawingCreate(section._id))
     }
+  }
+
+  handleDestroy() {
+    const { dispatch, corpse } = this.props
+    const confirmed = confirm('Are you sure you want to delete this corpse?')
+    if (confirmed) dispatch(corpseDestroy(corpse._id))
   }
 
 }
