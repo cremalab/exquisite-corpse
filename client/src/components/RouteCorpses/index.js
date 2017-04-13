@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import corpsesLoad from 'actions/corpsesLoad'
 import { connect } from 'react-redux'
 import Spinner from 'react-md-spinner'
@@ -23,6 +24,7 @@ class Corpses extends React.Component {
     return (<Box
       padding="20px"
       childSpacing="20px"
+      grow='1'
     >
       <Box
         childAlign="center"
@@ -37,18 +39,19 @@ class Corpses extends React.Component {
         </Button></Box>
       </Box>
       <Box
-        childDirection="row"
-        childSpacing="20px"
-        childGrow="1"
+        align='flex-start'
         childWrap="wrap"
         childWrapLastGrow={false}
+        childSpacing="10px"
         childBasis="300px"
+        childAlign="flex-start"
+        childDirection="row"
       >
         { result.sort((a, b) => {
           if (isBefore(a.createdAt, b.createdAt)) return 1
           return -1
         }).map(corpse =>
-          <ItemCorpse key={corpse._id} corpse={corpse} />
+          <ItemCorpse grow='1' key={corpse._id} corpse={corpse} />
         )}
       </Box>
       <ConnectedUsers />

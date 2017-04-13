@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Box from 'react-boxen'
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
 import initialize from 'actions/initialize'
@@ -9,36 +8,41 @@ import RouteCorpse from 'components/RouteCorpse'
 import RouteDrawing from 'components/RouteDrawing'
 import RouteHome from 'components/RouteHome'
 import RouteCreateCorpse from 'components/RouteCreateCorpse'
+import LayoutMain from 'components/LayoutMain'
 
 class RouteApp extends Component {
   componentWillMount() {
     this.props.dispatch(initialize())
+    this.handleBack = this.handleBack.bind(this)
+  }
+
+  handleBack(e) {
+    e.preventDefault()
+    this.props.history.goBack()
   }
 
   render() {
-    const { currentUser} = this.props
+    const { currentUser, location } = this.props
+
+    console.log(this.props)
 
     if (!currentUser) return null
 
     return (
-      <Box height="100%">
-        <Box
-          padding="20px"
-          style={{
-            backgroundColor: '#0A93C4',
-            color: 'white'
-          }}
-        >
-          <header><Link to="/">Scribble Corpse</Link></header>
-        </Box>
-        <div>
-          <Route exact path="/welcome" component={RouteHome}/>
-          <Route exact path="/" component={RouteCorpses}/>
-          <Route path="/create" component={RouteCreateCorpse} />
-          <Route path="/corpse/:corpseId" component={RouteCorpse}/>
-          <Route path="/drawing/:drawingId" component={RouteDrawing}/>
-        </div>
-      </Box>
+      <LayoutMain
+        back={location.pathname !== '/' && <a href='#' onClick={this.handleBack}>{`< Back`}</a>}
+        title="Exquisite Corpse"
+        content={
+          <div>
+            <Route exact path="/welcome" component={RouteHome}/>
+            <Route exact path="/" component={RouteCorpses}/>
+            <Route path="/create" component={RouteCreateCorpse} />
+            <Route path="/corpse/:corpseId" component={RouteCorpse}/>
+            <Route path="/drawing/:drawingId" component={RouteDrawing}/>
+          </div>
+        }
+        sidebar='Sidebar'
+      />
     )
   }
 }
