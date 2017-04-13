@@ -1089,7 +1089,7 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-boom@3.X.X, boom@3.x.x:
+boom@3.x.x, boom@3.X.X:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/boom/-/boom-3.2.2.tgz#0f0cc5d04adc5003b8c7d71f42cca7271fef0e78"
   dependencies:
@@ -2637,7 +2637,7 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-glamor@^2.20.12, glamor@^2.20.24:
+glamor, glamor@^2.20.12, glamor@^2.20.24:
   version "2.20.24"
   resolved "https://registry.yarnpkg.com/glamor/-/glamor-2.20.24.tgz#a299af2eec687322634ba38e4a0854d8743d2041"
   dependencies:
@@ -5086,9 +5086,9 @@ react-bootstrap@^0.30.8:
     uncontrollable "^4.0.1"
     warning "^3.0.0"
 
-react-boxen@0.0.19:
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/react-boxen/-/react-boxen-0.0.19.tgz#bd468f91a1bd08790081771ebb815499fe01bb5c"
+react-boxen@0.0.20:
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/react-boxen/-/react-boxen-0.0.20.tgz#63343405260f358d015ca6da63159f9fbe6dec38"
   dependencies:
     glamor "^2.20.24"
     ramda "^0.23.0"
