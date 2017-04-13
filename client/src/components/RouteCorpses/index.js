@@ -11,6 +11,7 @@ import propTypesCorpse from 'propTypes/Corpse'
 import {push} from 'react-router-redux'
 import { isBefore } from 'date-fns'
 import ConnectedUsers from 'components/ConnectedUsers'
+import drawingCreate from 'actions/drawingCreate'
 
 class Corpses extends React.Component {
   componentDidMount() {
@@ -32,6 +33,9 @@ class Corpses extends React.Component {
         childJustify="space-between"
       >
         <Box grow='1'><h1>Lobby</h1></Box>
+        <Box>
+          <button onClick={() => dispatch(drawingCreate())}>Draw</button>
+        </Box>
         <Box><Button
           onClick={() => dispatch(push('/create'))}
         >
