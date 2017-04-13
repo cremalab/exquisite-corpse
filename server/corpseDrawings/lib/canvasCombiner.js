@@ -14,7 +14,7 @@ function stitch(sections) {
   })
   const positions = getYpositions(project.layers.map(l => l.bounds.height))
   project.layers.forEach((layer, i) => {
-    layer.pivot = new Paper.Point(0, layer.bounds.top)
+    layer.pivot = new Paper.Point(0, layer.bounds.topLeft)
     const point = new Paper.Point(0, positions[i])
     layer.position = point
   })
