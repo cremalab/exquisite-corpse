@@ -79,5 +79,13 @@ module.exports = {
       })
       .catch(reject)
     })
+  },
+  orphanize(db, id) {
+    return db.collection('drawings').findAndModify(
+      { 'corpse': ObjectId(id) },
+      null,
+      { $unset: {corpse: ''} },
+      { new: true }
+    )
   }
 }
