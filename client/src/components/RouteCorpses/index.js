@@ -39,7 +39,7 @@ class Corpses extends React.Component {
       <Box
         childDirection="row"
         childSpacing="20px"
-        childGrow="1"
+        grow="1"
         childWrap="wrap"
         childWrapLastGrow={false}
         childBasis="300px"
