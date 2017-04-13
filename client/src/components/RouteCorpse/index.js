@@ -11,6 +11,16 @@ import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
 import Surface from '../Surface'
 import Box from 'react-boxen'
+import { colors, spacing } from 'config/styles'
+
+const css = {
+  finalFrame: {
+    border: `6px solid ${colors.secondary}`,
+    backgroundColor: '#fff',
+    margin: `${spacing[6]} ${spacing[6]}`,
+    padding: spacing[6],
+  },
+}
 
 class Corpse extends Component {
   componentWillMount() {
@@ -43,11 +53,15 @@ class Corpse extends Component {
 
     if ( loading ) return <Spinner />
     const finalDrawing = (status === 'complete') ? (
-      <Surface
-        drawing={this.props.corpse}
-        height={size.height}
-        width={size.width}
-      />
+      <div
+        style={css.finalFrame}
+        >
+        <Surface
+          drawing={this.props.corpse}
+          height={size.height}
+          width={size.width}
+        />
+      </div>
     ) : null
     return (
       <div>
