@@ -4,6 +4,7 @@ const common = require('../../../db/common')
 const corpseSchemas = require('./corpseSchemas')
 const ObjectID = require('mongodb').ObjectID
 const utils = require('../../utils')
+const drawingsDB = require('../../drawings/db/drawingsDB')
 
 const dbSchema = Joi.object().required()
 
@@ -116,4 +117,10 @@ module.exports = {
         .then(resolve).catch(reject)
     })
   },
+  destroy(db, id) {
+    return common.destroy(db, id, 'corpses').then((corpse) => {
+      drawingsDB.orphanize(db, id)
+      return corpse
+    })
+  }
 }

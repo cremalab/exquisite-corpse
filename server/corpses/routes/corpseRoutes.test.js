@@ -147,4 +147,45 @@ describe('corpseRoutes', () => {
       })
     ))
   })
+
+  describe('destroy', () => {
+    test('returns object with removed', () => {
+      return corpsesDB.create(db, { creator: helper.session }).then((corpse) => {
+        return server.inject({
+          method: 'DELETE',
+          url: `/corpses/${corpse._id}`,
+          credentials: helper.session,
+        })
+        .then((res) => {
+          expect(res.result.result.removed).toBe(true)
+          return
+        })
+        .then(() => corpsesDB.find(db, corpse._id))
+        .catch((err) => {
+          expect(err.output.statusCode).toBe(404)
+        })
+      })
+    })
+
+    test('can only be performed by creator', () => {
+      return corpsesDB.create(db, { creator: helper.session }).then((corpse) => {
+        return server.inject({
+          method: 'DELETE',
+          url: `/corpses/${corpse._id}`,
+          credentials: { id: '20', name: 'Daffy', provider: 'Guest' },
+        })
+        .catch((err) => {
+          expect(err.output.statusCode).toBe(403)
+        })
+        .then(() => corpsesDB.find(db, corpse._id))
+        .catch((err) => {
+          expect(err).toBeUndefined()
+        })
+        .then((found) => {
+          expect(found).not.toBeUndefined()
+          expect(found._id).toEqual(corpse._id)
+        })
+      })
+    })
+  })
 })

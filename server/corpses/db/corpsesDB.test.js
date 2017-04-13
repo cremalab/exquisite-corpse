@@ -28,7 +28,12 @@ describe('Corpses DB Tasks', () => {
     })
   ))
 
-  afterAll(() => db.close())
+  afterAll(() => {
+    return Promise.all([
+      db.collection('corpses').deleteMany({}),
+      db.close(),
+    ])
+  })
 
   describe('idSections', () => {
     test('should convert sections to object', () => {
@@ -84,6 +89,22 @@ describe('Corpses DB Tasks', () => {
         })
         .catch((err) => {
           expect(err).toBeUndefined()
+        })
+      })
+    })
+  })
+
+  describe('destroy', () => {
+    test('should remove record from collection', () => {
+      const params = Object.assign({}, validModel)
+      return corpses.create(db, params).then((corpse) => {
+        expect(corpse._id).not.toBeUndefined()
+        return corpses.destroy(db, corpse._id).then(() => {
+          return corpses.find(db, corpse._id)
+        })
+        .catch((err) => {
+          expect(err).not.toBeUndefined()
+          expect(err.output.statusCode).toBe(404)
         })
       })
     })

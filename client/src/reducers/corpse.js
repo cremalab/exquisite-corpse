@@ -3,11 +3,14 @@ import {
   SUCCESS_CORPSE,
   CLEAR_CORPSE,
   MERGE_CORPSE,
+  REMOVE_CORPSE,
 } from '../config/actionTypes'
 
 const initialState = {
   loading: false,
-  sections: []
+  sections: [],
+  removed: false,
+  creator: {},
 }
 
 function corpses(state = initialState, action) {
@@ -26,6 +29,7 @@ function corpses(state = initialState, action) {
         size: action.payload.result.size,
         status: action.payload.result.status,
         createdAt: action.payload.result.createdAt,
+        creator: action.payload.result.creator,
         _id: action.payload.result._id,
       }
     case CLEAR_CORPSE:
@@ -39,7 +43,13 @@ function corpses(state = initialState, action) {
           size: payload.size,
           status: payload.status,
           canvas: payload.canvas,
+          removed: payload.removed,
         }
+      }
+      return state
+    case REMOVE_CORPSE:
+      if (action.payload._id === state._id) {
+        return {...state, sections: [], removed: true}
       }
       return state
     default:

@@ -71,4 +71,22 @@ module.exports = [
       },
     },
   },
+  {
+    method: 'DELETE',
+    path: '/corpses/{id}',
+    config: {
+      handler: handlers.destroy,
+      description: 'Deletes a Corpse',
+      notes: ['Publishes a socket event to `/corpses/_id` and `lobby` on successful deletion'],
+      tags: ['api', 'corpse'],
+      validate: {
+        params: Joi.object().keys({
+          id: Joi.string().required(),
+        }),
+      },
+      response: {
+        schema: responses.destroyed,
+      },
+    },
+  },
 ]
