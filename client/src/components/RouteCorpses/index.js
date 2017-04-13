@@ -9,6 +9,7 @@ import ItemCorpse from 'components/ItemCorpse'
 import propTypesCorpse from 'propTypes/Corpse'
 import {push} from 'react-router-redux'
 import { isBefore } from 'date-fns'
+import drawingCreate from 'actions/drawingCreate'
 
 class Corpses extends React.Component {
   componentDidMount() {
@@ -30,6 +31,9 @@ class Corpses extends React.Component {
         childJustify="space-between"
       >
         <Box grow='1'><h1>Lobby</h1></Box>
+        <Box>
+          <button onClick={() => dispatch(drawingCreate())}>Draw</button>
+        </Box>
         <Box><Button
           onClick={() => dispatch(push('/create'))}
         >
@@ -38,6 +42,8 @@ class Corpses extends React.Component {
       </Box>
       <Box
         align='flex-start'
+        childSpacing="20px"
+        grow="1"
         childWrap="wrap"
         childWrapLastGrow={false}
         childSpacing="10px"

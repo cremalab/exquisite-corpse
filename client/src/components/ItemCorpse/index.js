@@ -13,7 +13,7 @@ class ItemCorpse extends Component {
     const css = {
       container: {
         borderRadius: '6px',
-        backgroundColor: corpse.status === 'complete' ? '#fafafa' : '#0A93C4',
+        backgroundColor: corpse.status === 'complete' ? '#fff' : '#0A93C4',
         cursor: 'pointer',
       },
       section: {

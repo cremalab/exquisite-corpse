@@ -62,8 +62,10 @@ class Surface extends Component {
       width: width || '100%',
       height: height || '100%',
       backgroundColor: 'white',
+      margin: '0 auto',
+      display: 'block',
     }
-    return <div style={{ paddingBottom: '50%', position: 'relative', maxWidth: '1200px' }}>
+    return <div style={{ width: 'auto' }}>
       <canvas ref="canvas" style={style} data-paper-resize={true} />
       { interactive ?
         <div>
@@ -109,8 +111,8 @@ class Surface extends Component {
       this.resize()
       this.paper.view.onResize = e => this.resize(e)
     }
-    this.mainLayer = new this.paper.Layer({ name: 'drawing' })
-    this.guideLayer = new this.paper.Layer({ name: 'guides' })
+    this.mainLayer = new this.paper.Group({ name: 'drawing' })
+    this.guideLayer = new this.paper.Group({ name: 'guides' })
     this.forceUpdate()
   }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Box from 'react-boxen'
+import { Link } from 'react-router-dom'
 import { spacing, colors } from 'config/styles'
 
 const LayoutMain = ({
@@ -41,7 +42,7 @@ const LayoutMain = ({
           grow='1'
           childJustify='center'
           childAlign='center'
-          children={ title }
+          children={ <Link style={{ textDecoration: 'none'}} to='/'>{title}</Link> }
         />
       }
 
