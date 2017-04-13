@@ -13,16 +13,24 @@ import Box from 'react-boxen'
 class RouteApp extends Component {
   componentWillMount() {
     this.props.dispatch(initialize())
+    this.handleBack = this.handleBack.bind(this)
+  }
+
+  handleBack(e) {
+    e.preventDefault()
+    this.props.history.goBack()
   }
 
   render() {
-    const { currentUser} = this.props
+    const { currentUser, location } = this.props
+
+    console.log(this.props)
 
     if (!currentUser) return null
 
     return (
       <LayoutMain
-        back={<Link to="/">Back</Link>}
+        back={location.pathname !== '/' && <a href='#' onClick={this.handleBack}>{`< Back`}</a>}
         title="Exquisite Corpse"
         content={
           <div>

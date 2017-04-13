@@ -18,7 +18,8 @@ const LayoutMain = ({
       shrink='0'
       style={{
         backgroundColor: colors.primary,
-        color: colors['white-shade-2']
+        color: colors['white-shade-2'],
+        '& a': { color: 'white' }
       }}
       padding={`${spacing[4]} ${spacing[5]}`}
       childAlign='center'
@@ -39,6 +40,7 @@ const LayoutMain = ({
         <Box
           grow='1'
           childJustify='center'
+          childAlign='center'
           children={ title }
         />
       }
