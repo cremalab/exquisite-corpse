@@ -38,14 +38,20 @@ module.exports = {
       } catch (e) {
         reject(e)
       }
-      corpseSections.addDrawer(db, params.section, params.creator).then((section) => {
-        const attrs = Object.assign({}, params, {
-          section: ObjectId(params.section),
-          anchorPoints: section.anchorPoints,
-          corpse: section.corpse,
-        })
-        Joi.attempt(attrs, drawingSchemas.create)
-        return common.create(db, attrs, 'drawings').then(resolve).catch(reject)
+      let getSection = () => Promise.resolve({_id: params.section})
+      if (!params.section) {
+        getSection = corpseSections.findOldestEmpty
+      }
+      getSection(db).then((section) => {
+        corpseSections.addDrawer(db, section._id, params.creator).then((section) => {
+          const attrs = Object.assign({}, params, {
+            section: ObjectId(section._id),
+            anchorPoints: section.anchorPoints,
+            corpse: section.corpse,
+          })
+          Joi.attempt(attrs, drawingSchemas.create)
+          return common.create(db, attrs, 'drawings').then(resolve).catch(reject)
+        }).catch(reject)
       }).catch(reject)
     })
   },

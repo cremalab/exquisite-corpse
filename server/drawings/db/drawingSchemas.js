@@ -31,8 +31,9 @@ module.exports = {
   }).required(),
   createPayload: Joi.object().keys({
     canvas: Joi.string().optional(),
-    section: Joi.string().required().example('58c9b9c50e66521616667ef1')
-      .description('MongoID of Corpse Section the drawing is for'),
+    section: Joi.string().optional().example('58c9b9c50e66521616667ef1')
+      .description('MongoID of Corpse Section the drawing is for')
+      .notes('If none supplied, drawing will be created for the oldest corpse section needing a drawing'),
   }).required(),
   update: Joi.object().keys({
     anchorPoints: Joi.any().strip(),
