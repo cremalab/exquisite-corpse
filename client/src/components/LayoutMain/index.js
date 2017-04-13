@@ -58,7 +58,8 @@ const LayoutMain = ({
     {/* Main */}
     <Box
       grow='1'
-      childDirection='row'>
+      childDirection='row'
+      childAlign='stretch'>
 
       {/* Main - Content */}
       <Box
@@ -70,10 +71,12 @@ const LayoutMain = ({
         // Main - Sidebar
         sidebar &&
         <Box
+          style={{backgroundColor: colors['white-shade-2']}}
           width='350px'
           grow='1'
           shrink='0'
-          style={{backgroundColor: colors['white-shade-2']}}
+          childAlign='stretch'
+          childGrow='1'
           children={ sidebar }
         />
       }

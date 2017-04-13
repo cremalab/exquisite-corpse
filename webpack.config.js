@@ -14,7 +14,7 @@ module.exports = () => {
       ]
     },
     output: {
-      filename: '[name].[hash].js',
+      filename: '[name].js',
       path: path.resolve(__dirname, './client/build'),
       publicPath: '/public/'
     },
@@ -37,7 +37,7 @@ module.exports = () => {
       new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor', 'manifest'],
         minChunks: Infinity,
-        filename: '[name].[hash].js'
+        filename: '[name].js'
       }),
     ],
     resolve: {
