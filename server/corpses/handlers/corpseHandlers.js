@@ -1,6 +1,7 @@
 const corpsesDB = require('../db/corpsesDB')
 const corpsesRT = require('../realtime/corpsesRT')
 const lobbyRT = require('../../lobby/realtime/lobbyRT')
+const Boom = require('boom')
 
 function statusify(r) {
   return Object.assign({}, { status: 'new' }, r)
@@ -45,4 +46,24 @@ module.exports = {
       })
       .catch(err => reply(err))
   },
+  destroy(request, reply) {
+    const { db } = request.mongo
+    return corpsesDB.find(db, request.params.id).then((corpse) => {
+      if (corpse.creator.id !== request.auth.credentials.id) {
+        throw Boom.create(403, `You did not create this corpse, you can't destroy it.`)
+      }
+      return corpse
+    })
+    .then(() => (
+      corpsesDB.destroy(db, request.params.id).then((r) => {
+        corpsesRT.notifyChange(request.server, r)
+        lobbyRT.notifyCorpseChange(request.server, r)
+        reply({ result: {
+          id: request.params.id,
+          removed: true,
+        }})
+      })
+    ))
+    .catch((err) => reply(err))
+  }
 }

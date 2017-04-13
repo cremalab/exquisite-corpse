@@ -70,8 +70,13 @@ module.exports = {
     this.users = updateObjectInArray(this.users, credentials, socketId)
     this.notifyUserChange(server)
   },
-  disconnectUser(server, socketId) {
-    this.users = this.users.filter(u => u.socketId !== socketId)
+  disconnectUser(server, identifier) {
+    // by socketId or user ID
+    if (typeof identifier === ('object')) {
+      this.users = this.users.filter(u => u.id !== identifier.id)
+    } else {
+      this.users = this.users.filter(u => u.socketId !== identifier)
+    }
     this.notifyUserChange(server)
   },
   notifyChatMessage(server, profile, content) {

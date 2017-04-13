@@ -49,5 +49,11 @@ module.exports = {
   single: Joi.object().keys({
     result: corpse.required(),
   }),
+  destroyed: Joi.object().keys({
+    result: Joi.object().keys({
+      id: objectId,
+      removed: true,
+    })
+  }),
   corpse,
 }

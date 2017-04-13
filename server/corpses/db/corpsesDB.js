@@ -116,4 +116,7 @@ module.exports = {
         .then(resolve).catch(reject)
     })
   },
+  destroy(db, id) {
+    return common.destroy(db, id, 'corpses')
+  }
 }
