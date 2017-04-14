@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Box from 'react-boxen'
 import { distanceInWordsToNow } from 'date-fns'
 import { spacing, colors } from 'config/styles'

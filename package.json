@@ -12,10 +12,15 @@
     "start": "node index.js",
     "test": "NODE_ENV=test jest",
     "test-watch": "NODE_ENV=test jest --watch",
-    "dev": "concurrently \"yarn server\" \"webpack --watch\"",
+    "dev": "concurrently \"yarn server\" \"yarn webpack:dev -- --watch\"",
     "server": "nodemon index.js",
     "client": "NODE_PATH=./src/ npm start --prefix client",
-    "postinstall": "yarn webpack -p"
+    "webpack:dev": "rm -rf ./client/build | webpack --env=dev",
+    "webpack:prod": "rm -rf ./client/build | NODE_ENV=production webpack --env=prod",
+    "build:dev": "yarn webpack:dev -- --progress --profile --colors",
+    "build:prod": "yarn webpack:prod -- --progress --profile --colors",
+    "postinstall": "yarn build:prod",
+    "analyze": "NODE_ENV=production webpack --env=prod --progress --json | webpack-bundle-size-analyzer"
   },
   "dependencies": {
     "aws-sdk": "^2.39.0",
@@ -30,6 +35,7 @@
     "babel-preset-stage-0": "^6.22.0",
     "bell": "^8.5.0",
     "boom": "^4.2.0",
+    "cross-env": "^4.0.0",
     "css-loader": "^0.27.3",
     "date-fns": "^1.28.2",
     "dotenv": "^4.0.0",
@@ -47,16 +53,14 @@
     "html-webpack-plugin": "^2.28.0",
     "inert": "^4.1.0",
     "joi": "^10.2.2",
-    "joi-react": "^1.0.1",
     "mongodb": "^2.2.24",
     "nes": "^6.4.2",
     "nunjucks": "^3.0.0",
     "paper": "^0.10.3",
     "prop-types": "^15.5.7",
-    "rc-slider": "^6.3.1",
+    "rc-slider": "^7.0.1",
     "react": "^15.4.2",
-    "react-bootstrap": "^0.30.8",
-    "react-boxen": "0.0.20",
+    "react-boxen": "0.0.24",
     "react-dom": "^15.4.2",
     "react-md-spinner": "^0.2.1",
     "react-redux": "^5.0.4",
@@ -68,9 +72,8 @@
     "redux-form": "^6.6.1",
     "redux-multi": "^0.1.12",
     "redux-thunk": "^2.2.0",
-    "styled-components": "^1.4.4",
     "vision": "^4.1.1",
-    "webpack": "^2.2.1",
+    "webpack": "2.3.3",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
@@ -84,6 +87,7 @@
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
     "mongodb-test-mock": "^0.1.5",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "webpack-bundle-size-analyzer": "^2.6.0"
   }
 }

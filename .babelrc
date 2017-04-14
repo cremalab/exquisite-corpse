@@ -9,13 +9,6 @@
     "transform-object-rest-spread"
   ],
   "env": {
-    "production": {
-      "presets": [
-        [ "es2015", { "modules": false } ]
-      ]
-    },
-    "development": {
-    },
     "test": {
       "plugins": ["transform-es2015-modules-commonjs"]
     }
