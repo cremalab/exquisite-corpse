@@ -1,6 +1,6 @@
 const Joi = require('joi')
 
-const objectId = Joi.alternatives().try(Joi.string(), Joi.object())
+const objectId = Joi.alternatives().try(Joi.string(), Joi.object(), Joi.number())
 
 const user = Joi.object().keys({
   name: Joi.string().required().example('John'),
