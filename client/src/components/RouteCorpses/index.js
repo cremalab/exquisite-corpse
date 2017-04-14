@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import corpsesLoad from 'actions/corpsesLoad'
 import { connect } from 'react-redux'
 import Spinner from 'react-md-spinner'
-import Button from 'react-bootstrap/lib/Button'
 import Box from 'react-boxen'
 import ItemCorpse from 'components/ItemCorpse'
 import propTypesCorpse from 'propTypes/Corpse'
@@ -34,11 +33,11 @@ class Corpses extends React.Component {
         <Box>
           <button onClick={() => dispatch(drawingCreate())}>Draw</button>
         </Box>
-        <Box><Button
+        <Box><button
           onClick={() => dispatch(push('/create'))}
         >
           Create Corpse
-        </Button></Box>
+        </button></Box>
       </Box>
       <Box
         align='flex-start'
