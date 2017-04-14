@@ -21,7 +21,7 @@ const corpseSection = Joi.object().keys({
   anchorPoints: anchorPointsSchema,
   drawer: Joi.object().keys({
     name: Joi.string().required().example('Rob'),
-    id: Joi.string().required().example('981123msf'),
+    id: objectId.required().example('981123msf'),
     provider: Joi.string().required().example('slack')
   }).optional(),
   _id: objectId.required(),
