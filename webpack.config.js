@@ -3,7 +3,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
 
-module.exports = () => {
+const resolveEnv = env => (a, b) =>
+  env === 'prod' ? a : b
+
+module.exports = env => {
+  console.log('Webpack building with env=' + env)
+  const isProd = resolveEnv(env)
   return {
     entry: {
       app: './client/src/index.js',
@@ -14,7 +19,7 @@ module.exports = () => {
       ]
     },
     output: {
-      filename: '[name].[hash].js',
+      filename: isProd('[name].[hash].js', '[name].js'),
       path: path.resolve(__dirname, './client/build'),
       publicPath: '/public/'
     },
@@ -23,22 +28,47 @@ module.exports = () => {
       tls: 'empty',
       dns: 'empty'
     },
-    devtool: 'cheap-eval-source-map',
-    performance: {
-      hints: false
-    },
     plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          'NODE_ENV': JSON.stringify(isProd('production', 'development'))
+        }
+      }),
+      ...isProd(
+        [
+          new webpack.optimize.UglifyJsPlugin({
+            comments: false,
+            beautify: false,
+            sourceMap: false,
+            compress: {
+              warnings: false,
+              screw_ie8: true,
+              dead_code: true,
+              unused: true
+            }
+          }) ,
+          new webpack.optimize.AggressiveMergingPlugin(),//Merge chunks
+          new webpack.optimize.CommonsChunkPlugin({
+            names: ['vendor', 'manifest'],
+            minChunks: Infinity,
+            filename: '[name].[hash].js'
+          }),
+        ],
+        []
+      ),
+      new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false,
+        options: {
+          context: __dirname
+        }
+      }),
       new HtmlWebpackPlugin({
         template: './client/public/index.html',
         filename: 'index.html',
         inject: 'body',
       }),
       new ExtractTextPlugin('styles.css'),
-      new webpack.optimize.CommonsChunkPlugin({
-        names: ['vendor', 'manifest'],
-        minChunks: Infinity,
-        filename: '[name].[hash].js'
-      }),
     ],
     resolve: {
       modules: ['node_modules', path.resolve(__dirname, 'client/src')],

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import paperjs from 'paper'
-import Button from 'react-bootstrap/lib/Button'
 
 const WIDTH = 400
 const HEIGHT = 200
@@ -74,17 +73,17 @@ class Surface extends Component {
       <canvas ref="canvas" style={style} data-paper-resize={true} />
       { interactive ?
         <div>
-          <Button
+          <button
             type="button"
             children="Undo"
-            onTouchTap={() => this.undo()}
+            onClick={() => this.undo()}
           />
-          <Button
+          <button
             type="button"
             children="Commit"
-            onTouchTap={() => this.commit()}
+            onClick={() => this.commit()}
           />
-          <Button
+          <button
             type="button"
             disabled={ pathType === 'brush' }
             onTouchTap={() => this.setState({ pathType: 'brush' })}
@@ -96,8 +95,8 @@ class Surface extends Component {
           >Eraser</Button>
           <Button
             type="button"
-            onTouchTap={() => this.cancel()}
-          >Cancel</Button>
+            onClick={() => this.cancel()}
+          >Cancel</button>
           { saving && 'saving...'}
         </div>
         : null
@@ -148,7 +147,8 @@ class Surface extends Component {
       .concat(anchorPoints.bottom.map(x => plotGuide.bind(this)(x, HEIGHT)))
     this.guideLayer.addChildren(points)
     this.guideLayer.sendToBack()
-    this.mainLayer.activate()
+    // if(this.mainLayer)
+    //   this.mainLayer.activate()
   }
 
   cancel() {

@@ -1,6 +1,8 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Box from 'react-boxen'
 import { distanceInWordsToNow } from 'date-fns'
+import { spacing, colors } from 'config/styles'
 
 class ChatMessage extends Component {
   render() {
@@ -9,11 +11,8 @@ class ChatMessage extends Component {
     const css = {
       message: {
         borderRadius: '6px',
-        backgroundColor: message.id === currentUser ? '#17c0ff' : '#f0fbff',
-        color: message.id === currentUser.id ? '#fff' : '#000',
-      },
-      container: {
-        marginBottom: '1em'
+        backgroundColor: message.id === currentUser ? colors.primary : colors.secondary,
+        color: message.id === currentUser.id ? 'white' : '#000',
       },
       meta: {
         opacity: 0.5,
@@ -23,8 +22,8 @@ class ChatMessage extends Component {
     }
 
     return (
-      <Box childSpacing='5px' style={css.container}>
-        <Box childAlign="center" childDirection="row" childJustify="space-between">
+      <Box childSpacing='5px'>
+        <Box childAlign="center" childDirection="row">
           <Box grow='1'>{ message.name }</Box>
           <Box style={css.meta}>
             <div>{ distanceInWordsToNow(message.timestamp) } ago</div>
@@ -32,7 +31,7 @@ class ChatMessage extends Component {
         </Box>
         <Box
           childDirection='row'
-          padding='1em'
+          padding={`${spacing[3]} ${spacing[4]}`}
           style={css.message}>
           { message.content }
         </Box>

@@ -2,7 +2,8 @@ export const colors = {
   primary: '#79589f',
   secondary: '#596981',
   'white-shade-1': 'hsl(0, 0%, 98%)',
-  'white-shade-2': 'hsl(0, 0%, 95%)'
+  'white-shade-2': 'hsl(0, 0%, 95%)',
+  'white-shade-3': 'hsl(0, 0%, 93%)'
 }
 
 export const spacing = {

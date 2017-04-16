@@ -3,14 +3,11 @@ import PropTypes from 'prop-types'
 import corpsesLoad from 'actions/corpsesLoad'
 import { connect } from 'react-redux'
 import Spinner from 'react-md-spinner'
-import Button from 'react-bootstrap/lib/Button'
 import Box from 'react-boxen'
 import ItemCorpse from 'components/ItemCorpse'
-import ChatMessages from 'components/ChatMessages'
 import propTypesCorpse from 'propTypes/Corpse'
 import {push} from 'react-router-redux'
 import { isBefore } from 'date-fns'
-import ConnectedUsers from 'components/ConnectedUsers'
 import drawingCreate from 'actions/drawingCreate'
 
 class Corpses extends React.Component {
@@ -36,11 +33,11 @@ class Corpses extends React.Component {
         <Box>
           <button onClick={() => dispatch(drawingCreate())}>Draw</button>
         </Box>
-        <Box><Button
+        <Box><button
           onClick={() => dispatch(push('/create'))}
         >
           Create Corpse
-        </Button></Box>
+        </button></Box>
       </Box>
       <Box
         align='flex-start'
@@ -60,8 +57,6 @@ class Corpses extends React.Component {
           <ItemCorpse grow='1' key={corpse._id} corpse={corpse} />
         )}
       </Box>
-      <ConnectedUsers />
-      <ChatMessages />
     </Box>)
   }
 }

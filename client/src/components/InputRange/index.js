@@ -1,10 +1,11 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Range } from 'rc-slider'
 import 'rc-slider/assets/index.css'
 
 class RangeInput extends React.Component {
   render() {
-    const { input: { value, onChange }, meta, ...rest } = this.props
+    const { input: { value, onChange }, ...rest } = this.props
     return (
       <Range {...rest} value={value} onChange={vals => onChange(vals)} />
     )
@@ -18,4 +19,4 @@ RangeInput.propTypes = {
   pushable: PropTypes.bool,
 }
 
-export default RangeInput;
+export default RangeInput
