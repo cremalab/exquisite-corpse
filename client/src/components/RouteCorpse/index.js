@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Spinner from 'react-md-spinner'
 import { push } from 'react-router-redux'
+import Box from 'react-boxen'
+import { format } from 'date-fns'
 import corpseClear from 'actions/corpseClear'
 import corpseLoad from 'actions/corpseLoad'
 import corpseDestroy from 'actions/corpseDestroy'
@@ -10,7 +12,6 @@ import drawingCreate from 'actions/drawingCreate'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
 import Surface from '../Surface'
-import Box from 'react-boxen'
 import { colors, spacing } from 'config/styles'
 
 const css = {
@@ -48,7 +49,9 @@ class Corpse extends Component {
   }
 
   render() {
-    const { corpse: { loading, sections, status, size = {} }, currentUser } = this.props
+    const { corpse: {
+      loading, sections, status, size = {}, creator, createdAt
+    }, currentUser } = this.props
     const creatorId = this.props.corpse.creator.id
     const isComplete = status === 'complete'
 
@@ -68,6 +71,16 @@ class Corpse extends Component {
       <div>
         <Box>
           { creatorId === currentUser.id && <button onClick={() => this.handleDestroy()}>Delete corpse</button> }
+          <Box padding={spacing[6]} childDirection='row' childAlign='center'>
+            <Box
+              childDirection='row'
+              childSpacing={spacing[4]}
+              childAlign='baseline'
+              grow>
+              <h4>created by</h4><h2>{ creator.name }</h2>
+            </Box>
+            <em>{ format(createdAt, 'MMM Do, YYYY, h:mma') }</em>
+          </Box>
           {
             sections.map((section, i) => {
               let sectionAvailable = !section.drawer || section.drawer.id === currentUser.id
