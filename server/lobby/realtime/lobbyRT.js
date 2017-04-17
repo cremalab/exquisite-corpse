@@ -1,9 +1,12 @@
+const eventParser = require('./eventParser')
 const urlPrefix = `/lobby`
 
 const types = {
   USERS_CHANGE: 'usersChange',
   CORPSE_CHANGE: 'corpseChange',
   CHAT_MESSAGE: 'chatMessage',
+  USER_STATUS_CHANGE: 'userStatusChange',
+  GENERIC_EVENT: 'genericEvent'
 }
 
 const pruneInt = 10000 // 10 second loop to clean up disconnected users
@@ -52,6 +55,31 @@ module.exports = {
       type: types.USERS_CHANGE, data: this.users,
     })
   },
+  notifyStatusChange(server, credentials) {
+    const { id, name, status } = credentials
+    const existing = this.users.find(u => u.id === id)
+    if (!existing) return
+
+    if (existing.status !== credentials.status) {
+      const data = {
+        timestamp: new Date().toISOString(),
+        name,
+        id,
+        status,
+      }
+      server.publish(urlPrefix, {
+        type: types.USER_STATUS_CHANGE,
+        data,
+      })
+    }
+  },
+  notifyEvent(server, eventType, data) {
+    const msg = eventParser.toMessage(eventType, data)
+    server.publish(urlPrefix, {
+      type: types.GENERIC_EVENT,
+      data: msg,
+    })
+  },
   notifyCorpseChange(server, payload) {
     server.publish(`${urlPrefix}`, {
       type: types.CORPSE_CHANGE, data: payload,
@@ -67,6 +95,7 @@ module.exports = {
     this.notifyUserChange(server)
   },
   updateUser(server, credentials, socketId) {
+    this.notifyStatusChange(server, credentials, socketId)
     this.users = updateObjectInArray(this.users, credentials, socketId)
     this.notifyUserChange(server)
   },

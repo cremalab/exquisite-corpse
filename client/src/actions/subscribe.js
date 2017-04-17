@@ -4,8 +4,10 @@ import {
   FAILURE_SUBSCRIBE,
   MERGE_CORPSE,
   USERS_CHANGE,
+  USER_STATUS_CHANGE,
   CHAT_MESSAGE_ADD,
   REMOVE_CORPSE,
+  LOBBY_EVENT,
 } from 'config/actionTypes'
 
 const handleEventMsg = (dispatch) => ({ type, data }) => {
@@ -19,6 +21,10 @@ const handleEventMsg = (dispatch) => ({ type, data }) => {
       return dispatch({ type: USERS_CHANGE, payload: data })
     case 'chatMessage':
       return dispatch({ type: CHAT_MESSAGE_ADD, payload: data })
+    case 'userStatusChange':
+      return dispatch({ type: USER_STATUS_CHANGE, payload: data })
+    case 'genericEvent':
+      return dispatch({ type: LOBBY_EVENT, payload: data })
     default:
       return null
   }

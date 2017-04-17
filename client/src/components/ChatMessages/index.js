@@ -7,47 +7,56 @@ import ChatMessage from 'components/ChatMessage'
 import ChatInput from 'components/ChatInput'
 import { isBefore } from 'date-fns'
 import chatMessageSubmit from 'actions/chatMessageSubmit'
-import Scroll from 'components/Scroll'
-import { spacing, colors } from 'config/styles'
+import { spacing } from 'config/styles'
+import styled from 'styled-components'
 
 function timestampDesc(a, b) {
   if (isBefore(a.timestamp, b.timestamp)) return -1
   return 1
 }
 
-const css = {
-  disclaimer: {
-    color: '#ccc',
-    textAlign: 'center',
-  }
-}
+const Scroll = styled.div`
+  flex-grow: 1;
+  overflow: scroll;
+`
 
 class ChatMessages extends Component {
+
+  componentDidMount() {
+    this.scrollToBottom()
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom()
+  }
+
+  scrollToBottom() {
+    this.scroll.scrollTop = this.scroll.scrollHeight
+  }
 
   render() {
     const { messages, currentUser, chatMessageSubmit } = this.props
 
     return (
-      <Box grow='1'>
+      <Box grow childFlex>
+        <Scroll
+          grow
+          innerRef={(el) => { this.scroll = el }}>
+          <Box
+            padding={spacing[5]}
+            childSpacing={spacing[4]}>
+            <div>chat messages since you've arrived</div>
+            { messages.sort(timestampDesc).map((message, i) => (
+              <ChatMessage
+                key={i}
+                currentUser={currentUser.id}
+                message={message} />
+            )) }
+          </Box>
+        </Scroll>
         <Box
-          childGrow='1'
-          childSpacing='1px'
-          grow='1'>
-          <Scroll align='bottom'>
-            <div style={css.disclaimer}>chat messages since you've arrived</div>
-            <Box padding={spacing[4]} childSpacing={spacing[3]}>
-              { messages.sort(timestampDesc).map((message, i) => (
-                <ChatMessage
-                  key={i}
-                  currentUser={currentUser.id}
-                  message={message} />
-              )) }
-            </Box>
-          </Scroll>
-        </Box>
-        <Box
-          style={{ backgroundColor: colors['white-shade-3'] }}
-          padding={spacing[4]}>
+          shrink={0}
+          padding={`0 ${spacing[4]} ${spacing[4]}`}>
           <ChatInput onSubmit={chatMessageSubmit} />
         </Box>
       </Box>

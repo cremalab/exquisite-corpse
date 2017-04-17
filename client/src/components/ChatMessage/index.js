@@ -8,31 +8,52 @@ class ChatMessage extends Component {
   render() {
     const { message, currentUser } = this.props
 
-    const css = {
-      message: {
-        borderRadius: '6px',
-        backgroundColor: message.id === currentUser ? colors.primary : colors.secondary,
-        color: message.id === currentUser.id ? 'white' : '#000',
-      },
-      meta: {
-        opacity: 0.5,
-        fontFamily: 'sans-serif',
-        fontSize: '60%',
-      }
+    let isSystemMsg = false
+    if (message.id === 0 && message.name === 'system') isSystemMsg = true
+
+    let backgroundColor = message.id === currentUser ? colors.blue : colors['blue-tint-2']
+    let textColor = message.id === currentUser ? colors['blue-tint-2'] : colors.blue
+
+    if (isSystemMsg) {
+      backgroundColor = 'transparent'
+      textColor = colors['gray-tint-1']
     }
 
+    const messageStyle = `
+      padding: ${spacing[4]} ${spacing[5]};
+      border-radius: ${spacing[3]};
+      background: ${backgroundColor};
+      color: ${textColor};
+      font-size: ${spacing[5]};
+      text-align: ${isSystemMsg ? 'center' : 'left'};
+      font-style: ${isSystemMsg ? 'italic' : 'normal'};
+    `
+
     return (
-      <Box childSpacing='5px'>
+      <Box childSpacing={spacing[3]} grow={isSystemMsg ? 1 : 0}>
         <Box childAlign="center" childDirection="row">
-          <Box grow='1'>{ message.name }</Box>
-          <Box style={css.meta}>
-            <div>{ distanceInWordsToNow(message.timestamp) } ago</div>
+          { !isSystemMsg && <Box grow css={`
+            color: ${colors['gray-tint-1']};
+            white-space: nowrap;
+            font-size: ${spacing[5]};
+            `}>
+            { message.name }
+          </Box> }
+          <Box
+            grow={isSystemMsg ? 1 : 0}
+            css={`
+              color: ${colors['gray-tint-1']};
+              white-space: nowrap;
+              font-size: ${spacing[4]};
+              text-align: ${isSystemMsg ? 'center' : 'right'}
+            `}>
+            { distanceInWordsToNow(message.timestamp) + ' ago'}
           </Box>
         </Box>
         <Box
-          childDirection='row'
-          padding={`${spacing[3]} ${spacing[4]}`}
-          style={css.message}>
+          childDirection='column'
+          grow={isSystemMsg ? 1 : 0}
+          css={messageStyle}>
           { message.content }
         </Box>
       </Box>

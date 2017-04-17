@@ -4,6 +4,7 @@ const canvasCombiner = require('../lib/canvasCombiner')
 const canvasUploader = require('../lib/canvasUploader')
 const rt = require('../../corpses/realtime/corpsesRT')
 const lobbyRT = require('../../lobby/realtime/lobbyRT')
+const eventTypes = require('../../lobby/realtime/eventTypes')
 const corpsesDB = require('../../corpses/db/corpsesDB')
 
 const drawingsDB = require('../../drawings/db/drawingsDB')
@@ -15,6 +16,9 @@ function isComplete(payload) {
 
 function notifyCompletion(server, payload) {
   rt.notifyCompletion(server, payload)
+  lobbyRT.notifyEvent(server, eventTypes.CORPSE_COMPLETED, {
+    corpse: payload, credentials: server.auth.credentials,
+  })
 }
 
 function handleCompletion(server, db, payload) {
@@ -39,18 +43,27 @@ function handleCompletion(server, db, payload) {
 module.exports = {
   create(request, reply) {
     const { db } = request.mongo
-    return drawingsDB.find(db, request.params.id).then(drawing => (
-      db.collection('corpses').findOneAndUpdate({
+    let sectionId
+    return drawingsDB.find(db, request.params.id).then(drawing => {
+      sectionId = drawing.section
+      return db.collection('corpses').findOneAndUpdate({
         'sections._id': ObjectID(drawing.section),
       }, {
         $set: { 'sections.$.drawing': drawing },
       }, {
         returnOriginal: false,
       })
-    ))
+    })
     .then((r) => {
       if (!r.value) { return reply(Boom.create(404, `Can't find Corpse with Section`)) }
       rt.notifyChange(request.server, r.value)
+      const data = {
+        corpse: r.value,
+        credentials: request.auth.credentials,
+        section: sectionId,
+        drawing: request.params.id,
+      }
+      lobbyRT.notifyEvent(request.server, eventTypes.DRAWING_COMPLETED, data)
       lobbyRT.notifyCorpseChange(request.server, r.value)
       return handleCompletion(request.server, db, r.value).then(result => (
         reply({ result })
