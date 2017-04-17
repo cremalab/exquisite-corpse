@@ -7,7 +7,7 @@ import ChatMessage from 'components/ChatMessage'
 import ChatInput from 'components/ChatInput'
 import { isBefore } from 'date-fns'
 import chatMessageSubmit from 'actions/chatMessageSubmit'
-import { spacing, colors } from 'config/styles'
+import { spacing } from 'config/styles'
 import styled from 'styled-components'
 
 function timestampDesc(a, b) {
@@ -16,19 +16,32 @@ function timestampDesc(a, b) {
 }
 
 const Scroll = styled.div`
-  display: flex;
   flex-grow: 1;
   overflow: scroll;
 `
 
 class ChatMessages extends Component {
 
+  componentDidMount() {
+    this.scrollToBottom()
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom()
+  }
+
+  scrollToBottom() {
+    this.scroll.scrollTop = this.scroll.scrollHeight
+  }
+
   render() {
     const { messages, currentUser, chatMessageSubmit } = this.props
 
     return (
       <Box grow childFlex>
-        <Scroll grow>
+        <Scroll
+          grow
+          innerRef={(el) => { this.scroll = el }}>
           <Box
             padding={spacing[5]}
             childSpacing={spacing[4]}>
