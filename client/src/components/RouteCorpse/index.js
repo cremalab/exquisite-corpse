@@ -50,9 +50,10 @@ class Corpse extends Component {
   render() {
     const { corpse: { loading, sections, status, size = {} }, currentUser } = this.props
     const creatorId = this.props.corpse.creator.id
+    const isComplete = status === 'complete'
 
     if ( loading ) return <Spinner />
-    const finalDrawing = (status === 'complete') ? (
+    const finalDrawing = isComplete ? (
       <div
         style={css.finalFrame}
         >
@@ -68,24 +69,28 @@ class Corpse extends Component {
         <Box>
           { creatorId === currentUser.id && <button onClick={() => this.handleDestroy()}>Delete corpse</button> }
           {
-            sections.map((section, i) => (
-              <Box
-                key={i}
-                onClick={() => this.handleDrawing(section)}
-                style={{
-                  padding: '20px',
-                  borderWidth: '0 0 1px',
-                  borderColor: 'whitesmoke',
-                  cursor: 'pointer',
-                  '&:hover': {
-                    backgroundColor: 'hsl(0, 0%, 98%)'
-                  }
-                }}
-              >
-                { section.drawer ? `[${section.description} - ${section.drawer.name}]` : section.description }
-                <em>{ section.drawing && section.drawing.canvas ? 'Complete' : 'Incomplete' }</em>
-              </Box>
-            ))
+            sections.map((section, i) => {
+              let sectionAvailable = !section.drawer || section.drawer.id === currentUser.id
+              if (isComplete) sectionAvailable = false
+
+              return (
+                <Box
+                  key={i}
+                  style={{
+                    padding: '20px',
+                    borderWidth: '0 0 1px',
+                    borderColor: 'whitesmoke',
+                    '&:hover': {
+                      backgroundColor: 'hsl(0, 0%, 98%)'
+                    }
+                  }}
+                >
+                  { section.drawer ? `[${section.description} - ${section.drawer.name}]` : section.description }
+                  <em>{ section.drawing && section.drawing.canvas ? 'Complete' : 'Incomplete' }</em>
+                  { (!isComplete && sectionAvailable) && <button onClick={() => this.handleDrawing(section)}>Draw this section</button> }
+                </Box>
+              )
+            })
           }
         </Box>
         {finalDrawing}

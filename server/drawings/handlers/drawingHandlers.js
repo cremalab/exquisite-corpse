@@ -56,8 +56,8 @@ module.exports = {
           section: res,
         }
         lobbyRT.notifyEvent(request.server, eventTypes.DRAWING_CANCELLED, data)
+        reply({ result: { message: 'It is no more!', corpse: corpse._id }})
       })
-      reply({ result: { message: 'It is no more!' }})
     })
     .catch(err => reply(Boom.wrap(err)))
   }
