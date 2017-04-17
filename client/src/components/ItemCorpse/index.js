@@ -9,7 +9,7 @@ import { spacing, colors } from 'config/styles'
 
 const Label = styled.div`
   padding: ${spacing[3]} ${spacing[6]};
-  background: white;
+  background: rgba(255, 255, 255, 0.8);
   border: 2px solid ${colors.primary};
   border-radius: ${spacing[4]};
   text-align: center;
@@ -44,18 +44,20 @@ const statusToBackground = status => {
       return 'white'
     case 'claimed':
       return `
-        background-size: 20px 20px;
-        background-image: linear-gradient(45deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 12.5%, ${colors['primary']} 12.5%, ${colors['primary']} 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 62.5%, ${colors['primary']} 62.5%, ${colors['primary']});
-        background-repeat: repeat;
+        background-image: -webkit-repeating-radial-gradient(center center, ${colors['primary']}, ${colors['primary']} 1px, transparent 1px, transparent 100%);
+        background-size: 3px 3px;
       `
     case 'complete':
       return `
-        background-image: -webkit-repeating-radial-gradient(center center, ${colors['primary']}, ${colors['primary']} 1px, transparent 1px, transparent 100%);
-        background-size: 3px 3px;
+        background-color: ${colors.primary}
       `
     default:
       return 'white'
   }
+}
+
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
 }
 
 class ItemCorpse extends Component {
@@ -64,7 +66,8 @@ class ItemCorpse extends Component {
 
     const createdAt = 'Created ' + distanceInWordsToNow(corpse.createdAt) + ' ago'
     const sectionsWithDrawer = corpse.sections.filter(x => x.drawer)
-    const participantsCount = sectionsWithDrawer.length
+    const participantsCount = sectionsWithDrawer.map(s => s.drawer.id)
+      .filter(onlyUnique).length
     const isComplete = corpse.status === 'complete'
 
     return (
@@ -119,7 +122,9 @@ class ItemCorpse extends Component {
             background: ${colors.primary};
             color: white;
           `}>
-          <span data-grow>{participantsCount ? `${participantsCount} participants` : 'Waiting'}</span>
+          <span data-grow>
+            {participantsCount ? `${participantsCount} participant${participantsCount > 1 ? 's' : ''}` : 'Waiting'}
+          </span>
           <span>{createdAt}</span>
         </Box>
       </Box>
