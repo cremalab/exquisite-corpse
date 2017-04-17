@@ -40,21 +40,21 @@ class Corpses extends React.Component {
         </button></Box>
       </Box>
       <Box
-        align='flex-start'
-        childSpacing="20px"
-        grow="1"
+        grow
+        shrink
+        childDirection="row"
         childWrap="wrap"
         childWrapLastGrow={false}
         childSpacing="10px"
         childBasis="300px"
-        childAlign="flex-start"
-        childDirection="row"
+        childGrow
+        childShrink
       >
         { result.sort((a, b) => {
           if (isBefore(a.createdAt, b.createdAt)) return 1
           return -1
         }).map(corpse =>
-          <ItemCorpse grow='1' key={corpse._id} corpse={corpse} />
+          <ItemCorpse key={corpse._id} corpse={corpse} />
         )}
       </Box>
     </Box>)

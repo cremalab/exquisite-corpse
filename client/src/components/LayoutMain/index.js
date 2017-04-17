@@ -45,11 +45,13 @@ const LayoutMain = ({
     {/* Main */}
     <Box
       grow
+      shrink
       childDirection='row'
       childAlign='stretch'
       childFlex>
       <Box
         grow
+        shrink
         background={colors['white-shade-1']}
         css={`overflow: scroll`}
         children={ content ? content : Spinner }/>
