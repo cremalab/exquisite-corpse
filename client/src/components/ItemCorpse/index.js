@@ -16,7 +16,7 @@ const Label = styled.div`
 `
 
 const sectionStatus = section => {
-  if(section.drawer && !section.drawing.canvas) {
+  if(section.drawer && (!section.drawing || !section.drawing.canvas)) {
     return 'claimed'
   } else if(section.drawing) {
     return 'complete'
