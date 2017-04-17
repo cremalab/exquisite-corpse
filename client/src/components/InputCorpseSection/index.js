@@ -4,6 +4,7 @@ import { Field } from 'redux-form'
 import Box from 'react-boxen'
 import InputRange from '../InputRange'
 import InputField from '../InputField'
+import { colors, spacing } from 'config/styles'
 
 const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) => {
 
@@ -12,13 +13,13 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) =>
 
   const css = {
     canvasPlaceholder: {
-      height: '200px',
-      backgroundColor: 'rgb(245, 246, 240)',
+      height: '160px',
+      backgroundColor: colors['white-shade-3'],
     },
     guideButton: {
       backgroundColor: '#fff',
-      border: '2px solid #96dbfa',
-      color: '#41c1fa',
+      border: `2px solid ${colors['primary']}`,
+      color: colors['primary'],
       borderRadius: '6px',
       cursor: 'pointer',
     }
@@ -49,7 +50,7 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) =>
                 style={css.canvasPlaceholder}
                 padding='10px'>
                 <Box
-                  grow='1'
+                  grow
                   childAlign='center'
                   childJustify={showPoints ? 'flex-end' : 'center'}
                   childSpacing='10px'>
@@ -68,7 +69,6 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) =>
                 { showPoints &&
                   <Box
                     childDirection='row'
-                    grow='1'
                     childAlign='flex-end'
                     childJustify='center'
                     childSpacing='10px'>
@@ -93,7 +93,7 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) =>
       <Box
         padding='10px'
         childJustify='center'>
-        <button type="button" onClick={onAdd}>Add Section</button>
+        <button type="button" style={css.guideButton} onClick={onAdd}>Add Section</button>
       </Box>
     }
   </div>

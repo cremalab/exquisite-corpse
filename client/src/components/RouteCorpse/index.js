@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Spinner from 'react-md-spinner'
 import { push } from 'react-router-redux'
+import Box from 'react-boxen'
+import { format } from 'date-fns'
 import corpseClear from 'actions/corpseClear'
 import corpseLoad from 'actions/corpseLoad'
 import corpseDestroy from 'actions/corpseDestroy'
@@ -10,7 +12,6 @@ import drawingCreate from 'actions/drawingCreate'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
 import Surface from '../Surface'
-import Box from 'react-boxen'
 import { colors, spacing } from 'config/styles'
 
 const css = {
@@ -48,11 +49,14 @@ class Corpse extends Component {
   }
 
   render() {
-    const { corpse: { loading, sections, status, size = {} }, currentUser } = this.props
+    const { corpse: {
+      loading, sections, status, size = {}, creator, createdAt
+    }, currentUser } = this.props
     const creatorId = this.props.corpse.creator.id
+    const isComplete = status === 'complete'
 
     if ( loading ) return <Spinner />
-    const finalDrawing = (status === 'complete') ? (
+    const finalDrawing = isComplete ? (
       <div
         style={css.finalFrame}
         >
@@ -67,25 +71,39 @@ class Corpse extends Component {
       <div>
         <Box>
           { creatorId === currentUser.id && <button onClick={() => this.handleDestroy()}>Delete corpse</button> }
+          <Box padding={spacing[6]} childDirection='row' childAlign='center'>
+            <Box
+              childDirection='row'
+              childSpacing={spacing[4]}
+              childAlign='baseline'
+              grow>
+              <h4>created by</h4><h2>{ creator.name }</h2>
+            </Box>
+            <em>{ format(createdAt, 'MMM Do, YYYY, h:mma') }</em>
+          </Box>
           {
-            sections.map((section, i) => (
-              <Box
-                key={i}
-                onClick={() => this.handleDrawing(section)}
-                style={{
-                  padding: '20px',
-                  borderWidth: '0 0 1px',
-                  borderColor: 'whitesmoke',
-                  cursor: 'pointer',
-                  '&:hover': {
-                    backgroundColor: 'hsl(0, 0%, 98%)'
-                  }
-                }}
-              >
-                { section.drawer ? `[${section.description} - ${section.drawer.name}]` : section.description }
-                <em>{ section.drawing && section.drawing.canvas ? 'Complete' : 'Incomplete' }</em>
-              </Box>
-            ))
+            sections.map((section, i) => {
+              let sectionAvailable = !section.drawer || section.drawer.id === currentUser.id
+              if (isComplete) sectionAvailable = false
+
+              return (
+                <Box
+                  key={i}
+                  style={{
+                    padding: '20px',
+                    borderWidth: '0 0 1px',
+                    borderColor: 'whitesmoke',
+                    '&:hover': {
+                      backgroundColor: 'hsl(0, 0%, 98%)'
+                    }
+                  }}
+                >
+                  { section.drawer ? `[${section.description} - ${section.drawer.name}]` : section.description }
+                  <em>{ section.drawing && section.drawing.canvas ? 'Complete' : 'Incomplete' }</em>
+                  { (!isComplete && sectionAvailable) && <button onClick={() => this.handleDrawing(section)}>Draw this section</button> }
+                </Box>
+              )
+            })
           }
         </Box>
         {finalDrawing}

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Range } from 'rc-slider'
-import 'rc-slider/assets/index.css'
+import './styles.css'
 
 class RangeInput extends React.Component {
   render() {
