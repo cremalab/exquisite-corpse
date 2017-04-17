@@ -74,10 +74,7 @@ module.exports = {
     }
   },
   notifyEvent(server, eventType, data) {
-    console.log(eventType);
-    console.log(data);
     const msg = eventParser.toMessage(eventType, data)
-    console.log('message', msg);
     server.publish(urlPrefix, {
       type: types.GENERIC_EVENT,
       data: msg,

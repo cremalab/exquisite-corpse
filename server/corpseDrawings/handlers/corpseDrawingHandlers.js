@@ -16,7 +16,6 @@ function isComplete(payload) {
 
 function notifyCompletion(server, payload) {
   rt.notifyCompletion(server, payload)
-  console.log('NOTIFYCOMPELTEI', server.auth);
   lobbyRT.notifyEvent(server, eventTypes.CORPSE_COMPLETED, {
     corpse: payload, credentials: server.auth.credentials,
   })
