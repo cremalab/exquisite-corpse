@@ -7,33 +7,53 @@ import { spacing, colors } from 'config/styles'
 class ChatMessage extends Component {
   render() {
     const { message, currentUser } = this.props
+
+    let isSystemMsg = false
+    if (message.id === 0 && message.name === 'system') isSystemMsg = true
+
+    let backgroundColor = message.id === currentUser ? colors.blue : colors['blue-tint-2']
+    let textColor = message.id === currentUser ? colors['blue-tint-2'] : colors.blue
+
+    if (isSystemMsg) {
+      backgroundColor = 'transparent'
+      textColor = colors['gray-tint-1']
+    }
+
+    const messageStyle = `
+      padding: ${spacing[4]} ${spacing[5]};
+      border-radius: ${spacing[3]};
+      background: ${backgroundColor};
+      color: ${textColor};
+      font-size: ${spacing[5]};
+      text-align: ${isSystemMsg ? 'center' : 'left'};
+      font-style: ${isSystemMsg ? 'italic' : 'normal'};
+    `
+
     return (
-      <Box childSpacing={spacing[3]}>
+      <Box childSpacing={spacing[3]} grow={isSystemMsg ? 1 : 0}>
         <Box childAlign="center" childDirection="row">
-          <Box grow css={`
+          { !isSystemMsg && <Box grow css={`
             color: ${colors['gray-tint-1']};
             white-space: nowrap;
             font-size: ${spacing[5]};
             `}>
             { message.name }
-          </Box>
-          <Box css={`
-            color: ${colors['gray-tint-1']};
-            white-space: nowrap;
-            font-size: ${spacing[4]};
+          </Box> }
+          <Box
+            grow={isSystemMsg ? 1 : 0}
+            css={`
+              color: ${colors['gray-tint-1']};
+              white-space: nowrap;
+              font-size: ${spacing[4]};
+              text-align: ${isSystemMsg ? 'center' : 'right'}
             `}>
             { distanceInWordsToNow(message.timestamp) + ' ago'}
           </Box>
         </Box>
         <Box
-          childDirection='row'
-          css={`
-            padding: ${spacing[4]} ${spacing[5]};
-            border-radius: ${spacing[3]};
-            background: ${message.id === currentUser ? colors.blue : colors['blue-tint-2']};
-            color: ${message.id === currentUser ? colors['blue-tint-2'] : colors.blue};
-            font-size: ${spacing[5]};
-          `}>
+          childDirection='column'
+          grow={isSystemMsg ? 1 : 0}
+          css={messageStyle}>
           { message.content }
         </Box>
       </Box>
