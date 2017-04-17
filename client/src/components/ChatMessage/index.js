@@ -7,32 +7,33 @@ import { spacing, colors } from 'config/styles'
 class ChatMessage extends Component {
   render() {
     const { message, currentUser } = this.props
-
-    const css = {
-      message: {
-        borderRadius: '6px',
-        backgroundColor: message.id === currentUser ? colors.primary : colors.secondary,
-        color: message.id === currentUser.id ? 'white' : '#000',
-      },
-      meta: {
-        opacity: 0.5,
-        fontFamily: 'sans-serif',
-        fontSize: '60%',
-      }
-    }
-
     return (
-      <Box childSpacing='5px'>
+      <Box childSpacing={spacing[3]}>
         <Box childAlign="center" childDirection="row">
-          <Box grow='1'>{ message.name }</Box>
-          <Box style={css.meta}>
-            <div>{ distanceInWordsToNow(message.timestamp) } ago</div>
+          <Box grow css={`
+            color: ${colors['gray-tint-1']};
+            white-space: nowrap;
+            font-size: ${spacing[5]};
+            `}>
+            { message.name }
+          </Box>
+          <Box css={`
+            color: ${colors['gray-tint-1']};
+            white-space: nowrap;
+            font-size: ${spacing[4]};
+            `}>
+            { distanceInWordsToNow(message.timestamp) + ' ago'}
           </Box>
         </Box>
         <Box
           childDirection='row'
-          padding={`${spacing[3]} ${spacing[4]}`}
-          style={css.message}>
+          css={`
+            padding: ${spacing[4]} ${spacing[5]};
+            border-radius: ${spacing[3]};
+            background: ${message.id === currentUser ? colors.blue : colors['blue-tint-2']};
+            color: ${message.id === currentUser ? colors['blue-tint-2'] : colors.blue};
+            font-size: ${spacing[5]};
+          `}>
           { message.content }
         </Box>
       </Box>

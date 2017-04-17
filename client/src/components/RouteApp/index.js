@@ -10,14 +10,12 @@ import RouteCreateCorpse from 'components/RouteCreateCorpse'
 import RouteMessagesGlobal from 'components/RouteMessagesGlobal'
 import LayoutMain from 'components/LayoutMain'
 import Scroll from 'components/Scroll'
-import { css } from 'glamor'
+import styled from 'styled-components'
 
-const styles = {
-  sidebarWrapper: css({
-    display: 'flex',
-    flexGrow: 1
-  })
-}
+const SidebarDiv = styled.div`
+  display: flex;
+  flex-grow: 1;
+`
 
 class RouteApp extends Component {
   componentWillMount() {
@@ -39,20 +37,18 @@ class RouteApp extends Component {
         back={location.pathname !== '/' && <a href='#' onClick={this.handleBack}>{`< Back`}</a>}
         title="Exquisite Corpse"
         content={
-          <Scroll grow='1'>
-            <div>
-              <Route exact path="/welcome" component={RouteHome}/>
-              <Route exact path="/" component={RouteCorpses}/>
-              <Route path="/create" component={RouteCreateCorpse} />
-              <Route path="/corpse/:corpseId" component={RouteCorpse}/>
-              <Route path="/drawing/:drawingId" component={RouteDrawing}/>
-            </div>
-          </Scroll>
+          <div>
+            <Route exact path="/welcome" component={RouteHome}/>
+            <Route exact path="/" component={RouteCorpses}/>
+            <Route path="/create" component={RouteCreateCorpse} />
+            <Route path="/corpse/:corpseId" component={RouteCorpse}/>
+            <Route path="/drawing/:drawingId" component={RouteDrawing}/>
+          </div>
         }
         sidebar={
-          <div {...styles.sidebarWrapper}>
+          <SidebarDiv grow>
             <Route exact path="/" component={RouteMessagesGlobal} />
-          </div>
+          </SidebarDiv>
         }
       />
     )
