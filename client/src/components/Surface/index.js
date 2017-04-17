@@ -110,8 +110,8 @@ class Surface extends Component {
       this.resize()
       this.paper.view.onResize = e => this.resize(e)
     }
-    this.mainLayer = new this.paper.Group({ name: 'drawing' })
-    this.guideLayer = new this.paper.Group({ name: 'guides' })
+    this.mainLayer = new this.paper.Layer({ name: 'drawing' })
+    this.guideLayer = new this.paper.Layer({ name: 'guides' })
     this.forceUpdate()
   }
 
@@ -136,8 +136,8 @@ class Surface extends Component {
       .concat(anchorPoints.bottom.map(x => plotGuide.bind(this)(x, HEIGHT)))
     this.guideLayer.addChildren(points)
     this.guideLayer.sendToBack()
-    // if(this.mainLayer)
-    //   this.mainLayer.activate()
+    if(this.mainLayer)
+      this.mainLayer.activate()
   }
 
   cancel() {
