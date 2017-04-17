@@ -12,11 +12,6 @@ class Surface extends Component {
     this.paper = null
     this.state = {
       pathType: 'brush',
-      //pencil: {
-      //  strokeWidth: 2,
-      //  strokeColor: 'black',
-      //  opacity: 1,
-      //},
       eraser: {
         fillColor: 'white',
         opacity: 1,
@@ -190,16 +185,12 @@ class Surface extends Component {
 
   onMouseDrag(event) {
     const path = this.getCurrentPath()
-    //if ( this.state.pathType === 'brush' ) {
-      const step = event.delta.divide(6)
-      step.angle += 90
-      var top = event.middlePoint.add(step).subtract(1)
-      var bottom = event.middlePoint.subtract(step)
-      path.add(top)
-      path.insert(0, bottom)
-    //} else {
-    //  path.add(event.middlePoint)
-    //}
+    const step = event.delta.divide(6)
+    step.angle += 90
+    var top = event.middlePoint.add(step).subtract(1)
+    var bottom = event.middlePoint.subtract(step)
+    path.add(top)
+    path.insert(0, bottom)
   }
 
   onMouseUp() {
