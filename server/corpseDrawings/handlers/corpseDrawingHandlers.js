@@ -14,14 +14,14 @@ function isComplete(payload) {
     .every(s => s === true)
 }
 
-function notifyCompletion(server, payload) {
+function notifyCompletion(server, payload, user) {
   rt.notifyCompletion(server, payload)
   lobbyRT.notifyEvent(server, eventTypes.CORPSE_COMPLETED, {
-    corpse: payload, credentials: server.auth.credentials,
+    corpse: payload, credentials: user,
   })
 }
 
-function handleCompletion(server, db, payload) {
+function handleCompletion(server, db, payload, user) {
   if (isComplete(payload)) {
     const canvas = canvasCombiner.stitch(payload.sections.map(s => s.drawing.canvas))
     const size = canvasCombiner.getDimensionsFromJSON(canvas)
@@ -32,7 +32,7 @@ function handleCompletion(server, db, payload) {
       size,
       status: 'complete',
     }).then((result) => {
-      notifyCompletion(server, result)
+      notifyCompletion(server, result, user)
       return result
     })
   }
@@ -42,6 +42,7 @@ function handleCompletion(server, db, payload) {
 
 module.exports = {
   create(request, reply) {
+    const user = request.auth.credentials
     const { db } = request.mongo
     let sectionId
     return drawingsDB.find(db, request.params.id).then(drawing => {
@@ -59,13 +60,13 @@ module.exports = {
       rt.notifyChange(request.server, r.value)
       const data = {
         corpse: r.value,
-        credentials: request.auth.credentials,
+        credentials: user,
         section: sectionId,
         drawing: request.params.id,
       }
       lobbyRT.notifyEvent(request.server, eventTypes.DRAWING_COMPLETED, data)
       lobbyRT.notifyCorpseChange(request.server, r.value)
-      return handleCompletion(request.server, db, r.value).then(result => (
+      return handleCompletion(request.server, db, r.value, user).then(result => (
         reply({ result })
       ))
     })
