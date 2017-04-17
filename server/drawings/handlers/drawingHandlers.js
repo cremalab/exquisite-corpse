@@ -4,6 +4,7 @@ const corpseSectionsDB = require('../../corpseSections/db/corpseSectionsDB')
 const corpsesDB = require('../../corpses/db/corpsesDB')
 const corpseRT = require('../../corpses/realtime/corpsesRT')
 const lobbyRT = require('../../lobby/realtime/lobbyRT')
+const eventTypes = require('../../lobby/realtime/eventTypes')
 const Boom = require('boom')
 
 module.exports = {
@@ -27,6 +28,8 @@ module.exports = {
       .then((corpse) => {
         corpseRT.notifyChange(request.server, corpse)
         lobbyRT.notifyCorpseChange(request.server, corpse)
+        const data = { corpse, credentials, section: r.section, drawing: r._id }
+        lobbyRT.notifyEvent(request.server, eventTypes.DRAWING_STARTED, data)
       }).catch(err => { throw err })
 
       reply({ result: r }).code(201)
@@ -47,8 +50,14 @@ module.exports = {
       corpsesDB.findBySection(db, res).then((corpse) => {
         lobbyRT.notifyCorpseChange(request.server, corpse)
         corpseRT.notifyChange(request.server, corpse)
+        const data = {
+          corpse,
+          credentials: request.auth.credentials,
+          section: res,
+        }
+        lobbyRT.notifyEvent(request.server, eventTypes.DRAWING_CANCELLED, data)
+        reply({ result: { message: 'It is no more!', corpse: corpse._id }})
       })
-      reply({ result: { message: 'It is no more!' }})
     })
     .catch(err => reply(Boom.wrap(err)))
   }

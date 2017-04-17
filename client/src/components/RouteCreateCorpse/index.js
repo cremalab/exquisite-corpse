@@ -5,6 +5,7 @@ import Box from 'react-boxen'
 import { reduxForm, FieldArray } from 'redux-form'
 import InputCorpseSection from '../InputCorpseSection'
 import {FORM_CREATE_CORPSE as form} from 'config/constants'
+import { colors } from 'config/styles'
 
 const anchorPoints = {
   2: [40,60],
@@ -15,7 +16,7 @@ const anchorPoints = {
 
 const css = {
   button: {
-    backgroundColor: 'rgb(44, 187, 249)',
+    backgroundColor: colors.primary,
     color: 'rgb(255, 255, 255)',
     border: 'none',
     lineHeight: '2em',

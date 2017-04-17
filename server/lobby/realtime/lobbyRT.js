@@ -1,3 +1,4 @@
+const eventParser = require('./eventParser')
 const urlPrefix = `/lobby`
 
 const types = {
@@ -5,6 +6,7 @@ const types = {
   CORPSE_CHANGE: 'corpseChange',
   CHAT_MESSAGE: 'chatMessage',
   USER_STATUS_CHANGE: 'userStatusChange',
+  GENERIC_EVENT: 'genericEvent'
 }
 
 const pruneInt = 10000 // 10 second loop to clean up disconnected users
@@ -70,6 +72,13 @@ module.exports = {
         data,
       })
     }
+  },
+  notifyEvent(server, eventType, data) {
+    const msg = eventParser.toMessage(eventType, data)
+    server.publish(urlPrefix, {
+      type: types.GENERIC_EVENT,
+      data: msg,
+    })
   },
   notifyCorpseChange(server, payload) {
     server.publish(`${urlPrefix}`, {
