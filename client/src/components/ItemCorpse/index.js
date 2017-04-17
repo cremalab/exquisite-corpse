@@ -112,6 +112,7 @@ class ItemCorpse extends Component {
         </Box>
         <Box
           childDirection='row'
+          childWrap='wrap'
           css={`
             font-size: ${spacing[5]};
             padding: ${spacing[4]};
