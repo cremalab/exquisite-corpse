@@ -1,6 +1,7 @@
 import {
   CHAT_MESSAGE_ADD,
   USER_STATUS_CHANGE,
+  LOBBY_EVENT,
 } from 'config/actionTypes'
 
 const initialState = {
@@ -31,6 +32,12 @@ function chat(state = initialState, action) {
         ...state,
         messages: [...state.messages, message]
       }
+    case LOBBY_EVENT:
+      return {
+        ...state,
+        messages: [...state.messages, action.payload]
+      }
+
     default:
       return state
   }
