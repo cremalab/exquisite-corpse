@@ -50,6 +50,12 @@ module.exports = {
       corpsesDB.findBySection(db, res).then((corpse) => {
         lobbyRT.notifyCorpseChange(request.server, corpse)
         corpseRT.notifyChange(request.server, corpse)
+        const data = {
+          corpse,
+          credentials: request.auth.credentials,
+          section: res,
+        }
+        lobbyRT.notifyEvent(request.server, eventTypes.DRAWING_CANCELLED, data)
       })
       reply({ result: { message: 'It is no more!' }})
     })

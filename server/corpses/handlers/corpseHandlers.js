@@ -1,6 +1,7 @@
 const corpsesDB = require('../db/corpsesDB')
 const corpsesRT = require('../realtime/corpsesRT')
 const lobbyRT = require('../../lobby/realtime/lobbyRT')
+const eventTypes = require('../../lobby/realtime/eventTypes')
 const Boom = require('boom')
 
 function statusify(r) {
@@ -31,6 +32,8 @@ module.exports = {
     corpsesDB.create(db, attrs)
       .then((r) => {
         lobbyRT.notifyCorpseChange(request.server, r)
+        const data = { credentials: user, corpse: r }
+        lobbyRT.notifyEvent(request.server, eventTypes.CORPSE_CREATED, data)
         reply({ result: r }).code(201)
       })
       .catch(err => reply(err))
