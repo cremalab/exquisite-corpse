@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import paperjs from 'paper'
+import { Resizable, ResizableBox } from 'react-resizable'
+import 'react-resizable/css/styles.css'
 
 const WIDTH = 400
 const HEIGHT = 200
@@ -11,6 +13,7 @@ class Surface extends Component {
     super()
     this.paper = null
     this.state = {
+      resizable: true,
       pathType: 'brush',
       eraser: {
         fillColor: 'white',
@@ -59,13 +62,19 @@ class Surface extends Component {
     const {pathType} = this.state
     const style = {
       width: width || '100%',
-      height: height || '100%',
+      height: height || '',
       backgroundColor: 'white',
       margin: '0 auto',
       display: 'block',
     }
     return <div style={{ width: 'auto' }}>
-      <canvas ref="canvas" style={style} data-paper-resize={true} />
+      { interactive ?
+        <ResizableBox width={500} height={250} axis='y' onResizeStop={this.resizeY.bind(this)}>
+          <canvas ref="canvas" style={style} data-paper-resize={this.state.resizable} />
+        </ResizableBox>
+        :
+        <canvas ref="canvas" style={style} data-paper-resize={this.state.resizable} />
+      }
       { interactive ?
         <div>
           <button
@@ -105,6 +114,15 @@ class Surface extends Component {
     const { width, height } = view.viewSize
     this.paper.view.center = new paperjs.Point(WIDTH/2, HEIGHT/2)
     this.paper.view.zoom = width / WIDTH
+    this.drawGuides()
+  }
+
+  resizeY(e, data) {
+    this.setState({ resizable: true })
+    const { width } = this.paper.view.viewSize
+    const { view } = this.paper
+    view.viewSize = new paperjs.Size(width, data.size.height)
+    view.matrix.ty = 0
   }
 
   setupCanvas() {
@@ -129,6 +147,7 @@ class Surface extends Component {
   }
 
   drawGuides() {
+    if (!this.guideLayer) return
     function plotGuide(x, y) {
       return new paperjs.Path.Circle({
         center: [WIDTH * (x/100), y],
@@ -138,6 +157,7 @@ class Surface extends Component {
       })
     }
     const { anchorPoints } = this.props.drawing
+    const { height } = this.paper.view.viewSize
     const points = anchorPoints.top.map(x => plotGuide.bind(this)(x, 0))
       .concat(anchorPoints.bottom.map(x => plotGuide.bind(this)(x, HEIGHT)))
     this.guideLayer.addChildren(points)
