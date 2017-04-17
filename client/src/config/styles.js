@@ -1,6 +1,10 @@
 export const colors = {
   primary: '#79589f',
-  secondary: '#596981',
+  'gray': '#596981',
+  'gray-tint-1': '#96a3b6',
+  blue: '#408fec',
+  'blue-tint-1': '#96ccff',
+  'blue-tint-2': '#f6faff',
   'white-shade-1': 'hsl(0, 0%, 98%)',
   'white-shade-2': 'hsl(0, 0%, 95%)',
   'white-shade-3': 'hsl(0, 0%, 93%)'

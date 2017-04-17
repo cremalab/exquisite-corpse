@@ -4,9 +4,9 @@ import ChatMessages from 'components/ChatMessages'
 import Box from 'react-boxen'
 
 const RouteMessagesGlobal = () =>
-  <Box grow='1'>
-    <ConnectedUsers />
-    <ChatMessages grow='1'/>
+  <Box childFlex>
+    {/* <ConnectedUsers /> */}
+    <ChatMessages grow />
   </Box>
 
 export default RouteMessagesGlobal

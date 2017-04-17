@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Box from 'react-boxen'
 import { Link } from 'react-router-dom'
 import { spacing, colors } from 'config/styles'
+import Spinner from 'react-md-spinner'
 
 const LayoutMain = ({
   back,
@@ -12,74 +13,52 @@ const LayoutMain = ({
   sidebar,
 }) => (
   <Box
-    height="100%">
-
-    {/* TitleBar */}
+    grow
+    childFlex>
     <Box
-      shrink='0'
-      style={{
-        backgroundColor: colors.primary,
-        color: colors['white-shade-2'],
-        '& a': { color: 'white' }
-      }}
-      padding={`${spacing[4]} ${spacing[5]}`}
       childAlign='center'
       childDirection='row'
-      childSpacing={spacing[5]}>
-
-      {
-        // TitleBar - Back
-        back &&
-        <Box
+      childSpacing={spacing[5]}
+      shrink={0}
+      css={`
+        background-color: ${colors.primary};
+        color: ${colors['white-shade-2']};
+        padding: ${spacing[4]} ${spacing[5]};
+        & a { color: white; }
+      `}>
+      { back &&
+        <div
           children={ back }
-        />
-      }
-
-      {
-        // TitleBar - Title
-        title &&
+        /> }
+      { title &&
         <Box
-          grow='1'
-          childJustify='center'
+          grow
           childAlign='center'
           children={ <Link style={{ textDecoration: 'none'}} to='/'>{title}</Link> }
-        />
-      }
-
-      {
-        // TitleBar - Actions
-        actions &&
+        /> }
+      { actions &&
         <Box
           children={ actions }
-        />
-      }
+        /> }
     </Box>
 
     {/* Main */}
     <Box
-      grow='1'
+      grow
       childDirection='row'
-      childAlign='stretch'>
-
-      {/* Main - Content */}
+      childAlign='stretch'
+      childFlex>
       <Box
-        grow='1'
-        style={{backgroundColor: colors['white-shade-1']}}
-        children={ content }/>
-
-      {
-        // Main - Sidebar
-        sidebar &&
+        grow
+        background={colors['white-shade-1']}
+        css={`overflow: scroll`}
+        children={ content ? content : Spinner }/>
+      { sidebar &&
         <Box
-          style={{backgroundColor: colors['white-shade-2']}}
+          background={colors['white-shade-2']}
           width='350px'
-          grow='1'
-          shrink='0'
-          childAlign='stretch'
-          childGrow='1'
-          children={ sidebar }
-        />
-      }
+          childFlex
+          children={ sidebar } /> }
     </Box>
   </Box>
 )
