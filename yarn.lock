@@ -5083,9 +5083,9 @@ rc@^1.0.1, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-boxen@0.0.27:
-  version "0.0.27"
-  resolved "https://registry.yarnpkg.com/react-boxen/-/react-boxen-0.0.27.tgz#6fa9e5cb39b1eedad6016274fee404bc9abf5c84"
+react-boxen@0.0.35:
+  version "0.0.35"
+  resolved "https://registry.yarnpkg.com/react-boxen/-/react-boxen-0.0.35.tgz#6495e944a2d0a7ad588f137844dd8020f1c2096f"
   dependencies:
     prop-types "^15.5.8"
     styled-components "2.0.0-15"
