@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import paperjs from 'paper'
+import paperjs, { Rectangle, Path, Point, Size, Group } from 'paper'
 import { Resizable, ResizableBox } from 'react-resizable'
 import 'react-resizable/css/styles.css'
 
@@ -58,7 +58,7 @@ class Surface extends Component {
   }
 
   render() {
-    const { saving, height, width, interactive} = this.props
+    const { saving, height, width, interactive, drawing} = this.props
     const {pathType} = this.state
     const style = {
       width: width || '100%',
@@ -67,10 +67,11 @@ class Surface extends Component {
       margin: '0 auto',
       display: 'block',
     }
+    if (drawing.anchorPoints) { this.drawGuides() }
     return <div style={{ width: 'auto' }}>
       { interactive ?
-        <ResizableBox width={500} height={250} axis='y' onResizeStop={this.resizeY.bind(this)}>
-          <canvas ref="canvas" style={style} data-paper-resize={this.state.resizable} />
+        <ResizableBox width={500} height={250} onResize={this.resize.bind(this)} onResizeStop={this.save.bind(this)}>
+          <canvas ref="canvas" style={style} />
         </ResizableBox>
         :
         <canvas ref="canvas" style={style} data-paper-resize={this.state.resizable} />
@@ -108,21 +109,13 @@ class Surface extends Component {
     </div>
   }
 
-  resize() {
+  resize(e, data) {
     const { view } = this.paper
-    if (this.props.height && this.props.width) { return }
-    const { width, height } = view.viewSize
-    this.paper.view.center = new paperjs.Point(WIDTH/2, HEIGHT/2)
-    this.paper.view.zoom = width / WIDTH
+    const { width } = view.viewSize
+    view.viewSize = new Size(data.size.width, data.size.height)
+    view.center = new Point(data.size.width/2, data.size.height / 2)
+    view.zoom = width / data.size.width
     this.drawGuides()
-  }
-
-  resizeY(e, data) {
-    this.setState({ resizable: true })
-    const { width } = this.paper.view.viewSize
-    const { view } = this.paper
-    view.viewSize = new paperjs.Size(width, data.size.height)
-    view.matrix.ty = 0
   }
 
   setupCanvas() {
@@ -131,13 +124,17 @@ class Surface extends Component {
     this.paper.view.play()
     this.paper.project.clear()
     if (this.props.interactive) {
-      this.resize()
-      this.paper.view.onResize = e => this.resize(e)
+      // this.resize(null, { size: { height: HEIGHT, width: WIDTH }})
+      // this.paper.view.onResize = e => this.handleViewResize(e)
     }
     this.mainLayer = new this.paper.Layer({ name: 'drawing' })
     this.guideLayer = new this.paper.Layer({ name: 'guides' })
+    this.mainLayer.matrix.ty = 0
+    this.mainLayer.matrix.tx = 0
+    this.guideLayer.matrix.ty = 0
     this.forceUpdate()
   }
+
 
   makeInteractive() {
     this.tool = new paperjs.Tool()
@@ -148,6 +145,7 @@ class Surface extends Component {
 
   drawGuides() {
     if (!this.guideLayer) return
+    this.guideLayer.clear()
     function plotGuide(x, y) {
       return new paperjs.Path.Circle({
         center: [WIDTH * (x/100), y],
@@ -159,7 +157,7 @@ class Surface extends Component {
     const { anchorPoints } = this.props.drawing
     const { height } = this.paper.view.viewSize
     const points = anchorPoints.top.map(x => plotGuide.bind(this)(x, 0))
-      .concat(anchorPoints.bottom.map(x => plotGuide.bind(this)(x, HEIGHT)))
+      .concat(anchorPoints.bottom.map(x => plotGuide.bind(this)(x, height)))
     this.guideLayer.addChildren(points)
     this.guideLayer.sendToBack()
     if(this.mainLayer)
