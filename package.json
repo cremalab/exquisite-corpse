@@ -13,6 +13,7 @@
     "test": "NODE_ENV=test jest",
     "test-watch": "NODE_ENV=test jest --watch",
     "dev": "concurrently \"yarn server\" \"yarn webpack:dev -- --watch\"",
+    "storybook": "start-storybook -p 9001",
     "server": "nodemon index.js",
     "client": "NODE_PATH=./src/ npm start --prefix client",
     "webpack:dev": "rm -rf ./client/build | webpack --env=dev",
@@ -80,6 +81,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.35.3",
     "eslint": "^3.17.1",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-config-airbnb-base": "^11.1.1",
