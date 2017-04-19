@@ -1,10 +1,12 @@
 const CorpseCleaner = require('./CorpseCleaner')
 
-const hour = 3600000
+const minute = 60000
 
-exports.register = (server, options, next) => {
-  const cleaner = new CorpseCleaner(server.mongodb)
-  const cleanerInt = setInterval(cleaner.clean, options.interval || hour * 2)
+exports.register = (server, options = {}, next) => {
+  const cleaner = new CorpseCleaner(
+    server.mongo.db, server, options.cleaner
+  )
+  const cleanerInt = setInterval(cleaner.clean.bind(cleaner), options.interval || 10 * minute)
   server.expose('cleaner', cleaner)
   server.expose('loop', cleanerInt)
   next()
