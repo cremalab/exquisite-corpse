@@ -28,6 +28,7 @@ module.exports = {
     canvas: Joi.string(),
     section: objectId.required().example(new ObjectId()),
     corpse: objectId.required().example(new ObjectId()),
+    status: Joi.string().valid(['incomplete', 'complete']),
   }).required(),
   createPayload: Joi.object().keys({
     canvas: Joi.string().optional(),
@@ -39,5 +40,6 @@ module.exports = {
     anchorPoints: Joi.any().strip(),
     creator: Joi.any().strip(),
     canvas: Joi.string(),
+    status: Joi.string().valid(['incomplete', 'complete']),
   }).required(),
 }

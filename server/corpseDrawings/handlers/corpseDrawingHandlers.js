@@ -45,7 +45,8 @@ module.exports = {
     const user = request.auth.credentials
     const { db } = request.mongo
     let sectionId
-    return drawingsDB.find(db, request.params.id).then(drawing => {
+    return drawingsDB.update(db, request.params.id, { status: 'complete' })
+    .then(drawing => {
       sectionId = drawing.section
       return db.collection('corpses').findOneAndUpdate({
         'sections._id': ObjectID(drawing.section),

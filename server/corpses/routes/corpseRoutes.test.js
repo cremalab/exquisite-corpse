@@ -82,7 +82,6 @@ describe('corpseRoutes', () => {
         method: 'POST',
         url: `/corpses`,
         credentials: helper.session,
-        payload: {},
       })
       .then((res) => {
         expect(res.result.result.sections.map(s => s.description))

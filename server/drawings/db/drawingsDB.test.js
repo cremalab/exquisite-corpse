@@ -90,6 +90,13 @@ describe('Drawings DB Tasks', () => {
         expect(err).toBeUndefined()
       })
     })
+    test('should have incomplete status', () => {
+      const params = Object.assign({}, validModel, { section: corpse.sections[0]._id })
+      delete params.anchorPoints
+      return drawings.create(db, params).then((drawing) => {
+        expect(drawing.status).toBe('incomplete')
+      })
+    })
   })
 
   describe('update', () => {
