@@ -20,7 +20,8 @@
     "build:dev": "yarn webpack:dev -- --progress --profile --colors",
     "build:prod": "yarn webpack:prod -- --progress --profile --colors",
     "postinstall": "yarn build:prod",
-    "analyze": "NODE_ENV=production webpack --env=prod --progress --json | webpack-bundle-size-analyzer"
+    "analyze": "NODE_ENV=production webpack --env=prod --progress --json | webpack-bundle-size-analyzer",
+    "console": "node server/console.js"
   },
   "dependencies": {
     "aws-sdk": "^2.39.0",
