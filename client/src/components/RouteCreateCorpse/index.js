@@ -5,6 +5,7 @@ import Box from 'react-boxen'
 import { reduxForm, FieldArray } from 'redux-form'
 import InputCorpseSection from '../InputCorpseSection'
 import {FORM_CREATE_CORPSE as form} from 'config/constants'
+import Button from 'components/Button'
 import { colors } from 'config/styles'
 
 const anchorPoints = {
@@ -60,7 +61,7 @@ class RouteCreateCorpse extends React.Component {
         />
         <Box
           padding='10px'>
-          <button style={css.button} type="submit">Submit</button>
+          <Button wide type="submit">Submit</Button>
         </Box>
       </Box>
     </form>

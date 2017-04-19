@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import corpsesLoad from 'actions/corpsesLoad'
 import drawingsLoad from 'actions/drawingsLoad'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import Spinner from 'react-md-spinner'
 import Box from 'react-boxen'
 import ItemCorpse from 'components/ItemCorpse'
@@ -11,19 +12,24 @@ import propTypesCorpse from 'propTypes/Corpse'
 import {push} from 'react-router-redux'
 import { isBefore } from 'date-fns'
 import drawingCreate from 'actions/drawingCreate'
+import Button from 'components/Button'
+import Icon from 'components/Icon'
 import { spacing } from 'config/styles'
 
 class Corpses extends React.Component {
   componentDidMount() {
-    this.props.dispatch(corpsesLoad())
-    this.props.dispatch(drawingsLoad('incomplete'))
+    this.props.corpsesLoad()
+    this.props.drawingsLoad('incomplete')
   }
   render() {
-    const { dispatch, corpses: { result, loading } } = this.props
-    const drawingsLoad = this.props.drawings.loading
-    const drawings = this.props.drawings.result
+    const {
+      drawingCreate,
+      push,
+      corpses: { result: corpses, loading: corpsesLoading },
+      drawings: { result: drawings, loading: drawingsLoading }
+    } = this.props
 
-    if (loading === true) return <Spinner />
+    if (corpsesLoading === true) return <Spinner />
 
     return (<Box
       padding={spacing[6]}
@@ -43,7 +49,7 @@ class Corpses extends React.Component {
           childGrow
           childShrink
         >
-          { drawingsLoad ? <Spinner /> : drawings.map(d => (
+          { drawingsLoading ? <Spinner /> : drawings.map(d => (
             <ItemDrawing key={d._id} drawing={d} data-shrink data-grow />
           ) )}
         </Box>
@@ -51,17 +57,23 @@ class Corpses extends React.Component {
       <Box
         childAlign="center"
         childDirection="row"
-        childJustify="space-between"
+        childSpacing={spacing[4]}
       >
         <Box grow='1'><h1>Lobby</h1></Box>
         <Box>
-          <button onClick={() => dispatch(drawingCreate())}>Draw</button>
+          <Button
+            prefix={<Icon glyph='draw' />}
+            onClick={drawingCreate}>
+            Draw
+          </Button>
         </Box>
-        <Box><button
-          onClick={() => dispatch(push('/create'))}
-        >
-          Create Corpse
-        </button></Box>
+        <Box>
+          <Button
+            prefix={<Icon glyph='newCorpse' />}
+            onClick={() => push('/create')}>
+            Create Corpse
+          </Button>
+        </Box>
       </Box>
       <Box
         grow
@@ -74,7 +86,7 @@ class Corpses extends React.Component {
         childGrow
         childShrink
       >
-        { result.sort((a, b) => {
+        { corpses.sort((a, b) => {
           if (isBefore(a.createdAt, b.createdAt)) return 1
           return -1
         }).map(corpse =>
@@ -86,7 +98,10 @@ class Corpses extends React.Component {
 }
 
 Corpses.propTypes = {
-  dispatch: PropTypes.func,
+  corpsesLoad: PropTypes.func,
+  drawingsLoad: PropTypes.func,
+  drawingCreate: PropTypes.func,
+  push: PropTypes.func,
   corpses: PropTypes.shape({
     result: PropTypes.arrayOf(PropTypes.shape(propTypesCorpse))
   }),
@@ -99,6 +114,10 @@ Corpses.defaultProps = {
   corpses: {
     result: [],
     loading: false
+  },
+  drawings: {
+    result: [],
+    loading: false
   }
 }
 
@@ -109,4 +128,13 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Corpses)
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    corpsesLoad,
+    drawingsLoad,
+    drawingCreate,
+    push
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Corpses)
