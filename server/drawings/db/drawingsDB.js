@@ -16,11 +16,15 @@ module.exports = {
       })
     })
   },
-  getByUser(db, user) {
+  getByUser(db, user, status) {
+    const criteria = { 'creator.id': user }
+    if (status) {
+      criteria['status'] = status
+    }
     return new Promise((resolve, reject) => {
       Joi.validate(db, dbSchema, (err) => {
         if (err) reject(err)
-        db.collection('drawings').find({ 'creator.id': user }).toArray()
+        db.collection('drawings').find(criteria).toArray()
         .then((result) => {
           resolve(result)
         })
@@ -48,6 +52,7 @@ module.exports = {
             section: ObjectId(section._id),
             anchorPoints: section.anchorPoints,
             corpse: section.corpse,
+            status: 'incomplete',
           })
           Joi.attempt(attrs, drawingSchemas.create)
           return common.create(db, attrs, 'drawings').then(resolve).catch(reject)

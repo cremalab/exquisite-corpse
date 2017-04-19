@@ -9,8 +9,8 @@ describe('userRoutes', () => {
         server.mongo.db.collection('corpses').deleteMany({}),
         server.mongo.db.collection('drawings').deleteMany({}),
         server.mongo.db.collection('drawings').insertMany([
-          { creator: helper.session, section: '123', createdAt: '', updatedAt: '' },
-          { creator: helper.session, section: '124', createdAt: '', updatedAt: '' },
+          { creator: helper.session, section: '123', createdAt: '', updatedAt: '', status: 'incomplete' },
+          { creator: helper.session, section: '124', createdAt: '', updatedAt: '', status: 'complete' },
           { creator: { id: '555', name: 'Norm', provider: 'Guest' },
             section: '124', createdAt: '', updatedAt: ''
           },
@@ -32,6 +32,20 @@ describe('userRoutes', () => {
         expect(res.result.result).not.toBeUndefined()
         expect(Array.isArray(res.result.result)).toBe(true)
         res.result.result.map(d => expect(d.creator.id).toEqual(helper.session.id))
+      })
+    ))
+
+    test('should filter by status', () => (
+      server.inject({
+        method: 'GET',
+        url: '/me/drawings?status=incomplete',
+        credentials: helper.session,
+      })
+      .then((res) => {
+        expect(res.statusCode).toBe(200)
+        expect(res.result.result).not.toBeUndefined()
+        expect(Array.isArray(res.result.result)).toBe(true)
+        expect(res.result.result.length).toBe(1)
       })
     ))
   })

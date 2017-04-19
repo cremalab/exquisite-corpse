@@ -50,6 +50,21 @@ describe('corpseDrawingRoutes', () => {
       })
     ))
 
+    test('should set drawing status to complete', () => (
+      server.inject({
+        method: 'POST',
+        url: `/drawings/${drawing._id}/commit`,
+        credentials: helper.session,
+        payload: { drawing: drawing._id },
+      })
+      .then((res) => {
+        expect(res.statusCode).toBe(200)
+        return drawingsDB.find(db, drawing._id).then((d) => {
+          expect(d.status).toBe('complete')
+        })
+      })
+    ))
+
     test('should stitch together canvases when complete', () => {
       // complete all drawings but last
       return Promise.all(corpse.sections.map((section, i) => {
