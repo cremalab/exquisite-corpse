@@ -23,7 +23,6 @@ class ConnectedUsers extends Component {
       <Box
         childDirection='column'
         style={css.container}>
-        <h4>In lobby</h4>
         <Box childSpacing='1px'>
           { users.map((user, i) => {
             return <div key={i}>{ user.name } - { user.status }</div>
