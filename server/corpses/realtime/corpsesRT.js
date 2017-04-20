@@ -41,10 +41,6 @@ module.exports = {
     })
   },
   notifyDrawingExpiration(server, payload) {
-    console.log('corpseRT#drawingExpiration!');
-    console.log(payload);
-    console.log(types.DRAWING_EXPIRATION);
-    console.log(`${urlPrefix}/${payload.corpse}`);
     server.publish(`${urlPrefix}/${payload.corpse}`, {
       type: types.DRAWING_EXPIRATION,
       data: payload,

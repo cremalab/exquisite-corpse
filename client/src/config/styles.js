@@ -2,6 +2,7 @@ export const colors = {
   'primary': '#79589f',
   'secondary': '#596981',
   'tertiary': '#e3e7ef',
+  'warning': '#ff6e2f',
   'gray': '#596981',
   'gray-tint-1': '#96a3b6',
   'blue': '#408fec',

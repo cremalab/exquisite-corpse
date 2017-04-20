@@ -78,7 +78,10 @@ class CorpseCleaner {
             _id: drawing._id,
             corpse: drawing.corpse,
           })
-          // lobbyRT.notifyDrawingExpiration(this.server, {_id: drawing.corpse, drawing: null })
+          lobbyRT.notifyDrawingExpiration(this.server, {
+            _id: drawing._id,
+            corpse: drawing.corpse,
+          })
           lobbyRT.notifyEvent(this.server, DRAWING_EXPIRED, drawing)
         }
       })

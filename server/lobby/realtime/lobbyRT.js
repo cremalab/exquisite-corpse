@@ -6,7 +6,8 @@ const types = {
   CORPSE_CHANGE: 'corpseChange',
   CHAT_MESSAGE: 'chatMessage',
   USER_STATUS_CHANGE: 'userStatusChange',
-  GENERIC_EVENT: 'genericEvent'
+  GENERIC_EVENT: 'genericEvent',
+  DRAWING_EXPIRATION: 'drawingExpiration',
 }
 
 const pruneInt = 10000 // 10 second loop to clean up disconnected users
@@ -120,4 +121,10 @@ module.exports = {
       data: message,
     })
   },
+  notifyDrawingExpiration(server, payload) {
+    console.log('drawingExpiration!', payload);
+    server.publish(`${urlPrefix}`, {
+      type: types.DRAWING_EXPIRATION, data: payload,
+    })
+  }
 }
