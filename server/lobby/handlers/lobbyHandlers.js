@@ -24,12 +24,23 @@ module.exports = {
   },
   createMessage(request, reply) {
     const { credentials } = request.auth
-    lobbyRT.notifyChatMessage(request.server, credentials, request.payload.content)
+    const creds = Object.assign({}, credentials, { status: 'idle' })
+    lobbyRT.notifyChatMessage(request.server, creds, request.payload.content)
+    lobbyRT.updateUser(request.server, creds)
     reply({ result: {
       content: request.payload.content,
       name: credentials.name,
       id: credentials.id,
       timestamp: new Date().toISOString(),
     } }).code(201)
+  },
+  changeStatus(request, reply) {
+    let { credentials } = request.auth
+    if (credentials.hasOwnProperty('credentials')) {
+      credentials = credentials.credentials
+    }
+    const creds = Object.assign({}, credentials, {status: request.payload.status})
+    lobbyRT.updateUser(request.server, creds)
+    reply({ result: creds }).code(200)
   },
 }

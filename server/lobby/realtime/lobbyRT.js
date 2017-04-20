@@ -13,9 +13,17 @@ const types = {
 const pruneInt = 10000 // 10 second loop to clean up disconnected users
 
 function updateObjectInArray(array, user, socketId) {
-  if (array.find(item => item.socketId === socketId)) {
+  let finder, matcher
+  if (socketId) {
+    finder = 'socketId'
+    matcher = socketId
+  } else {
+    finder = 'id'
+    matcher = user.id
+  }
+  if (array.find(item => item[finder] === matcher)) {
     return array.map((item) => {
-      if (item.socketId !== socketId) {
+      if (item[finder] !== matcher) {
         return item
       }
       return Object.assign({}, item, user)
@@ -37,7 +45,7 @@ module.exports = {
       onSubscribe(socket, path, params, next) {
         lib.connectUser(server, socket.auth.credentials, socket.id)
         next()
-      }
+      },
     })
     setInterval(() => this.pruneUsers(server), pruneInt)
   },
@@ -122,7 +130,6 @@ module.exports = {
     })
   },
   notifyDrawingExpiration(server, payload) {
-    console.log('drawingExpiration!', payload);
     server.publish(`${urlPrefix}`, {
       type: types.DRAWING_EXPIRATION, data: payload,
     })

@@ -54,4 +54,22 @@ module.exports = [
       },
     },
   },
+  {
+    method: 'POST',
+    path: '/lobby/status',
+    config: {
+      handler: handlers.changeStatus,
+      description: `Updates the current user's status.`,
+      notes: ['Can be requested over HTTP or sockets'],
+      tags: ['api', 'realtime', 'lobby'],
+      validate: {
+        payload: Joi.object().keys({
+          status: Joi.string().required().example('typing')
+        }),
+      },
+      // response: {
+      //   schema: responses.chatMessage,
+      // },
+    },
+  },
 ]
