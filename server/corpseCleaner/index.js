@@ -3,10 +3,10 @@ const CorpseCleaner = require('./CorpseCleaner')
 const minute = 60000
 
 exports.register = (server, options = {}, next) => {
-  console.log(options);
   const cleaner = new CorpseCleaner(
     server.mongo.db, server, options.cleaner
   )
+  cleaner.clean()
   const cleanerInt = setInterval(cleaner.clean.bind(cleaner), options.interval || 10 * minute)
   server.expose('cleaner', cleaner)
   server.expose('loop', cleanerInt)
