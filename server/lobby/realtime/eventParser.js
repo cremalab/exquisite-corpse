@@ -52,6 +52,19 @@ module.exports = {
           { type: 'user', id: corpse.creator.id, name: corpse.creator.name },
         ]
         break
+      case types.DRAWING_EXPIRED:
+        credentials = data.creator
+        section = data.section
+        corpse = data.corpse
+        name = credentials.name
+        id = credentials.id
+        content = `A drawing started by ${name} has expired`
+        related = [
+          { primary: true, type: 'drawing', id: data._id },
+          { linked: true, type: 'corpse', id: corpse },
+          { type: 'user', id: credentials.id, name: credentials.name },
+        ]
+        break
       case types.CORPSE_CREATED:
         credentials = data.credentials
         corpse = data.corpse

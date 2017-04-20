@@ -21,7 +21,9 @@ module.exports = {
   create(request, reply) {
     const { db } = request.mongo
     const { credentials } = request.auth
-    const attrs = Object.assign({}, request.payload, { creator: credentials })
+    const attrs = Object.assign({}, request.payload, {
+      creator: credentials, status: 'incomplete'
+    })
     drawingsDB.create(db, attrs)
     .then((r) => {
       corpseSectionsDB.addDrawingId(db, r.section, r._id, true)
