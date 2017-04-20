@@ -26,8 +26,9 @@ class RouteDrawing extends Component {
 
   componentWillReceiveProps(props) {
     const corpseId = props.drawing.result.corpse
-    const { dispatch } = this.props
-    if (!corpseId) return
+    const { dispatch, subscribed } = this.props
+    console.log(subscribed)
+    if (!corpseId || subscribed) return
     dispatch(subscribe(`/corpses/${props.drawing.result.corpse}`))
   }
 
@@ -69,12 +70,14 @@ RouteDrawing.propTypes = {
   dispatch: PropTypes.func,
   drawing: PropTypes.object,
   drawingId: PropTypes.string,
+  subscribed: PropTypes.bool,
 }
 
 function mapStateToProps(state, props) {
   return {
     drawingId: props.match.params.drawingId,
     drawing: state.drawing,
+    subscribed: state.corpse.subscribed,
   }
 }
 

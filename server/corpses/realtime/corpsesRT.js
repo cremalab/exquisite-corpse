@@ -4,6 +4,7 @@ const urlPrefix = `/corpses`
 const types = {
   CHANGE: 'corpseChange',
   COMPLETION: 'corpseCompletion',
+  DRAWING_EXPIRATION: 'drawingExpiration',
 }
 
 module.exports = {
@@ -39,4 +40,14 @@ module.exports = {
       data: payload,
     })
   },
+  notifyDrawingExpiration(server, payload) {
+    console.log('corpseRT#drawingExpiration!');
+    console.log(payload);
+    console.log(types.DRAWING_EXPIRATION);
+    console.log(`${urlPrefix}/${payload.corpse}`);
+    server.publish(`${urlPrefix}/${payload.corpse}`, {
+      type: types.DRAWING_EXPIRATION,
+      data: payload,
+    })
+  }
 }

@@ -4,6 +4,9 @@ import {
   CLEAR_CORPSE,
   MERGE_CORPSE,
   REMOVE_CORPSE,
+  DRAWING_EXPIRATION,
+  SUCCESS_SUBSCRIBE,
+  FAILURE_SUBSCRIBE,
 } from '../config/actionTypes'
 
 const initialState = {
@@ -11,6 +14,7 @@ const initialState = {
   sections: [],
   removed: false,
   creator: {},
+  subscribed: false,
 }
 
 function corpses(state = initialState, action) {
@@ -52,6 +56,28 @@ function corpses(state = initialState, action) {
         return {...state, sections: [], removed: true}
       }
       return state
+    case DRAWING_EXPIRATION:
+      if (!action.payload.corpse === state._id) { return state }
+      var section = state.sections.find(s => s.drawing._id === action.payload._id)
+      var newSection = Object.assign({}, section)
+      delete newSection.drawing
+      delete newSection.drawer
+      var sections = state.sections.map((item) => {
+        if (item._id !== section._id) {
+          return item
+        }
+        return newSection
+      })
+      return {...state, sections}
+
+    case SUCCESS_SUBSCRIBE:
+      if (!state._id) return state
+      if (action.payload.channel === `/corpses/${state._id}`) {
+        return {...state, subscribed: true}
+      }
+      return state
+    case FAILURE_SUBSCRIBE:
+      return {...state, subscribed: false}
     default:
       return state
   }

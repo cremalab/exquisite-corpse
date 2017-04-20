@@ -27,9 +27,12 @@ const css = {
 
 class Corpse extends Component {
   componentWillMount() {
-    const { dispatch, corpseId, corpse } = this.props
+    const { dispatch, corpse } = this.props
     dispatch(corpseClear())
     if (corpse.removed) { return }
+  }
+  componentDidMount() {
+    const { dispatch, corpseId } = this.props
     dispatch(corpseLoad(corpseId))
     dispatch(subscribe(`/corpses/${corpseId}`))
   }

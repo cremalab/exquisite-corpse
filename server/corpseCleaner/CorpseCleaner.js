@@ -74,8 +74,11 @@ class CorpseCleaner {
     .then(() => {
       drawings.forEach((drawing) => {
         if (this.server) {
-          corpseRT.notifyChange(this.server, {_id: drawing.id, drawing: null })
-          lobbyRT.notifyCorpseChange(this.server, {_id: drawing.corpse, drawing: null })
+          corpseRT.notifyDrawingExpiration(this.server, {
+            _id: drawing._id,
+            corpse: drawing.corpse,
+          })
+          // lobbyRT.notifyDrawingExpiration(this.server, {_id: drawing.corpse, drawing: null })
           lobbyRT.notifyEvent(this.server, DRAWING_EXPIRED, drawing)
         }
       })
