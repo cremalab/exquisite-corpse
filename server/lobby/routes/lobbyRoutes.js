@@ -67,9 +67,6 @@ module.exports = [
           status: Joi.string().required().example('typing')
         }),
       },
-      // response: {
-      //   schema: responses.chatMessage,
-      // },
     },
   },
 ]
