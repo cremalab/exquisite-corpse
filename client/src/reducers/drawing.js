@@ -6,12 +6,16 @@ import {
   FAILURE_DRAWING,
   CLEAR_DRAWING,
   REMOVE_CORPSE,
+  SUCCESS_SUBSCRIBE,
+  FAILURE_SUBSCRIBE,
+  DRAWING_EXPIRATION,
 } from 'config/actionTypes'
 
 const initialState = {
   loading: false,
   saving: false,
   result: {},
+  corpseSubscribed: false,
 }
 
 function corpses(state = initialState, action) {
@@ -56,6 +60,24 @@ function corpses(state = initialState, action) {
         ...state,
         result: newResult
       }
+
+    case DRAWING_EXPIRATION:
+      if (state.result._id !== action.payload._id) { return state }
+      var modified = Object.assign({}, state.result)
+      delete modified.corpse
+      delete modified.section
+      modified.status = 'expired'
+      return {...state, result: modified}
+
+    case SUCCESS_SUBSCRIBE:
+      if (!state.result.corpse) return state
+      if (action.payload.channel === `/corpses/${state.result.corpse}`) {
+        return {...state, corpseSubscribed: true}
+      }
+      return state
+    case FAILURE_SUBSCRIBE:
+      return {...state, corpseSubscribed: false}
+
     default:
       return state
   }

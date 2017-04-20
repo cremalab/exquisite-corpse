@@ -32,8 +32,9 @@ class Corpse extends Component {
     if (corpse.removed) { return }
   }
   componentDidMount() {
-    const { dispatch, corpseId } = this.props
+    const { dispatch, corpseId, corpseSubscribed } = this.props
     dispatch(corpseLoad(corpseId))
+    if (corpseSubscribed) { return }
     dispatch(subscribe(`/corpses/${corpseId}`))
   }
 
@@ -145,6 +146,7 @@ Corpse.propTypes = {
   corpse: PropTypes.object,
   currentUser: PropTypes.object,
   corpseId: PropTypes.string,
+  corpseSubscribed: PropTypes.bool,
 }
 
 function mapStateToProps(state, props) {
@@ -153,6 +155,7 @@ function mapStateToProps(state, props) {
     corpseId: props.match.params.corpseId,
     drawing: state.drawing.result,
     currentUser: state.users.currentUser,
+    corpseSubscribed: state.corpse.subscribed,
   }
 }
 
