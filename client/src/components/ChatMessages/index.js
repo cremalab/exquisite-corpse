@@ -7,7 +7,7 @@ import ChatMessage from 'components/ChatMessage'
 import ChatInput from 'components/ChatInput'
 import { isBefore } from 'date-fns'
 import chatMessageSubmit from 'actions/chatMessageSubmit'
-import { spacing } from 'config/styles'
+import { spacing, colors } from 'config/styles'
 import styled from 'styled-components'
 
 function timestampDesc(a, b) {
@@ -18,6 +18,12 @@ function timestampDesc(a, b) {
 const Scroll = styled.div`
   flex-grow: 1;
   overflow: scroll;
+`
+
+const Header = styled.div`
+  text-align: center;
+  color: ${colors.gray};
+  font-size: ${spacing[5]};
 `
 
 class ChatMessages extends Component {
@@ -45,7 +51,7 @@ class ChatMessages extends Component {
           <Box
             padding={spacing[5]}
             childSpacing={spacing[4]}>
-            <div>chat messages since you've arrived</div>
+            <Header>since you've arrived...</Header>
             { messages.sort(timestampDesc).map((message, i) => (
               <ChatMessage
                 key={i}

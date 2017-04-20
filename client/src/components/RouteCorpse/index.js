@@ -14,6 +14,7 @@ import unsubscribe from 'actions/unsubscribe'
 import Surface from '../Surface'
 import { colors, spacing } from 'config/styles'
 import Button from 'components/Button'
+import Icon from 'components/Icon'
 
 const css = {
   finalFrame: {
@@ -71,8 +72,7 @@ class Corpse extends Component {
     return (
       <div>
         <Box>
-          { creatorId === currentUser.id && <Button skin='tertiary' onClick={() => this.handleDestroy()}>Delete corpse</Button> }
-          <Box padding={spacing[6]} childDirection='row' childAlign='center'>
+          <Box padding={spacing[6]} childSpacing={spacing[6]} childDirection='row' childAlign='center'>
             <Box
               childDirection='row'
               childSpacing={spacing[4]}
@@ -81,6 +81,12 @@ class Corpse extends Component {
               <h4>created by</h4><h2>{ creator.name }</h2>
             </Box>
             <em>{ format(createdAt, 'MMM Do, YYYY, h:mma') }</em>
+            { creatorId === currentUser.id && <Button
+              skin='tertiary'
+              onClick={() => this.handleDestroy()}>
+              Delete corpse
+              </Button>
+            }
           </Box>
           {
             sections.map((section, i) => {
