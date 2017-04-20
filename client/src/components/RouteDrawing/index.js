@@ -13,8 +13,12 @@ import unsubscribe from 'actions/unsubscribe'
 
 class RouteDrawing extends Component {
   componentWillMount() {
-    const { dispatch, drawingId } = this.props
+    const { dispatch } = this.props
     dispatch(drawingClear())
+  }
+
+  componentDidMount() {
+    const { dispatch, drawingId } = this.props
     dispatch(drawingLoad(drawingId))
   }
 
@@ -26,17 +30,24 @@ class RouteDrawing extends Component {
 
   componentWillReceiveProps(props) {
     const corpseId = props.drawing.result.corpse
-    const { dispatch } = this.props
-    if (!corpseId) return
+    const { dispatch, subscribed } = this.props
+    if (!corpseId || subscribed) return
     dispatch(subscribe(`/corpses/${props.drawing.result.corpse}`))
   }
 
   render() {
     const { drawing: { result, loading, saving } } = this.props
+    let alert = null
+    if (result.status === 'expired') {
+      alert = <h4>This drawing wasn't completed in time and is expired.</h4>
+    } else if (!result.corpse) {
+      alert = <h4>Oh no! The creator of this corpse decided to delete it :(</h4>
+    }
+
     if ( loading ) return <Spinner />
     return (
       <div>
-        { !result.corpse && <h4>Oh no! The creator of this corpse decided to delete it :(</h4> }
+        { alert }
         <Surface
           drawing={result}
           saving={saving}
@@ -69,12 +80,14 @@ RouteDrawing.propTypes = {
   dispatch: PropTypes.func,
   drawing: PropTypes.object,
   drawingId: PropTypes.string,
+  subscribed: PropTypes.bool,
 }
 
 function mapStateToProps(state, props) {
   return {
     drawingId: props.match.params.drawingId,
     drawing: state.drawing,
+    subscribed: state.drawing.corpseSubscribed,
   }
 }
 

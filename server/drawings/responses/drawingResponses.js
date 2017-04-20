@@ -26,7 +26,7 @@ const drawingSchema = Joi.object().keys({
   corpse: objectId.description('ObjectId of associated corpse'),
   createdAt: Joi.date().timestamp('javascript').required(),
   updatedAt: Joi.date().timestamp('javascript').required(),
-  status: Joi.string().valid(['complete', 'incomplete']).optional()
+  status: Joi.string().optional().valid(['complete', 'incomplete', 'expired'])
 })
 
 module.exports = {

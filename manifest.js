@@ -63,6 +63,18 @@ const manifest = {
     { plugin: './server/lobby' },
     { plugin: './server/users' },
     { plugin: './server/client' },
+    {
+      plugin: {
+        register: './server/corpseCleaner',
+        options: {
+          interval: 10 * 60000,
+          cleaner: {
+            guestWindow: 2 * 60 * 60000,
+            memberWindow: 24 * 60 * 60000,
+          }
+        }
+      },
+    },
   ],
 }
 
