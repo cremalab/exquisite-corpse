@@ -87,7 +87,8 @@ class Corpse extends Component {
             <em>{ format(createdAt, 'MMM Do, YYYY, h:mma') }</em>
             { creatorId === currentUser.id && <Button
               skin='tertiary'
-              onClick={() => this.handleDestroy()}>
+              onClick={() => this.handleDestroy()}
+              prefix={<Icon glyph='trash' />}>
               Delete corpse
               </Button>
             }
