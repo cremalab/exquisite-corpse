@@ -40,6 +40,7 @@
     "concurrently": "^3.4.0",
     "cross-env": "^4.0.0",
     "css-loader": "^0.27.3",
+    "d3-color": "^1.0.3",
     "date-fns": "^1.28.2",
     "dotenv": "^4.0.0",
     "extract-text-webpack-plugin": "^2.1.0",
@@ -92,6 +93,7 @@
     "jest": "^19.0.2",
     "mongodb-test-mock": "^0.1.5",
     "nodemon": "^1.11.0",
+    "svg-sprite-loader": "^0.3.0",
     "webpack-bundle-size-analyzer": "^2.6.0"
   }
 }

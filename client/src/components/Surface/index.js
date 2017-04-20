@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import paperjs from 'paper'
+import Box from 'react-boxen'
+import Button from 'components/Button'
 
 const WIDTH = 400
 const HEIGHT = 200
@@ -67,33 +69,38 @@ class Surface extends Component {
     return <div style={{ width: 'auto' }}>
       <canvas ref="canvas" style={style} data-paper-resize={true} />
       { interactive ?
-        <div>
-          <button
+        <Box
+          padding='10px'
+          childDirection='row'
+          childSpacing='10px'>
+          <Button
             type="button"
             children="Undo"
             onClick={() => this.undo()}
           />
-          <button
+          <Button
             type="button"
             children="Commit"
             onClick={() => this.commit()}
           />
-          <button
+          <Button
             type="button"
             disabled={ pathType === 'brush' }
             onTouchTap={() => this.setState({ pathType: 'brush' })}
-          >Draw</button>
-          <button
+          >Draw</Button>
+          <Button
+            grow
             type="button"
             disabled={ pathType === 'eraser' }
             onTouchTap={() => this.setState({ pathType: 'eraser' })}
-          >Eraser</button>
-          <button
+          >Eraser</Button>
+          <Button
+            skin='tertiary'
             type="button"
             onClick={() => this.cancel()}
-          >Cancel</button>
+          >Cancel</Button>
           { saving && 'saving...'}
-        </div>
+        </Box>
         : null
       }
     </div>

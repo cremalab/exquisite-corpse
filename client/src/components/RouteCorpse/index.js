@@ -13,6 +13,7 @@ import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
 import Surface from '../Surface'
 import { colors, spacing } from 'config/styles'
+import Button from 'components/Button'
 
 const css = {
   finalFrame: {
@@ -70,7 +71,7 @@ class Corpse extends Component {
     return (
       <div>
         <Box>
-          { creatorId === currentUser.id && <button onClick={() => this.handleDestroy()}>Delete corpse</button> }
+          { creatorId === currentUser.id && <Button skin='tertiary' onClick={() => this.handleDestroy()}>Delete corpse</Button> }
           <Box padding={spacing[6]} childDirection='row' childAlign='center'>
             <Box
               childDirection='row'
@@ -100,7 +101,7 @@ class Corpse extends Component {
                 >
                   { section.drawer ? `[${section.description} - ${section.drawer.name}]` : section.description }
                   <em>{ section.drawing && section.drawing.canvas ? 'Complete' : 'Incomplete' }</em>
-                  { (!isComplete && sectionAvailable) && <button onClick={() => this.handleDrawing(section)}>Draw this section</button> }
+                  { (!isComplete && sectionAvailable) && <Button onClick={() => this.handleDrawing(section)}>Draw this section</Button> }
                 </Box>
               )
             })

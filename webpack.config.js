@@ -86,9 +86,16 @@ module.exports = env => {
         {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
-            use: 'css-loader',
+            loader: 'css-loader',
           }),
         },
+        {
+          test: /\.svg$/,
+          loader: 'svg-sprite-loader?' + JSON.stringify({
+            name: '[name]_[hash]',
+            prefixize: true
+          })
+        }
       ],
     },
   }

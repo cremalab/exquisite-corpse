@@ -4,6 +4,7 @@ import { Field } from 'redux-form'
 import Box from 'react-boxen'
 import InputRange from '../InputRange'
 import InputField from '../InputField'
+import Button from 'components/Button'
 import { colors, spacing } from 'config/styles'
 
 const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) => {
@@ -63,7 +64,7 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) =>
                   />
                   {
                     showRemove &&
-                    <button type="button" onClick={onRemove}>Remove section</button>
+                    <Button skin='tertiary' prefix='-' onClick={onRemove}>Remove section</Button>
                   }
                 </Box>
                 { showPoints &&
@@ -72,8 +73,8 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) =>
                     childAlign='flex-end'
                     childJustify='center'
                     childSpacing='10px'>
-                        <button style={css.guideButton} type="button" onClick={onUpdatePoint(n => n - 1)}>- guide point</button>
-                        <button style={css.guideButton} type="button" onClick={onUpdatePoint(n => n + 1)}>+ guide point</button>
+                        <Button skin='secondary' prefix='-' onClick={onUpdatePoint(n => n - 1)}>guide point</Button>
+                        <Button skin='secondary' prefix='+' onClick={onUpdatePoint(n => n + 1)}>guide point</Button>
                   </Box>
                 }
               </Box>
@@ -93,7 +94,7 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) =>
       <Box
         padding='10px'
         childJustify='center'>
-        <button type="button" style={css.guideButton} onClick={onAdd}>Add Section</button>
+        <Button skin='tertiary' prefix='+' onClick={onAdd}>Add Section</Button>
       </Box>
     }
   </div>
