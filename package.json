@@ -76,6 +76,7 @@
     "redux-form": "^6.6.1",
     "redux-multi": "^0.1.12",
     "redux-thunk": "^2.2.0",
+    "shortid": "^2.2.8",
     "styled-components": "^1.4.5",
     "svg-sprite-loader": "^0.3.0",
     "tinycolor2": "^1.4.1",
