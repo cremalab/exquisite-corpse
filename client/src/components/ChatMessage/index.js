@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Box from 'react-boxen'
 import { distanceInWordsToNow } from 'date-fns'
-import { spacing, colors } from 'config/styles'
+import spacing from 'config/spacing'
+import colors from 'config/colors'
 
 class ChatMessage extends Component {
   render() {
@@ -11,12 +12,12 @@ class ChatMessage extends Component {
     let isSystemMsg = false
     if (message.id === 0 && message.name === 'system') isSystemMsg = true
 
-    let backgroundColor = message.id === currentUser ? colors.blue : colors['blue-tint-2']
-    let textColor = message.id === currentUser ? colors['blue-tint-2'] : colors.blue
+    let backgroundColor = message.id === currentUser ? colors['tertiary-shade-5'] : colors['tertiary-tint-1']
+    let textColor = message.id === currentUser ? colors['tertiary-tint-3'] : colors['tertiary-shade-5']
 
     if (isSystemMsg) {
       backgroundColor = 'transparent'
-      textColor = colors['gray-tint-1']
+      textColor = colors['blue-tint-1']
     }
 
     const messageStyle = `
@@ -33,7 +34,7 @@ class ChatMessage extends Component {
       <Box childSpacing={spacing[3]} grow={isSystemMsg ? 1 : 0}>
         <Box childAlign="center" childDirection="row">
           { !isSystemMsg && <Box grow css={`
-            color: ${colors['gray-tint-1']};
+            color: ${colors['secondary-tint-5']};
             white-space: nowrap;
             font-size: ${spacing[5]};
             `}>
@@ -42,7 +43,7 @@ class ChatMessage extends Component {
           <Box
             grow={isSystemMsg ? 1 : 0}
             css={`
-              color: ${colors['gray-tint-1']};
+              color: ${colors['secondary-tint-5']};
               white-space: nowrap;
               font-size: ${spacing[4]};
               text-align: ${isSystemMsg ? 'center' : 'right'}

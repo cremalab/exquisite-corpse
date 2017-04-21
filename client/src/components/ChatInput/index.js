@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import styled from 'styled-components'
-import { spacing, colors } from 'config/styles'
+import spacing from 'config/spacing'
 
 const Form = styled.form`
   width: 100%;

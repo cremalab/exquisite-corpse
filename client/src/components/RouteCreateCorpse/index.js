@@ -6,7 +6,7 @@ import { reduxForm, FieldArray } from 'redux-form'
 import InputCorpseSection from '../InputCorpseSection'
 import {FORM_CREATE_CORPSE as form} from 'config/constants'
 import Button from 'components/Button'
-import { colors } from 'config/styles'
+import colors from 'config/colors'
 
 const anchorPoints = {
   2: [40,60],

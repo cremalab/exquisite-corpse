@@ -5922,9 +5922,9 @@ rc@^1.0.1, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-boxen@0.0.35:
-  version "0.0.35"
-  resolved "https://registry.yarnpkg.com/react-boxen/-/react-boxen-0.0.35.tgz#6495e944a2d0a7ad588f137844dd8020f1c2096f"
+react-boxen@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-boxen/-/react-boxen-1.1.2.tgz#528526b47ca992c90b86cf19b15d7aae793de6b8"
   dependencies:
     prop-types "^15.5.8"
     styled-components "2.0.0-15"
@@ -6951,6 +6951,10 @@ timers-browserify@^2.0.2:
   resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.2.tgz#ab4883cf597dcd50af211349a00fbca56ac86b86"
   dependencies:
     setimmediate "^1.0.4"
+
+tinycolor2@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.1.tgz#f4fad333447bc0b07d4dc8e9209d8f39a8ac77e8"
 
 tmpl@1.0.x:
   version "1.0.4"

@@ -18,8 +18,6 @@ const ScrollPane = styled.div`
   overflow: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  ${''/* transform: translate3d(0, 0, 0); */}
-  ${''/* backface-visibility: hidden; */}
 `
 
 const ScrollPaneContent = styled.div`
@@ -34,8 +32,6 @@ const ScrollPaneContent = styled.div`
   width: 100%;
   height: 100%;
   vertical-align: ${props => props.align ? props.align : 'top'};
-  ${''/* transform: translate3d(0, 0, 0); */}
-  ${''/* backfaceVisibility: hidden; */}
 `
 
 const ScrollPaneContentPosition = styled.div`

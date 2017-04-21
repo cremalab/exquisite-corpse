@@ -5,7 +5,8 @@ import { push } from 'react-router-redux'
 import Box from 'react-boxen'
 import { distanceInWordsToNow } from 'date-fns'
 import styled from 'styled-components'
-import { spacing, colors } from 'config/styles'
+import spacing from 'config/spacing'
+import colors from 'config/colors'
 
 const Label = styled.div`
   padding: ${spacing[3]} ${spacing[6]};
@@ -57,7 +58,7 @@ const statusToBackground = status => {
 }
 
 function onlyUnique(value, index, self) {
-  return self.indexOf(value) === index;
+  return self.indexOf(value) === index
 }
 
 class ItemCorpse extends Component {

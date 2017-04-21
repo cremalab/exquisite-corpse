@@ -9,12 +9,11 @@ import RouteHome from 'components/RouteHome'
 import RouteCreateCorpse from 'components/RouteCreateCorpse'
 import RouteMessagesGlobal from 'components/RouteMessagesGlobal'
 import LayoutMain from 'components/LayoutMain'
-import Scroll from 'components/Scroll'
 import styled from 'styled-components'
 
-const SidebarDiv = styled.div`
-  display: flex;
+const RoutesContainer = styled.div`
   flex-grow: 1;
+  display: flex;
 `
 
 class RouteApp extends Component {
@@ -37,18 +36,18 @@ class RouteApp extends Component {
         back={location.pathname !== '/' && <a href='#' onClick={this.handleBack}>{`< Back`}</a>}
         title="Exquisite Corpse"
         content={
-          <div>
+          <RoutesContainer data-scroll data-grow>
             <Route exact path="/welcome" component={RouteHome}/>
             <Route exact path="/" component={RouteCorpses}/>
             <Route path="/create" component={RouteCreateCorpse} />
             <Route path="/corpse/:corpseId" component={RouteCorpse}/>
             <Route path="/drawing/:drawingId" component={RouteDrawing}/>
-          </div>
+          </RoutesContainer>
         }
         sidebar={
-          <SidebarDiv grow>
+          <RoutesContainer data-grow>
             <Route exact path="/" component={RouteMessagesGlobal} />
-          </SidebarDiv>
+          </RoutesContainer>
         }
       />
     )

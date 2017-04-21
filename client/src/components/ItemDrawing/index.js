@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import Box from 'react-boxen'
 import { distanceInWordsToNow } from 'date-fns'
-import { spacing, colors } from 'config/styles'
+import spacing from 'config/spacing'
+import colors from 'config/colors'
 import Surface from 'components/Surface'
 
 function capitalize(string) {
