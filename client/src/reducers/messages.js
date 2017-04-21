@@ -11,7 +11,7 @@ const initialState = {
 }
 
 
-function errors(state = initialState, action) {
+function messages(state = initialState, action) {
   switch (action.type) {
     case DISMISS_MESSAGE:
       return {
@@ -44,4 +44,4 @@ function errors(state = initialState, action) {
   }
 }
 
-export default errors
+export default messages
