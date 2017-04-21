@@ -15,6 +15,7 @@ import Surface from '../Surface'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
 import Button from 'components/Button'
+import Icon from 'components/Icon'
 
 const css = {
   finalFrame: {
