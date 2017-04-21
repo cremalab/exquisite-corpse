@@ -6,10 +6,17 @@ import {
   SUCCESS_CORPSE_CREATE,
 } from 'config/actionTypes'
 
-const initialState = {
-  list: [],
-}
+const initialState = { list: [] }
+const ERROR = 'error'
+const NOTICE = 'notice'
 
+const createMessage = (message, type, autoDismiss = true) => ({
+  id: generate(), message, type, autoDismiss
+})
+const dismissError  = message => createMessage(message, ERROR , true)
+const dismissNotice = message => createMessage(message, NOTICE, true)
+const showError     = message => createMessage(message, ERROR , false)
+const showNotice    = message => createMessage(message, NOTICE, false)
 
 function messages(state = initialState, action) {
   switch (action.type) {
@@ -21,22 +28,18 @@ function messages(state = initialState, action) {
     case FAILURE_DRAWING:
       return {
         ...state,
-        list: [...state.list, {
-          id: generate(),
-          message: `No corpses need drawings. Create a new corpse!`,
-          type: 'error',
-          autoDismiss: true,
-        }],
+        list: [
+          ...state.list,
+          dismissError(`No corpses need drawings. Create a new corpse!`)
+        ],
       }
     case SUCCESS_CORPSE_CREATE:
       return {
         ...state,
-        list: [...state.list, {
-          id: generate(),
-          message: `Corpse successfully created!`,
-          type: 'notice',
-          autoDismiss: true,
-        }],
+        list: [
+          ...state.list,
+          dismissNotice(`Corpse successfully created!`)
+        ],
       }
 
     default:
