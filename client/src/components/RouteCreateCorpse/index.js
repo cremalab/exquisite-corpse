@@ -6,7 +6,7 @@ import { reduxForm, FieldArray } from 'redux-form'
 import InputCorpseSection from '../InputCorpseSection'
 import {FORM_CREATE_CORPSE as form} from 'config/constants'
 import Button from 'components/Button'
-import { colors } from 'config/styles'
+import spacing from 'config/spacing'
 
 const anchorPoints = {
   2: [40,60],
@@ -15,16 +15,7 @@ const anchorPoints = {
   5: [30,40,50,60,70]
 }
 
-const css = {
-  button: {
-    backgroundColor: colors.primary,
-    color: 'rgb(255, 255, 255)',
-    border: 'none',
-    lineHeight: '2em',
-    borderRadius: '4px',
-    cursor: 'pointer'
-  }
-}
+
 const onSubmit = (values, dispatch) => dispatch(corpseCreate(values))
 const initialValues = {
   sections: [
@@ -45,26 +36,34 @@ const formConfig = {form, initialValues, onSubmit, validate}
 class RouteCreateCorpse extends React.Component {
   render() {
     const {handleSubmit} = this.props
-    return <form onSubmit={handleSubmit}>
+    return (
       <Box
-        style={{ maxWidth: '400px', margin: '0 auto', marginTop: '1em' }}
-        childSpacing='10px'>
-        <h2>Create a Corpse</h2>
-        <p>
-          Use the guides to choose where you want each canvas' drawing
-          to begin and end.
-        </p>
-        <FieldArray
-          name="sections"
-          anchorPoints={anchorPoints}
-          component={InputCorpseSection}
-        />
-        <Box
-          padding='10px'>
-          <Button wide type="submit">Submit</Button>
-        </Box>
+        childAlign='center'
+        padding={spacing[8]}>
+        <form onSubmit={handleSubmit}>
+          <Box
+            css={`
+              max-width: 400px;
+            `}
+            childSpacing={spacing[6]}>
+            <h2>Create a Corpse</h2>
+            <p>
+              Use the guides to choose where you want each canvas' drawing
+              to begin and end.
+            </p>
+            <FieldArray
+              name="sections"
+              anchorPoints={anchorPoints}
+              component={InputCorpseSection}
+            />
+            <Box
+              padding='10px'>
+              <Button wide type="submit">Submit</Button>
+            </Box>
+          </Box>
+        </form>
       </Box>
-    </form>
+    )
   }
 }
 
@@ -72,6 +71,4 @@ RouteCreateCorpse.propTypes = {
   handleSubmit: PropTypes.func
 }
 
-RouteCreateCorpse = reduxForm(formConfig)(RouteCreateCorpse)
-
-export default RouteCreateCorpse
+export default reduxForm(formConfig)(RouteCreateCorpse)

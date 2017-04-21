@@ -12,9 +12,9 @@ import drawingCreate from 'actions/drawingCreate'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
 import Surface from '../Surface'
-import { colors, spacing } from 'config/styles'
+import spacing from 'config/spacing'
+import colors from 'config/colors'
 import Button from 'components/Button'
-import Icon from 'components/Icon'
 
 const css = {
   finalFrame: {

@@ -14,8 +14,7 @@ import { isBefore } from 'date-fns'
 import drawingCreate from 'actions/drawingCreate'
 import Button from 'components/Button'
 import Icon from 'components/Icon'
-import ConnectedUsers from 'components/ConnectedUsers'
-import { spacing } from 'config/styles'
+import spacing from 'config/spacing'
 
 class Corpses extends React.Component {
   componentDidMount() {
@@ -35,7 +34,6 @@ class Corpses extends React.Component {
     return (<Box
       padding={spacing[6]}
       childSpacing={spacing[6]}
-      grow='1'
     >
       { drawings.length && <Box childSpacing={spacing[6]}>
         <h3>Your unfinished drawings</h3>
