@@ -3,7 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{message}} Exquisite Corpse</title>
+    {% if pageTitle %}
+      <title>{{pageTitle}}</title>
+    {% else %}
+      <title>Exquisite Corpse</title>
+    {% endif %}
+
+    {% if pageImage %}
+      <meta property="og:image" content="{{pageImage}}" />
+    {% endif %}
+
     <style>
 
       * {

@@ -1,3 +1,5 @@
+const corpsesDB = require('../../corpses/db/corpsesDB')
+
 module.exports = [
   {
     method: 'GET',
@@ -14,18 +16,22 @@ module.exports = [
   {
     method: 'GET',
     path: '/{p*}',
-    handler: { file: 'index.html' },
+    handler: (request, reply) => {
+      reply.view('index.html', {  })
+    }
   },
   {
     method: 'GET',
     path: '/corpse/{id}',
     handler: function (request, reply) {
-      //const { db } = request.mongo
-      //var data = { message: 'Hello from Future Studio' }
-      //corpsesDB.find(request.db, request.params.id).then((data) => {
-        //reply.view('index.html', data)
-      //})
-      reply.view('index.html')
+      const { db } = request.mongo
+      corpsesDB.find(db, request.params.id).then((data) => {
+        reply.view('index.html', {
+          pageTitle: 'Corpse created by ' + data.creator.name,
+          pageImage: data.svgUrl,
+        })
+      })
+
     }
   }
 ]
