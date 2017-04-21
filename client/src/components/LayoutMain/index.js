@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Box from 'react-boxen'
 import { Link } from 'react-router-dom'
-import { spacing, colors } from 'config/styles'
+import spacing from 'config/spacing'
+import colors from 'config/colors'
 import Spinner from 'react-md-spinner'
 
 const LayoutMain = ({
@@ -52,14 +53,18 @@ const LayoutMain = ({
       <Box
         grow
         shrink
-        background={colors['white-shade-1']}
-        css={`overflow: scroll`}
+        css={`
+          background: ${colors['white']};
+        `}
         children={ content ? content : Spinner }/>
       { sidebar &&
         <Box
-          background={colors['white-shade-2']}
-          width='350px'
           childFlex
+          childGrow
+          css={`
+            background: ${colors['white-shade-1']};
+          `}
+          basis='350px'
           children={ sidebar } /> }
     </Box>
   </Box>

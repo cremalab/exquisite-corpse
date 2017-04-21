@@ -1,4 +1,4 @@
-import { colors } from 'config/styles'
+import colors from 'config/colors'
 
 export const background = props => {
   switch(props.skin) {

@@ -5,7 +5,7 @@ import Box from 'react-boxen'
 import InputRange from '../InputRange'
 import InputField from '../InputField'
 import Button from 'components/Button'
-import { colors, spacing } from 'config/styles'
+import colors from 'config/colors'
 
 const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) => {
 
@@ -15,7 +15,7 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) =>
   const css = {
     canvasPlaceholder: {
       height: '160px',
-      backgroundColor: colors['white-shade-3'],
+      backgroundColor: colors['white-shade-1'],
     },
     guideButton: {
       backgroundColor: '#fff',
