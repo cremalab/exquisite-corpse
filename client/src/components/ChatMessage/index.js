@@ -17,7 +17,7 @@ class ChatMessage extends Component {
 
     if (isSystemMsg) {
       backgroundColor = 'transparent'
-      textColor = colors['blue-tint-1']
+      textColor = colors['tertiary-shade-3']
     }
 
     const messageStyle = `
