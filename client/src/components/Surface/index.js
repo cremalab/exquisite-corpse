@@ -86,13 +86,13 @@ class Surface extends Component {
           <Button
             type="button"
             disabled={ pathType === 'brush' }
-            onTouchTap={() => this.setState({ pathType: 'brush' })}
+            onClick={() => this.setState({ pathType: 'brush' })}
           >Draw</Button>
           <Button
             grow
             type="button"
             disabled={ pathType === 'eraser' }
-            onTouchTap={() => this.setState({ pathType: 'eraser' })}
+            onClick={() => this.setState({ pathType: 'eraser' })}
           >Eraser</Button>
           <Button
             skin='tertiary'

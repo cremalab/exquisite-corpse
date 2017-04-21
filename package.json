@@ -64,7 +64,7 @@
     "prop-types": "^15.5.7",
     "rc-slider": "^7.0.1",
     "react": "^15.4.2",
-    "react-boxen": "0.0.35",
+    "react-boxen": "1.1.2",
     "react-dom": "^15.4.2",
     "react-md-spinner": "^0.2.1",
     "react-redux": "^5.0.4",
@@ -78,6 +78,8 @@
     "redux-thunk": "^2.2.0",
     "styled-components": "^1.4.5",
     "svg-sprite-loader": "^0.3.0",
+    "tinycolor2": "^1.4.1",
+    "svg2png": "^4.1.1",
     "vision": "^4.1.1",
     "webpack": "2.3.3",
     "whatwg-fetch": "^2.0.3"

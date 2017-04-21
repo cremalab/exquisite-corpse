@@ -8,7 +8,8 @@ import ChatInput from 'components/ChatInput'
 import { isBefore } from 'date-fns'
 import chatMessageSubmit from 'actions/chatMessageSubmit'
 import statusChange from 'actions/statusChange'
-import { spacing, colors } from 'config/styles'
+import spacing from 'config/spacing'
+import colors from 'config/colors'
 import styled from 'styled-components'
 
 function timestampDesc(a, b) {
@@ -16,15 +17,14 @@ function timestampDesc(a, b) {
   return 1
 }
 
-const Scroll = styled.div`
-  flex-grow: 1;
-  overflow: scroll;
-`
-
 const Header = styled.div`
   text-align: center;
-  color: ${colors.gray};
+  color: ${colors['secondary-tint-5']};
   font-size: ${spacing[5]};
+`
+
+const ScrollPane = styled.div`
+  flex-grow: 1;
 `
 
 function debounce(func, wait, immediate) {
@@ -41,6 +41,7 @@ function debounce(func, wait, immediate) {
     if (callNow) func.apply(context, args)
   }
 }
+
 
 class ChatMessages extends Component {
   constructor(props) {
@@ -71,11 +72,12 @@ class ChatMessages extends Component {
   render() {
     const { messages, currentUser, chatMessageSubmit } = this.props
     return (
-      <Box grow childFlex>
-        <Scroll
-          grow
-          innerRef={(el) => { this.scroll = el }}>
+      <Box
+        grow
+        childFlex>
+        <ScrollPane grow scroll spacerRef={el => this.scroll = el}>
           <Box
+            grow
             padding={spacing[5]}
             childSpacing={spacing[4]}>
             <Header>since you've arrived...</Header>
@@ -86,9 +88,8 @@ class ChatMessages extends Component {
                 message={message} />
             )) }
           </Box>
-        </Scroll>
+        </ScrollPane>
         <Box
-          shrink={0}
           padding={`0 ${spacing[4]} ${spacing[4]}`}>
           <ChatInput onSubmit={chatMessageSubmit} onChange={this.handleChange} />
         </Box>

@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { spacing } from 'config/styles'
+import spacing from 'config/spacing'
 import Box from 'react-boxen'
 import { background, color } from './utils'
-import { color as Color } from 'd3-color'
+import colors from 'config/colors'
 
 const StyledButton = styled.button`
   position: relative;
@@ -20,12 +20,14 @@ const StyledButton = styled.button`
   cursor: pointer;
   transition: all 0.125s ease-in-out;
   min-width: ${props => props.wide ? '10em' : 0 };
-  &:hover {
-    background: ${props => Color(background(props)).brighter(0.5)};
-  }
-  &:active {
-    background: ${props => Color(background(props)).darker(0.5)};
-  }
+  ${props => `
+    &:hover {
+      background: ${colors[`${props.skin}-tint-1`]};
+    }
+    &:active {
+      background: ${colors[`${props.skin}-shade-1`]};
+    }
+  `}
 `
 
 const Button = props => {

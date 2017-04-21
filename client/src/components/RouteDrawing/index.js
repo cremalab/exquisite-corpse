@@ -10,6 +10,7 @@ import drawingCommit from 'actions/drawingCommit'
 import drawingClear from 'actions/drawingClear'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
+import Box from 'react-boxen'
 
 class RouteDrawing extends Component {
   componentWillMount() {
@@ -46,7 +47,7 @@ class RouteDrawing extends Component {
 
     if ( loading ) return <Spinner />
     return (
-      <div>
+      <Box>
         { alert }
         <Surface
           drawing={result}
@@ -56,7 +57,7 @@ class RouteDrawing extends Component {
           onCommit={this.onCommit.bind(this)}
           interactive={true}
         />
-      </div>
+      </Box>
     )
   }
 
