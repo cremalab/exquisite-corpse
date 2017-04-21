@@ -16,8 +16,8 @@ class ItemDrawing extends Component {
   render() {
     const { dispatch, drawing, drawing: { status } } = this.props
     const createdAt = 'Created ' + distanceInWordsToNow(drawing.createdAt) + ' ago'
-    const bgColor = drawing.status === 'expired' ? colors['gray-tint-1'] : colors['blue-tint-1']
-    const color = drawing.status === 'expired' ? colors['secondary'] : colors['blue']
+    const bgColor = drawing.status === 'expired' ? colors['gray-tint-1'] : colors['tertiary-shade-2']
+    const color = drawing.status === 'expired' ? colors['secondary'] : colors['tertiary-shade-5']
     const css = {
       surface: {
         margin: '0 auto',
