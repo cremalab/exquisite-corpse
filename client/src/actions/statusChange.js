@@ -7,6 +7,7 @@ import {
 const urlPrefix = `/lobby/status`
 
 const statusChange = (status) => (dispatch, getState, { wsClient }) => {
+  console.log(REQUEST_STATUS_CHANGE, USER_STATUS_CHANGE, FAILURE)
   dispatch({ type: REQUEST_STATUS_CHANGE, payload: { status } })
   wsClient.request({
     method: 'POST',
