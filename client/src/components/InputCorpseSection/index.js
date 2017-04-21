@@ -15,7 +15,7 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) =>
   const css = {
     canvasPlaceholder: {
       height: '160px',
-      backgroundColor: colors['white-shade-3'],
+      backgroundColor: colors['white-shade-1'],
     },
     guideButton: {
       backgroundColor: '#fff',

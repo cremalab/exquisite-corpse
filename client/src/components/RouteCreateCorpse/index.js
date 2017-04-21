@@ -15,6 +15,7 @@ const anchorPoints = {
   5: [30,40,50,60,70]
 }
 
+
 const onSubmit = (values, dispatch) => dispatch(corpseCreate(values))
 const initialValues = {
   sections: [
@@ -37,13 +38,14 @@ class RouteCreateCorpse extends React.Component {
     const {handleSubmit} = this.props
     return (
       <Box
-        css={`
-          padding: ${spacing[8]};
-          max-width: 400px;
-          margin: 0 auto;
-        `}>
+        childAlign='center'
+        padding={spacing[8]}>
         <form onSubmit={handleSubmit}>
-          <Box childSpacing={spacing[6]}>
+          <Box
+            css={`
+              max-width: 400px;
+            `}
+            childSpacing={spacing[6]}>
             <h2>Create a Corpse</h2>
             <p>
               Use the guides to choose where you want each canvas' drawing
