@@ -15,16 +15,7 @@ const anchorPoints = {
   5: [30,40,50,60,70]
 }
 
-const css = {
-  button: {
-    backgroundColor: colors.primary,
-    color: 'rgb(255, 255, 255)',
-    border: 'none',
-    lineHeight: '2em',
-    borderRadius: '4px',
-    cursor: 'pointer'
-  }
-}
+
 const onSubmit = (values, dispatch) => dispatch(corpseCreate(values))
 const initialValues = {
   sections: [
@@ -45,8 +36,9 @@ const formConfig = {form, initialValues, onSubmit, validate}
 class RouteCreateCorpse extends React.Component {
   render() {
     const {handleSubmit} = this.props
-    return <form onSubmit={handleSubmit}>
+    return <form style={{ margin: '0 auto'}} data-grow="true" onSubmit={handleSubmit}>
       <Box
+        grow
         style={{ maxWidth: '400px', margin: '0 auto', marginTop: '1em' }}
         childSpacing='10px'>
         <h2>Create a Corpse</h2>
