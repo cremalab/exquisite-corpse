@@ -37,6 +37,7 @@ const corpse = Joi.object().keys({
     height: Joi.number().example(700),
   }).optional(),
   svgUrl: Joi.string().optional().example('http://exq-corpse.s3.amazonaws.com/uploads/corpses/58e64e693f98444ee9c5f5b2.svg'),
+  pngUrl: Joi.string().optional().example('http://exq-corpse.s3.amazonaws.com/uploads/corpses/58e64e693f98444ee9c5f5b2.png'),
   createdAt: Joi.date().required(),
   updatedAt: Joi.date().required(),
   status: Joi.string().valid(['new', 'incomplete', 'complete']),
