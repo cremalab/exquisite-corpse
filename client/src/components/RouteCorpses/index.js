@@ -14,6 +14,7 @@ import { isBefore } from 'date-fns'
 import drawingCreate from 'actions/drawingCreate'
 import Button from 'components/Button'
 import Icon from 'components/Icon'
+import ConnectedUsers from 'components/ConnectedUsers'
 import { spacing } from 'config/styles'
 
 class Corpses extends React.Component {

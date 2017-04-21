@@ -5,7 +5,7 @@ import Box from 'react-boxen'
 
 const RouteMessagesGlobal = () =>
   <Box childFlex>
-    {/* <ConnectedUsers /> */}
+    <ConnectedUsers />
     <ChatMessages grow />
   </Box>
 
