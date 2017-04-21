@@ -24,7 +24,8 @@ function errors(state = initialState, action) {
         list: [...state.list, {
           id: generate(),
           message: `No corpses need drawings. Create a new corpse!`,
-          type: 'error'
+          type: 'error',
+          autoDismiss: true,
         }],
       }
     case SUCCESS_CORPSE_CREATE:
@@ -33,7 +34,8 @@ function errors(state = initialState, action) {
         list: [...state.list, {
           id: generate(),
           message: `Corpse successfully created!`,
-          type: 'notice'
+          type: 'notice',
+          autoDismiss: true,
         }],
       }
 
