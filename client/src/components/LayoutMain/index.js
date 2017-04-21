@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
 import Spinner from 'react-md-spinner'
+import FlashMessages from 'components/FlashMessages'
 
 const LayoutMain = ({
   back,
@@ -42,7 +43,7 @@ const LayoutMain = ({
           children={ actions }
         /> }
     </Box>
-
+    <FlashMessages />
     {/* Main */}
     <Box
       grow
