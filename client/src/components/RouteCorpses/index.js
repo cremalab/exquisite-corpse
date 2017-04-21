@@ -62,7 +62,7 @@ class Corpses extends React.Component {
         <Box>
           <Button
             prefix={<Icon glyph='draw' />}
-            onClick={drawingCreate}>
+            onClick={() => drawingCreate()}>
             Draw
           </Button>
         </Box>

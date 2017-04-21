@@ -7,6 +7,7 @@ import { distanceInWordsToNow } from 'date-fns'
 import styled from 'styled-components'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
+import * as corpseHelpers from 'helpers/corpse'
 
 const Label = styled.div`
   padding: ${spacing[3]} ${spacing[6]};
@@ -15,47 +16,6 @@ const Label = styled.div`
   border-radius: ${spacing[4]};
   text-align: center;
 `
-
-const sectionStatus = section => {
-  if(section.drawer && (!section.drawing || !section.drawing.canvas)) {
-    return 'claimed'
-  } else if(section.drawing) {
-    return 'complete'
-  } else {
-    return 'available'
-  }
-}
-
-const statusToLabel = status => {
-  switch(status) {
-    case 'available':
-      return 'Open'
-    case 'claimed':
-      return 'In Progress'
-    case 'complete':
-      return 'Complete'
-    default:
-      return 'Waiting'
-  }
-}
-
-const statusToBackground = status => {
-  switch(status) {
-    case 'available':
-      return 'white'
-    case 'claimed':
-      return `
-        background-image: -webkit-repeating-radial-gradient(center center, ${colors['primary']}, ${colors['primary']} 1px, transparent 1px, transparent 100%);
-        background-size: 3px 3px;
-      `
-    case 'complete':
-      return `
-        background-color: ${colors.primary}
-      `
-    default:
-      return 'white'
-  }
-}
 
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index
@@ -94,8 +54,8 @@ class ItemCorpse extends Component {
               ? <img data-shrink data-grow src={corpse.svgUrl} width="100%" />
               : corpse.sections.map((section) => {
 
-                const status = sectionStatus(section)
-                const statusLabel = statusToLabel(status)
+                const status = corpseHelpers.sectionStatus(section)
+                const statusLabel = corpseHelpers.statusToLabel(status)
 
                 return <Box
                   grow
@@ -104,7 +64,7 @@ class ItemCorpse extends Component {
                   childAlign='center'
                   childJustify='center'
                   css={`
-                    ${statusToBackground(status)}
+                    ${corpseHelpers.statusToBackground(status)}
                   `}>
                    <Label>
                      <p>{section.description}</p>

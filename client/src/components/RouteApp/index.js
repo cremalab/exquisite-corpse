@@ -7,6 +7,7 @@ import RouteCorpse from 'components/RouteCorpse'
 import RouteDrawing from 'components/RouteDrawing'
 import RouteHome from 'components/RouteHome'
 import RouteCreateCorpse from 'components/RouteCreateCorpse'
+import RouteDrawingSidebar from 'components/RouteDrawingSidebar'
 import RouteMessagesGlobal from 'components/RouteMessagesGlobal'
 import LayoutMain from 'components/LayoutMain'
 import styled from 'styled-components'
@@ -47,6 +48,7 @@ class RouteApp extends Component {
         sidebar={
           <RoutesContainer data-grow>
             <Route exact path="/" component={RouteMessagesGlobal} />
+            <Route exact path="/drawing/:drawingId" component={RouteDrawingSidebar} />
           </RoutesContainer>
         }
       />
