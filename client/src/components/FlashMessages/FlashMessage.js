@@ -17,12 +17,12 @@ const FlashMessage = ({ message, type, id, dismissMessage }) => {
       color = colors['white']
       break
     case 'notice':
-      backgroundColor = colors['blue']
-      color = colors['blue-tint-1']
+      backgroundColor = colors['tertiary-shade-5']
+      color = colors['white']
       break
     default:
       color = colors['black']
-      backgroundColor = colors['blue-tint-1']
+      backgroundColor = colors['tertiary-shade-2']
   }
   return (
     <Box
