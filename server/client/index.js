@@ -8,7 +8,7 @@ exports.register = (server, options, next) => {
   server.register({ register: h2o2 }, (err) => {
     if (err) { throw err }
     server.route(clientRoutes)
-    server.views(registerTemplates('./client/build'))
+    server.views(registerTemplates(Path.join(__dirname, 'templates')))
     next()
   })
 }

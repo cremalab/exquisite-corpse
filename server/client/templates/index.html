@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    {% if pageTitle %}
+      <title>{{pageTitle}}</title>
+    {% else %}
+      <title>Exquisite Corpse</title>
+    {% endif %}
+
+    {% if pageImage %}
+      <meta property="og:image" content="{{pageImage}}" />
+    {% endif %}
+  </head>
+  <body>
+  </body>
+</html>
