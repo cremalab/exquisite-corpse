@@ -34,7 +34,7 @@ class ItemCorpseSections extends PureComponent {
         {
           corpse.sections.map((section, i) => {
             const { drawer } = section
-            const isCurrentUser = drawer.id === userId
+            const isCurrentUser = drawer && drawer.id === userId
             const status = corpseHelpers.sectionStatus(section)
             const statusLabel = corpseHelpers.statusToLabel(status)
             return (
