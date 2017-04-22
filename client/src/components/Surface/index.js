@@ -15,9 +15,10 @@ class Surface extends Component {
     this.state = {
       pathType: 'brush',
       eraser: {
-        fillColor: 'white',
+        strokeColor: 'transparent',
         opacity: 1,
-        blendMode: 'destination-out'
+        blendMode: 'destination-out',
+        strokeWidth: 5,
       },
       brush: {
         fillColor: 'black',
@@ -145,10 +146,12 @@ class Surface extends Component {
       })
     }
     const { anchorPoints } = this.props.drawing
-    const points = anchorPoints.top.map(x => plotGuide.bind(this)(x, 0))
-      .concat(anchorPoints.bottom.map(x => plotGuide.bind(this)(x, HEIGHT)))
+    this.guideLayer.activate()
+    const points = anchorPoints.top.map(x => plotGuide(x, 0))
+      .concat(anchorPoints.bottom.map(x => plotGuide(x, HEIGHT)))
     this.guideLayer.addChildren(points)
     this.guideLayer.sendToBack()
+    this.guideLayer.blendMode = 'destination-over'
     if(this.mainLayer)
       this.mainLayer.activate()
   }
@@ -176,7 +179,7 @@ class Surface extends Component {
   }
 
   allPaths() {
-    return this.paper && this.paper.project ? this.paper.project.activeLayer.children || [] : []
+    return this.paper && this.paper.project ? this.mainLayer.children || [] : []
   }
 
   removeLastPath() {
@@ -186,12 +189,17 @@ class Surface extends Component {
 
   onMouseDown(event) {
     const { pathType } = this.state
-    const path = new this.paper.Path(this.state[pathType])
+    this.mainLayer.activate()
+    const path = this.mainLayer.addChild(new this.paper.Path(this.state[pathType]))
     path.add(event.point)
   }
 
   onMouseDrag(event) {
+    this.mainLayer.activate()
     const path = this.getCurrentPath()
+    if (this.state.pathType === 'eraser') {
+      return path.add(event.point)
+    }
     const step = event.delta.divide(6)
     step.angle += 90
     var top = event.middlePoint.add(step).subtract(1)
@@ -201,6 +209,7 @@ class Surface extends Component {
   }
 
   onMouseUp() {
+    this.mainLayer.activate()
     this.getCurrentPath().simplify()
     this.save()
   }
