@@ -7,8 +7,8 @@ import {push} from 'react-router-redux'
 
 const initial = ()      => ({ type: REQUEST_CORPSE_DESTROY })
 const success = payload => dispatch => {
+  dispatch(push(`/`))
   dispatch(({ type: REMOVE_CORPSE, payload }))
-  dispatch(push(`/corpse/${payload.result._id}`))
 }
 const fail    = ()      => ({ type: FAILURE })
 
