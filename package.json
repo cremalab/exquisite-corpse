@@ -10,6 +10,7 @@
   },
   "scripts": {
     "start": "node index.js",
+    "install:local": "yarn install --ignore-scripts",
     "test": "NODE_ENV=test jest",
     "test:coverage": "yarn test -- --coverage",
     "test:watch": "yarn test -- --watch",
