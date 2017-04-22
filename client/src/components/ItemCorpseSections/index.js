@@ -27,14 +27,16 @@ const Carrot = styled.div`
 
 class ItemCorpseSections extends PureComponent {
   render() {
-    const { corpse, userId, showCarrot } = this.props
+    const { corpse, userId, sectionId, showCarrot } = this.props
     return (
       <Box
         childFlex>
         {
           corpse.sections.map((section, i) => {
-            const { drawer } = section
-            const isCurrentUser = drawer && drawer.id === userId
+            const { drawer, _id } = section
+            const isCurrentUser =
+              (drawer && drawer.id === userId) &&
+              (sectionId === _id)
             const status = corpseHelpers.sectionStatus(section)
             const statusLabel = corpseHelpers.statusToLabel(status)
             return (
@@ -68,12 +70,14 @@ class ItemCorpseSections extends PureComponent {
 ItemCorpseSections.propTypes = {
   corpse: PropTypes.object,
   userId: PropTypes.string,
+  sectionId: PropTypes.string,
   showCarrot: PropTypes.bool,
 }
 
 function mapStateToProps(state) {
   return {
-    userId: state.users.currentUser.id
+    userId: state.users.currentUser.id,
+    sectionId: state.drawing.result.section,
   }
 }
 
