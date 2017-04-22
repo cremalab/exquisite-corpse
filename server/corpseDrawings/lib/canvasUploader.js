@@ -62,6 +62,7 @@ module.exports = {
         pngUrl: results[1]
       }
     })
+    .catch((err) => console.log('upload error', err))
   },
   uploadAndUpdate(server, svg, filename) {
     return this.uploadAssets(server, svg, filename, 'svg').then((urls) => {
