@@ -61,8 +61,8 @@ class Surface extends Component {
     const { saving, height, width, interactive} = this.props
     const {pathType} = this.state
     const style = {
-      width: width || '100%',
-      height: height || '100%',
+      width: width + 50 || '100%',
+      height: height + 50 || '100%',
       backgroundColor: 'white',
       margin: '0 auto',
       display: 'block',
