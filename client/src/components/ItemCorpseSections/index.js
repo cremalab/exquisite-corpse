@@ -32,7 +32,7 @@ class ItemCorpseSections extends PureComponent {
       <Box
         childFlex>
         {
-          corpse.sections.map((section) => {
+          corpse.sections.map((section, i) => {
             const { drawer } = section
             const isCurrentUser = drawer.id === userId
             const status = corpseHelpers.sectionStatus(section)
@@ -46,7 +46,7 @@ class ItemCorpseSections extends PureComponent {
                 childJustify='center'
                 css={`
                   position: relative;
-                  ${corpseHelpers.statusToBackground(status)}
+                  ${corpseHelpers.statusToBackground(status, i)}
                 `}>
                 { showCarrot && isCurrentUser && <Carrot /> }
                 <Label>

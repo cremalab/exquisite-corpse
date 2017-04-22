@@ -23,7 +23,7 @@ export const statusToLabel = status => {
   }
 }
 
-export const statusToBackground = status => {
+export const statusToBackground = (status, i) => {
   switch(status) {
     case 'available':
       return 'white'
@@ -34,7 +34,7 @@ export const statusToBackground = status => {
       `
     case 'complete':
       return `
-        border-top: 2px solid ${colors['primary']};
+        ${ i !== 0 ? `border-top: 2px solid ${colors['primary']};` : `` }
         background-color: ${colors['primary-shade-2']};
       `
     default:
