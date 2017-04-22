@@ -20,8 +20,8 @@ const basePath = `${baseDir}/${corpseDir}`
 
 module.exports = {
   convertToPNG(svg) {
-    const buff = new Buffer(svg, 'binary')
-    return svg2png(buff)
+    // const buff = new Buffer(svg, 'binary')
+    return svg2png(svg)
   },
   upload(server, file, filename, extension) {
     let contentType
