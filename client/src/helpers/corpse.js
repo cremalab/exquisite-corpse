@@ -23,18 +23,19 @@ export const statusToLabel = status => {
   }
 }
 
-export const statusToBackground = status => {
+export const statusToBackground = (status, i) => {
   switch(status) {
     case 'available':
       return 'white'
     case 'claimed':
       return `
-        background-image: -webkit-repeating-radial-gradient(center center, ${colors['primary']}, ${colors['primary']} 1px, transparent 1px, transparent 100%);
+        background-image: -webkit-repeating-radial-gradient(center center, ${colors['primary-tint-5']}, ${colors['primary-tint-5']} 1px, transparent 1px, transparent 100%);
         background-size: 3px 3px;
       `
     case 'complete':
       return `
-        background-color: ${colors.primary}
+        ${ i !== 0 ? `border-top: 2px solid ${colors['primary']};` : `` }
+        background-color: ${colors['primary-shade-2']};
       `
     default:
       return 'white'

@@ -56,7 +56,7 @@ class Corpses extends React.Component {
       <Box
         childAlign="center"
         childDirection="row"
-        childSpacing={spacing[4]}
+        childSpacing={spacing[6]}
       >
         <Box grow='1'><h1>Lobby</h1></Box>
         <Box>
@@ -80,7 +80,7 @@ class Corpses extends React.Component {
         childDirection="row"
         childWrap="wrap"
         childWrapLastGrow={false}
-        childSpacing={spacing[4]}
+        childSpacing={spacing[6]}
         childBasis="300px"
         childGrow
         childShrink
