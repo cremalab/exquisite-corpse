@@ -40,7 +40,6 @@
     "concurrently": "^3.4.0",
     "cross-env": "^4.0.0",
     "css-loader": "^0.27.3",
-    "d3-color": "^1.0.3",
     "date-fns": "^1.28.2",
     "dotenv": "^4.0.0",
     "extract-text-webpack-plugin": "^2.1.0",
@@ -79,8 +78,8 @@
     "shortid": "^2.2.8",
     "styled-components": "^1.4.5",
     "svg-sprite-loader": "^0.3.0",
-    "tinycolor2": "^1.4.1",
     "svg2png": "^4.1.1",
+    "tinycolor2": "^1.4.1",
     "vision": "^4.1.1",
     "webpack": "2.3.3",
     "whatwg-fetch": "^2.0.3"
