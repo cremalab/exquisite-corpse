@@ -6,7 +6,8 @@
   ],
   "plugins": [
     "syntax-dynamic-import",
-    "transform-object-rest-spread"
+    "transform-object-rest-spread",
+    "ramda"
   ],
   "env": {
     "test": {
