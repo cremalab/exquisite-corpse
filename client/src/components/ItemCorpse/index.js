@@ -4,18 +4,9 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import Box from 'react-boxen'
 import { distanceInWordsToNow } from 'date-fns'
-import styled from 'styled-components'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
-import * as corpseHelpers from 'helpers/corpse'
-
-const Label = styled.div`
-  padding: ${spacing[3]} ${spacing[6]};
-  background: rgba(255, 255, 255, 0.8);
-  border: 2px solid ${colors.primary};
-  border-radius: ${spacing[4]};
-  text-align: center;
-`
+import ItemCorpseSections from 'components/ItemCorpseSections'
 
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index
@@ -45,33 +36,12 @@ class ItemCorpse extends Component {
         `}>
         <Box
           grow
-          shrink
           childFlex
-          childGrow
-          childSpacing={spacing[3]}>
+          >
           {
             isComplete
               ? <img data-shrink data-grow src={corpse.svgUrl} width="100%" />
-              : corpse.sections.map((section) => {
-
-                const status = corpseHelpers.sectionStatus(section)
-                const statusLabel = corpseHelpers.statusToLabel(status)
-
-                return <Box
-                  grow
-                  shrink
-                  key={section._id}
-                  childAlign='center'
-                  childJustify='center'
-                  css={`
-                    ${corpseHelpers.statusToBackground(status)}
-                  `}>
-                   <Label>
-                     <p>{section.description}</p>
-                     <small>{statusLabel}</small>
-                   </Label>
-                </Box>
-              })
+              : <ItemCorpseSections grow corpse={corpse} />
           }
         </Box>
         <Box
