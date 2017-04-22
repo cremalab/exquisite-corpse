@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import Box from 'react-boxen'
 import styled from 'styled-components'
 import spacing from 'config/spacing'
@@ -10,20 +11,30 @@ const Label = styled.div`
   padding: ${spacing[3]} ${spacing[6]};
   background: ${colors['primary']};
   color: ${colors['white']};
-  ${''/* border: ${spacing[3]} solid ${colors['primary-shade-3']}; */}
   border-radius: ${spacing[4]};
   text-align: center;
 `
 
-class ItemCorpseSections extends Component {
+const Carrot = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  border-width: ${spacing[6]};
+  border-color: transparent transparent transparent white;
+  border-style: solid;
+  transform: translate(0, -50%);
+`
+
+class ItemCorpseSections extends PureComponent {
   render() {
-    const { corpse } = this.props
+    const { corpse, userId, showCarrot } = this.props
     return (
       <Box
         childFlex>
         {
           corpse.sections.map((section) => {
             const { drawer } = section
+            const isCurrentUser = drawer.id === userId
             const status = corpseHelpers.sectionStatus(section)
             const statusLabel = corpseHelpers.statusToLabel(status)
             return (
@@ -34,15 +45,17 @@ class ItemCorpseSections extends Component {
                 childAlign='center'
                 childJustify='center'
                 css={`
+                  position: relative;
                   ${corpseHelpers.statusToBackground(status)}
                 `}>
-                 <Label>
-                   <p>{section.description}</p>
-                   <small>
-                     <p><em>{statusLabel}</em></p>
-                     { drawer && <p>Artist: {drawer.name}</p> }
-                   </small>
-                 </Label>
+                { showCarrot && isCurrentUser && <Carrot /> }
+                <Label>
+                 <p>{section.description}</p>
+                 <small>
+                   <p><em>{statusLabel}</em></p>
+                   { drawer && <p>Artist: {drawer.name}</p> }
+                 </small>
+                </Label>
               </Box>
             )
           })
@@ -53,7 +66,15 @@ class ItemCorpseSections extends Component {
 }
 
 ItemCorpseSections.propTypes = {
-  corpse: PropTypes.object
+  corpse: PropTypes.object,
+  userId: PropTypes.string,
+  showCarrot: PropTypes.bool,
 }
 
-export default ItemCorpseSections
+function mapStateToProps(state) {
+  return {
+    userId: state.users.currentUser.id
+  }
+}
+
+export default connect(mapStateToProps)(ItemCorpseSections)
