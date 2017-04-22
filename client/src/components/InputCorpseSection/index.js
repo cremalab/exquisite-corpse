@@ -32,7 +32,8 @@ const InputCorpseSection = ({ fields, meta: { submitFailed }, anchorPoints }) =>
         const showPoints = i < (fields.length - 1)
         const showRemove = i > 1
         const onRemove = () => fields.remove(i)
-        const onUpdatePoint = calcVal => () => {
+        const onUpdatePoint = calcVal => (e) => {
+          e.preventDefault()
           const fieldValues = fields.get(i)
           const newPoints = anchorPoints[calcVal(fieldValues.anchorPoints.length)]
           if ( newPoints ) {
