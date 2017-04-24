@@ -60,5 +60,5 @@ function toSVG(canvas) {
 }
 
 module.exports = {
-  stitch, getYpositions, toSVG, getDimensionsFromJSON,
+  stitch, getYpositions, toSVG, getDimensionsFromJSON, combineLayers,
 }

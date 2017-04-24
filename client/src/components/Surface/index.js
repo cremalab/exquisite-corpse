@@ -41,10 +41,14 @@ class Surface extends Component {
   componentDidMount() {
     const { drawing, interactive } = this.props
     const canvas = drawing.canvas
-
     if (!this.paper) this.setupCanvas()
     if ( !this.tool && interactive ) this.makeInteractive()
-    if (canvas) this.mainLayer.importJSON(canvas)
+    console.log('didmOunt');
+    // console.log(canvas);
+    if (canvas && this.paper) {
+      this.mainLayer.clear()
+      this.mainLayer.importJSON(canvas)
+    }
     if (drawing.anchorPoints) { this.drawGuides() }
   }
 
@@ -58,15 +62,19 @@ class Surface extends Component {
   }
 
   render() {
-    const { saving, height, width, interactive} = this.props
+    const { saving, drawing, interactive} = this.props
+    const height = drawing && drawing.size ? drawing.size.height : HEIGHT
+    const width = drawing && drawing.size ? drawing.size.width : WIDTH
     const {pathType} = this.state
     const style = {
-      width: width + 50 || '100%',
-      height: height + 50 || '100%',
+      width: width || '100%',
+      height: height || '100%',
       backgroundColor: 'white',
       margin: '0 auto',
       display: 'block',
     }
+    console.log('render');
+    console.log(this.paper && this.mainLayer.bounds);
     return <div style={{ width: 'auto' }}>
       <canvas ref="canvas" style={style} data-paper-resize={true} />
       { interactive ?

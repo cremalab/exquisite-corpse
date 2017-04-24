@@ -12,6 +12,7 @@ import drawingCreate from 'actions/drawingCreate'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
 import Surface from '../Surface'
+import Canvas from '../Canvas'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
 import Button from 'components/Button'
@@ -65,17 +66,16 @@ class Corpse extends Component {
     if ( loading ) return <Spinner />
     const finalDrawing = isComplete ? (
       <div
+        data-grow='true'
         style={css.finalFrame}
         >
-        <Surface
-          drawing={this.props.corpse}
-          height={size.height}
-          width={size.width}
+        <Canvas
+          json={this.props.corpse.canvas}
         />
       </div>
     ) : null
     return (
-      <div>
+      <div style={{ width: '100%'}}>
         <Box>
           <Box padding={spacing[6]} childSpacing={spacing[6]} childDirection='row' childAlign='center'>
             <Box
