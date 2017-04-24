@@ -18,7 +18,8 @@ const Icon = ({ glyph }) =>
 
 
 Icon.propTypes = {
-  glyph: PropTypes.node
+  glyph: PropTypes.node,
+  color: PropTypes.string,
 }
 
 export default Icon

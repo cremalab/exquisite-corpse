@@ -6,7 +6,7 @@ import name from 'helpers/getDirName'
 
 const props = {
   id: 'asdfkjasdf',
-  status: 'active',
+  status: 'idle',
   name: 'Rob',
   provider: 'github',
 }
