@@ -76,24 +76,28 @@ class DrawingCanvas extends Component {
         <Button
           type="button"
           children="Undo"
+          skin="secondary"
           onClick={() => this.undo()}
         />
-        <Button
-          type="button"
-          children="Commit"
-          onClick={() => this.commit()}
-        />
+
         <Button
           type="button"
           disabled={ pathType === 'brush' }
+          skin="secondary"
           onClick={() => this.setState({ pathType: 'brush' })}
         >Draw</Button>
         <Button
           grow
           type="button"
           disabled={ pathType === 'eraser' }
+          skin="secondary"
           onClick={() => this.setState({ pathType: 'eraser' })}
         >Eraser</Button>
+        <Button
+          type="button"
+          children="Commit"
+          onClick={() => this.commit()}
+        />
         <Button
           skin='tertiary'
           type="button"
@@ -152,7 +156,8 @@ class DrawingCanvas extends Component {
   }
 
   cancel() {
-    this.props.onCancel()
+    const c = confirm('Are you sure you want to abandon your drawing?')
+    if (c) this.props.onCancel()
   }
 
   commit() {

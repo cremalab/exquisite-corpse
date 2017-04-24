@@ -112,7 +112,10 @@ class Corpse extends Component {
                 >
                   { section.drawer ? `[${section.description} - ${section.drawer.name}]` : section.description }
                   <em>{ section.drawing && section.drawing.canvas ? 'Complete' : 'Incomplete' }</em>
-                  { (!isComplete && sectionAvailable) && <Button onClick={() => this.handleDrawing(section)}>Draw this section</Button> }
+                  { (!isComplete && sectionAvailable) &&
+                    <Button onClick={() => this.handleDrawing(section)}>
+                      { section.drawer && section.drawer.id === currentUser.id ? 'Finish Drawing' : 'Draw this section' }
+                    </Button> }
                 </Box>
               )
             })
