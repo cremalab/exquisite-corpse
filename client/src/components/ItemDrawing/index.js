@@ -6,7 +6,7 @@ import Box from 'react-boxen'
 import { distanceInWordsToNow } from 'date-fns'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
-import Surface from 'components/Surface'
+import Canvas from 'components/Canvas'
 
 function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
@@ -51,7 +51,7 @@ class ItemDrawing extends Component {
           childFlex
           childGrow
           childSpacing={spacing[3]}>
-            <Surface style={css.surface} drawing={drawing} width={400} />
+            <Canvas style={css.surface} json={drawing.canvas} width={400} />
         </Box>
         <Box
           childDirection='row'

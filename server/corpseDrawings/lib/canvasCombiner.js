@@ -1,5 +1,4 @@
 const Paper = require('paper')
-const R = require('ramda')
 
 function getYpositions(arr) {
   return arr.reduce((mem, num, i) => {
@@ -33,10 +32,6 @@ function combineLayers(layers, project, remove = true) {
   master.position = new Paper.Point(0, 0)
   project.addLayer(master)
 
-  const getWidth = l => l.bounds.width
-  const maxWidth = R.reduce(R.max, 0, layers.map(getWidth))
-  master.bounds.width = maxWidth + 20
-
   layers.filter(l => l._name !== 'master')
     .forEach((l) => { l.copyTo(master); if (remove) { l.remove() } })
 
@@ -60,5 +55,5 @@ function toSVG(canvas) {
 }
 
 module.exports = {
-  stitch, getYpositions, toSVG, getDimensionsFromJSON,
+  stitch, getYpositions, toSVG, getDimensionsFromJSON, combineLayers,
 }
