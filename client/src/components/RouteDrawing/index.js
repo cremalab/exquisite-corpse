@@ -8,6 +8,7 @@ import drawingSave from 'actions/drawingSave'
 import drawingCancel from 'actions/drawingCancel'
 import drawingCommit from 'actions/drawingCommit'
 import drawingClear from 'actions/drawingClear'
+import corpseLoad from 'actions/corpseLoad'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
 import Box from 'react-boxen'
@@ -20,7 +21,7 @@ class RouteDrawing extends Component {
 
   componentDidMount() {
     const { dispatch, drawingId } = this.props
-    dispatch(drawingLoad(drawingId))
+    dispatch(drawingLoad(drawingId, true))
   }
 
   componentWillUnmount() {
@@ -37,7 +38,7 @@ class RouteDrawing extends Component {
   }
 
   render() {
-    const { drawing: { result, loading, saving } } = this.props
+    const { drawing: { result, loading, saving }, corpse } = this.props
     let alert = null
     if (result.status === 'expired') {
       alert = <h4>This drawing wasn't completed in time and is expired.</h4>
@@ -82,6 +83,7 @@ RouteDrawing.propTypes = {
   drawing: PropTypes.object,
   drawingId: PropTypes.string,
   subscribed: PropTypes.bool,
+  corpse: PropTypes.object,
 }
 
 function mapStateToProps(state, props) {
@@ -89,6 +91,7 @@ function mapStateToProps(state, props) {
     drawingId: props.match.params.drawingId,
     drawing: state.drawing,
     subscribed: state.drawing.corpseSubscribed,
+    corpse: state.corpse,
   }
 }
 

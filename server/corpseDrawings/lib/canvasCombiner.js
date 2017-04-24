@@ -1,4 +1,5 @@
 const Paper = require('paper')
+const R = require('ramda')
 
 function getYpositions(arr) {
   return arr.reduce((mem, num, i) => {
@@ -14,6 +15,8 @@ function stitch(sections) {
   })
   const positions = getYpositions(project.layers.map(l => l.bounds.height))
   project.layers.forEach((layer, i) => {
+    layer.matrix.ty = 0
+    layer.matrix.tx = 0
     layer.pivot = new Paper.Point(0, layer.bounds.topLeft)
     const point = new Paper.Point(0, positions[i])
     layer.position = point
@@ -24,7 +27,16 @@ function stitch(sections) {
 
 function combineLayers(layers, project, remove = true) {
   const master = new Paper.Layer({ name: 'master' })
+  master.matrix.ty = 0
+  master.matrix.tx = 0
+  master.pivot = new Paper.Point(0, master.bounds.topLeft)
+  master.position = new Paper.Point(0, 0)
   project.addLayer(master)
+
+  const getWidth = l => l.bounds.width
+  const maxWidth = R.reduce(R.max, 0, layers.map(getWidth))
+  master.bounds.width = maxWidth + 20
+
   layers.filter(l => l._name !== 'master')
     .forEach((l) => { l.copyTo(master); if (remove) { l.remove() } })
 

@@ -11,7 +11,11 @@ const Svg = styled.svg`
   vertical-align: top;
 `
 
-const Icon = ({ glyph }) => icons[glyph]
+const Icon = ({ glyph }) =>
+  <Svg
+    dangerouslySetInnerHTML={{__html: '<use xlink:href="' + icons[glyph] + '"></use>'}}
+  />
+
 
 Icon.propTypes = {
   glyph: PropTypes.node

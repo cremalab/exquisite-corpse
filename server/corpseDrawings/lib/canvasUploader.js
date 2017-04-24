@@ -20,8 +20,8 @@ const basePath = `${baseDir}/${corpseDir}`
 
 module.exports = {
   convertToPNG(svg) {
-    const buff = new Buffer(svg, 'binary')
-    return svg2png(buff)
+    // const buff = new Buffer(svg, 'binary')
+    return svg2png(svg)
   },
   upload(server, file, filename, extension) {
     let contentType
@@ -54,14 +54,15 @@ module.exports = {
   uploadAssets(server, svg, filename) {
     return Promise.all([
       this.upload(server, svg, filename, 'svg'),
-      this.convertToPNG(svg).then((png) => this.upload(server, png, filename, 'png'))
+      // this.convertToPNG(svg).then((png) => this.upload(server, png, filename, 'png'))
     ])
     .then((results) => {
       return {
         svgUrl: results[0],
-        pngUrl: results[1]
+        // pngUrl: results[1]
       }
     })
+    .catch((err) => console.log('upload error', err))
   },
   uploadAndUpdate(server, svg, filename) {
     return this.uploadAssets(server, svg, filename, 'svg').then((urls) => {

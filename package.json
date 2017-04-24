@@ -10,8 +10,12 @@
   },
   "scripts": {
     "start": "node index.js",
+    "install:local": "yarn install --ignore-scripts",
     "test": "NODE_ENV=test jest",
-    "test-watch": "NODE_ENV=test jest --watch",
+    "test:coverage": "yarn test -- --coverage",
+    "test:watch": "yarn test -- --watch",
+    "test:watch:coverage": "yarn test:coverage -- --watch",
+    "test:snapshots:update": "yarn test -- --updateSnapshot",
     "dev": "concurrently \"yarn server\" \"yarn webpack:dev -- --watch\"",
     "storybook": "start-storybook -p 9001",
     "server": "nodemon index.js",
@@ -28,6 +32,7 @@
     "aws-sdk": "^2.39.0",
     "babel-core": "^6.24.0",
     "babel-loader": "^6.4.1",
+    "babel-plugin-ramda": "^1.2.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "^6.23.0",
@@ -40,7 +45,6 @@
     "concurrently": "^3.4.0",
     "cross-env": "^4.0.0",
     "css-loader": "^0.27.3",
-    "d3-color": "^1.0.3",
     "date-fns": "^1.28.2",
     "dotenv": "^4.0.0",
     "extract-text-webpack-plugin": "^2.1.0",
@@ -62,6 +66,7 @@
     "nunjucks": "^3.0.0",
     "paper": "^0.10.3",
     "prop-types": "^15.5.7",
+    "ramda": "^0.23.0",
     "rc-slider": "^7.0.1",
     "react": "^15.4.2",
     "react-boxen": "1.1.2",
@@ -73,13 +78,15 @@
     "react-router-redux": "next",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
+    "redux-factory": "^4.0.2",
     "redux-form": "^6.6.1",
     "redux-multi": "^0.1.12",
     "redux-thunk": "^2.2.0",
+    "shortid": "^2.2.8",
     "styled-components": "^1.4.5",
     "svg-sprite-loader": "^0.3.0",
-    "tinycolor2": "^1.4.1",
     "svg2png": "^4.1.1",
+    "tinycolor2": "^1.4.1",
     "vision": "^4.1.1",
     "webpack": "2.3.3",
     "whatwg-fetch": "^2.0.3"
@@ -97,5 +104,24 @@
     "mongodb-test-mock": "^0.1.5",
     "nodemon": "^1.11.0",
     "webpack-bundle-size-analyzer": "^2.6.0"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "./src"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text",
+      "text-summary"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ]
   }
 }

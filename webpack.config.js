@@ -89,6 +89,13 @@ module.exports = env => {
             use: 'css-loader',
           }),
         },
+        {
+          test: /\.svg$/,
+          loader: 'svg-sprite-loader?' + JSON.stringify({
+            name: '[name]_[hash]',
+            prefixize: true
+          })
+        }
       ],
     },
   }

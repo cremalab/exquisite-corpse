@@ -4,58 +4,9 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import Box from 'react-boxen'
 import { distanceInWordsToNow } from 'date-fns'
-import styled from 'styled-components'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
-
-const Label = styled.div`
-  padding: ${spacing[3]} ${spacing[6]};
-  background: rgba(255, 255, 255, 0.8);
-  border: 2px solid ${colors.primary};
-  border-radius: ${spacing[4]};
-  text-align: center;
-`
-
-const sectionStatus = section => {
-  if(section.drawer && (!section.drawing || !section.drawing.canvas)) {
-    return 'claimed'
-  } else if(section.drawing) {
-    return 'complete'
-  } else {
-    return 'available'
-  }
-}
-
-const statusToLabel = status => {
-  switch(status) {
-    case 'available':
-      return 'Open'
-    case 'claimed':
-      return 'In Progress'
-    case 'complete':
-      return 'Complete'
-    default:
-      return 'Waiting'
-  }
-}
-
-const statusToBackground = status => {
-  switch(status) {
-    case 'available':
-      return 'white'
-    case 'claimed':
-      return `
-        background-image: -webkit-repeating-radial-gradient(center center, ${colors['primary']}, ${colors['primary']} 1px, transparent 1px, transparent 100%);
-        background-size: 3px 3px;
-      `
-    case 'complete':
-      return `
-        background-color: ${colors.primary}
-      `
-    default:
-      return 'white'
-  }
-}
+import ItemCorpseSections from 'components/ItemCorpseSections'
 
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index
@@ -85,33 +36,12 @@ class ItemCorpse extends Component {
         `}>
         <Box
           grow
-          shrink
           childFlex
-          childGrow
-          childSpacing={spacing[3]}>
+          >
           {
             isComplete
               ? <img data-shrink data-grow src={corpse.svgUrl} width="100%" />
-              : corpse.sections.map((section) => {
-
-                const status = sectionStatus(section)
-                const statusLabel = statusToLabel(status)
-
-                return <Box
-                  grow
-                  shrink
-                  key={section._id}
-                  childAlign='center'
-                  childJustify='center'
-                  css={`
-                    ${statusToBackground(status)}
-                  `}>
-                   <Label>
-                     <p>{section.description}</p>
-                     <small>{statusLabel}</small>
-                   </Label>
-                </Box>
-              })
+              : <ItemCorpseSections grow corpse={corpse} />
           }
         </Box>
         <Box
