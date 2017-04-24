@@ -1,13 +1,13 @@
-import { generate } from 'shortid'
-
 const ERROR = 'error'
 const NOTICE = 'notice'
 
-const createMessage = (message, type, autoDismiss = true) => ({
-  id: generate(), message, type, autoDismiss
-})
+export const message =
+  (type, autoDismiss = true) =>
+    ({ id, resource, data: { message }}) => ({
+      id, type, resource, message, autoDismiss
+    })
 
-export const dismissError  = message => createMessage(message, ERROR , true)
-export const dismissNotice = message => createMessage(message, NOTICE, true)
-export const showError     = message => createMessage(message, ERROR , false)
-export const showNotice    = message => createMessage(message, NOTICE, false)
+export const messageError         = message(ERROR, true)
+export const messageErrorPersist  = message(ERROR, false)
+export const messageNotice        = message(NOTICE, true)
+export const messageNoticePersist = message(NOTICE, false)

@@ -1,8 +1,8 @@
-import {DISMISS_MESSAGE} from 'config/actionTypes'
+import {MESSAGE_DISMISS} from 'config/actionTypes'
 
-const drawingClear = (id) => ({
-  type: DISMISS_MESSAGE,
-  payload: { id },
+const drawingClear = id => ({
+  type: MESSAGE_DISMISS,
+  payload: id ,
 })
 
 export default drawingClear

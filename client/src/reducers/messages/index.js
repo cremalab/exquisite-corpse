@@ -1,28 +1,19 @@
 import factory from 'redux-factory'
-import * as utils from './utils'
+import { messageError, messageNotice } from './utils'
 import * as A from 'config/actionTypes'
-import { over, propEq, reject, append, lensProp } from 'ramda'
+import { identity } from 'ramda'
+import { listItemRemoveById, listItemAppendWith } from 'transforms'
 
 const initialState = { list: [] }
-
-const listProp = lensProp('list')
 
 // Message Transforms
 // where x is state
 // where y is action.payload
 export const transforms = {
-  [A.DISMISS_MESSAGE]: (x, y) =>
-    over(listProp, reject(propEq('id', y.id)), x),
-
-  [A.FAILURE_DRAWING]: over(
-    listProp,
-    append(utils.dismissError(`No corpses need drawings. Create a new corpse!`))
-  ),
-
-  [A.SUCCESS_CORPSE_CREATE]: over(
-    listProp,
-    append(utils.dismissNotice(`Corpse successfully created!`))
-  ),
+  [A.MESSAGE_DISMISS]: listItemRemoveById,
+  [A.REQUEST_INITIAL]: identity,
+  [A.REQUEST_SUCCESS]: listItemAppendWith(messageNotice),
+  [A.REQUEST_FAILURE]: listItemAppendWith(messageError),
 }
 
 export default factory(initialState, transforms, false).reducer

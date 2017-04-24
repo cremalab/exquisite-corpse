@@ -1,16 +1,18 @@
-import {push} from 'react-router-redux'
+import { push } from 'react-router-redux'
+import { DRAWING } from 'config/resourceTypes'
 import {
-  REQUEST_CREATE_DRAWING,
-  SUCCESS_CREATE_DRAWING,
-  FAILURE_DRAWING
-} from 'config/actionTypes'
+  requestInitial,
+  requestSuccess,
+  requestFailure
+} from 'actions/request'
 
-const initial = ()      => ({ type: REQUEST_CREATE_DRAWING })
+const initial = requestInitial(DRAWING)
 const success = payload => dispatch => {
-  dispatch({ type: SUCCESS_CREATE_DRAWING, payload })
-  dispatch(push(`/drawing/${payload.result._id}`))
+  dispatch(requestSuccess(DRAWING)(payload))
+  if(payload.result)
+    dispatch(push(`/drawing/${payload.result._id}`))
 }
-const fail    = ()      => ({ type: FAILURE_DRAWING })
+const fail = requestFailure(DRAWING)
 
 const drawingCreate = section => (dispatch, getState, { request }) => dispatch(
   request({

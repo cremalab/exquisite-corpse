@@ -2,9 +2,9 @@ import { transforms } from '.'
 import * as A from 'config/actionTypes'
 
 describe('Transforms', () => {
-  it(A.DISMISS_MESSAGE, () => {
+  it(A.MESSAGE_DISMISS, () => {
     const state  = { list: [{ id: 2 }] }
-    const actual = transforms[A.DISMISS_MESSAGE](state, { id: 2 })
+    const actual = transforms[A.MESSAGE_DISMISS](state, { id: 2 })
     const wanted = { list: [] }
     expect(actual).toEqual(wanted)
   })
