@@ -7,7 +7,7 @@ import Button from 'components/Button'
 const WIDTH = 400
 const HEIGHT = 200
 
-class Surface extends Component {
+class DrawingCanvas extends Component {
 
   constructor() {
     super()
@@ -39,16 +39,12 @@ class Surface extends Component {
   }
 
   componentDidMount() {
-    const { drawing, interactive } = this.props
+    const { drawing } = this.props
     const canvas = drawing.canvas
+
     if (!this.paper) this.setupCanvas()
-    if ( !this.tool && interactive ) this.makeInteractive()
-    console.log('didmOunt');
-    // console.log(canvas);
-    if (canvas && this.paper) {
-      this.mainLayer.clear()
-      this.mainLayer.importJSON(canvas)
-    }
+    if ( !this.tool) this.makeInteractive()
+    if (canvas) this.mainLayer.importJSON(canvas)
     if (drawing.anchorPoints) { this.drawGuides() }
   }
 
@@ -62,9 +58,7 @@ class Surface extends Component {
   }
 
   render() {
-    const { saving, drawing, interactive} = this.props
-    const height = drawing && drawing.size ? drawing.size.height : HEIGHT
-    const width = drawing && drawing.size ? drawing.size.width : WIDTH
+    const { saving, height, width } = this.props
     const {pathType} = this.state
     const style = {
       width: width || '100%',
@@ -73,52 +67,47 @@ class Surface extends Component {
       margin: '0 auto',
       display: 'block',
     }
-    console.log('render');
-    console.log(this.paper && this.mainLayer.bounds);
     return <div style={{ width: 'auto' }}>
       <canvas ref="canvas" style={style} data-paper-resize={true} />
-      { interactive ?
-        <Box
-          padding='10px'
-          childDirection='row'
-          childSpacing='10px'>
-          <Button
-            type="button"
-            children="Undo"
-            onClick={() => this.undo()}
-          />
-          <Button
-            type="button"
-            children="Commit"
-            onClick={() => this.commit()}
-          />
-          <Button
-            type="button"
-            disabled={ pathType === 'brush' }
-            onClick={() => this.setState({ pathType: 'brush' })}
-          >Draw</Button>
-          <Button
-            grow
-            type="button"
-            disabled={ pathType === 'eraser' }
-            onClick={() => this.setState({ pathType: 'eraser' })}
-          >Eraser</Button>
-          <Button
-            skin='tertiary'
-            type="button"
-            onClick={() => this.cancel()}
-          >Cancel</Button>
-          { saving && 'saving...'}
-        </Box>
-        : null
-      }
+      <Box
+        padding='10px'
+        childDirection='row'
+        childSpacing='10px'>
+        <Button
+          type="button"
+          children="Undo"
+          onClick={() => this.undo()}
+        />
+        <Button
+          type="button"
+          children="Commit"
+          onClick={() => this.commit()}
+        />
+        <Button
+          type="button"
+          disabled={ pathType === 'brush' }
+          onClick={() => this.setState({ pathType: 'brush' })}
+        >Draw</Button>
+        <Button
+          grow
+          type="button"
+          disabled={ pathType === 'eraser' }
+          onClick={() => this.setState({ pathType: 'eraser' })}
+        >Eraser</Button>
+        <Button
+          skin='tertiary'
+          type="button"
+          onClick={() => this.cancel()}
+        >Cancel</Button>
+        { saving && 'saving...'}
+      </Box>
     </div>
   }
 
   resize() {
     const { view } = this.paper
     if (this.props.height && this.props.width) { return }
-    const { width, height } = view.viewSize
+    const { width } = view.viewSize
     this.paper.view.center = new paperjs.Point(WIDTH/2, HEIGHT/2)
     this.paper.view.zoom = width / WIDTH
   }
@@ -128,10 +117,8 @@ class Surface extends Component {
     this.paper.setup(this.refs.canvas)
     this.paper.view.play()
     this.paper.project.clear()
-    if (this.props.interactive) {
-      this.resize()
-      this.paper.view.onResize = e => this.resize(e)
-    }
+    this.resize()
+    this.paper.view.onResize = e => this.resize(e)
     this.mainLayer = new this.paper.Layer({ name: 'drawing' })
     this.guideLayer = new this.paper.Layer({ name: 'guides' })
     this.forceUpdate()
@@ -223,15 +210,14 @@ class Surface extends Component {
   }
 }
 
-Surface.propTypes = {
+DrawingCanvas.propTypes = {
   drawing: PropTypes.object,
   onSave: PropTypes.func,
   onCancel: PropTypes.func,
   onCommit: PropTypes.func,
-  interactive: PropTypes.bool,
   saving: PropTypes.bool,
   width: PropTypes.number,
   height: PropTypes.number,
 }
 
-export { Surface as default }
+export { DrawingCanvas as default }

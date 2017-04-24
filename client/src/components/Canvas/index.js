@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import paperjs from 'paper'
-import { Point, Size, Layer } from 'paper'
-import Box from 'react-boxen'
-import Button from 'components/Button'
+import { Point, Size } from 'paper'
 import { combineLayers } from '../../../../server/corpseDrawings/lib/canvasCombiner'
 
 class Canvas extends Component {
@@ -24,7 +22,7 @@ class Canvas extends Component {
       const { project, project: { layers } } = this.paper
       combineLayers(layers, project)
       layers.master.pivot = new Point(0, 0)
-      layers.master.scale(0.95)
+      layers.master.scale(0.85)
       this.setState({
         height: this.paper.view.bounds.height,
         width: this.paper.view.bounds.width,

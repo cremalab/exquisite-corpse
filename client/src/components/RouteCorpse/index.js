@@ -11,7 +11,6 @@ import corpseDestroy from 'actions/corpseDestroy'
 import drawingCreate from 'actions/drawingCreate'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
-import Surface from '../Surface'
 import Canvas from '../Canvas'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
@@ -58,7 +57,7 @@ class Corpse extends Component {
 
   render() {
     const { corpse: {
-      loading, sections, status, size = {}, creator, createdAt
+      loading, sections, status, creator, createdAt
     }, currentUser } = this.props
     const creatorId = this.props.corpse.creator.id
     const isComplete = status === 'complete'

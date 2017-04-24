@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Surface from '../Surface'
+import DrawingCanvas from '../DrawingCanvas'
 import Spinner from 'react-md-spinner'
 import drawingLoad from 'actions/drawingLoad'
 import drawingSave from 'actions/drawingSave'
@@ -50,13 +50,12 @@ class RouteDrawing extends Component {
     return (
       <Box>
         { alert }
-        <Surface
+        <DrawingCanvas
           drawing={result}
           saving={saving}
           onSave={this.onSave.bind(this)}
           onCancel={this.onCancel.bind(this)}
           onCommit={this.onCommit.bind(this)}
-          interactive={true}
         />
       </Box>
     )

@@ -1,7 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
 import Canvas from '.'
-import Box from 'react-boxen'
 import exampleJSON from './example'
 
 storiesOf('Canvas', module)
