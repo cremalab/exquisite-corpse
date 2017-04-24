@@ -17,20 +17,18 @@ module.exports = [
   {
     method: 'GET',
     path: '/{p*}',
-    handler: (request, reply) => {
-      reply.view('index.html', {  })
-    }
+    handler: { file: 'index.html' },
   },
   {
     method: 'GET',
     path: '/corpse/{id}',
     config: {
       auth: false,
-      validate: {
-        headers: Joi.object({
-          'user-agent': Joi.string().regex(/facebookexternalhit/i).required()
-        }).options({ allowUnknown: true })
-      }
+      //validate: {
+      //  headers: Joi.object({
+      //    'user-agent': Joi.string().regex(/facebookexternalhit/i).required()
+      //  }).options({ allowUnknown: true })
+      //}
     },
     handler: function (request, reply) {
 
@@ -40,9 +38,10 @@ module.exports = [
       //) {
       const { db } = request.mongo
       corpsesDB.find(db, request.params.id).then((data) => {
+        console.log(">>>>>>>>", data)
         reply.view('index.html', {
           pageTitle: 'Corpse created by ' + data.creator.name,
-          pageImage: data.svgUrl,
+          pageImage: data.pngUrl,
         })
       })
       //} else {
