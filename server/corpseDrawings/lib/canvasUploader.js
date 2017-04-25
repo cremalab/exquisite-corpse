@@ -17,8 +17,8 @@ const corpseDir = 'corpses'
 const basePath = `${baseDir}/${corpseDir}`
 
 module.exports = {
-  convertToPNG(svg) {
-    return svg2png(svg)
+  convertToPNG(svg, size) {
+    return svg2png(svg, size)
   },
   upload(server, file, filename, extension) {
     let contentType
@@ -32,9 +32,7 @@ module.exports = {
         break
       default:
         contentType = 'image/svg+xml'
-
     }
-    console.log('contentType', contentType)
     const params = {
       Bucket: process.env.S3_BUCKET,
       Key: `${basePath}/${filename}.${extension}`,
@@ -42,37 +40,41 @@ module.exports = {
       ContentType: contentType,
       ACL: 'public-read',
     }
-    console.log('s3 params:', params)
     return new Promise((resolve, reject) => {
       s3.putObject(params, (err) => {
-        console.log('s3 putObject err', err);
         if (err) { return reject(err) }
         const url = `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${basePath}/${filename}.${extension}`
         resolve(url)
       })
     })
   },
-  uploadAssets(server, svg, filename) {
-    return Promise.all([
-      this.upload(server, svg, filename, 'svg'),
-      // this.convertToPNG(svg).then((png) => this.upload(server, png, filename, 'png'))
-    ])
-    .then((results) => {
-      return {
-        svgUrl: results[0],
-        // pngUrl: results[1]
-      }
-    })
-    .catch((err) => console.log('upload error', err))
-  },
-  uploadAndUpdate(server, svg, filename) {
-    return this.uploadAssets(server, svg, filename, 'svg').then((urls) => {
-      return corpsesDB.update(server.mongo.db, filename, urls)
-    })
+  uploadAndUpdate(server, project, filename) {
+    const svg = project.exportSVG({ asString: true })
+    // SVG
+    this.upload(server, svg, filename, 'svg')
+    .then(url =>
+      corpsesDB.update(server.mongo.db, filename, { svgUrl: url })
+    )
     .then((result) => {
       corpseRt.notifyChange(server, result)
       lobbyRT.notifyCorpseChange(server, result)
       return result
+    })
+
+    const { height, width } = project.view.viewSize
+    // PNG
+    this.convertToPNG(svg, {height, width})
+    .then((png) => this.upload(server, png, filename, 'png'))
+    .then(url =>
+      corpsesDB.update(server.mongo.db, filename, { pngUrl: url })
+    )
+    .then((result) => {
+      corpseRt.notifyChange(server, result)
+      lobbyRT.notifyCorpseChange(server, result)
+      return result
+    })
+    .catch((err) => {
+      console.log('ERROR FROM PNG CONVERSION:', err);
     })
   }
 }
