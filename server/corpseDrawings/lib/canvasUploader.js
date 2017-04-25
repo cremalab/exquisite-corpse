@@ -16,11 +16,8 @@ const baseDir = 'uploads'
 const corpseDir = 'corpses'
 const basePath = `${baseDir}/${corpseDir}`
 
-
-
 module.exports = {
   convertToPNG(svg) {
-    // const buff = new Buffer(svg, 'binary')
     return svg2png(svg)
   },
   upload(server, file, filename, extension) {
@@ -36,7 +33,6 @@ module.exports = {
         contentType = 'image/svg+xml'
 
     }
-    console.log('content type:', contentType);
     const params = {
       Bucket: process.env.S3_BUCKET,
       Key: `${basePath}/${filename}.${extension}`,
@@ -44,10 +40,8 @@ module.exports = {
       ContentType: contentType,
       ACL: 'public-read',
     }
-    console.log('upload params:', params);
     return new Promise((resolve, reject) => {
       s3.putObject(params, (err) => {
-        console.log('s3 error:', err);
         if (err) { return reject(err) }
         const url = `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${basePath}/${filename}.${extension}`
         resolve(url)

@@ -28,9 +28,6 @@
     "INSTAGRAM_CLIENT_SECRET": {
       "required": true
     },
-    "MONGODB_URI": {
-      "required": true
-    },
     "PUBLIC_URL": {
       "required": true
     },
