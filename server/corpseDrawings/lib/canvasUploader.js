@@ -16,11 +16,8 @@ const baseDir = 'uploads'
 const corpseDir = 'corpses'
 const basePath = `${baseDir}/${corpseDir}`
 
-
-
 module.exports = {
   convertToPNG(svg) {
-    // const buff = new Buffer(svg, 'binary')
     return svg2png(svg)
   },
   upload(server, file, filename, extension) {
@@ -54,12 +51,12 @@ module.exports = {
   uploadAssets(server, svg, filename) {
     return Promise.all([
       this.upload(server, svg, filename, 'svg'),
-      // this.convertToPNG(svg).then((png) => this.upload(server, png, filename, 'png'))
+      this.convertToPNG(svg).then((png) => this.upload(server, png, filename, 'png'))
     ])
     .then((results) => {
       return {
         svgUrl: results[0],
-        // pngUrl: results[1]
+        pngUrl: results[1]
       }
     })
     .catch((err) => console.log('upload error', err))
