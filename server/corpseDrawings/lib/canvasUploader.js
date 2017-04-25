@@ -45,6 +45,7 @@ module.exports = {
     console.log('s3 params:', params)
     return new Promise((resolve, reject) => {
       s3.putObject(params, (err) => {
+        console.log('s3 putObject err', err);
         if (err) { return reject(err) }
         const url = `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${basePath}/${filename}.${extension}`
         resolve(url)
