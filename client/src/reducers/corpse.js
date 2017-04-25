@@ -8,6 +8,7 @@ import {
   SUCCESS_SUBSCRIBE,
   FAILURE_SUBSCRIBE,
 } from '../config/actionTypes'
+import API from 'config/api'
 
 const initialState = {
   loading: false,
@@ -19,13 +20,13 @@ const initialState = {
 
 function corpses(state = initialState, action) {
   switch (action.type) {
-    case REQUEST_CORPSE:
+    case API.CORPSE_LOAD.INITIAL:
       return {
         ...state,
         loading: true
       }
 
-    case SUCCESS_CORPSE:
+    case API.CORPSE_LOAD.SUCCESS:
       return {
         loading: false,
         sections: action.payload.result.sections,

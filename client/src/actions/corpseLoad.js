@@ -1,15 +1,12 @@
-import {
-  REQUEST_CORPSE,
-  SUCCESS_CORPSE,
-  FAILURE
-} from 'config/actionTypes'
+const corpsesLoad = id => (dispatch, getState, { request2 }) => dispatch(
+  request2.CORPSE_LOAD({
+    params: { id },
 
-const initial = ()      => ({ type: REQUEST_CORPSE })
-const success = payload => ({ type: SUCCESS_CORPSE, payload })
-const fail    = ()      => ({ type: FAILURE })
-
-const corpsesLoad = id => (dispatch, getState, { request }) => dispatch(
-  request({ path: `/corpses/${id}`})({ initial, success, fail })
+    // additional actions when needed... this does nothing right now
+    actions: {
+      SUCCESS: payload => ({ type: 'FOOFOO', payload })
+    }
+  })
 )
 
 export default corpsesLoad
