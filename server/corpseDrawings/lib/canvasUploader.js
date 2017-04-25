@@ -18,7 +18,8 @@ const basePath = `${baseDir}/${corpseDir}`
 
 module.exports = {
   convertToPNG(svg) {
-    return svg2png(svg)
+    const buff = new Buffer(svg, 'binary')
+    return svg2png(buff)
   },
   upload(server, file, filename, extension) {
     let contentType
@@ -33,7 +34,6 @@ module.exports = {
       default:
         contentType = 'image/svg+xml'
     }
-    console.log('contentType', contentType)
     const params = {
       Bucket: process.env.S3_BUCKET,
       Key: `${basePath}/${filename}.${extension}`,
@@ -41,10 +41,8 @@ module.exports = {
       ContentType: contentType,
       ACL: 'public-read',
     }
-    console.log('s3 params:', params)
     return new Promise((resolve, reject) => {
       s3.putObject(params, (err) => {
-        console.log('s3 putObject err', err);
         if (err) { return reject(err) }
         const url = `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${basePath}/${filename}.${extension}`
         resolve(url)
@@ -65,7 +63,8 @@ module.exports = {
     })
 
     // PNG
-    this.convertToPNG(svg).then((png) => this.upload(server, png, filename, 'png'))
+    this.convertToPNG(svg)
+    .then((png) => this.upload(server, png, filename, 'png'))
     .then(url =>
       corpsesDB.update(server.mongo.db, filename, { pngUrl: url })
     )
