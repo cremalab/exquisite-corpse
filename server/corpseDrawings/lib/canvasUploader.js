@@ -55,12 +55,12 @@ module.exports = {
   uploadAssets(server, svg, filename) {
     return Promise.all([
       this.upload(server, svg, filename, 'svg'),
-      this.convertToPNG(svg).then((png) => this.upload(server, png, filename, 'png'))
+      // this.convertToPNG(svg).then((png) => this.upload(server, png, filename, 'png'))
     ])
     .then((results) => {
       return {
         svgUrl: results[0],
-        pngUrl: results[1]
+        // pngUrl: results[1]
       }
     })
     .catch((err) => console.log('upload error', err))
