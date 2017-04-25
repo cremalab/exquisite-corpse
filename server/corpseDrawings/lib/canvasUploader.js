@@ -32,7 +32,6 @@ module.exports = {
         break
       default:
         contentType = 'image/svg+xml'
-
     }
     console.log('contentType', contentType)
     const params = {
@@ -52,20 +51,8 @@ module.exports = {
       })
     })
   },
-  // uploadAsset(server, file, filename, type) {
-  //   this.upload(server, file, filename, 'svg'),
-  //   return Promise.all([
-  //     this.convertToPNG(svg).then((png) => this.upload(server, png, filename, 'png'))
-  //   ])
-  //   .then((results) => {
-  //     return {
-  //       svgUrl: results[0],
-  //       pngUrl: results[1]
-  //     }
-  //   })
-  //   .catch((err) => console.log('upload error', err))
-  // },
-  uploadAndUpdate(server, svg, filename) {
+  uploadAndUpdate(server, project, filename) {
+    const svg = project.exportSVG({ asString: true })
     // SVG
     this.upload(server, svg, filename, 'svg')
     .then(url =>
