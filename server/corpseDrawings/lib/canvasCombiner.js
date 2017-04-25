@@ -15,11 +15,12 @@ function stitch(sections) {
     project.importJSON(section)
   })
   const positions = getYpositions(project.layers.map(l => l.bounds.height))
+
   project.layers.forEach((layer, i) => {
     layer.matrix.ty = 0
     layer.matrix.tx = 0
-    layer.pivot = new Paper.Point(0, layer.bounds.topLeft)
-    const point = new Paper.Point(0, positions[i])
+    layer.pivot = new Paper.Point(0, layer.bounds.top)
+    const point = new Paper.Point(project.view.bounds.left, positions[i])
     layer.position = point
   })
 

@@ -17,9 +17,8 @@ const corpseDir = 'corpses'
 const basePath = `${baseDir}/${corpseDir}`
 
 module.exports = {
-  convertToPNG(svg) {
-    const buff = new Buffer(svg, 'binary')
-    return svg2png(buff)
+  convertToPNG(svg, size) {
+    return svg2png(svg, size)
   },
   upload(server, file, filename, extension) {
     let contentType
@@ -62,8 +61,9 @@ module.exports = {
       return result
     })
 
+    const { height, width } = project.view.viewSize
     // PNG
-    this.convertToPNG(svg)
+    this.convertToPNG(svg, {height, width})
     .then((png) => this.upload(server, png, filename, 'png'))
     .then(url =>
       corpsesDB.update(server.mongo.db, filename, { pngUrl: url })
