@@ -52,27 +52,43 @@ module.exports = {
       })
     })
   },
-  uploadAssets(server, svg, filename) {
-    return Promise.all([
-      this.upload(server, svg, filename, 'svg'),
-      this.convertToPNG(svg).then((png) => this.upload(server, png, filename, 'png'))
-    ])
-    .then((results) => {
-      return {
-        svgUrl: results[0],
-        pngUrl: results[1]
-      }
-    })
-    .catch((err) => console.log('upload error', err))
-  },
+  // uploadAsset(server, file, filename, type) {
+  //   this.upload(server, file, filename, 'svg'),
+  //   return Promise.all([
+  //     this.convertToPNG(svg).then((png) => this.upload(server, png, filename, 'png'))
+  //   ])
+  //   .then((results) => {
+  //     return {
+  //       svgUrl: results[0],
+  //       pngUrl: results[1]
+  //     }
+  //   })
+  //   .catch((err) => console.log('upload error', err))
+  // },
   uploadAndUpdate(server, svg, filename) {
-    return this.uploadAssets(server, svg, filename, 'svg').then((urls) => {
-      return corpsesDB.update(server.mongo.db, filename, urls)
-    })
+    // SVG
+    this.upload(server, svg, filename, 'svg')
+    .then(url =>
+      corpsesDB.update(server.mongo.db, filename, { svgUrl: url })
+    )
     .then((result) => {
       corpseRt.notifyChange(server, result)
       lobbyRT.notifyCorpseChange(server, result)
       return result
+    })
+
+    // PNG
+    this.convertToPNG(svg).then((png) => this.upload(server, png, filename, 'png'))
+    .then(url =>
+      corpsesDB.update(server.mongo.db, filename, { pngUrl: url })
+    )
+    .then((result) => {
+      corpseRt.notifyChange(server, result)
+      lobbyRT.notifyCorpseChange(server, result)
+      return result
+    })
+    .catch((err) => {
+      console.log('ERROR FROM PNG CONVERSION:', err);
     })
   }
 }
