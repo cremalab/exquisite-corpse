@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import Box from 'react-boxen'
 import ChatMessage from 'components/ChatMessage'
 import ChatInput from 'components/ChatInput'
+import ListUsers from 'components/ListUsers'
 import { isBefore } from 'date-fns'
 import chatMessageSubmit from 'actions/chatMessageSubmit'
 import statusChange from 'actions/statusChange'
@@ -76,6 +77,7 @@ class ChatMessages extends Component {
         grow
         childFlex>
         <ScrollPane grow scroll spacerRef={el => this.scroll = el}>
+          <ListUsers />
           <Box
             grow
             padding={spacing[5]}

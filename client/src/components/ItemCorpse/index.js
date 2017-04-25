@@ -21,6 +21,12 @@ class ItemCorpse extends Component {
     const participantsCount = sectionsWithDrawer.map(s => s.drawer.id)
       .filter(onlyUnique).length
     const isComplete = corpse.status === 'complete'
+    const imgCSS = `
+      background: url(${corpse.svgUrl});
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+    `
 
     return (
       <Box
@@ -37,10 +43,11 @@ class ItemCorpse extends Component {
         <Box
           grow
           childFlex
+          css={imgCSS}
           >
           {
             isComplete
-              ? <img data-shrink data-grow src={corpse.svgUrl} width="100%" />
+              ? null
               : <ItemCorpseSections grow corpse={corpse} />
           }
         </Box>
@@ -52,6 +59,7 @@ class ItemCorpse extends Component {
             padding: ${spacing[4]};
             background: ${colors.primary};
             color: white;
+            z-index: 10;
           `}>
           <span data-grow>
             {participantsCount ? `${participantsCount} participant${participantsCount > 1 ? 's' : ''}` : 'Waiting'}

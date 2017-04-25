@@ -95,11 +95,11 @@ module.exports = {
     })
   },
   connectUser(server, credentials, socketId) {
-    const { credentials: { id, name } } = credentials
+    const { credentials: { id, name, provider } } = credentials
     const existing = this.users.find(u => u.id === id)
     const status = `idle`
     if (!existing) {
-      this.users = this.users.concat({ id, name, socketId, status })
+      this.users = this.users.concat({ id, name, socketId, status, provider })
     }
     this.notifyUserChange(server)
   },

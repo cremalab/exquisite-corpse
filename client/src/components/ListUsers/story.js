@@ -18,21 +18,21 @@ const props = {
   data: [
     {
       id: 'asdfkjasdf',
-      status: 'active',
+      status: 'idle',
       name: 'Rob',
-      provider: 'github',
+      provider: 'slack',
     },
     {
       id: 'sdfa',
-      status: 'active',
+      status: 'drawing',
       name: 'Ross',
       provider: 'github',
     },
     {
       id: 'asdfkjaagagsdf',
-      status: 'active',
+      status: 'typing',
       name: 'Deric',
-      provider: 'github',
+      provider: 'guest',
     },
   ]
 }

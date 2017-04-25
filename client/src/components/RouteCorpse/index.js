@@ -11,7 +11,7 @@ import corpseDestroy from 'actions/corpseDestroy'
 import drawingCreate from 'actions/drawingCreate'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
-import Surface from '../Surface'
+import Canvas from '../Canvas'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
 import Button from 'components/Button'
@@ -57,7 +57,7 @@ class Corpse extends Component {
 
   render() {
     const { corpse: {
-      loading, sections, status, size = {}, creator, createdAt
+      loading, sections, status, creator, createdAt
     }, currentUser } = this.props
     const creatorId = this.props.corpse.creator.id
     const isComplete = status === 'complete'
@@ -65,17 +65,16 @@ class Corpse extends Component {
     if ( loading ) return <Spinner />
     const finalDrawing = isComplete ? (
       <div
+        data-grow='true'
         style={css.finalFrame}
         >
-        <Surface
-          drawing={this.props.corpse}
-          height={size.height}
-          width={size.width}
+        <Canvas
+          json={this.props.corpse.canvas}
         />
       </div>
     ) : null
     return (
-      <div>
+      <div style={{ width: '100%'}}>
         <Box>
           <Box padding={spacing[6]} childSpacing={spacing[6]} childDirection='row' childAlign='center'>
             <Box
@@ -113,7 +112,10 @@ class Corpse extends Component {
                 >
                   { section.drawer ? `[${section.description} - ${section.drawer.name}]` : section.description }
                   <em>{ section.drawing && section.drawing.canvas ? 'Complete' : 'Incomplete' }</em>
-                  { (!isComplete && sectionAvailable) && <Button onClick={() => this.handleDrawing(section)}>Draw this section</Button> }
+                  { (!isComplete && sectionAvailable) &&
+                    <Button onClick={() => this.handleDrawing(section)}>
+                      { section.drawer && section.drawer.id === currentUser.id ? 'Finish Drawing' : 'Draw this section' }
+                    </Button> }
                 </Box>
               )
             })
