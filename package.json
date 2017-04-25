@@ -65,7 +65,6 @@
     "nes": "^6.4.2",
     "nunjucks": "^3.0.0",
     "paper": "^0.10.3",
-    "phantomjs-prebuilt": "2.1.4",
     "prop-types": "^15.5.7",
     "ramda": "^0.23.0",
     "rc-slider": "^7.0.1",
