@@ -22,6 +22,7 @@ module.exports = {
   },
   upload(server, file, filename, extension) {
     let contentType
+    const buff = new Buffer(file, 'binary')
     switch (extension) {
       case 'svg':
         contentType = 'image/svg+xml'
@@ -33,10 +34,11 @@ module.exports = {
         contentType = 'image/svg+xml'
 
     }
+    console.log('contentType', contentType)
     const params = {
       Bucket: process.env.S3_BUCKET,
       Key: `${basePath}/${filename}.${extension}`,
-      Body: file,
+      Body: buff,
       ContentType: contentType,
       ACL: 'public-read',
     }
