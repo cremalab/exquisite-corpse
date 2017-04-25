@@ -1,5 +1,6 @@
 const dotEnv = require('dotenv')
 const Path = require('path')
+const config = require('./config/constants')
 
 const mongoURI = process.env.NODE_ENV === 'test' ?
   'mongodb://localhost:27017/exquisite-test' :
@@ -67,10 +68,10 @@ const manifest = {
       plugin: {
         register: './server/corpseCleaner',
         options: {
-          interval: 1 * 60000,
+          interval: 60000 / 2,
           cleaner: {
-            guestWindow: 2 * 60000,
-            memberWindow: 5 * 60000,
+            guestWindow: config.GUEST_WINDOW,
+            memberWindow: config.MEMBER_WINDOW,
           }
         }
       },

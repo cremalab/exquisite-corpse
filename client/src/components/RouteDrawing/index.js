@@ -2,16 +2,18 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import DrawingCanvas from '../DrawingCanvas'
+import LiveTimestamp from '../LiveTimestamp'
 import Spinner from 'react-md-spinner'
 import drawingLoad from 'actions/drawingLoad'
 import drawingSave from 'actions/drawingSave'
 import drawingCancel from 'actions/drawingCancel'
 import drawingCommit from 'actions/drawingCommit'
 import drawingClear from 'actions/drawingClear'
-import corpseLoad from 'actions/corpseLoad'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
 import Box from 'react-boxen'
+import { addMilliseconds } from 'date-fns'
+import { MEMBER_WINDOW, GUEST_WINDOW } from '../../../../config/constants'
 
 class RouteDrawing extends Component {
   componentWillMount() {
@@ -39,6 +41,11 @@ class RouteDrawing extends Component {
 
   render() {
     const { drawing: { result, loading, saving }, corpse } = this.props
+    let timeWindow = MEMBER_WINDOW
+    if (result.drawer && result.drawer.provider === 'guest') {
+      timeWindow = GUEST_WINDOW
+    }
+    const expiration = addMilliseconds(new Date(result.updatedAt), timeWindow)
     let alert = null
     if (result.status === 'expired') {
       alert = <h4>This drawing wasn't completed in time and is expired.</h4>
@@ -57,6 +64,7 @@ class RouteDrawing extends Component {
           onCancel={this.onCancel.bind(this)}
           onCommit={this.onCommit.bind(this)}
         />
+        <LiveTimestamp target={expiration} prefix='expires'/>
       </Box>
     )
   }
