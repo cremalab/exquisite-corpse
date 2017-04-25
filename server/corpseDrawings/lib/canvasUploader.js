@@ -40,6 +40,7 @@ module.exports = {
       ContentType: contentType,
       ACL: 'public-read',
     }
+    console.log('s3 params:', params)
     return new Promise((resolve, reject) => {
       s3.putObject(params, (err) => {
         if (err) { return reject(err) }
