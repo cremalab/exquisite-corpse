@@ -32,6 +32,9 @@ class Corpses extends React.Component {
     if (corpsesLoading === true) return <Spinner />
 
     return (<Box
+      css={`
+        transform: translate3d(0,0,0);
+      `}
       padding={spacing[6]}
       childSpacing={spacing[6]}
     >
