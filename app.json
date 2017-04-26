@@ -29,12 +29,6 @@
     "GITHUB_CLIENT_SECRET": {
       "required": true
     },
-    "INSTAGRAM_CLIENT_ID": {
-      "required": true
-    },
-    "INSTAGRAM_CLIENT_SECRET": {
-      "required": true
-    },
     "PUBLIC_URL": {
       "required": true
     },
