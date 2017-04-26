@@ -26,8 +26,8 @@ class ChatInput extends Component {
     const { handleSubmit, pristine, reset, submitting } = this.props
 
     return (
-      <Form onSubmit={handleSubmit}>
-        <Field name="message" component={renderInput} />
+      <Form onSubmit={handleSubmit} autoComplete="off">
+        <Field name="message" component={renderInput} autoComplete="off" />
       </Form>
     )
   }
