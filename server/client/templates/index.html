@@ -2,18 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    {% if pageTitle %}
-      <title>{{pageTitle}}</title>
-      <meta property="og:title" content="{{pageTitle}}" />
-    {% else %}
-      <title>Exquisite Corpse</title>
-    {% endif %}
-
-    {% if pageImage %}
-      <meta property="og:image" content="{{pageImage.url}}" />
-      <meta property="og:image:width" content="{{pageImage.width}}" />
-      <meta property="og:image:height" content="{{pageImage.height}}" />
-    {% endif %}
+    <title>Scribble Corpse</title>
+    <meta property="og:title" content="Scribble Corpse" />
+    <meta property="og:url" content="{{pageUrl}}"/>
+    <meta property="og:description" content="This corps has been created by {{creator}}"/>
+    <meta property="og:site_name" content="Scribble Corpse"/>
+    <meta property="og:image" content="{{pageImage.url}}" />
   </head>
   <body>
   </body>
