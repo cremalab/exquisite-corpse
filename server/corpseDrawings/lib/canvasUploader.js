@@ -3,6 +3,7 @@ const svg2png = require('svg2png')
 const corpsesDB = require('../../corpses/db/corpsesDB')
 const corpseRt = require('../../corpses/realtime/corpsesRT')
 const lobbyRT = require('../../lobby/realtime/lobbyRT')
+const utils = require('../../utils')
 
 AWS.config.update({
   accessKeyId: process.env.AWS_KEY,
@@ -18,7 +19,8 @@ const basePath = `${baseDir}/${corpseDir}`
 
 module.exports = {
   convertToPNG(svg, size) {
-    return svg2png(svg, size)
+    const sizeAttr = size.width > size.height ? 'height' : 'width'
+    return svg2png(svg, { [sizeAttr]: utils.pngSize })
   },
   upload(server, file, filename, extension) {
     let contentType
@@ -49,7 +51,7 @@ module.exports = {
     })
   },
   uploadAndUpdate(server, project, filename) {
-    const svg = project.exportSVG({ asString: true })
+    const svg = project.exportSVG({ asString: true, bounds: 'content' })
     // SVG
     this.upload(server, svg, filename, 'svg')
     .then(url =>

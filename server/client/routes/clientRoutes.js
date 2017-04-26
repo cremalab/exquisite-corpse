@@ -1,3 +1,5 @@
+const handlers = require('../handlers/clientHandlers')
+
 module.exports = [
   {
     method: 'GET',
@@ -10,6 +12,17 @@ module.exports = [
     config: {
       auth: false,
     },
+  },
+  {
+    method: 'GET',
+    path: '/corpse/{id}',
+    config: {
+      auth: {
+        strategies: ['userCookie'],
+        mode: 'try',
+      },
+    },
+    handler: handlers.corpseMeta
   },
   {
     method: 'GET',
