@@ -4,12 +4,15 @@
     <meta charset="utf-8">
     {% if pageTitle %}
       <title>{{pageTitle}}</title>
+      <meta property="og:title" content="{{pageTitle}}" />
     {% else %}
       <title>Exquisite Corpse</title>
     {% endif %}
 
     {% if pageImage %}
-      <meta property="og:image" content="{{pageImage}}" />
+      <meta property="og:image" content="{{pageImage.url}}" />
+      <meta property="og:image:width" content="{{pageImage.width}}" />
+      <meta property="og:image:height" content="{{pageImage.height}}" />
     {% endif %}
   </head>
   <body>
