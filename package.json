@@ -16,7 +16,7 @@
     "test:watch": "npm run test -- --watch",
     "test:watch:coverage": "npm run test:coverage -- --watch",
     "test:snapshots:update": "npm run test -- --updateSnapshot",
-    "dev": "concurrently \"server\" \"webpack:dev -- --watch\"",
+    "dev": "concurrently \"npm run server\" \"npm run webpack:dev -- --watch\"",
     "storybook": "start-storybook -p 9001",
     "server": "nodemon index.js",
     "client": "NODE_PATH=./src/ npm start --prefix client",
