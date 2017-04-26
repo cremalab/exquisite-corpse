@@ -52,6 +52,8 @@ function corpses(state = initialState, action) {
         }
       }
       return state
+
+    case API.CORPSE_DESTROY.SUCCESS:
     case REMOVE_CORPSE:
       if (action.payload._id === state._id) {
         return {...state, sections: [], removed: true}

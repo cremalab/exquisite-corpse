@@ -8,7 +8,7 @@ import chat from '../reducers/chat'
 import messages from '../reducers/messages'
 import { routerReducer } from 'react-router-redux'
 import { reducer as formReducer } from 'redux-form'
-import { SUCCESS_CHAT_MESSAGE_CREATE } from 'config/actionTypes'
+import API from 'config/api'
 
 export default combineReducers({
   corpses, corpse, drawings, drawing, users, chat, messages,
@@ -16,7 +16,7 @@ export default combineReducers({
   form: formReducer.plugin({
     chatInput(state, action) {
       switch(action.type) {
-        case SUCCESS_CHAT_MESSAGE_CREATE:
+        case API.CHAT_SEND.SUCCESS:
           return undefined
         default:
           return state

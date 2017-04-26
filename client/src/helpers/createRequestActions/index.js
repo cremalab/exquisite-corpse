@@ -2,9 +2,10 @@ import mapObjIndexed from 'ramda/src/mapObjIndexed'
 import UrlAssembler from 'url-assembler'
 
 function createRequestActions(apiConfig) {
-  return mapObjIndexed((config, key) => options => dispatch => {
+  return mapObjIndexed((config, key) => (options = {}) => dispatch => {
 
-    const { actions } = options || {}
+    const { actions } = options
+    let { body } = options
 
     const url = UrlAssembler('/')
       .template(config.path)
@@ -14,7 +15,7 @@ function createRequestActions(apiConfig) {
 
     const getAction = (type, payload) => dispatch => {
       dispatch({ type: config[type], payload })
-      if (actions[type]) {
+      if (actions && actions[type]) {
         if ( typeof actions[type] === 'function' )
           dispatch(actions[type](payload))
         else
@@ -22,17 +23,17 @@ function createRequestActions(apiConfig) {
       }
     }
 
-    if ( config.body ) config.body = JSON.stringify(config.body)
+    if ( body ) body = JSON.stringify(body)
 
     dispatch(getAction('INITIAL'))
-    return fetch(url, {...config, credentials: 'include'})
+    return fetch(url, {...config, body, credentials: 'include'})
       .then(res => res.json())
       .then(payload => {
         dispatch(getAction('SUCCESS', payload))
         return payload
       })
       .catch(err => {
-        dispatch(getAction('FAIL', err))
+        dispatch(getAction('FAILURE', err))
         throw err
       })
 

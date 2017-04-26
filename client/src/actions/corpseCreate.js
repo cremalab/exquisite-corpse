@@ -1,7 +1,7 @@
 import {push} from 'react-router-redux'
 
-const corpsesCreate = body => (dispatch, getState, { request2 }) => dispatch(
-  request2.CORPSE_CREATE({
+const corpsesCreate = body => (dispatch, getState, { api }) => dispatch(
+  api.CORPSE_CREATE({
     body,
     actions: {
       SUCCESS: ({result: {_id}}) => push(`/corpse/${_id}`)

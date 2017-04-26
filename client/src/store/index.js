@@ -8,13 +8,13 @@ import request from 'helpers/wsClientRequest'
 import createRequestActions from 'helpers/createRequestActions'
 import config from 'config/api'
 
-const request2 = createRequestActions(config)
+const api = createRequestActions(config)
 const wsClient = new Nes.Client(location.origin.replace(/^http/, 'ws'))
 const history = createHistory()
 
 const createStoreWithMiddleware = compose(
   applyMiddleware(
-    thunk.withExtraArgument({ wsClient, request, request2 }),
+    thunk.withExtraArgument({ wsClient, request, api }),
     routerMiddleware(history)
   ),
   window.devToolsExtension ? window.devToolsExtension() : f => f

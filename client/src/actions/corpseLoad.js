@@ -1,5 +1,5 @@
-const corpsesLoad = id => (dispatch, getState, { request2 }) => dispatch(
-  request2.CORPSE_LOAD({
+const corpsesLoad = id => (dispatch, getState, { api }) => dispatch(
+  api.CORPSE_LOAD({
     params: { id },
 
     // additional actions when needed... this does nothing right now

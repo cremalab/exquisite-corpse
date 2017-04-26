@@ -3,13 +3,13 @@ import {
   REQUEST_SAVE_DRAWING,
   SUCCESS_SAVE_DRAWING,
   SUCCESS_DRAWING,
-  FAILURE_DRAWING,
   CLEAR_DRAWING,
   REMOVE_CORPSE,
   SUCCESS_SUBSCRIBE,
   FAILURE_SUBSCRIBE,
   DRAWING_EXPIRATION,
 } from 'config/actionTypes'
+import API from 'config/api'
 
 const initialState = {
   loading: false,
@@ -20,7 +20,7 @@ const initialState = {
 
 function corpses(state = initialState, action) {
   switch (action.type) {
-    case REQUEST_DRAWING:
+    case API.DRAWING_LOAD.INITIAL:
       return {
         ...state,
         loading: true
@@ -36,14 +36,14 @@ function corpses(state = initialState, action) {
         result: action.payload.result
       }
 
-    case SUCCESS_DRAWING:
+    case API.DRAWING_LOAD.SUCCESS:
       return {
         ...state,
         loading: false,
         result: action.payload.result
       }
 
-    case FAILURE_DRAWING:
+    case API.DRAWING_DESTROY.FAILURE:
       return {
         ...state,
         loading: false
@@ -52,6 +52,7 @@ function corpses(state = initialState, action) {
     case CLEAR_DRAWING:
       return initialState
 
+    case API.CORPSE_DESTROY.SUCCESS:
     case REMOVE_CORPSE:
       if (action.payload._id !== state.result.corpse) return state
       var newResult = Object.assign({}, state.result)

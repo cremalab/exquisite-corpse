@@ -13,7 +13,7 @@ it('create api config', () => {
       method: 'POST',
       INITIAL: 'CORPSE_CREATE_INITIAL',
       SUCCESS: 'CORPSE_CREATE_SUCCESS',
-      FAIL: 'CORPSE_CREATE_FAIL',
+      FAILURE: 'CORPSE_CREATE_FAILURE',
     }
   })
 })
