@@ -58,7 +58,7 @@ class DrawingCanvas extends Component {
   }
 
   render() {
-    const { saving, height, width } = this.props
+    const { saving, height, width, drawing } = this.props
     const {pathType} = this.state
     const style = {
       width: width || '100%',
@@ -67,6 +67,7 @@ class DrawingCanvas extends Component {
       margin: '0 auto',
       display: 'block',
     }
+    const isExpired = drawing.status === 'expired'
     return <div style={{ width: 'auto' }}>
       <canvas ref="canvas" style={style} data-paper-resize={true} />
       <Box
@@ -96,6 +97,7 @@ class DrawingCanvas extends Component {
         <Button
           type="button"
           children="Commit"
+          disabled={ isExpired }
           onClick={() => this.commit()}
         />
         <Button

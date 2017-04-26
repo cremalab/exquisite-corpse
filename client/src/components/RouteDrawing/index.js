@@ -12,6 +12,8 @@ import drawingClear from 'actions/drawingClear'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
 import Box from 'react-boxen'
+import colors from 'config/colors'
+import spacing from 'config/spacing'
 import { addMilliseconds } from 'date-fns'
 import { MEMBER_WINDOW, GUEST_WINDOW } from '../../../../config/constants'
 
@@ -56,7 +58,13 @@ class RouteDrawing extends Component {
     if ( loading ) return <Spinner />
     return (
       <Box>
-        { alert }
+        { alert ? alert : <Box grow padding={spacing[5]} style={{ textAlign: 'center', background: colors['white-shade-1'] }}>
+          <span><LiveTimestamp target={expiration} prefix='Your drawing expires'/>
+          , based on your last edit.
+          </span>
+          </Box>
+        }
+
         <DrawingCanvas
           drawing={result}
           saving={saving}
@@ -64,7 +72,6 @@ class RouteDrawing extends Component {
           onCancel={this.onCancel.bind(this)}
           onCommit={this.onCommit.bind(this)}
         />
-        <LiveTimestamp target={expiration} prefix='expires'/>
       </Box>
     )
   }

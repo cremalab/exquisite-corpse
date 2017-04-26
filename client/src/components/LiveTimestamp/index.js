@@ -30,7 +30,7 @@ class LiveTimestamp extends Component {
       addSuffix: true,
     }
     const { target, prefix } = this.props
-    return <em>{prefix && prefix} {distanceInWordsToNow(target, relativeOptions)}</em>
+    return <span>{prefix && prefix} {distanceInWordsToNow(target, relativeOptions)}</span>
   }
 }
 
