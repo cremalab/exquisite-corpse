@@ -3,6 +3,27 @@
   "description": "",
   "scripts": {
   },
+  "environments": {
+    "test": {
+      "addons":[
+        "mongolab:sandbox"
+      ],
+      "env": {
+        "AWS_KEY": {
+          "required": true
+        },
+        "AWS_REGION": {
+          "required": true
+        },
+        "AWS_SECRET": {
+          "required": true
+        },
+        "PUBLIC_URL": {
+          "required": true
+        }
+      }
+    }
+  },
   "env": {
     "AWS_KEY": {
       "required": true
