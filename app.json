@@ -7,6 +7,14 @@
     "test": {
       "addons":[
         "mongolab:sandbox"
+      ],
+      "buildpacks": [
+        {
+          "url": "heroku/nodejs"
+        },
+        {
+          "url": "https://github.com/stomita/heroku-buildpack-phantomjs"
+        }
       ]
     }
   },
