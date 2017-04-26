@@ -19,6 +19,7 @@ exports.register = (server, options, next) => {
       isSecure: false,
       redirectTo: '/login',
       clearInvalid: true,
+      redirectOnTry: false,
     }
 
     server.auth.strategy('userCookie', 'cookie', authCookieOptions)
