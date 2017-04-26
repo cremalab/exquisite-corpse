@@ -86,7 +86,7 @@ module.exports = env => {
         {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
-            loader: 'css-loader',
+            use: 'css-loader',
           }),
         },
         {
