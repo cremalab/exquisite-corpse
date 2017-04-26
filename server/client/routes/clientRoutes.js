@@ -1,4 +1,3 @@
-const Joi = require('joi')
 const handlers = require('../handlers/clientHandlers')
 
 module.exports = [
@@ -16,11 +15,6 @@ module.exports = [
   },
   {
     method: 'GET',
-    path: '/{p*}',
-    handler: { file: 'index.html' },
-  },
-  {
-    method: 'GET',
     path: '/corpse/{id}',
     config: {
       auth: {
@@ -29,5 +23,10 @@ module.exports = [
       },
     },
     handler: handlers.corpseMeta
-  }
+  },
+  {
+    method: 'GET',
+    path: '/{p*}',
+    handler: { file: 'index.html' },
+  },
 ]
