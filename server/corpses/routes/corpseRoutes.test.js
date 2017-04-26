@@ -5,9 +5,10 @@ describe('corpseRoutes', () => {
   let server
   let db
   beforeAll(() => (
-    helper.testServer().then((s) => { server = s; db = s.mongo.db }).then(() => (
+    helper.testServer().then((s) => { console.log('SERVER', s); server = s; db = s.mongo.db }).then(() => (
       server.mongo.db.collection('corpses').deleteMany({})
     ))
+    .catch((err) => { console.log('testServer error:', err) })
   ))
   afterAll(() => server.mongo.db.connection.close())
 

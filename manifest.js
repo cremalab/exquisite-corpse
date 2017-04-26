@@ -1,5 +1,8 @@
 const dotEnv = require('dotenv')
 const Path = require('path')
+if (process.env.NODE_ENV !== 'production') {
+  dotEnv.config()
+}
 
 let mongoURI
 if (process.env.NODE_ENV === 'test') {
@@ -9,12 +12,6 @@ if (process.env.NODE_ENV === 'test') {
   mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/exquisite-corpse'
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  dotEnv.config()
-}
-
-console.log(`Mongo Connecting using ${mongoURI}`);
-console.log(`TEST IS ${process.env.HEROKU_TEST_RUN_ID}`);
 
 const manifest = {
   connections: [
