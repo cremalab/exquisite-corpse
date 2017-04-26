@@ -14,6 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 console.log(`Mongo Connecting using ${mongoURI}`);
+console.log(`TEST IS ${process.env.HEROKU_TEST_RUN_ID}`);
 
 const manifest = {
   connections: [
