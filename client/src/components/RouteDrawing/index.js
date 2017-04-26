@@ -42,7 +42,7 @@ class RouteDrawing extends Component {
   }
 
   render() {
-    const { drawing: { result, loading, saving }, corpse } = this.props
+    const { drawing: { result, loading, saving } } = this.props
     let timeWindow = MEMBER_WINDOW
     if (result.drawer && result.drawer.provider === 'guest') {
       timeWindow = GUEST_WINDOW

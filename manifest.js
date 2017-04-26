@@ -68,7 +68,7 @@ const manifest = {
       plugin: {
         register: './server/corpseCleaner',
         options: {
-          interval: 60000 / 2,
+          interval: 60000 / 4,
           cleaner: {
             guestWindow: config.GUEST_WINDOW,
             memberWindow: config.MEMBER_WINDOW,
