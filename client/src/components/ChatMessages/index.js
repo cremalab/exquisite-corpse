@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux'
 import Box from 'react-boxen'
 import ChatMessage from 'components/ChatMessage'
 import ChatInput from 'components/ChatInput'
-import ListUsers from 'components/ListUsers'
 import { isBefore } from 'date-fns'
 import chatMessageSubmit from 'actions/chatMessageSubmit'
 import statusChange from 'actions/statusChange'
@@ -16,6 +15,15 @@ import styled from 'styled-components'
 function timestampDesc(a, b) {
   if (isBefore(a.timestamp, b.timestamp)) return -1
   return 1
+}
+
+const css = {
+  container: `
+    box-shadow: inset 0 0 2px ${colors['white-shade-3']};
+  `,
+  messages: `
+    transform: translate3d(0,0,0);
+  `
 }
 
 const Header = styled.div`
@@ -74,11 +82,15 @@ class ChatMessages extends Component {
     const { messages, currentUser, chatMessageSubmit } = this.props
     return (
       <Box
+        css={css.container}
         grow
         childFlex>
-        <ScrollPane grow scroll spacerRef={el => this.scroll = el}>
-          <ListUsers />
+        <ScrollPane
+          grow
+          scroll
+          spacerRef={el => this.scroll = el}>
           <Box
+            css={css.messages}
             grow
             padding={spacing[5]}
             childSpacing={spacing[4]}>

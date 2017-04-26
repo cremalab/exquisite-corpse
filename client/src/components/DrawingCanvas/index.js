@@ -124,6 +124,8 @@ class DrawingCanvas extends Component {
     this.resize()
     this.paper.view.onResize = e => this.resize(e)
     this.mainLayer = new this.paper.Layer({ name: 'drawing' })
+    this.mainLayer.bounds.height = 200
+    this.mainLayer.bounds.width = 400
     this.guideLayer = new this.paper.Layer({ name: 'guides' })
     this.forceUpdate()
   }

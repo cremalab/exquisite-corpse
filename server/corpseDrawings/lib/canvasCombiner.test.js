@@ -10,7 +10,7 @@ describe('canvasCombiner', () => {
   describe('stitch', () => {
     test('should combine sections into on canvas', () => {
       const result = canvasCombiner.stitch([layer1, layer2, layer3])
-      expect(Array.isArray(JSON.parse(`${result}`))).toBe(true)
+      expect(Array.isArray(JSON.parse(`${result.json}`))).toBe(true)
     })
   })
   describe('getYpositions', () => {

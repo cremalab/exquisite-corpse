@@ -1,0 +1,54 @@
+{
+  "name": "exquisite-corpse",
+  "description": "",
+  "scripts": {
+  },
+  "env": {
+    "AWS_KEY": {
+      "required": true
+    },
+    "AWS_REGION": {
+      "required": true
+    },
+    "AWS_SECRET": {
+      "required": true
+    },
+    "COOKIE_PASSWORD": {
+      "required": true
+    },
+    "GITHUB_CLIENT_ID": {
+      "required": true
+    },
+    "GITHUB_CLIENT_SECRET": {
+      "required": true
+    },
+    "INSTAGRAM_CLIENT_ID": {
+      "required": true
+    },
+    "INSTAGRAM_CLIENT_SECRET": {
+      "required": true
+    },
+    "PUBLIC_URL": {
+      "required": true
+    },
+    "S3_BUCKET": {
+      "required": true
+    },
+    "SLACK_CLIENT_ID": {
+      "required": true
+    },
+    "SLACK_CLIENT_SECRET": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "mongolab"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

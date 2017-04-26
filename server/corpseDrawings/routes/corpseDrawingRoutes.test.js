@@ -65,7 +65,7 @@ describe('corpseDrawingRoutes', () => {
       })
     ))
 
-    test('should stitch together canvases when complete', () => {
+    test('should return successful when complete', () => {
       // complete all drawings but last
       return Promise.all(corpse.sections.map((section, i) => {
         return drawingsDB.create(db, {
@@ -86,7 +86,6 @@ describe('corpseDrawingRoutes', () => {
       .then((results) => {
         const last = results[results.length - 1]
         expect(last.statusCode).toBe(200)
-        expect(last.result.result.canvas).not.toBeUndefined()
       })
     })
   })
