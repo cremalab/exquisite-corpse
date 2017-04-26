@@ -6,7 +6,7 @@
   "environments": {
     "test": {
       "addons":[
-        "mongolab:sandbox --as MONGODB_URI"
+        "mongolab:sandbox --as MONGODB_TEST_URI"
       ]
     }
   },
