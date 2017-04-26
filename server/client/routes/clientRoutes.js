@@ -23,7 +23,10 @@ module.exports = [
     method: 'GET',
     path: '/corpse/{id}',
     config: {
-      auth: false,
+      auth: {
+        strategies: ['userCookie'],
+        mode: 'try',
+      },
     },
     handler: handlers.corpseMeta
   }
