@@ -1,9 +1,13 @@
 const dotEnv = require('dotenv')
 const Path = require('path')
 
-const mongoURI = process.env.NODE_ENV === 'test' ?
-  process.env.MONGODB_TEST_URI || 'mongodb://localhost:27017/exquisite-test' :
-  process.env.MONGODB_URI || 'mongodb://localhost:27017/exquisite-corpse'
+let mongoURI
+if (process.env.NODE_ENV === 'test') {
+  if (process.env.HEROKU_TEST_RUN_ID) { mongoURI = process.env.MONGODB_URI }
+  else { mongoURI = process.env.MONGODB_TEST_URI || 'mongodb://localhost:27017/exquisite-test'}
+} else {
+  mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/exquisite-corpse'
+}
 
 if (process.env.NODE_ENV !== 'production') {
   dotEnv.config()
