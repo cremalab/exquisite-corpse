@@ -27,6 +27,13 @@ const StyledButton = styled.button`
     &:active {
       background: ${colors[`${props.skin}-shade-1`]};
     }
+    &[disabled] {
+      opacity: 0.5;
+      cursor: default;
+      &:hover {
+        background: ${colors[`${props.skin}`]}
+      }
+    }
   `}
 `
 
