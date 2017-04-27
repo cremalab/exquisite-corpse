@@ -11,5 +11,11 @@ storiesOf('Icon', module)
       childSpacing='1em'>
       <Icon glyph='draw' />
       <Icon glyph='newCorpse' />
+      <Icon glyph='trash' />
+      <Icon glyph='close' />
+      <Icon glyph='user' />
+      <Icon glyph='undo' />
+      <Icon glyph='slack' />
+      <Icon glyph='github' />
     </Box>
   })
