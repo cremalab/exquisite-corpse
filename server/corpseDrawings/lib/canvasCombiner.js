@@ -1,5 +1,7 @@
 const Paper = require('paper')
 
+const EXPORT_PADDING = 50
+
 function getYpositions(arr) {
   return arr.reduce((mem, num, i) => {
     if (!mem.length) { return [].concat(0) }
@@ -13,15 +15,19 @@ function stitch(sections) {
     project.importJSON(section)
   })
   const positions = getYpositions(project.layers.map(l => l.bounds.height))
+
   project.layers.forEach((layer, i) => {
     layer.matrix.ty = 0
     layer.matrix.tx = 0
-    layer.pivot = new Paper.Point(0, layer.bounds.topLeft)
-    const point = new Paper.Point(0, positions[i])
+    layer.pivot = new Paper.Point(0, layer.bounds.top)
+    const point = new Paper.Point(project.view.bounds.left, positions[i])
     layer.position = point
   })
 
-  return project.exportJSON()
+  return {
+    json: project.exportJSON(),
+    project: combineLayers(project.layers, project, true).project,
+  }
 }
 
 function combineLayers(layers, project, remove = true) {
@@ -36,7 +42,7 @@ function combineLayers(layers, project, remove = true) {
     .forEach((l) => { l.copyTo(master); if (remove) { l.remove() } })
 
   const { width, height } = master.bounds
-  project.view.viewSize = new Paper.Size(width, height)
+  project.view.viewSize = new Paper.Size(width + EXPORT_PADDING, height + EXPORT_PADDING)
   return master
 }
 

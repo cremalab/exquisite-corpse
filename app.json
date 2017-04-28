@@ -3,6 +3,13 @@
   "description": "",
   "scripts": {
   },
+  "environments": {
+    "test": {
+      "addons":[
+        "mongolab:sandbox"
+      ]
+    }
+  },
   "env": {
     "AWS_KEY": {
       "required": true
@@ -20,12 +27,6 @@
       "required": true
     },
     "GITHUB_CLIENT_SECRET": {
-      "required": true
-    },
-    "INSTAGRAM_CLIENT_ID": {
-      "required": true
-    },
-    "INSTAGRAM_CLIENT_SECRET": {
       "required": true
     },
     "PUBLIC_URL": {
