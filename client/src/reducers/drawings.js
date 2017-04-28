@@ -1,6 +1,5 @@
 import API from 'config/api'
 import {DRAWING_EXPIRATION} from 'config/actionTypes'
-import getSocketAction from 'helpers/getSocketAction'
 
 const initialState = {
   loading: false,

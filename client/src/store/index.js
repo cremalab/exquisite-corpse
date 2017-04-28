@@ -4,7 +4,6 @@ import reducers from './reducers'
 import { routerMiddleware } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 import Nes from 'nes/client'
-import request from 'helpers/wsClientRequest'
 import createRequestActions from 'helpers/createRequestActions'
 import config from 'config/api'
 
@@ -14,7 +13,7 @@ const history = createHistory()
 
 const createStoreWithMiddleware = compose(
   applyMiddleware(
-    thunk.withExtraArgument({ wsClient, request, api }),
+    thunk.withExtraArgument({ wsClient, api }),
     routerMiddleware(history)
   ),
   window.devToolsExtension ? window.devToolsExtension() : f => f
