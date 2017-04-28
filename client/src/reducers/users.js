@@ -1,7 +1,5 @@
-import {
-  SET_USER,
-  USERS_CHANGE,
-} from 'config/actionTypes'
+import { USERS_CHANGE } from 'config/actionTypes'
+import API from 'config/api'
 
 const initialState = {
   currentUser: null,
@@ -10,7 +8,7 @@ const initialState = {
 
 function users(state = initialState, action) {
   switch (action.type) {
-    case SET_USER:
+    case API.USER_LOAD.SUCCESS:
       return {
         ...state,
         currentUser: action.payload,

@@ -1,7 +1,4 @@
 import {
-  REQUEST_DRAWING,
-  REQUEST_SAVE_DRAWING,
-  SUCCESS_SAVE_DRAWING,
   SUCCESS_DRAWING,
   CLEAR_DRAWING,
   REMOVE_CORPSE,
@@ -26,10 +23,10 @@ function corpses(state = initialState, action) {
         loading: true
       }
 
-    case REQUEST_SAVE_DRAWING:
+    case API.DRAWING_SAVE.INITIAL:
       return {...state, saving: true}
 
-    case SUCCESS_SAVE_DRAWING:
+    case API.DRAWING_SAVE.SUCCESS:
       return {
         ...state,
         saving: false,

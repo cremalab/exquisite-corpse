@@ -1,20 +1,7 @@
 import {push} from 'react-router-redux'
-import {
-  REQUEST_SAVE_DRAWING,
-  SUCCESS_SAVE_DRAWING,
-  FAILURE_DRAWING
-} from 'config/actionTypes'
 
-const initial = ()      => ({ type: REQUEST_SAVE_DRAWING })
-const success = payload => ({ type: SUCCESS_SAVE_DRAWING, payload })
-const fail    = ()      => ({ type: FAILURE_DRAWING })
-
-const drawingSave = (drawingId, canvas) => (dispatch, getState, { request }) => dispatch(
-  request({
-    path: `/drawings/${drawingId}`,
-    method: 'PUT',
-    body: JSON.stringify({ canvas }),
-  })({ initial, success, fail })
+const drawingSave = (id, canvas) => (dispatch, getState, { api }) => dispatch(
+  api.DRAWING_SAVE({ body: { canvas }, params: { id }})
 )
 
 export default drawingSave

@@ -1,6 +1,14 @@
 import createApiConfig from 'helpers/createApiConfig'
 
 export default createApiConfig({
+  AUTH_INIT: {
+    path: '/nes/auth',
+    method: 'GET'
+  },
+  USER_LOAD: {
+    path: '/lobby',
+    method: 'POST',
+  },
   CORPSE_CREATE: {
     path: `/corpses`,
     method: 'POST',
@@ -36,5 +44,17 @@ export default createApiConfig({
   DRAWING_LOAD: {
     path: `/drawings/:id`,
     method: 'GET'
+  },
+  DRAWING_SAVE: {
+    path: `/drawings/:id`,
+    method: 'PUT',
+  },
+  DRAWINGS_LOAD: {
+    path: `/me/drawings`,
+    method: 'GET'
+  },
+  CHAT_STATUS_CHANGE: {
+    method: 'POST',
+    path: `/lobby/status`,
   }
 })

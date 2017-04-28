@@ -1,9 +1,6 @@
-import {
-  REQUEST_DRAWINGS,
-  SUCCESS_DRAWINGS,
-  FAILURE_DRAWINGS,
-  DRAWING_EXPIRATION,
-} from 'config/actionTypes'
+import API from 'config/api'
+import {DRAWING_EXPIRATION} from 'config/actionTypes'
+import getSocketAction from 'helpers/getSocketAction'
 
 const initialState = {
   loading: false,
@@ -12,20 +9,20 @@ const initialState = {
 
 function drawings(state = initialState, action) {
   switch (action.type) {
-    case REQUEST_DRAWINGS:
+    case API.DRAWINGS_LOAD.INITIAL:
       return {
         ...state,
         loading: true
       }
 
-    case SUCCESS_DRAWINGS:
+    case API.DRAWINGS_LOAD.SUCCESS:
       return {
         ...state,
         loading: false,
         result: action.payload.result
       }
 
-    case FAILURE_DRAWINGS:
+    case API.DRAWINGS_LOAD.FAILURE:
       return {
         ...state,
         loading: false
