@@ -11,6 +11,7 @@ import RouteCreateCorpse from 'components/RouteCreateCorpse'
 import RouteDrawingSidebar from 'components/RouteDrawingSidebar'
 import RouteMessagesGlobal from 'components/RouteMessagesGlobal'
 import LayoutMain from 'components/LayoutMain'
+import Back from 'components/Back'
 import styled from 'styled-components'
 import { push } from 'react-router-redux'
 
@@ -26,13 +27,15 @@ class RouteApp extends Component {
   }
 
   handleBack(e) {
+    e.preventDefault()
+
     const { location, push, drawing } = this.props
     const pathCorpse  = location.pathname.match('/corpse/')
     const pathDrawing = location.pathname.match('/drawing/')
     const isCorpse    = pathCorpse && pathCorpse.length > 0 ? true : false
     const isDrawing   = pathDrawing && pathDrawing.length > 0 ? true : false
     const corpseId    = drawing.result.corpse
-    e.preventDefault()
+
     if(isCorpse) {
       push('/')
     } else if(isDrawing) {
@@ -47,7 +50,7 @@ class RouteApp extends Component {
 
     return (
       <LayoutMain
-        back={ notRoot && <a href='#' onClick={this.handleBack}>{`< Back`}</a> }
+        back={ <Back visible={notRoot} onClick={this.handleBack} /> }
         title="Exquisite Corpse"
         content={
           <RoutesContainer data-scroll data-grow>
