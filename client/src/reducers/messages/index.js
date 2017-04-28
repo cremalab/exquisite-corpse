@@ -3,6 +3,7 @@ import * as utils from './utils'
 import * as A from 'config/actionTypes'
 import { over, propEq, reject, append, lensProp } from 'ramda'
 import API from 'config/api'
+import * as M from 'config/messages'
 
 const initialState = { list: [] }
 
@@ -17,17 +18,17 @@ export const transforms = {
 
   [API.DRAWING_CREATE.FAILURE]: over(
     listProp,
-    append(utils.dismissError(`No corpses need drawings. Create a new corpse!`))
+    append(utils.dismissError(M.MESSAGE_CORPSES_EMPTY))
   ),
 
   [A.SUCCESS_CORPSE_CREATE]: over(
     listProp,
-    append(utils.dismissNotice(`Corpse successfully created!`))
+    append(utils.dismissNotice(M.MESSAGE_CORPSE_CREATED))
   ),
 
   [API.DRAWING_COMMIT.SUCCESS]: over(
     listProp,
-    append(utils.dismissNotice(`Thanks for committing your drawing, stay tuned to see your final image`))
+    append(utils.dismissNotice(M.MESSAGE_DRAWING_COMMIT))
   )
 }
 
