@@ -64,7 +64,9 @@ class RouteApp extends Component {
         sidebar={
           <RoutesContainer data-grow>
             <Route exact path="/" component={RouteMessagesGlobal} />
+            <Route exact path="/create" component={RouteMessagesGlobal} />
             <Route exact path="/drawing/:drawingId" component={RouteDrawingSidebar} />
+            <Route exact path="/corpse/:corpseId" component={RouteMessagesGlobal} />
           </RoutesContainer>
         }
       />
