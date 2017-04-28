@@ -11,6 +11,8 @@ function renderStatusMarkup(status) {
   switch (status) {
     case 'idle':
       return <Icon glyph='user' />
+    case 'viewing':
+      return <Icon glyph='eye' />
     case 'drawing':
       return <DrawingIndicator />
     case 'typing':
