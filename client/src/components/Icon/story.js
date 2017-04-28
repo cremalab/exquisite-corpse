@@ -10,6 +10,7 @@ storiesOf('Icon', module)
       childDirection='row'
       childSpacing='1em'>
       <Icon glyph='draw' />
+      <Icon glyph='eye' />
       <Icon glyph='newCorpse' />
       <Icon glyph='trash' />
       <Icon glyph='close' />
