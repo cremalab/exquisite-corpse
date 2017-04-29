@@ -1,6 +1,7 @@
 import factory from 'redux-factory'
 import { merge } from 'ramda'
 import { TIME_UPDATE } from 'config/actionTypes'
+import { distanceInWords } from 'date-fns'
 
 const initialState = {
   tick: 0,
@@ -15,3 +16,6 @@ const transforms = {
 }
 
 export default factory(initialState, transforms, false).reducer
+
+export const getTimeAgo = state => time =>
+  distanceInWords(time, state.time.date, { includeSeconds: true })
