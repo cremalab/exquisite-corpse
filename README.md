@@ -1,21 +1,16 @@
+# Exquisite C☠️rpse
+
 ## Dev
 * `yarn install`
-* `yarn run dev`
-* Go to `http://localhost:8000` (don't use port 3000)
+* `yarn dev`
+* Go to `http://localhost:8000`
+* [Flow](https://flow.org/en/) for types
+  * Type errors shown in console
+  * Use editor plugin for live type checking ([linter-flow](https://github.com/AtomLinter/linter-flow))
 
 ## Test
-* `npm test` or `npm run test-watch`
+* `yarn test`
+* `yarn test:watch`
+* `yarn test:coverage`
 
 Docs at `http://localhost:8000/documentation`
-
-## Server
-* `npm run server`
-
-## Client & Server
-
-```
-yarn install
-cd client
-yarn install
-yarn run dev
-```
