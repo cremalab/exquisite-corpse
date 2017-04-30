@@ -1,17 +1,20 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const FlowWebpackPlugin = require('flow-webpack-plugin')
 const webpack = require('webpack')
 
 const resolveEnv = env => (a, b) =>
   env === 'prod' ? a : b
 
 module.exports = env => {
-  console.log('Webpack building with env=' + env)
+  console.log('Webpack building with env=' + env) // eslint-disable-line
   const isProd = resolveEnv(env)
   return {
+    stats: 'minimal',
+    context: path.resolve(__dirname, 'client'),
     entry: {
-      app: './client/src/index.js',
+      app: __dirname + '/client/src/index.js',
       vendor: [
         'babel-polyfill',
         'core-js/es6/promise',
@@ -29,6 +32,7 @@ module.exports = env => {
       dns: 'empty'
     },
     plugins: [
+      new FlowWebpackPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
           'NODE_ENV': JSON.stringify(isProd('production', 'development'))
@@ -64,7 +68,7 @@ module.exports = env => {
         }
       }),
       new HtmlWebpackPlugin({
-        template: './client/public/index.html',
+        template: __dirname + '/client/public/index.html',
         filename: 'index.html',
         inject: 'body',
       }),
@@ -84,9 +88,11 @@ module.exports = env => {
           }
         },
         {
-          test: /\.css$/,
-          use: ExtractTextPlugin.extract({
-            use: 'css-loader',
+          test:    /\.css$/,
+          include: `${__dirname}/client`,
+          loader: ExtractTextPlugin.extract({
+            loader:         'css-loader',
+            fallbackLoader: 'style-loader',
           }),
         },
         {

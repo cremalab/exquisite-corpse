@@ -2,8 +2,7 @@
   "presets": [
     ["es2015", { "modules": false}],
     "stage-0",
-    "react",
-    "flow"
+    "react"
   ],
   "plugins": [
     "syntax-dynamic-import",

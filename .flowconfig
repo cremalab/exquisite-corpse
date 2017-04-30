@@ -1,14 +1,11 @@
 [ignore]
-node_modules
+<PROJECT_ROOT>/node_modules/.*
 
 [include]
-./client/src
-
 
 [libs]
 
 [options]
-module.file_ext=.css
-module.file_ext=.js
-module.file_ext=.jsx
-module.file_ext=.json
+module.system.node.resolve_dirname=client/src
+module.name_mapper.extension='css' -> '<PROJECT_ROOT>/flow/CSSFlowStub.js.flow'
+module.name_mapper.extension='html' -> 'empty/object'
