@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 import Box from 'react-boxen'
 import { distanceInWordsToNow } from 'date-fns'
 import spacing from 'config/spacing'
@@ -14,7 +13,7 @@ function onlyUnique(value, index, self) {
 
 class ItemCorpse extends Component {
   render() {
-    const { dispatch, corpse } = this.props
+    const { corpse } = this.props
 
     const createdAt = 'Created ' + distanceInWordsToNow(corpse.createdAt) + ' ago'
     const sectionsWithDrawer = corpse.sections.filter(x => x.drawer)
@@ -31,7 +30,6 @@ class ItemCorpse extends Component {
     return (
       <Box
         childFlex
-        onClick={() => dispatch(push(`/corpse/${corpse._id}`))}
         css={`
           border-radius: 6px;
           border: 2px solid ${colors['primary']};

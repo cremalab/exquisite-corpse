@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import DrawingCanvas from '../DrawingCanvas'
+import LiveTimestamp from '../LiveTimestamp'
 import Spinner from 'react-md-spinner'
 import drawingLoad from 'actions/drawingLoad'
 import drawingSave from 'actions/drawingSave'
@@ -12,6 +13,10 @@ import statusChange from 'actions/statusChange'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
 import Box from 'react-boxen'
+import colors from 'config/colors'
+import spacing from 'config/spacing'
+import { addMilliseconds } from 'date-fns'
+import { MEMBER_WINDOW, GUEST_WINDOW } from '../../../../config/constants'
 
 class RouteDrawing extends Component {
   componentWillMount() {
@@ -39,7 +44,12 @@ class RouteDrawing extends Component {
   }
 
   render() {
-    const { drawing: { result, loading, saving }, corpse } = this.props
+    const { drawing: { result, loading, saving } } = this.props
+    let timeWindow = MEMBER_WINDOW
+    if (result.drawer && result.drawer.provider === 'guest') {
+      timeWindow = GUEST_WINDOW
+    }
+    const expiration = addMilliseconds(new Date(result.updatedAt), timeWindow)
     let alert = null
     if (result.status === 'expired') {
       alert = <h4>This drawing wasn't completed in time and is expired.</h4>
@@ -50,7 +60,13 @@ class RouteDrawing extends Component {
     if ( loading ) return <Spinner />
     return (
       <Box>
-        { alert }
+        { alert ? alert : <Box grow padding={spacing[5]} style={{ textAlign: 'center', background: colors['white-shade-1'] }}>
+          <span><LiveTimestamp target={expiration} prefix='Your drawing expires'/>
+          , based on your last edit.
+          </span>
+          </Box>
+        }
+
         <DrawingCanvas
           drawing={result}
           saving={saving}

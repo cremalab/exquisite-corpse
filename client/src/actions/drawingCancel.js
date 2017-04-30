@@ -8,7 +8,7 @@ import {
 const initial = ()      => ({ type: REQUEST_CANCEL_DRAWING })
 const success = payload => dispatch => {
   dispatch(({ type: SUCCESS_CANCEL_DRAWING, payload }))
-  dispatch(push(`/corpse/${payload.result.corpse}`))
+  dispatch(push(`/`))
 }
 const fail    = ()      => ({ type: FAILURE_DRAWING })
 

@@ -2,16 +2,14 @@ const subMilliseconds = require('date-fns/sub_milliseconds')
 
 const corpseRT = require('../corpses/realtime/corpsesRT')
 const lobbyRT = require('../lobby/realtime/lobbyRT')
-const common = require('../../db/common')
-const ObjectID = require('mongodb').ObjectID
 const DRAWING_EXPIRED = require('../lobby/realtime/eventTypes').DRAWING_EXPIRED
 
 const minute = 60000
 const hour = 60 * minute
 
 const defaults = {
-  guestWindow: 2 * hour,
-  memberWindow: 24 * hour,
+  guestWindow: 2 * minute,
+  memberWindow: 5 * minute,
 }
 
 class CorpseCleaner {
@@ -25,7 +23,7 @@ class CorpseCleaner {
     const cutoffDate = subMilliseconds(now, this.settings.memberWindow)
     return this.db.collection('drawings').find({
       status: 'incomplete',
-      createdAt: {$lt: cutoffDate },
+      updatedAt: {$lt: cutoffDate },
     }, {
       'corpse': 1, 'section': 1, creator: 1 // projection
     }).toArray()
@@ -35,7 +33,7 @@ class CorpseCleaner {
     const cutoffDate = subMilliseconds(now, this.settings.guestWindow)
     return this.db.collection('drawings').find({
       status: 'incomplete',
-      createdAt: {$lt: cutoffDate },
+      updatedAt: {$lt: cutoffDate },
       'creator.provider': 'guest',
     }, {
       'corpse': 1, 'section': 1, creator: 1 // projection

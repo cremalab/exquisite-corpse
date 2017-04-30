@@ -8,7 +8,11 @@ import {
 const initial = ()      => ({ type: REQUEST_COMMIT_DRAWING })
 const success = payload => dispatch => {
   dispatch(({ type: SUCCESS_COMMIT_DRAWING, payload }))
-  dispatch(push(`/corpse/${payload.result._id}`))
+  if (payload.result.status === 'complete') {
+    dispatch(push(`/corpse/${payload.result._id}`))
+  } else {
+    dispatch(push(`/`))
+  }
 }
 const fail    = ()      => ({ type: FAILURE_DRAWING })
 
