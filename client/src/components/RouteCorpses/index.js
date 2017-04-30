@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import corpsesLoad from 'actions/corpsesLoad'
 import drawingsLoad from 'actions/drawingsLoad'
+import statusChange from 'actions/statusChange'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Spinner from 'react-md-spinner'
@@ -20,6 +21,7 @@ class Corpses extends React.Component {
   componentDidMount() {
     this.props.corpsesLoad()
     this.props.drawingsLoad('incomplete')
+    this.props.statusChange('idle')
   }
   render() {
     const {
@@ -135,6 +137,7 @@ function mapDispatchToProps(dispatch) {
     corpsesLoad,
     drawingsLoad,
     drawingCreate,
+    statusChange,
     push
   }, dispatch)
 }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import paperjs from 'paper'
 import Box from 'react-boxen'
 import Button from 'components/Button'
+import Icon from 'components/Icon'
 
 const WIDTH = 400
 const HEIGHT = 200
@@ -78,12 +79,14 @@ class DrawingCanvas extends Component {
           type="button"
           children="Undo"
           skin="secondary"
+          prefix={<Icon glyph='undo' />}
           onClick={() => this.undo()}
         />
 
         <Button
           type="button"
           disabled={ pathType === 'brush' }
+          prefix={<Icon glyph='draw' />}
           skin="secondary"
           onClick={() => this.setState({ pathType: 'brush' })}
         >Draw</Button>

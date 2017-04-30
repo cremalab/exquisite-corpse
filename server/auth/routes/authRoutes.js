@@ -40,22 +40,6 @@ module.exports = [
   },
   {
     method: 'GET',
-    path: '/login/instagram',
-    config: {
-      auth: 'instagram',
-      description: 'Login with Instagram',
-      handler(request, reply) {
-        if (request.auth.isAuthenticated) {
-          request.cookieAuth.set(providers.standardizeProfile(request.auth.credentials))
-          return reply.redirect('/')
-        }
-        return reply.view('index')
-      },
-      tags: ['auth', 'bell'],
-    },
-  },
-  {
-    method: 'GET',
     path: '/login/github',
     config: {
       auth: 'github',

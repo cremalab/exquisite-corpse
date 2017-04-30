@@ -13,5 +13,6 @@ storiesOf('Button', module)
       <Button suffix='➡'>Click Me!</Button>
       <Button skin='secondary'>Click Me!</Button>
       <Button skin='tertiary'>Click Me!</Button>
+      <Button disabled={true} skin='tertiary'>I am disabled</Button>
     </Box>
   })

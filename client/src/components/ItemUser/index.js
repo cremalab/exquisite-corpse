@@ -11,6 +11,8 @@ function renderStatusMarkup(status) {
   switch (status) {
     case 'idle':
       return <Icon glyph='user' />
+    case 'viewing':
+      return <Icon glyph='eye' />
     case 'drawing':
       return <DrawingIndicator />
     case 'typing':
@@ -33,7 +35,7 @@ function renderProviderIcon(provider) {
 }
 
 const ItemUser = ({ status, name, provider }) => {
-  return <Box {...boxProps} childSpacing={spacing[6]} >
+  return <Box {...boxProps}>
     <Box
       childSpacing={spacing[4]}
       childDirection='row'>
@@ -49,15 +51,18 @@ const boxProps = {
   childSpacing: spacing[4],
   css: `
     padding: ${spacing[4]};
-    background: ${colors['white']};
+    background: ${colors['tertiary-tint-3']};
   `
 }
 
 ItemUser.propTypes = {
-  id: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  provider: PropTypes.string.isRequired,
+  provider: PropTypes.string,
+}
+
+ItemUser.defaultProps = {
+  name: '???'
 }
 
 export default ItemUser

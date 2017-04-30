@@ -9,6 +9,7 @@ import drawingSave from 'actions/drawingSave'
 import drawingCancel from 'actions/drawingCancel'
 import drawingCommit from 'actions/drawingCommit'
 import drawingClear from 'actions/drawingClear'
+import statusChange from 'actions/statusChange'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
 import Box from 'react-boxen'
@@ -26,6 +27,7 @@ class RouteDrawing extends Component {
   componentDidMount() {
     const { dispatch, drawingId } = this.props
     dispatch(drawingLoad(drawingId, true))
+    dispatch(statusChange('drawing'))
   }
 
   componentWillUnmount() {
