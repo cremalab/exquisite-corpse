@@ -1,1 +1,5 @@
 client/build
+coverage
+flow
+flow-typed
+node_modules

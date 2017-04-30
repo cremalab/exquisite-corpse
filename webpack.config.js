@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const FlowWebpackPlugin = require('flow-webpack-plugin')
+const FlowStatusWebpackPlugin = require('flow-status-webpack-plugin')
 const webpack = require('webpack')
 
 const resolveEnv = env => (a, b) =>
@@ -11,11 +11,26 @@ module.exports = env => {
   console.log('Webpack building with env=' + env) // eslint-disable-line
   const isProd = resolveEnv(env)
   return {
-    stats: 'minimal',
     context: path.resolve(__dirname, 'client'),
     entry: {
       app: __dirname + '/client/src/index.js',
       vendor: [
+        'react',
+        'react-boxen',
+        'react-dom',
+        'react-md-spinner',
+        'react-redux',
+        'react-router',
+        'react-router-dom',
+        'react-router-redux',
+        'react-tap-event-plugin',
+        'redux',
+        'redux-factory',
+        'redux-form',
+        'redux-multi',
+        'redux-thunk',
+        'shortid',
+        'styled-components',
         'babel-polyfill',
         'core-js/es6/promise',
         'whatwg-fetch',
@@ -32,7 +47,16 @@ module.exports = env => {
       dns: 'empty'
     },
     plugins: [
-      new FlowWebpackPlugin(),
+      new FlowStatusWebpackPlugin({
+        restartFlow: false,
+        onError: function(stdout) {
+          console.log(stdout) // eslint-disable-line
+        },
+        onSuccess: function(stdout){
+          console.log(stdout) // eslint-disable-line
+        },
+        binaryPath: require('flow-bin')
+      }),
       new webpack.DefinePlugin({
         'process.env': {
           'NODE_ENV': JSON.stringify(isProd('production', 'development'))
@@ -90,14 +114,14 @@ module.exports = env => {
         {
           test:    /\.css$/,
           include: `${__dirname}/client`,
-          loader: ExtractTextPlugin.extract({
-            loader:         'css-loader',
+          use: ExtractTextPlugin.extract({
+            use:         'css-loader',
             fallbackLoader: 'style-loader',
           }),
         },
         {
           test: /\.svg$/,
-          loader: 'svg-sprite-loader?' + JSON.stringify({
+          use: 'svg-sprite-loader?' + JSON.stringify({
             name: '[name]_[hash]',
             prefixize: true
           })
