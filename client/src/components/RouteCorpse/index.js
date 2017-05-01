@@ -7,6 +7,7 @@ import Box from 'react-boxen'
 import { format } from 'date-fns'
 import corpseClear from 'actions/corpseClear'
 import corpseLoad from 'actions/corpseLoad'
+import statusChange from 'actions/statusChange'
 import corpseDestroy from 'actions/corpseDestroy'
 import drawingCreate from 'actions/drawingCreate'
 import subscribe from 'actions/subscribe'
@@ -37,6 +38,7 @@ class Corpse extends Component {
     dispatch(corpseLoad(corpseId))
     if (corpseSubscribed) { return }
     dispatch(subscribe(`/corpses/${corpseId}`))
+    dispatch(statusChange('viewing'))
   }
 
   componentWillUnmount() {

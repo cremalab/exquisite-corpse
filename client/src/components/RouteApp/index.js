@@ -31,12 +31,13 @@ class RouteApp extends Component {
 
     const { location, push, drawing } = this.props
     const pathCorpse  = location.pathname.match('/corpse/')
+    const pathCreate  = location.pathname.match('/create')
     const pathDrawing = location.pathname.match('/drawing/')
     const isCorpse    = pathCorpse && pathCorpse.length > 0 ? true : false
     const isDrawing   = pathDrawing && pathDrawing.length > 0 ? true : false
     const corpseId    = drawing.result.corpse
 
-    if(isCorpse) {
+    if(isCorpse || pathCreate) {
       push('/')
     } else if(isDrawing) {
       push(`/corpse/${corpseId}`)
@@ -64,7 +65,9 @@ class RouteApp extends Component {
         sidebar={
           <RoutesContainer data-grow>
             <Route exact path="/" component={RouteMessagesGlobal} />
+            <Route exact path="/create" component={RouteMessagesGlobal} />
             <Route exact path="/drawing/:drawingId" component={RouteDrawingSidebar} />
+            <Route exact path="/corpse/:corpseId" component={RouteMessagesGlobal} />
           </RoutesContainer>
         }
       />

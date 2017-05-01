@@ -11,7 +11,11 @@ import API from 'config/api'
 const initialState = {
   loading: false,
   saving: false,
-  result: {},
+  result: {
+    drawer: {
+      provider: null
+    }
+  },
   corpseSubscribed: false,
 }
 

@@ -4,7 +4,7 @@ const drawingCancel = id => (dispatch, getState, { api }) => dispatch(
   api.DRAWING_DESTROY({
     params: { id },
     actions: {
-      SUCCESS: payload => push(`/corpse/${payload.result.corpse}`)
+      SUCCESS: payload => push(`/`)
     }
   })
 )

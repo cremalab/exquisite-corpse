@@ -3,10 +3,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import Box from 'react-boxen'
-import { distanceInWordsToNow } from 'date-fns'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
 import Canvas from 'components/Canvas'
+import LiveTimestamp from 'components/LiveTimestamp'
+import { addMilliseconds } from 'date-fns'
+import { MEMBER_WINDOW, GUEST_WINDOW } from '../../../../config/constants'
 
 function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
@@ -14,9 +16,13 @@ function capitalize(string) {
 
 class ItemDrawing extends Component {
   render() {
-    const { dispatch, drawing, drawing: { status } } = this.props
-    const createdAt = 'Created ' + distanceInWordsToNow(drawing.createdAt) + ' ago'
-    const bgColor = drawing.status === 'expired' ? colors['gray-tint-1'] : colors['tertiary-shade-2']
+    const { dispatch, drawing, drawing: { status, drawer, updatedAt } } = this.props
+    let timeWindow = MEMBER_WINDOW
+    if (drawer && drawer.provider === 'guest') {
+      timeWindow = GUEST_WINDOW
+    }
+    const expiration = addMilliseconds(new Date(updatedAt), timeWindow)
+    const bgColor = drawing.status === 'expired' ? colors['gray-tint-1'] : colors['tertiary-tint-1']
     const color = drawing.status === 'expired' ? colors['secondary'] : colors['tertiary-shade-5']
     const css = {
       surface: {
@@ -60,7 +66,11 @@ class ItemDrawing extends Component {
           <span data-grow>
             { capitalize(drawing.status) }
           </span>
-          <span>{createdAt}</span>
+          <div style={{
+            color: colors['danger'], fontWeight: 'bold', textShadow: `0 1px 1px ${colors.white}`
+          }}>
+            <LiveTimestamp prefix='Expires' target={expiration} />
+          </div>
         </Box>
       </Box>
     )

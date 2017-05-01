@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Box from 'react-boxen'
-import { distanceInWordsToNow } from 'date-fns'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
+import Timestamp from 'components/Timestamp'
 
-class ChatMessage extends Component {
+class ChatMessage extends PureComponent {
   render() {
     const { message, currentUser } = this.props
 
@@ -48,7 +48,7 @@ class ChatMessage extends Component {
               font-size: ${spacing[4]};
               text-align: ${isSystemMsg ? 'center' : 'right'}
             `}>
-            { distanceInWordsToNow(message.timestamp) + ' ago'}
+            <Timestamp time={ message.timestamp } />
           </Box>
         </Box>
         <Box

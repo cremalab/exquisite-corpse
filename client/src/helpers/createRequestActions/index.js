@@ -34,7 +34,7 @@ function createRequestActions(apiConfig) {
       })
       .catch(err => {
         dispatch(getAction('FAILURE', err))
-        throw err
+        //throw err
       })
 
   }, apiConfig)

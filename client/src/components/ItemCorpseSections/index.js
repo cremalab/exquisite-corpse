@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import Box from 'react-boxen'
 import styled from 'styled-components'
+import drawingCreate from 'actions/drawingCreate'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
 import * as corpseHelpers from 'helpers/corpse'
@@ -26,6 +28,17 @@ const Carrot = styled.div`
 `
 
 class ItemCorpseSections extends PureComponent {
+  handleDrawing(section) {
+    const { dispatch, userId, corpse } = this.props
+    if (corpse.status === 'complete') { return }
+    if (section.drawer && section.drawer.id === userId) {
+      dispatch(push(`/drawing/${section.drawing._id}`))
+    }
+    if (!section.drawer) {
+      dispatch(drawingCreate(section._id))
+    }
+  }
+
   render() {
     const { corpse, userId, sectionId, showCarrot } = this.props
     return (
@@ -39,6 +52,7 @@ class ItemCorpseSections extends PureComponent {
               (sectionId === _id)
             const status = corpseHelpers.sectionStatus(section)
             const statusLabel = corpseHelpers.statusToLabel(status)
+            const mayInteract = (drawer && drawer.id === userId) || (!drawer)
             return (
               <Box
                 grow
@@ -46,8 +60,10 @@ class ItemCorpseSections extends PureComponent {
                 key={section._id}
                 childAlign='center'
                 childJustify='center'
+                onClick={() => this.handleDrawing(section)}
                 css={`
                   position: relative;
+                  cursor: ${mayInteract ? 'pointer' : 'default' };
                   ${corpseHelpers.statusToBackground(status, i)}
                 `}>
                 { showCarrot && isCurrentUser && <Carrot /> }
@@ -72,6 +88,7 @@ ItemCorpseSections.propTypes = {
   userId: PropTypes.string,
   sectionId: PropTypes.string,
   showCarrot: PropTypes.bool,
+  dispatch: PropTypes.func,
 }
 
 function mapStateToProps(state) {
