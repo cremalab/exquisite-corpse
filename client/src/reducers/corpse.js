@@ -1,7 +1,6 @@
 import {
   CLEAR_CORPSE,
-  MERGE_CORPSE,
-  REMOVE_CORPSE,
+  CORPSE_CHANGE,
   DRAWING_EXPIRATION,
   SUCCESS_SUBSCRIBE,
   FAILURE_SUBSCRIBE,
@@ -21,6 +20,11 @@ const initialState = {
 }
 
 function corpses(state = initialState, action) {
+
+  const removeCorpse = () => {
+    return {...state, sections: [], removed: true}
+  }
+
   switch (action.type) {
     case CORPSE_LOAD:
       return {
@@ -42,26 +46,30 @@ function corpses(state = initialState, action) {
       }
     case CLEAR_CORPSE:
       return initialState
-    case MERGE_CORPSE:
+
+    case CORPSE_CHANGE:
       if (action.payload._id === state._id) {
-        const { payload } = action
-        return {
-          ...state,
-          sections: payload.sections,
-          size: payload.size,
-          status: payload.status,
-          canvas: payload.canvas,
-          removed: payload.removed,
+        if ( !action.payload.removed ) {
+          const { payload } = action
+          return {
+            ...state,
+            sections: payload.sections,
+            size: payload.size,
+            status: payload.status,
+            canvas: payload.canvas,
+            removed: payload.removed,
+          }
         }
+        return removeCorpse()
       }
       return state
 
     case `${CORPSE_DESTROY}_${SUCCESS}`:
-    case REMOVE_CORPSE:
-      if (action.payload._id === state._id) {
-        return {...state, sections: [], removed: true}
-      }
+      if (action.payload._id === state._id)
+        return removeCorpse()
+        
       return state
+
     case DRAWING_EXPIRATION:
       if (!action.payload.corpse === state._id) { return state }
       var section = state.sections.find(s => s.drawing._id === action.payload._id)

@@ -1,7 +1,5 @@
 import {
-  SUCCESS_CORPSE_CREATE,
-  MERGE_CORPSE,
-  REMOVE_CORPSE,
+  CORPSE_CHANGE,
   DRAWING_EXPIRATION,
   CORPSES_LOAD,
   INITIAL,
@@ -31,6 +29,14 @@ function updateObjectInArray(array, corpse) {
 }
 
 function corpses(state = initialState, action) {
+
+  const removeCorpse = () => {
+    return {
+      ...state,
+      result: state.result.filter(c => c._id !== action.payload._id),
+    }
+  }
+
   switch (action.type) {
     case CORPSES_LOAD:
       return {
@@ -44,23 +50,20 @@ function corpses(state = initialState, action) {
         result: action.payload.data.result,
       }
 
-    case SUCCESS_CORPSE_CREATE:
-      return {
-        ...state,
-        result: updateObjectInArray(state.result, action.payload.result),
+    case CORPSE_CHANGE:
+      if ( action.payload.removed ) {
+        return removeCorpse()
+      } else {
+        return {
+          ...state,
+          result: updateObjectInArray(state.result, action.payload),
+        }
       }
-    case MERGE_CORPSE:
-      return {
-        ...state,
-        result: updateObjectInArray(state.result, action.payload),
-      }
+      return state
 
     case `${CORPSE_DESTROY}_${SUCCESS}`:
-    case REMOVE_CORPSE:
-      return {
-        ...state,
-        result: state.result.filter(c => c._id !== action.payload._id),
-      }
+      return removeCorpse()
+
     case DRAWING_EXPIRATION:
       var corpse = state.result.find(c => c._id === action.payload.corpse)
       if (!corpse) return state

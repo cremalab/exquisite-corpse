@@ -1,7 +1,6 @@
 import {
-  SUCCESS_DRAWING,
   CLEAR_DRAWING,
-  REMOVE_CORPSE,
+  CORPSE_CHANGE,
   SUCCESS_SUBSCRIBE,
   FAILURE_SUBSCRIBE,
   DRAWING_EXPIRATION,
@@ -25,6 +24,17 @@ const initialState = {
 }
 
 function corpses(state = initialState, action) {
+
+  const removeCorpse = () => {
+    if (action.payload._id !== state.result.corpse) return state
+    var newResult = Object.assign({}, state.result)
+    delete newResult.corpse
+    return {
+      ...state,
+      result: newResult
+    }
+  }
+
   switch (action.type) {
     case DRAWING_LOAD:
       return {
@@ -58,15 +68,14 @@ function corpses(state = initialState, action) {
     case CLEAR_DRAWING:
       return initialState
 
+    case CORPSE_CHANGE:
+      if ( action.payload.removed )
+        return removeCorpse()
+
+      return state
+
     case `${CORPSE_DESTROY}_${SUCCESS}`:
-    case REMOVE_CORPSE:
-      if (action.payload._id !== state.result.corpse) return state
-      var newResult = Object.assign({}, state.result)
-      delete newResult.corpse
-      return {
-        ...state,
-        result: newResult
-      }
+      return removeCorpse()
 
     case DRAWING_EXPIRATION:
       if (state.result._id !== action.payload._id) { return state }

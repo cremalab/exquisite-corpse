@@ -20,11 +20,6 @@ export const transforms = {
     append(utils.dismissError(M.MESSAGE_CORPSES_EMPTY))
   ),
 
-  [A.SUCCESS_CORPSE_CREATE]: over(
-    listProp,
-    append(utils.dismissNotice(M.MESSAGE_CORPSE_CREATED))
-  ),
-
   [`${A.DRAWING_COMMIT}_${A.SUCCESS}`]: over(
     listProp,
     append(utils.dismissNotice(M.MESSAGE_DRAWING_COMMIT))

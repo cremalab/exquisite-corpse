@@ -1,14 +1,6 @@
 const eventParser = require('./eventParser')
 const urlPrefix = `/lobby`
-
-const types = {
-  USERS_CHANGE: 'usersChange',
-  CORPSE_CHANGE: 'corpseChange',
-  CHAT_MESSAGE: 'chatMessage',
-  USER_STATUS_CHANGE: 'userStatusChange',
-  GENERIC_EVENT: 'genericEvent',
-  DRAWING_EXPIRATION: 'drawingExpiration',
-}
+const types = require('../../../config/constants')
 
 const pruneInt = 10000 // 10 second loop to clean up disconnected users
 

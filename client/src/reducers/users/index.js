@@ -1,4 +1,4 @@
-import { USERS_CHANGE, USER_LOAD, SUCCESS } from 'config/actionTypes'
+import { USER_LOAD, SUCCESS, USERS_CHANGE } from 'config/actionTypes'
 import factory from 'redux-factory'
 import { append, lensProp, set } from 'ramda'
 

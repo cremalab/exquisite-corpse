@@ -1,11 +1,6 @@
 const lobbyRT = require('../../lobby/realtime/lobbyRT')
 const urlPrefix = `/corpses`
-
-const types = {
-  CHANGE: 'corpseChange',
-  COMPLETION: 'corpseCompletion',
-  DRAWING_EXPIRATION: 'drawingExpiration',
-}
+const types = require('../../../config/constants')
 
 module.exports = {
   registerSubscription(server) {
