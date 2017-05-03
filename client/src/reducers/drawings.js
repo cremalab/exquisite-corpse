@@ -1,5 +1,4 @@
-import API from 'config/api'
-import {DRAWING_EXPIRATION} from 'config/actionTypes'
+import {DRAWING_EXPIRATION, DRAWINGS_LOAD, SUCCESS, FAILURE} from 'config/actionTypes'
 
 const initialState = {
   loading: false,
@@ -8,20 +7,20 @@ const initialState = {
 
 function drawings(state = initialState, action) {
   switch (action.type) {
-    case API.DRAWINGS_LOAD.INITIAL:
+    case DRAWINGS_LOAD:
       return {
         ...state,
         loading: true
       }
 
-    case API.DRAWINGS_LOAD.SUCCESS:
+    case `${DRAWINGS_LOAD}_${SUCCESS}`:
       return {
         ...state,
         loading: false,
-        result: action.payload.result
+        result: action.payload.data.result
       }
 
-    case API.DRAWINGS_LOAD.FAILURE:
+    case `${DRAWINGS_LOAD}_${FAILURE}`:
       return {
         ...state,
         loading: false

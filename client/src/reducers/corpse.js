@@ -5,8 +5,12 @@ import {
   DRAWING_EXPIRATION,
   SUCCESS_SUBSCRIBE,
   FAILURE_SUBSCRIBE,
+  CORPSE_LOAD,
+  FAILURE,
+  SUCCESS,
+  INITIAL,
+  CORPSE_DESTROY,
 } from '../config/actionTypes'
-import API from 'config/api'
 
 const initialState = {
   loading: false,
@@ -18,22 +22,23 @@ const initialState = {
 
 function corpses(state = initialState, action) {
   switch (action.type) {
-    case API.CORPSE_LOAD.INITIAL:
+    case CORPSE_LOAD:
       return {
         ...state,
         loading: true
       }
 
-    case API.CORPSE_LOAD.SUCCESS:
+    case `${CORPSE_LOAD}_${SUCCESS}`:
+      const { result } = action.payload.data
       return {
         loading: false,
-        sections: action.payload.result.sections,
-        canvas: action.payload.result.canvas,
-        size: action.payload.result.size,
-        status: action.payload.result.status,
-        createdAt: action.payload.result.createdAt,
-        creator: action.payload.result.creator,
-        _id: action.payload.result._id,
+        sections: result.sections,
+        canvas: result.canvas,
+        size: result.size,
+        status: result.status,
+        createdAt: result.createdAt,
+        creator: result.creator,
+        _id: result._id,
       }
     case CLEAR_CORPSE:
       return initialState
@@ -51,7 +56,7 @@ function corpses(state = initialState, action) {
       }
       return state
 
-    case API.CORPSE_DESTROY.SUCCESS:
+    case `${CORPSE_DESTROY}_${SUCCESS}`:
     case REMOVE_CORPSE:
       if (action.payload._id === state._id) {
         return {...state, sections: [], removed: true}

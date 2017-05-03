@@ -1,12 +1,17 @@
 import {push} from 'react-router-redux'
+import {CORPSE_CREATE} from 'config/actionTypes'
 
-const corpsesCreate = body => (dispatch, getState, { api }) => dispatch(
-  api.CORPSE_CREATE({
-    body,
-    actions: {
-      SUCCESS: ({result: {_id}}) => push(`/corpse/${_id}`)
-    }
-  })
-)
+const corpsesCreate = data => dispatch => dispatch({
+  type: CORPSE_CREATE,
+  payload: {
+    request:{
+      url: `/corpses`,
+      method: 'POST',
+      data
+    },
+  }
+}).then(({ payload }) => {
+  dispatch(push(`/corpse/${payload.data.result._id}`))
+})
 
 export default corpsesCreate

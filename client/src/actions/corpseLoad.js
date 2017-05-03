@@ -1,12 +1,12 @@
-const corpsesLoad = id => (dispatch, getState, { api }) => dispatch(
-  api.CORPSE_LOAD({
-    params: { id },
+import {CORPSE_LOAD} from 'config/actionTypes'
 
-    // additional actions when needed... this does nothing right now
-    actions: {
-      SUCCESS: payload => ({ type: 'FOOFOO', payload })
-    }
-  })
-)
+const corpseLoad = id => ({
+  type: CORPSE_LOAD,
+  payload: {
+    request:{
+      url: `/corpses/${id}`
+    },
+  }
+})
 
-export default corpsesLoad
+export default corpseLoad

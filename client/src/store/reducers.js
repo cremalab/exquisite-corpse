@@ -9,7 +9,7 @@ import time from 'reducers/time'
 import messages from 'reducers/messages'
 import { routerReducer } from 'react-router-redux'
 import { reducer as formReducer } from 'redux-form'
-import API from 'config/api'
+import {CHAT_SEND, SUCCESS} from 'config/actionTypes'
 
 export default combineReducers({
   chat,
@@ -24,7 +24,7 @@ export default combineReducers({
   form: formReducer.plugin({
     chatInput(state, action) {
       switch(action.type) {
-        case API.CHAT_SEND.SUCCESS:
+        case `${CHAT_SEND}_${SUCCESS}`:
           return undefined
         default:
           return state

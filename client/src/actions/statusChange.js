@@ -1,5 +1,14 @@
-const statusChange = (status) => (dispatch, getState, { api }) => dispatch(
-  api.CHAT_STATUS_CHANGE({ body: { status } })
-)
+import {CHAT_STATUS_CHANGE} from 'config/actionTypes'
+
+const statusChange = status => ({
+  type: CHAT_STATUS_CHANGE,
+  payload: {
+    request:{
+      url: `/lobby/status`,
+      method: 'POST',
+      data: { status }
+    },
+  }
+})
 
 export default statusChange

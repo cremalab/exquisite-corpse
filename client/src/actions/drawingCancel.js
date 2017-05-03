@@ -1,12 +1,16 @@
 import {push} from 'react-router-redux'
+import {DRAWING_DESTROY} from 'config/actionTypes'
 
-const drawingCancel = id => (dispatch, getState, { api }) => dispatch(
-  api.DRAWING_DESTROY({
-    params: { id },
-    actions: {
-      SUCCESS: payload => push(`/`)
-    }
-  })
-)
+const drawingCancel = id => dispatch => dispatch({
+  type: DRAWING_DESTROY,
+  payload: {
+    request:{
+      url: `/drawings/${id}`,
+      method: 'DELETE',
+    },
+  }
+}).then(() => {
+  dispatch(push(`/`))
+})
 
 export default drawingCancel

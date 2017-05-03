@@ -4,17 +4,26 @@ import reducers from './reducers'
 import { routerMiddleware } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 import Nes from 'nes/client'
-import createRequestActions from 'helpers/createRequestActions'
-import config from 'config/api'
+import axios from 'axios'
+import {INITIAL, SUCCESS, FAILURE} from 'config/actionTypes'
+import axiosMiddleware from 'redux-axios-middleware'
 
-const api = createRequestActions(config)
 const wsClient = new Nes.Client(location.origin.replace(/^http/, 'ws'))
 const history = createHistory()
 
+const client = axios.create({
+  responseType: 'json',
+})
+
+const axiosConf = {
+  returnRejectedPromiseOnError: true
+}
+
 const createStoreWithMiddleware = compose(
   applyMiddleware(
-    thunk.withExtraArgument({ wsClient, api }),
-    routerMiddleware(history)
+    thunk.withExtraArgument({ wsClient }),
+    routerMiddleware(history),
+    axiosMiddleware(client, axiosConf),
   ),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)

@@ -3,8 +3,11 @@ import {
   MERGE_CORPSE,
   REMOVE_CORPSE,
   DRAWING_EXPIRATION,
+  CORPSES_LOAD,
+  INITIAL,
+  SUCCESS,
+  CORPSE_DESTROY,
 } from 'config/actionTypes'
-import API from 'config/api'
 
 const initialState = {
   loading: false,
@@ -29,16 +32,16 @@ function updateObjectInArray(array, corpse) {
 
 function corpses(state = initialState, action) {
   switch (action.type) {
-    case API.CORPSES_LOAD.INITIAL:
+    case CORPSES_LOAD:
       return {
         ...state,
         loading: true,
       }
 
-    case API.CORPSES_LOAD.SUCCESS:
+    case `${CORPSES_LOAD}_${SUCCESS}`:
       return {
         loading: false,
-        result: action.payload.result,
+        result: action.payload.data.result,
       }
 
     case SUCCESS_CORPSE_CREATE:
@@ -52,7 +55,7 @@ function corpses(state = initialState, action) {
         result: updateObjectInArray(state.result, action.payload),
       }
 
-    case API.CORPSE_DESTROY.SUCCESS:
+    case `${CORPSE_DESTROY}_${SUCCESS}`:
     case REMOVE_CORPSE:
       return {
         ...state,
