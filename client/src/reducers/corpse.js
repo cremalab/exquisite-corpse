@@ -34,6 +34,8 @@ function corpses(state = initialState, action) {
         status: action.payload.result.status,
         createdAt: action.payload.result.createdAt,
         creator: action.payload.result.creator,
+        svgUrl: action.payload.result.svgUrl,
+        pngUrl: action.payload.result.pngUrl,
         _id: action.payload.result._id,
       }
     case CLEAR_CORPSE:

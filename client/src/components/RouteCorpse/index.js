@@ -62,17 +62,24 @@ class Corpse extends Component {
       loading, sections, status, creator, createdAt
     }, currentUser } = this.props
     const creatorId = this.props.corpse.creator.id
+    const { svgUrl, pngUrl } = this.props.corpse
     const isComplete = status === 'complete'
 
     if ( loading ) return <Spinner />
     const finalDrawing = isComplete ? (
-      <div
-        data-grow='true'
-        style={css.finalFrame}
-        >
-        <Canvas
-          json={this.props.corpse.canvas}
-        />
+      <div>
+        <Box padding={spacing[6]} childDirection='row' childSpacing={spacing[4]}>
+          <Button onClick={() => window.open(svgUrl)}>Download SVG</Button>
+          <Button onClick={() => window.open(pngUrl)}>Download PNG</Button>
+        </Box>
+        <div
+          data-grow='true'
+          style={css.finalFrame}
+          >
+          <Canvas
+            json={this.props.corpse.canvas}
+          />
+        </div>
       </div>
     ) : null
     return (
