@@ -66,7 +66,14 @@ module.exports = {
       } catch (e) {
         return reject(Boom.wrap(e))
       }
-      return db.collection('corpses').find({}, options).toArray().then(resolve)
+      return db.collection('corpses').find({}, options).toArray().then((r) => {
+        db.collection('corpses').count({}).then((count) => {
+          resolve({
+            result: r,
+            total: count,
+          })
+        })
+      })
     })
   },
   find(db, id) {

@@ -10,6 +10,12 @@ import {
 const initialState = {
   loading: false,
   result: [],
+  pagination: {
+    page: 1,
+    next: 0,
+    previous: 0,
+    perPage: 9,
+  },
 }
 
 function updateObjectInArray(array, corpse) {
@@ -40,6 +46,7 @@ function corpses(state = initialState, action) {
       return {
         loading: false,
         result: action.payload.result,
+        pagination: action.payload.pagination,
       }
 
     case SUCCESS_CORPSE_CREATE:

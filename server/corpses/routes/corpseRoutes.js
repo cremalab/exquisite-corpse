@@ -11,6 +11,12 @@ module.exports = [
       handler: handlers.index,
       description: 'Returns all corpses',
       tags: ['api', 'corpse'],
+      validate: {
+        query: {
+          page: Joi.number().min(1),
+          perPage: Joi.number().min(1),
+        },
+      },
       response: {
         schema: responses.list,
       },

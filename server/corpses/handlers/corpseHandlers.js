@@ -11,9 +11,19 @@ function statusify(r) {
 module.exports = {
   index(request, reply) {
     const { db } = request.mongo
-    return corpsesDB.getAll(db, { sort: { createdAt: -1 }})
+    const perPage = request.query.perPage || 9
+    const page = request.query.page || 1
+    const skip = (request.query.page - 1 || 0) * perPage
+    return corpsesDB.getAll(db, { sort: { createdAt: -1, status: -1 }, limit: perPage, skip })
       .then((r) => {
-        reply({ result: r })
+        const areMore = (r.total - skip) > perPage
+        const areLess = skip > 0
+        reply({ result: r.result, pagination: {
+          page,
+          next: areMore ? page + 1 : 0,
+          previous: areLess ? page - 1 : 0,
+          perPage
+        }})
       })
       .catch(err => reply(err))
   },
