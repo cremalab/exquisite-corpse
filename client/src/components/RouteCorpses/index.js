@@ -27,7 +27,7 @@ class Corpses extends React.Component {
     const {
       drawingCreate,
       push,
-      corpses: { result: corpses, loading: corpsesLoading },
+      corpses: { result: corpses, loading: corpsesLoading, pagination },
       drawings: { result: drawings, loading: drawingsLoading }
     } = this.props
 
@@ -97,6 +97,25 @@ class Corpses extends React.Component {
           <ItemCorpse key={corpse._id} corpse={corpse} />
         )}
       </Box>
+      <Box childDirection='row' childJustify='flex-end'>
+        { pagination.previous &&
+          <Button
+            grow
+            onClick={() => this.props.corpsesLoad(pagination.previous)}
+            skin='tertiary'
+            prefix={<Icon glyph='back'/>}
+          >Previous</Button>
+        }
+        { pagination.next &&
+          <div data-grow='true' style={{textAlign: 'right'}}>
+            <Button
+              onClick={() => this.props.corpsesLoad(pagination.next)}
+              skin='tertiary'
+              suffix={<Icon glyph='forward'/>}
+            >More Corpses</Button>
+          </div>
+        }
+      </Box>
     </Box>)
   }
 }
@@ -105,6 +124,7 @@ Corpses.propTypes = {
   corpsesLoad: PropTypes.func,
   drawingsLoad: PropTypes.func,
   drawingCreate: PropTypes.func,
+  statusChange: PropTypes.func,
   push: PropTypes.func,
   corpses: PropTypes.shape({
     result: PropTypes.arrayOf(PropTypes.shape(propTypesCorpse))
