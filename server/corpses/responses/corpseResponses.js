@@ -46,6 +46,12 @@ const corpse = Joi.object().keys({
 module.exports = {
   list: Joi.object().keys({
     result: Joi.array().items(corpse),
+    pagination: Joi.object().keys({
+      page: Joi.number().min(1).required(),
+      next: Joi.number(),
+      previous: Joi.number(),
+      perPage: Joi.number(),
+    }).required()
   }),
   single: Joi.object().keys({
     result: corpse.required(),
