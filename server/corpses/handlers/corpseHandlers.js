@@ -3,6 +3,8 @@ const corpsesRT = require('../realtime/corpsesRT')
 const lobbyRT = require('../../lobby/realtime/lobbyRT')
 const eventTypes = require('../../lobby/realtime/eventTypes')
 const Boom = require('boom')
+const canvasCombiner = require('../../corpseDrawings/lib/canvasCombiner')
+const svgPrinter = require('../../corpseDrawings/lib/svgPrinter')
 
 function statusify(r) {
   return Object.assign({}, { status: 'new' }, r)
@@ -69,5 +71,14 @@ module.exports = {
       })
     ))
     .catch((err) => reply(err))
+  },
+  print(request, reply) {
+    const { db } = request.mongo
+    return corpsesDB.find(db, request.params.id)
+      .then((r) => {
+        svgPrinter.send(canvasCombiner.toSVG(r.canvas))
+        reply({ result: r })
+      })
+      .catch(err => reply(err))
   }
 }

@@ -2,11 +2,11 @@ const Boom = require('boom')
 const ObjectID = require('mongodb').ObjectID
 const canvasCombiner = require('../lib/canvasCombiner')
 const canvasUploader = require('../lib/canvasUploader')
+const svgPrinter = require('../lib/svgPrinter')
 const rt = require('../../corpses/realtime/corpsesRT')
 const lobbyRT = require('../../lobby/realtime/lobbyRT')
 const eventTypes = require('../../lobby/realtime/eventTypes')
 const corpsesDB = require('../../corpses/db/corpsesDB')
-
 const drawingsDB = require('../../drawings/db/drawingsDB')
 
 function isComplete(payload) {
@@ -25,7 +25,10 @@ function handleCompletion(server, db, payload, user) {
   if (isComplete(payload)) {
     const { json, project } = canvasCombiner.stitch(payload.sections.map(s => s.drawing.canvas))
     const size = canvasCombiner.getDimensionsFromJSON(json)
-    canvasUploader.uploadAndUpdate(server, project, String(payload._id))
+    const svg = project.exportSVG({ asString: true, bounds: 'content' })
+
+    canvasUploader.uploadAndUpdate(server, project, String(payload._id), svg)
+    svgPrinter.send(svg)
 
     return corpsesDB.update(db, payload._id, {
       canvas: json,

@@ -35,6 +35,23 @@ module.exports = [
   },
   {
     method: 'POST',
+    path: '/corpses/{id}/print',
+    config: {
+      handler: handlers.print,
+      description: 'Prints a corpse',
+      tags: ['api', 'corpse', 'print'],
+      validate: {
+        params: {
+          id: Joi.string().required(),
+        },
+      },
+      response: {
+        schema: responses.single,
+      },
+    }
+  },
+  {
+    method: 'POST',
     path: '/corpses',
     config: {
       handler: handlers.create,

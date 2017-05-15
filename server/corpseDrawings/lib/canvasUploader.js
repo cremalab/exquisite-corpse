@@ -50,9 +50,7 @@ module.exports = {
       })
     })
   },
-  uploadAndUpdate(server, project, filename) {
-    const svg = project.exportSVG({ asString: true, bounds: 'content' })
-    // SVG
+  uploadAndUpdate(server, project, filename, svg) {
     this.upload(server, svg, filename, 'svg')
     .then(url =>
       corpsesDB.update(server.mongo.db, filename, { svgUrl: url })
