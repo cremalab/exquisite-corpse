@@ -16,10 +16,9 @@ class DrawingCanvas extends Component {
     this.state = {
       pathType: 'brush',
       eraser: {
-        strokeColor: 'transparent',
+        strokeColor: 'white',
         opacity: 1,
-        blendMode: 'destination-out',
-        strokeWidth: 5,
+        strokeWidth: 1,
       },
       brush: {
         fillColor: 'black',
@@ -217,6 +216,16 @@ class DrawingCanvas extends Component {
 
   onMouseUp() {
     this.mainLayer.activate()
+    if (this.state.pathType === 'eraser') {
+      const erased = this.getCurrentPath()
+      erased.closePath()
+      const drawingPaths = this.mainLayer.getItems()
+      drawingPaths.map((p) => {
+        p.subtract(erased, { insert: false, trace: false })
+        p.remove()
+      })
+      erased.remove()
+    }
     this.getCurrentPath().simplify()
     this.save()
   }
