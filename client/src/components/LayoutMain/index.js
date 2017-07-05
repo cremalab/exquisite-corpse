@@ -6,6 +6,8 @@ import spacing from 'config/spacing'
 import colors from 'config/colors'
 import Spinner from 'react-md-spinner'
 import FlashMessages from 'components/FlashMessages'
+import SectionNav from 'components/SectionNav'
+import { sidebarStyles, mainStyles, containerStyles } from './styles'
 
 const LayoutMain = ({
   back,
@@ -13,10 +15,12 @@ const LayoutMain = ({
   actions,
   content,
   sidebar,
+  activeSection,
 }) => (
   <Box
     grow
-    childFlex>
+    childFlex
+    className={`ui-section-active-${activeSection}`}>
     <Box
       childAlign='center'
       childDirection='row'
@@ -36,7 +40,12 @@ const LayoutMain = ({
         <Box
           grow
           childAlign='center'
-          children={ <Link style={{ textDecoration: 'none'}} to='/'>{title}</Link> }
+          children={
+            <div>
+              <Link style={{ textDecoration: 'none'}} to='/'>{title}</Link>
+              <SectionNav sections={[{key: 'main', text: 'Lobby'}, {key: 'chat', text: 'Chat'}]} />
+            </div>
+          }
         /> }
       { actions &&
         <Box
@@ -44,28 +53,27 @@ const LayoutMain = ({
         /> }
     </Box>
     <FlashMessages />
+
     {/* Main */}
     <Box
       grow
       shrink
       childDirection='row'
       childAlign='stretch'
-      childFlex>
+      childFlex
+      css={containerStyles}>
       <Box
         grow
         shrink
-        css={`
-          background: ${colors['white']};
-        `}
+        css={mainStyles}
+        className={ activeSection === 'main' ? 'ui-active' : '' }
         children={ content ? content : Spinner }/>
       { sidebar &&
         <Box
           childFlex
           childGrow
-          css={`
-            background: ${colors['white-shade-1']};
-          `}
-          basis='350px'
+          className={ activeSection !== 'main' ? 'ui-active' : '' }
+          css={sidebarStyles}
           children={ sidebar } /> }
     </Box>
   </Box>
@@ -77,6 +85,7 @@ LayoutMain.propTypes = {
   actions: PropTypes.node,
   content: PropTypes.node,
   sidebar: PropTypes.node,
+  activeSection: PropTypes.string,
 }
 
 export default LayoutMain
