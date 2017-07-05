@@ -1,6 +1,6 @@
 export default {
-  sm: '400px',
-  md: '768px',
+  sm: '375px',
+  md: '667px',
   lg: '1224px',
   xl: '1824px',
 }

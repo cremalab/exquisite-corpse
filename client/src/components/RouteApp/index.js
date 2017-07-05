@@ -54,6 +54,7 @@ class RouteApp extends Component {
         back={ <Back visible={notRoot} onClick={this.handleBack} /> }
         title="Exquisite Corpse"
         activeSection={ ui.activeSection }
+        location={location}
         content={
           <RoutesContainer data-scroll data-grow>
             <Route exact path="/welcome" component={RouteHome}/>

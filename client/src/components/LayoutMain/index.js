@@ -9,6 +9,16 @@ import FlashMessages from 'components/FlashMessages'
 import SectionNav from 'components/SectionNav'
 import { sidebarStyles, mainStyles, containerStyles } from './styles'
 
+function getSectionsForRoute(location) {
+  if (location.pathname === '/') {
+    return [{key: 'main', text: 'Lobby'}, {key: 'chat', text: 'Chat'}]
+  } else if (location.pathname.match(/drawing/g)) {
+    return [{key: 'main', text: 'Draw'}, {key: 'chat', text: 'Chat'}]
+  } else {
+    return [{key: 'main', text: 'View'}, {key: 'chat', text: 'Chat'}]
+  }
+}
+
 const LayoutMain = ({
   back,
   title,
@@ -16,6 +26,7 @@ const LayoutMain = ({
   content,
   sidebar,
   activeSection,
+  location,
 }) => (
   <Box
     grow
@@ -43,7 +54,7 @@ const LayoutMain = ({
           children={
             <div>
               <Link style={{ textDecoration: 'none'}} to='/'>{title}</Link>
-              <SectionNav sections={[{key: 'main', text: 'Lobby'}, {key: 'chat', text: 'Chat'}]} />
+              <SectionNav sections={getSectionsForRoute(location)} />
             </div>
           }
         /> }
@@ -86,6 +97,7 @@ LayoutMain.propTypes = {
   content: PropTypes.node,
   sidebar: PropTypes.node,
   activeSection: PropTypes.string,
+  location: PropTypes.object,
 }
 
 export default LayoutMain
