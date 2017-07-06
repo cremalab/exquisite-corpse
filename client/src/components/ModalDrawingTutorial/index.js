@@ -33,7 +33,10 @@ const ModalDrawingTutorial = ({
 }) =>
   <ReactModal contentLabel='tutorial' shouldCloseOnOverlayClick={true} isOpen={isOpen} style={styles.modal}>
     <Box childSpacing={spacing[8]} align='center'>
-      { section && <DrawingSectionName corpse={corpse} section={section} prefix={'You are drawing '} /> }
+      <Box grow childFlex childDirection='col' childSpacing={spacing[2]} childAlign='stretch' childJustify='space-between'>
+        { section && <DrawingSectionName grow corpse={corpse} section={section} prefix={'You are drawing '} /> }
+        <Button onClick={uiModalDismiss}>Got it!</Button>
+      </Box>
       { corpse && <ItemCorpseSections noClick={true} showCarrot grow basis={300} corpse={corpse} />  }
       <p style={styles.paragraph}>
         For best results, connect the

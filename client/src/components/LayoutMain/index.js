@@ -58,7 +58,7 @@ const LayoutMain = ({
         childAlign='center'
         children={
           <div>
-            <MediaQuery query={`(min-width : ${breakpoints.md}px)`}>
+            <MediaQuery query={`(min-width : ${breakpoints.lg}px)`}>
               { title && <Link style={{ textDecoration: 'none'}} to='/'>{title}</Link> }
             </MediaQuery>
             <MediaQuery query={`(max-width : ${breakpoints.md}px)`}>
