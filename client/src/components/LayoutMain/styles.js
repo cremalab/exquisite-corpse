@@ -35,12 +35,12 @@ export const mainStyles = `
 export const sidebarStyles = `
   background: ${colors['white-shade-1']};
   @media only screen and (max-width : ${breakpoints.md}px) {
-    height: 0;
+    height: 1px;
 
     &.ui-active {
       flex-grow: 1;
       flex-shrink: 0;
-      height: 560px;
+      height: auto;
     }
   }
 `

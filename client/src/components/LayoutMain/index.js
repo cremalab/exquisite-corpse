@@ -94,7 +94,6 @@ const LayoutMain = ({
           childGrow
           className={ activeSection !== 'main' ? 'ui-active' : '' }
           css={sidebarStyles}
-          basis={'350px'}
           children={ sidebar } /> }
     </Box>
   </Box>
