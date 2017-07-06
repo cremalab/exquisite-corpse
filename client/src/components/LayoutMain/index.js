@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Box from 'react-boxen'
 import { Link } from 'react-router-dom'
+import MediaQuery from 'react-responsive'
+
+import breakpoints from 'config/breakpoints'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
 import Spinner from 'react-md-spinner'
@@ -15,7 +18,6 @@ function getSectionsForRoute(location) {
   } else if (location.pathname.match(/drawing/g)) {
     return [
       {key: 'main', text: 'Draw'},
-      {key: 'activity', text: 'Activity'},
       {key: 'chat', text: 'Chat'},
     ]
   } else {
@@ -58,7 +60,9 @@ const LayoutMain = ({
           children={
             <div>
               <Link style={{ textDecoration: 'none'}} to='/'>{title}</Link>
-              <SectionNav sections={getSectionsForRoute(location)} />
+              <MediaQuery query={`(max-width : ${breakpoints.md})`}>
+                <SectionNav sections={getSectionsForRoute(location)} />
+              </MediaQuery>
             </div>
           }
         /> }
