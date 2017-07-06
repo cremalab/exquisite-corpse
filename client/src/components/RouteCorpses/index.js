@@ -62,8 +62,9 @@ class Corpses extends React.Component {
         childAlign="center"
         childDirection="row"
         childSpacing={spacing[6]}
+        childWrap='wrap'
       >
-        <Box grow='1'><h1>Lobby</h1></Box>
+        <Box grow><h2>Lobby</h2></Box>
         <Box>
           <Button
             prefix={<Icon glyph='draw' />}
