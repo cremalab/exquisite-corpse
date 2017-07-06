@@ -33,6 +33,7 @@ export const mainStyles = `
 `
 
 export const sidebarStyles = `
+  background: ${colors['white-shade-1']};
   @media only screen and (max-width : ${breakpoints.md}px) {
     height: 0;
 
