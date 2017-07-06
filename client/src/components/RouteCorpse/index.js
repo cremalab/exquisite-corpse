@@ -85,22 +85,26 @@ class Corpse extends Component {
     return (
       <div style={{ width: '100%'}}>
         <Box>
-          <Box padding={spacing[6]} childSpacing={spacing[6]} childDirection='row' childAlign='center'>
-            <Box
-              childDirection='row'
-              childSpacing={spacing[4]}
-              childAlign='baseline'
-              grow>
-              <h4>created by</h4><h2>{ creator.name }</h2>
+          <Box Box padding={`${spacing[6]}`}>
+            <Box childSpacing={spacing[6]} childDirection='row' childAlign='center'>
+              <Box
+                childDirection='row'
+                childSpacing={spacing[4]}
+                childAlign='baseline'
+                grow>
+                <h4>created by</h4><h2>{ creator.name }</h2>
+              </Box>
             </Box>
-            <em>{ format(createdAt, 'MMM Do, YYYY, h:mma') }</em>
-            { creatorId === currentUser.id && <Button
-              skin='tertiary'
-              onClick={() => this.handleDestroy()}
-              prefix={<Icon glyph='trash' />}>
-              Delete corpse
-              </Button>
-            }
+            <Box childSpacing={spacing[6]} childDirection='row' childAlign='center' childWrap='wrap'>
+              <em>{ format(createdAt, 'MMM Do, YYYY, h:mma') }</em>
+              { creatorId === currentUser.id && <Button
+                skin='tertiary'
+                onClick={() => this.handleDestroy()}
+                prefix={<Icon glyph='trash' />}>
+                Delete corpse
+                </Button>
+              }
+            </Box>
           </Box>
           {
             sections.map((section, i) => {

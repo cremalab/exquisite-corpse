@@ -13,7 +13,11 @@ function getSectionsForRoute(location) {
   if (location.pathname === '/') {
     return [{key: 'main', text: 'Lobby'}, {key: 'chat', text: 'Chat'}]
   } else if (location.pathname.match(/drawing/g)) {
-    return [{key: 'main', text: 'Draw'}, {key: 'chat', text: 'Chat'}]
+    return [
+      {key: 'main', text: 'Draw'},
+      {key: 'activity', text: 'Activity'},
+      {key: 'chat', text: 'Chat'},
+    ]
   } else {
     return [{key: 'main', text: 'View'}, {key: 'chat', text: 'Chat'}]
   }
