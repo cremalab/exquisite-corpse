@@ -17,6 +17,7 @@ import colors from 'config/colors'
 import spacing from 'config/spacing'
 import { addMilliseconds } from 'date-fns'
 import { MEMBER_WINDOW, GUEST_WINDOW } from '../../../../config/constants'
+import ItemCorpseSections from 'components/ItemCorpseSections'
 
 class RouteDrawing extends Component {
   componentWillMount() {
@@ -44,29 +45,37 @@ class RouteDrawing extends Component {
   }
 
   render() {
-    const { drawing: { result, loading, saving } } = this.props
+    const { drawing: { result, loading, saving }, corpse } = this.props
     let timeWindow = MEMBER_WINDOW
     if (result.drawer && result.drawer.provider === 'guest') {
       timeWindow = GUEST_WINDOW
     }
     const expiration = addMilliseconds(new Date(result.updatedAt), timeWindow)
+    const sectionName = corpse.sections
+      .filter(x => x._id === result.section)
+      .map(s => <em key={s._id} style={{color: colors['primary']}}>{s.description}</em>)[0]
+    const instructions = (
+      <div style={{textAlign: 'center'}}>
+        <p style={{ fontWeight: 'bold' }}>You are drawing {sectionName}</p>
+        <p style={{ fontSize: '12px' }}>
+          <LiveTimestamp target={expiration} prefix='expires'/>, based on your last edit
+        </p>
+      </div>
+    )
+
     let alert = null
     if (result.status === 'expired') {
       alert = <h4>This drawing wasn't completed in time and is expired.</h4>
     } else if (!result.corpse) {
       alert = <h4>Oh no! The creator of this corpse decided to delete it :(</h4>
     }
-
+    // {corpse && <ItemCorpseSections corpse={corpse} grow basis={100} /> }
     if ( loading ) return <Spinner />
     return (
       <Box>
-        { alert ? alert : <Box grow padding={spacing[5]} style={{ textAlign: 'center', background: colors['white-shade-1'] }}>
-          <span><LiveTimestamp target={expiration} prefix='Your drawing expires'/>
-          , based on your last edit.
-          </span>
-          </Box>
-        }
-
+        <Box align='center' padding={spacing[4]}>
+          { alert ? alert : instructions }
+        </Box>
         <DrawingCanvas
           drawing={result}
           saving={saving}

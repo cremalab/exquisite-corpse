@@ -7,7 +7,7 @@ import breakpoints from 'config/breakpoints'
 // export const sidebarStyles = ``
 
 export const containerStyles = `
-  @media only screen and (max-width : ${breakpoints.md}) {
+  @media only screen and (max-width : ${breakpoints.md}px) {
     > div {
       flex-direction: column;
 
@@ -18,7 +18,7 @@ export const containerStyles = `
 export const mainStyles = `
   background: ${colors['white']};
 
-  @media only screen and (max-width : ${breakpoints.md}) {
+  @media only screen and (max-width : ${breakpoints.md}px) {
     height: 0;
     flex-grow: 0;
     flex-shrink: 1;
@@ -33,7 +33,7 @@ export const mainStyles = `
 `
 
 export const sidebarStyles = `
-  @media only screen and (max-width : ${breakpoints.md}) {
+  @media only screen and (max-width : ${breakpoints.md}px) {
     height: 0;
 
     &.ui-active {

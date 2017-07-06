@@ -53,19 +53,20 @@ const LayoutMain = ({
         <div
           children={ back }
         /> }
-      { title &&
-        <Box
-          grow
-          childAlign='center'
-          children={
-            <div>
-              <Link style={{ textDecoration: 'none'}} to='/'>{title}</Link>
-              <MediaQuery query={`(max-width : ${breakpoints.md})`}>
-                <SectionNav sections={getSectionsForRoute(location)} />
-              </MediaQuery>
-            </div>
-          }
-        /> }
+      <Box
+        grow
+        childAlign='center'
+        children={
+          <div>
+            <MediaQuery query={`(min-width : ${breakpoints.md}px)`}>
+              { title && <Link style={{ textDecoration: 'none'}} to='/'>{title}</Link> }
+            </MediaQuery>
+            <MediaQuery query={`(max-width : ${breakpoints.md}px)`}>
+              <SectionNav sections={getSectionsForRoute(location)} />
+            </MediaQuery>
+          </div>
+        }
+      />
       { actions &&
         <Box
           children={ actions }

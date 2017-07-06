@@ -12,10 +12,7 @@ import colors from 'config/colors'
 
 const RouteDrawingSidebar = ({ corpse }) =>
   <Box grow childFlex childDirection='column'>
-    <MediaQuery query={`(max-width : ${breakpoints.md})`}>
-      <ItemCorpseSections corpse={corpse} grow basis={100} />
-    </MediaQuery>
-    <MediaQuery query={`(min-width : ${breakpoints.md})`}>
+    <MediaQuery query={`(min-width : ${breakpoints.md + 1}px)`}>
       <ItemCorpseSections corpse={corpse} showCarrot grow basis={300} />
     </MediaQuery>
     <Box
