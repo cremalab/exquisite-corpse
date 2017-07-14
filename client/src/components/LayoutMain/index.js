@@ -38,7 +38,7 @@ const LayoutMain = ({
     <Box
       childFlex
       childGrow
-      style={{ maxWidth: '414px', minWidth: '260px' }}
+      style={{ minWidth: '260px' }}
       children={ sidebar } />
     )
   const Main = (
