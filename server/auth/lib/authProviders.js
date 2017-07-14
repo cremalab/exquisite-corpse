@@ -22,6 +22,12 @@ module.exports = {
           id: credentials.profile.id,
         }
         break
+      case 'facebook':
+        base = {
+          name: credentials.profile.name,
+          id: credentials.profile.id,
+        }
+        break
       case 'guest':
         base = {
           name: credentials.name || 'anonymous',

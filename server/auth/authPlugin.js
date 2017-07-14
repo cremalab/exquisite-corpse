@@ -42,6 +42,15 @@ exports.register = (server, options, next) => {
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     })
 
+    server.auth.strategy('facebook', 'bell', {
+      provider: 'facebook',
+      password: process.env.COOKIE_PASSWORD || 'cookie_encryption_password_secure',
+      isSecure: false,
+      location: `${process.env.PUBLIC_URL}`,
+      clientId: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_APP_SECRET,
+    })
+
     server.auth.default('userCookie')
 
     server.route(authRoutes)
