@@ -99,7 +99,7 @@ class Corpses extends React.Component {
         )}
       </Box>
       <Box childDirection='row' childJustify='flex-end'>
-        { pagination.previous &&
+        { pagination.previous > 0 &&
           <Button
             grow
             onClick={() => this.props.corpsesLoad(pagination.previous)}
@@ -107,7 +107,7 @@ class Corpses extends React.Component {
             prefix={<Icon glyph='back'/>}
           >Previous</Button>
         }
-        { pagination.next &&
+        { pagination.next > 0 &&
           <div data-grow='true' style={{textAlign: 'right'}}>
             <Button
               onClick={() => this.props.corpsesLoad(pagination.next)}

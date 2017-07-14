@@ -10,7 +10,7 @@ import colors from 'config/colors'
 import Spinner from 'react-md-spinner'
 import FlashMessages from 'components/FlashMessages'
 import SectionNav from 'components/SectionNav'
-import { sidebarStyles, mainStyles, containerStyles } from './styles'
+import { Desktop, Mobile } from 'components/Responsive'
 
 function getSectionsForRoute(location) {
   if (location.pathname === '/') {
@@ -33,71 +33,81 @@ const LayoutMain = ({
   sidebar,
   activeSection,
   location,
-}) => (
-  <Box
-    grow
-    childFlex
-    className={`ui-section-active-${activeSection}`}>
+}) => {
+  const Sidebar = (
     <Box
-      childAlign='center'
-      childDirection='row'
-      childSpacing={spacing[5]}
-      shrink={0}
-      css={`
-        background-color: ${colors.primary};
-        color: ${colors['white-shade-2']};
-        padding: ${spacing[4]} ${spacing[5]};
-        & a { color: white; }
-      `}>
-      { back &&
-        <div
-          children={ back }
-        /> }
-      <Box
-        grow
-        childAlign='center'
-        children={
-          <div>
-            <MediaQuery query={`(min-width : ${breakpoints.lg}px)`}>
-              { title && <Link style={{ textDecoration: 'none'}} to='/'>{title}</Link> }
-            </MediaQuery>
-            <MediaQuery query={`(max-width : ${breakpoints.md}px)`}>
-              <SectionNav sections={getSectionsForRoute(location)} />
-            </MediaQuery>
-          </div>
-        }
-      />
-      { actions &&
-        <Box
-          children={ actions }
-        /> }
-    </Box>
-    <FlashMessages />
+      childFlex
+      childGrow
+      style={{ maxWidth: '414px', minWidth: '260px' }}
+      children={ sidebar } />
+    )
+  const Main = (
+    <Box
+      shrink
+      grow
+      children={ content ? content : Spinner }/>
+  )
 
-    {/* Main */}
+  return (
     <Box
       grow
-      shrink
-      childDirection='row'
-      childAlign='stretch'
       childFlex
-      css={containerStyles}>
+      className={`ui-section-active-${activeSection}`}>
       <Box
-        grow
-        shrink
-        css={mainStyles}
-        className={ activeSection === 'main' ? 'ui-active' : '' }
-        children={ content ? content : Spinner }/>
-      { sidebar &&
+        childAlign='center'
+        childDirection='row'
+        childSpacing={spacing[5]}
+        shrink={0}
+        css={`
+          background-color: ${colors.primary};
+          color: ${colors['white-shade-2']};
+          padding: ${spacing[4]} ${spacing[5]};
+          & a { color: white; }
+        `}>
+        { back &&
+          <div
+            children={ back }
+          /> }
         <Box
-          childFlex
-          childGrow
-          className={ activeSection !== 'main' ? 'ui-active' : '' }
-          css={sidebarStyles}
-          children={ sidebar } /> }
+          grow
+          childAlign='center'
+          children={
+            <div>
+              <MediaQuery query={`(min-width : ${breakpoints.lg}px)`}>
+                { title && <Link style={{ textDecoration: 'none'}} to='/'>{title}</Link> }
+              </MediaQuery>
+              <MediaQuery query={`(max-width : ${breakpoints.md}px)`}>
+                <SectionNav sections={getSectionsForRoute(location)} />
+              </MediaQuery>
+            </div>
+          }
+        />
+        { actions &&
+          <Box
+            children={ actions }
+          /> }
+      </Box>
+      <FlashMessages />
+
+      {/* Main */}
+      <div
+        data-grow
+        style={{ display: 'flex', flexGrow: 1 }}
+        className='outer'>
+        <Desktop grow style={{ display: 'flex', flexGrow: 1 }} className={'desktop'}>
+          { Main }
+          { sidebar && Sidebar }
+        </Desktop>
+
+        <Mobile grow style={{ display: 'flex', flexGrow: activeSection === 'main' ? 0 : 1 }} className={'mobile'}>
+          { activeSection === 'main' && Main }
+          { activeSection !== 'main' && Sidebar }
+        </Mobile>
+
+      </div>
     </Box>
-  </Box>
-)
+  )
+}
 
 LayoutMain.propTypes = {
   back: PropTypes.node,

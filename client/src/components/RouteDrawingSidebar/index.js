@@ -2,9 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Box from 'react-boxen'
-import MediaQuery from 'react-responsive'
 
-import breakpoints from 'config/breakpoints'
 import ItemCorpseSections from 'components/ItemCorpseSections'
 import ChatMessages from 'components/ChatMessages'
 import ListUsers from 'components/ListUsers'
@@ -12,7 +10,7 @@ import colors from 'config/colors'
 
 const RouteDrawingSidebar = ({ corpse }) =>
   <Box grow childFlex childDirection='column'>
-      <ItemCorpseSections corpse={corpse} showCarrot grow basis={300} />
+    <ItemCorpseSections corpse={corpse} noClick={true} showCarrot grow basis={300} />
     <Box
       childFlex
       grow

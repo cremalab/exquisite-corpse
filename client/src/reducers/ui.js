@@ -2,11 +2,13 @@ import {
   UI_SET_SECTION,
   UI_MODAL_OPEN,
   UI_MODAL_DISMISS,
+  UI_TUTORIAL_SET,
 } from 'config/actionTypes'
 
 const initialState = {
   activeSection: 'main',
-  activeModal: null
+  activeModal: null,
+  tutorialSeen: false,
 }
 
 function ui(state = initialState, action) {
@@ -25,6 +27,11 @@ function ui(state = initialState, action) {
       return {
         ...state,
         activeModal: null,
+      }
+    case UI_TUTORIAL_SET:
+      return {
+        ...state,
+        tutorialSeen: true,
       }
     default:
       return state

@@ -19,6 +19,7 @@ const Back = ({ visible = false, onClick }) =>
         transition: all 0.25s ease-in-out;
         transform: translateX(${visible ? '0%' : '-100%'});
         opacity: ${visible ? 1 : 0};
+        max-width: ${visible ? 'none' : '1px' };
       `}>
       <Icon glyph='back'/>
       Back

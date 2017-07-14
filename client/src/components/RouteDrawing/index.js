@@ -72,7 +72,7 @@ class RouteDrawing extends Component {
     if ( loading ) return <Spinner />
     return (
       <Box>
-        { result.section &&
+        { (result.section && !ui.tutorialSeen) &&
           <ModalDrawingTutorial
             isOpen={ui.activeModal === 'tutorial' && (result && result.status !== 'expired')}
             corpse={corpse}
