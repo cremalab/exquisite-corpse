@@ -74,7 +74,8 @@ class DrawingCanvas extends Component {
       <Box
         padding='10px'
         childDirection='row'
-        childSpacing='10px'>
+        childSpacing='10px'
+        childWrap='wrap'>
         <Button
           type="button"
           children="Undo"

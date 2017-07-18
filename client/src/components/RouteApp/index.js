@@ -45,7 +45,7 @@ class RouteApp extends Component {
   }
 
   render() {
-    const { currentUser, location } = this.props
+    const { currentUser, location, ui } = this.props
     if (!currentUser) return null
     const notRoot = location.pathname !== '/'
 
@@ -53,6 +53,8 @@ class RouteApp extends Component {
       <LayoutMain
         back={ <Back visible={notRoot} onClick={this.handleBack} /> }
         title="Exquisite Corpse"
+        activeSection={ ui.activeSection }
+        location={location}
         content={
           <RoutesContainer data-scroll data-grow>
             <Route exact path="/welcome" component={RouteHome}/>
@@ -78,6 +80,7 @@ class RouteApp extends Component {
 RouteApp.propTypes = {
   currentUser: PropTypes.object,
   drawing: PropTypes.object,
+  ui: PropTypes.object,
   initialize: PropTypes.func,
   location: PropTypes.object,
   push: PropTypes.func,
@@ -85,7 +88,8 @@ RouteApp.propTypes = {
 
 const mapStateToProps = state => ({
   currentUser: state.users.currentUser,
-  drawing: state.drawing
+  drawing: state.drawing,
+  ui: state.ui,
 })
 
 export default connect(mapStateToProps, { initialize, push, })(RouteApp)

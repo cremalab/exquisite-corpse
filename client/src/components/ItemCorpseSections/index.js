@@ -29,7 +29,8 @@ const Carrot = styled.div`
 
 class ItemCorpseSections extends PureComponent {
   handleDrawing(section) {
-    const { dispatch, userId, corpse } = this.props
+    const { dispatch, userId, corpse, noClick } = this.props
+    if (noClick) { return }
     if (corpse.status === 'complete') { return }
     if (section.drawer && section.drawer.id === userId) {
       dispatch(push(`/drawing/${section.drawing._id}`))
@@ -40,7 +41,7 @@ class ItemCorpseSections extends PureComponent {
   }
 
   render() {
-    const { corpse, userId, sectionId, showCarrot } = this.props
+    const { corpse, userId, sectionId, showCarrot, noClick } = this.props
     return (
       <Box
         childFlex>
@@ -52,7 +53,7 @@ class ItemCorpseSections extends PureComponent {
               (sectionId === _id)
             const status = corpseHelpers.sectionStatus(section)
             const statusLabel = corpseHelpers.statusToLabel(status)
-            const mayInteract = (drawer && drawer.id === userId) || (!drawer)
+            const mayInteract = !noClick && (drawer && drawer.id === userId) || (!drawer)
             return (
               <Box
                 grow
@@ -88,6 +89,7 @@ ItemCorpseSections.propTypes = {
   userId: PropTypes.string,
   sectionId: PropTypes.string,
   showCarrot: PropTypes.bool,
+  noClick: PropTypes.bool,
   dispatch: PropTypes.func,
 }
 

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import DrawingCanvas from '../DrawingCanvas'
 import LiveTimestamp from '../LiveTimestamp'
+import DrawingSectionName from '../DrawingSectionName'
+import ModalDrawingTutorial from '../ModalDrawingTutorial'
 import Spinner from 'react-md-spinner'
 import drawingLoad from 'actions/drawingLoad'
 import drawingSave from 'actions/drawingSave'
@@ -12,8 +14,8 @@ import drawingClear from 'actions/drawingClear'
 import statusChange from 'actions/statusChange'
 import subscribe from 'actions/subscribe'
 import unsubscribe from 'actions/unsubscribe'
+import uiModalOpen from 'actions/uiModalOpen'
 import Box from 'react-boxen'
-import colors from 'config/colors'
 import spacing from 'config/spacing'
 import { addMilliseconds } from 'date-fns'
 import { MEMBER_WINDOW, GUEST_WINDOW } from '../../../../config/constants'
@@ -28,6 +30,7 @@ class RouteDrawing extends Component {
     const { dispatch, drawingId } = this.props
     dispatch(drawingLoad(drawingId, true))
     dispatch(statusChange('drawing'))
+    dispatch(uiModalOpen('tutorial'))
   }
 
   componentWillUnmount() {
@@ -44,12 +47,21 @@ class RouteDrawing extends Component {
   }
 
   render() {
-    const { drawing: { result, loading, saving } } = this.props
+    const { drawing: { result, loading, saving }, corpse, ui } = this.props
     let timeWindow = MEMBER_WINDOW
     if (result.drawer && result.drawer.provider === 'guest') {
       timeWindow = GUEST_WINDOW
     }
     const expiration = addMilliseconds(new Date(result.updatedAt), timeWindow)
+    const instructions = (
+      <div style={{textAlign: 'center'}}>
+        { result.section && <DrawingSectionName corpse={corpse} section={result.section} prefix='You are drawing ' /> }
+        <p style={{ fontSize: '12px' }}>
+          <LiveTimestamp target={expiration} prefix='expires'/>, based on your last edit
+        </p>
+      </div>
+    )
+
     let alert = null
     if (result.status === 'expired') {
       alert = <h4>This drawing wasn't completed in time and is expired.</h4>
@@ -60,13 +72,16 @@ class RouteDrawing extends Component {
     if ( loading ) return <Spinner />
     return (
       <Box>
-        { alert ? alert : <Box grow padding={spacing[5]} style={{ textAlign: 'center', background: colors['white-shade-1'] }}>
-          <span><LiveTimestamp target={expiration} prefix='Your drawing expires'/>
-          , based on your last edit.
-          </span>
-          </Box>
+        { (result.section && !ui.tutorialSeen) &&
+          <ModalDrawingTutorial
+            isOpen={ui.activeModal === 'tutorial' && (result && result.status !== 'expired')}
+            corpse={corpse}
+            section={result.section}
+            timeWindow={timeWindow} />
         }
-
+        <Box align='center' padding={spacing[4]}>
+          { alert ? alert : instructions }
+        </Box>
         <DrawingCanvas
           drawing={result}
           saving={saving}
@@ -100,6 +115,7 @@ RouteDrawing.propTypes = {
   drawingId: PropTypes.string,
   subscribed: PropTypes.bool,
   corpse: PropTypes.object,
+  ui: PropTypes.object,
 }
 
 function mapStateToProps(state, props) {
@@ -108,6 +124,7 @@ function mapStateToProps(state, props) {
     drawing: state.drawing,
     subscribed: state.drawing.corpseSubscribed,
     corpse: state.corpse,
+    ui: state.ui,
   }
 }
 

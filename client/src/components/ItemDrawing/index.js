@@ -57,7 +57,7 @@ class ItemDrawing extends Component {
           childFlex
           childGrow
           childSpacing={spacing[3]}>
-            <Canvas style={css.surface} json={drawing.canvas} width={400} />
+            <Canvas style={css.surface} json={drawing.canvas} width={300} />
         </Box>
         <Box
           childDirection='row'
