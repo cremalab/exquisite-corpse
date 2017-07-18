@@ -2,12 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+import Box from 'react-boxen'
 
 import uiSetSection from 'actions/uiSetSection'
 import Button from 'components/Button'
 
 const SectionNav = ({ sections, ui, uiSetSection }) =>
-  <div>
+  <Box childDirection='row' childSpacing={'8px'}>
     { sections.map(s => {
       return (<Button
         key={s.key}
@@ -17,7 +18,7 @@ const SectionNav = ({ sections, ui, uiSetSection }) =>
         </Button>
       )
     })}
-  </div>
+  </Box>
 
 
 SectionNav.propTypes = {
