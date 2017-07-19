@@ -24,7 +24,7 @@ module.exports = {
         break
       case 'facebook':
         base = {
-          name: credentials.profile.name,
+          name: credentials.profile.displayName,
           id: credentials.profile.id,
         }
         break

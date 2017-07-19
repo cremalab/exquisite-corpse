@@ -33,7 +33,7 @@ const ModalDrawingTutorial = ({
 }) =>
   <ReactModal contentLabel='tutorial' shouldCloseOnOverlayClick={true} isOpen={isOpen} style={styles.modal}>
     <Box childSpacing={spacing[8]} align='center'>
-      <Box grow childFlex childDirection='col' childSpacing={spacing[2]} childAlign='stretch' childJustify='space-between'>
+      <Box grow childFlex childDirection='column' childSpacing={spacing[2]} childAlign='stretch' childJustify='space-between'>
         { section && <DrawingSectionName grow corpse={corpse} section={section} prefix={'You are drawing '} /> }
         <Button onClick={uiDismissTutorial}>Got it!</Button>
       </Box>
