@@ -47,6 +47,7 @@ class DrawingCanvas extends Component {
     if ( !this.tool) this.makeInteractive()
     if (canvas) this.mainLayer.importJSON(canvas)
     if (drawing.anchorPoints) { this.drawGuides() }
+    window.dispatchEvent(new Event('resize'))
   }
 
   componentWillUnmount() {
