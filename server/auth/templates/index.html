@@ -3,22 +3,74 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Exquisite Corpse</title>
+    <title>Scribble Corpse</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <style media="screen">
+      .container {
+        padding: 2em 0;
+      }
+      .center {
+        text-align: center;
+      }
+      .left {
+        text-align: left;
+      }
+      .section {
+        padding: 1em 0;
+      }
+      .button.button-primary, button.button-primary {
+        background-color: #79589f;
+        border: none;
+      }
+      .button.button-primary:hover. button.button-primary:hover {
+        background-color: #596981;
+      }
+      hr {
+        border-top: 1px solid #c5d6f1;
+      }
+    </style>
   </head>
   <body>
-    <h1>Login</h1>
+    <div class='container center'>
+      <h1 class='center'>Scribble Corpse</h1>
+      <p>A realtime, mutiplayer <a href='https://en.wikipedia.org/wiki/Exquisite_corpse'>exquisite corpse</a> drawing game made by
+        <a href='http://crema.us'>Crema</a>.
+      </p>
+      <div class='section'>
+        <h5>If you wanna be sure you can find your drawings later, log in with</h5>
+        <div class='row'>
+          {% for provider in enabledProviders %}
+            <div class='four columns'>
+              <a class="button button-primary u-full-width" href='{{ provider.route }}'>{{ provider.name }}</a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
 
-    <h2>If you wanna be sure you can find your drawings later:</h2>
-    {% for provider in enabledProviders %}
-      <h3>log in with <a href='{{ provider.route }}'>{{ provider.name }}</a></h3>
-    {% endfor %}
+      <div class='row'>
+        <div class='five columns'><hr /></div>
+        <div class='two columns'><h5>OR</h5></div>
+        <div class='five columns'><hr /></div>
+      </div>
 
-    <h2>If you just wanna jump in and draw:</h2>
-    <form class="" action="/login/guest" method="post">
-      <label for="name">Name</label>
-      <input name="name" id="name" />
-      <button>Go!</button>
-    </form>
+      <div class='section'>
+        <h5>If you just wanna jump in and draw</h5>
+        <form class="" action="/login/guest" method="post">
+          <div class='row'>
+            <div class='three columns'>&nbsp;</div>
+            <div class='four columns left'>
+              <label for="name">Your Name</label>
+              <input type="text" class="u-full-width" name="name" placeholder="Namey Namerson" id="name">
+            </div>
+            <div class='two columns'>
+              <label for="submit">&nbsp;</label>
+              <button class='u-full-width button-primary'>Go!</button>
+            </div>
+            <div class='three columns'>&nbsp;</div>
+          </div>
+        </form>
+      </div>
+    </div>
 
   </body>
 </html>
