@@ -33,7 +33,6 @@ const exampleFileName = (corpse, section) => {
     .filter(x => x._id === section)
   if (selectedSection.length === 0) { return null }
   const sectionName = selectedSection[0].description.toLowerCase()
-  console.log(sectionName)
   const supported = ['head', 'torso', 'legs']
   if (supported.indexOf(sectionName) > -1) {
     return `guide-example-${sectionName}`
