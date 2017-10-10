@@ -25,6 +25,17 @@ function getSectionsForRoute(location) {
   }
 }
 
+const footerStyle = {
+  backgroundColor: colors.primary,
+  width: '100%',
+  padding: '0.4em',
+  color: colors.white,
+  fontSize: '10px'
+}
+const footerLink = {
+  color: colors.white
+}
+
 const LayoutMain = ({
   back,
   title,
@@ -105,6 +116,10 @@ const LayoutMain = ({
         </Mobile>
 
       </div>
+      <Box style={footerStyle} childDirection={'row'}>
+        <div data-grow>an experiment by <a style={footerLink} href='http://crema.us'>Crema</a></div>
+        <div><a style={footerLink} href='/logout'>Logout</a></div>
+      </Box>
     </Box>
   )
 }

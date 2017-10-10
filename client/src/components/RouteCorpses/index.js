@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 import corpsesLoad from 'actions/corpsesLoad'
 import drawingsLoad from 'actions/drawingsLoad'
 import statusChange from 'actions/statusChange'
+import uiModalOpen from 'actions/uiModalOpen'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Spinner from 'react-md-spinner'
 import Box from 'react-boxen'
 import ItemCorpse from 'components/ItemCorpse'
 import ItemDrawing from 'components/ItemDrawing'
+import ModalHelp from 'components/ModalHelp'
 import propTypesCorpse from 'propTypes/Corpse'
 import {push} from 'react-router-redux'
 import { isBefore } from 'date-fns'
@@ -16,6 +18,7 @@ import drawingCreate from 'actions/drawingCreate'
 import Button from 'components/Button'
 import Icon from 'components/Icon'
 import spacing from 'config/spacing'
+import colors from 'config/colors'
 
 class Corpses extends React.Component {
   componentDidMount() {
@@ -27,6 +30,8 @@ class Corpses extends React.Component {
     const {
       drawingCreate,
       push,
+      uiModalOpen,
+      activeModal,
       corpses: { result: corpses, loading: corpsesLoading, pagination },
       drawings: { result: drawings, loading: drawingsLoading }
     } = this.props
@@ -40,6 +45,7 @@ class Corpses extends React.Component {
       padding={spacing[6]}
       childSpacing={spacing[6]}
     >
+      <ModalHelp isOpen={ activeModal === 'help' } />
       { drawings.length && <Box childSpacing={spacing[6]}>
         <h3>Your unfinished drawings</h3>
         <Box
@@ -64,7 +70,16 @@ class Corpses extends React.Component {
         childSpacing={spacing[6]}
         childWrap='wrap'
       >
-        <Box grow><h2>Lobby</h2></Box>
+        <Box grow>
+          <h2>
+            Lobby
+            <span
+              style={{ color: colors.primary }}
+              onClick={() => uiModalOpen('help')}>
+              <Icon glyph='help' size={'0.8em'} />
+            </span>
+          </h2>
+        </Box>
         <Box>
           <Button
             prefix={<Icon glyph='draw' />}
@@ -127,6 +142,8 @@ Corpses.propTypes = {
   drawingCreate: PropTypes.func,
   statusChange: PropTypes.func,
   push: PropTypes.func,
+  uiModalOpen: PropTypes.func,
+  activeModal: PropTypes.string,
   corpses: PropTypes.shape({
     result: PropTypes.arrayOf(PropTypes.shape(propTypesCorpse))
   }),
@@ -150,6 +167,7 @@ function mapStateToProps(state) {
   return {
     corpses: state.corpses,
     drawings: state.drawings,
+    activeModal: state.ui.activeModal,
   }
 }
 
@@ -159,7 +177,8 @@ function mapDispatchToProps(dispatch) {
     drawingsLoad,
     drawingCreate,
     statusChange,
-    push
+    push,
+    uiModalOpen,
   }, dispatch)
 }
 
