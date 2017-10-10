@@ -1,10 +1,11 @@
 const providers = require('../lib/authProviders')
 
 const enabledProviders = [
-  {name: 'Slack', route: '/login/slack' },
+  // {name: 'Slack', route: '/login/slack' },
   // {name: 'Instagram', route: '/login/instagram' },
-  {name: 'Github', route: '/login/github' },
   {name: 'Facebook', route: '/login/facebook' },
+  {name: 'Google', route: '/login/google' },
+  {name: 'Github', route: '/login/github' },
 ]
 
 module.exports = [
@@ -61,6 +62,22 @@ module.exports = [
     config: {
       auth: 'facebook',
       description: 'Login with Facebook',
+      handler(request, reply) {
+        if (request.auth.isAuthenticated) {
+          request.cookieAuth.set(providers.standardizeProfile(request.auth.credentials))
+          return reply.redirect('/')
+        }
+        return reply.view('index')
+      },
+      tags: ['auth', 'bell'],
+    },
+  },
+  {
+    method: 'GET',
+    path: '/login/google',
+    config: {
+      auth: 'google',
+      description: 'Login with Google',
       handler(request, reply) {
         if (request.auth.isAuthenticated) {
           request.cookieAuth.set(providers.standardizeProfile(request.auth.credentials))

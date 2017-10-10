@@ -28,6 +28,13 @@ module.exports = {
           id: credentials.profile.id,
         }
         break
+      case 'google':
+        console.log(credentials)
+        base = {
+          name: credentials.profile.displayName,
+          id: credentials.profile.id,
+        }
+        break
       case 'guest':
         base = {
           name: credentials.name || 'anonymous',
