@@ -204,45 +204,45 @@
     </div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
     <script type="text/javascript">
-      const anime = window.anime
+      var anime = window.anime
       if (anime) {
-        const headT = anime.timeline({
+        var headT = anime.timeline({
           targets: '#demo-canvas #demo-canvas-head',
         })
-        const headCoverNameT = anime.timeline({
+        var headCoverNameT = anime.timeline({
           targets: '#demo-canvas-head .demo-canvas-section-cover.name',
         })
-        const headCoverT = anime.timeline({
+        var headCoverT = anime.timeline({
           targets: '#demo-canvas-head .demo-canvas-section-cover.in-progress',
         })
-        const headCoverCompleteT = anime.timeline({
+        var headCoverCompleteT = anime.timeline({
           targets: '#demo-canvas-head .demo-canvas-section-cover.complete',
         })
 
-        const torsoT = anime.timeline({
+        var torsoT = anime.timeline({
           targets: '#demo-canvas #demo-canvas-torso',
         })
-        const torsoCoverT = anime.timeline({
+        var torsoCoverT = anime.timeline({
           targets: '#demo-canvas-torso .demo-canvas-section-cover',
         })
-        const torsoDrawingT = anime.timeline({
+        var torsoDrawingT = anime.timeline({
           targets: '#demo-canvas-torso .pencil'
         })
 
-        const legsT = anime.timeline({
+        var legsT = anime.timeline({
           targets: '#demo-canvas #demo-canvas-legs',
         })
-        const legsCoverT = anime.timeline({
+        var legsCoverT = anime.timeline({
           targets: '#demo-canvas-legs .demo-canvas-section-cover.complete',
         })
-        const legsCoverProgressT = anime.timeline({
+        var legsCoverProgressT = anime.timeline({
           targets: '#demo-canvas-legs .demo-canvas-section-cover.in-progress',
         })
-        const legsDrawingT = anime.timeline({
+        var legsDrawingT = anime.timeline({
           targets: '#demo-canvas-legs .demo-canvas-section-drawing',
         })
 
-        const torsoDrawing = anime.path('#demo-canvas-torso path.drawing-path')
+        var torsoDrawing = anime.path('#demo-canvas-torso path.drawing-path')
 
 
         headT
@@ -362,6 +362,15 @@
             opacity: 0,
           })
 
+        var lineDrawing = anime({
+          targets: '#demo-canvas-torso path.drawing-path',
+          strokeDashoffset: [anime.setDashoffset, 0],
+          easing: 'linear',
+          duration: 4000,
+          offset: 3000,
+          delay: function(el, i) { return i * 250 },
+        })
+
         legsT
           .add({
             translateY: 300,
@@ -407,7 +416,7 @@
           .add({
             zIndex: 5,
             delay: 7600,
-          })        
+          })
       }
 
     </script>
