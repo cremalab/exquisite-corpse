@@ -5,6 +5,7 @@ const corpseSchemas = require('./corpseSchemas')
 const ObjectID = require('mongodb').ObjectID
 const utils = require('../../utils')
 const drawingsDB = require('../../drawings/db/drawingsDB')
+const reputationsDB = require('../../reputations/db/reputationsDB')
 
 const dbSchema = Joi.object().required()
 
@@ -129,5 +130,14 @@ module.exports = {
       drawingsDB.orphanize(db, id)
       return corpse
     })
+  },
+  like(db, id, user_id) {
+    return reputationsDB.addOpinion(db, 'corpses', id, 1, user_id)
+  },
+  dislike(db, id, user_id) {
+    return reputationsDB.addOpinion(db, 'corpses', id, -1, user_id)
+  },
+  removeOpinion(db, id, user_id) {
+    return reputationsDB.removeOpinion(db, 'corpses', id, user_id)
   }
 }
