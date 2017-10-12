@@ -20,7 +20,8 @@ module.exports = {
           R.map(R.compose(R.prop('name'), R.prop('drawer')), data.sections)
         )
         reply.view('index.html', {
-          creator: R.join(', ', drawerNames),
+          creator: data.creator.name,
+          drawers: R.join(', ', drawerNames),
           pageUrl: pageUrl,
           pageImage: {
             url: data.pngUrl,
