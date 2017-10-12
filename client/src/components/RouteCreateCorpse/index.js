@@ -2,10 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import corpseCreate from 'actions/corpseCreate'
 import Box from 'react-boxen'
-import { reduxForm, FieldArray } from 'redux-form'
+import { reduxForm, FieldArray, Field } from 'redux-form'
 import InputCorpseSection from '../InputCorpseSection'
 import {FORM_CREATE_CORPSE as form} from 'config/constants'
 import Button from 'components/Button'
+import InputField from '../InputField'
 import spacing from 'config/spacing'
 
 const anchorPoints = {
@@ -51,6 +52,13 @@ class RouteCreateCorpse extends React.Component {
               Use the guides to choose where you want each canvas' drawing
               to begin and end.
             </p>
+            <Field
+              name="description"
+              component={InputField}
+              type="text"
+              placeholder='Title/description (optional)'
+              autoComplete="on"
+            />
             <FieldArray
               name="sections"
               anchorPoints={anchorPoints}

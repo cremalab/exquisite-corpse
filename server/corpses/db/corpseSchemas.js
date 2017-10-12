@@ -31,11 +31,13 @@ const basicSection = Joi.object().keys({
 
 module.exports = {
   create: Joi.object().keys({
+    description: Joi.string().optional().allow(null),
     creator: objectId.required().description('ObjectId of creator Doodler'),
     sections: Joi.array().items(corpseSection).min(2).required(),
     status: Joi.string().valid(['new', 'incomplete', 'complete']),
   }).required(),
   createFromRequest: Joi.object().keys({
+    description: Joi.string().optional().allow(null),
     sections: Joi.array().items(basicSection).min(2).optional().example([
       { description: 'Head', anchorPoints: [1, 200] },
       { description: 'Torso', anchorPoints: [30, 150] },
@@ -43,6 +45,7 @@ module.exports = {
   }),
   update: Joi.object().keys({
     creator: objectId.strip(),
+    description: Joi.string().optional().allow(null),
     sections: Joi.array().items(corpseSection).min(2),
     canvas: Joi.string(),
     size: Joi.object().keys({

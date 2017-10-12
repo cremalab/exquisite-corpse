@@ -59,11 +59,12 @@ class Corpse extends Component {
 
   render() {
     const { corpse: {
-      loading, sections, status, creator, createdAt
+      loading, sections, status, creator, createdAt, description,
     }, currentUser } = this.props
     const creatorId = this.props.corpse.creator.id
     const { svgUrl, pngUrl } = this.props.corpse
     const isComplete = status === 'complete'
+    console.log(this.props.corpse)
 
     if ( loading ) return <Spinner />
     const finalDrawing = isComplete ? (
@@ -86,7 +87,8 @@ class Corpse extends Component {
       <div style={{ width: '100%'}}>
         <Box>
           <Box Box padding={`${spacing[6]}`}>
-            <Box childSpacing={spacing[6]} childDirection='row' childAlign='center'>
+            <Box childSpacing={spacing[6]} childWrap={'wrap'} childDirection='row' childAlign='center'>
+              <h1>{ description }</h1>
               <Box
                 childDirection='row'
                 childSpacing={spacing[4]}
