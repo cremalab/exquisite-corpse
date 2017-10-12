@@ -1,4 +1,5 @@
 const corpsesDB = require('../../corpses/db/corpsesDB')
+const R = require('ramda')
 
 function botCheck(request) {
   return request.headers['user-agent'].search(/bot/i) > -1 ||
@@ -14,8 +15,13 @@ module.exports = {
             request.url.path
 
       corpsesDB.find(db, request.params.id).then((data) => {
+        const drawerNames = R.filter(
+          R.compose(R.not, R.isNil),
+          R.map(R.compose(R.prop('name'), R.prop('drawer')), data.sections)
+        )
         reply.view('index.html', {
           creator: data.creator.name,
+          drawers: R.join(', ', drawerNames),
           pageUrl: pageUrl,
           pageImage: {
             url: data.pngUrl,
