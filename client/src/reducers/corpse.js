@@ -29,6 +29,7 @@ function corpses(state = initialState, action) {
       return {
         loading: false,
         sections: action.payload.result.sections,
+        description: action.payload.result.description,
         canvas: action.payload.result.canvas,
         size: action.payload.result.size,
         status: action.payload.result.status,

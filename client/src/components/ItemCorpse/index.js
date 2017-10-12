@@ -7,6 +7,7 @@ import { distanceInWordsToNow } from 'date-fns'
 import spacing from 'config/spacing'
 import colors from 'config/colors'
 import ItemCorpseSections from 'components/ItemCorpseSections'
+import { Link } from 'react-router-dom'
 
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index
@@ -40,6 +41,28 @@ class ItemCorpse extends Component {
           cursor: pointer;
           overflow: hidden;
         `}>
+          <Box
+            childDirection='row'
+            childWrap='no-wrap'
+            css={`
+              font-size: ${spacing[5]};
+              padding: ${spacing[4]};
+              background: white;
+              color: ${colors.primary};
+              z-index: 10;
+              text-overflow: ellipsis;
+            `}>
+            <Link data-grow to={`/corpse/${corpse._id}`} style={{ textDecoration: 'none' }}>
+              <Box childDirection={'row'}>
+                <span data-grow>
+                  <em>{ corpse.description }</em>
+                </span>
+                <span data-shrink>
+                  { corpse.creator.name }
+                </span>
+              </Box>
+            </Link>
+          </Box>
         <Box
           grow
           childFlex
@@ -62,9 +85,13 @@ class ItemCorpse extends Component {
             z-index: 10;
           `}>
           <span data-grow>
-            {participantsCount ? `${participantsCount} participant${participantsCount > 1 ? 's' : ''}` : 'Waiting'}
+            <Link grow to={`/corpse/${corpse._id}`} style={{ textDecoration: 'none', color: 'white', display: 'flex' }}>
+              {participantsCount ? `${participantsCount} participant${participantsCount > 1 ? 's' : ''}` : 'Waiting'}
+            </Link>
           </span>
-          <span>{createdAt}</span>
+          <Link data-shrink to={`/corpse/${corpse._id}`} style={{ textDecoration: 'none', color: 'white', display: 'flex' }}>
+            <span>{createdAt}</span>
+          </Link>
         </Box>
       </Box>
     )

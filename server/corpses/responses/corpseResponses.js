@@ -29,6 +29,7 @@ const corpseSection = Joi.object().keys({
 
 const corpse = Joi.object().keys({
   _id: objectId.required(),
+  description: Joi.string().optional().allow(null),
   creator: objectId.required().description('ObjectId of creator Doodler'),
   sections: Joi.array().items(corpseSection).required(),
   canvas: Joi.string(),
