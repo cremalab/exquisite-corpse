@@ -97,7 +97,7 @@ class Corpses extends React.Component {
         <Box>
           <Button
             prefix={<Icon glyph='logout' />}>
-            <a href='/logout' style={{textDecoration: 'none', color: 'white'}} >Logout</a>
+            <a href='/logout' style={{textDecoration: 'none', color: 'white'}} >Change User Name</a>
           </Button>
         </Box>
       </Box>
