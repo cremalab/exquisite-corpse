@@ -69,10 +69,16 @@ class Corpse extends Component {
     if ( loading ) return <Spinner />
     const finalDrawing = isComplete ? (
       <div>
+
         <Box padding={spacing[6]} childDirection='row' childSpacing={spacing[4]}>
-          <Button onClick={() => window.open(svgUrl)}>Download SVG</Button>
-          <Button onClick={() => window.open(pngUrl)}>Download PNG</Button>
+          <Button
+            skin='tertiary'
+            onClick={() => this.handleDestroy()}
+            prefix={<Icon glyph='trash' />}>
+            Delete corpse
+          </Button>
         </Box>
+
         <div
           data-grow='true'
           style={css.finalFrame}

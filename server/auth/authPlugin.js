@@ -23,7 +23,8 @@ exports.register = (server, options, next) => {
     }
 
     server.auth.strategy('userCookie', 'cookie', authCookieOptions)
-
+    //FIRST FRIDAYS, DON'T USE A SIGN IN
+    /*
     server.auth.strategy('slack', 'bell', {
       provider: 'slack',
       password: process.env.COOKIE_PASSWORD || 'cookie_encryption_password_secure',
@@ -59,6 +60,7 @@ exports.register = (server, options, next) => {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     })
+    */
 
     server.auth.default('userCookie')
 

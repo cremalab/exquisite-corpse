@@ -62,9 +62,9 @@ module.exports = {
   destroy(request, reply) {
     const { db } = request.mongo
     return corpsesDB.find(db, request.params.id).then((corpse) => {
-      if (corpse.creator.id !== request.auth.credentials.id) {
-        throw Boom.create(403, `You did not create this corpse, you can't destroy it.`)
-      }
+      //if (corpse.creator.id !== request.auth.credentials.id) {
+      //  throw Boom.create(403, `You did not create this corpse, you can't destroy it.`)
+      //}
       return corpse
     })
     .then(() => (

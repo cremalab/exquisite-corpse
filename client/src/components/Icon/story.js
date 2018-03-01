@@ -12,6 +12,7 @@ storiesOf('Icon', module)
       <Icon glyph='draw' />
       <Icon glyph='eye' />
       <Icon glyph='newCorpse' />
+      <Icon glypy='logout' />
       <Icon glyph='trash' />
       <Icon glyph='close' />
       <Icon glyph='user' />

@@ -24,6 +24,8 @@ module.exports = [
       tags: ['auth'],
     },
   },
+  //FIRST FRIDAY, REMOVE
+  /*
   {
     method: 'GET',
     path: '/login/slack',
@@ -87,7 +89,7 @@ module.exports = [
       },
       tags: ['auth', 'bell'],
     },
-  },
+  },*/
   {
     method: 'POST',
     path: '/login/guest',
