@@ -60,7 +60,7 @@ class RouteCorpseSlideshow extends Component {
                   bgColor="transparent"
                 >
                   {/* <AuthorName>{ creator.name }</AuthorName> */}
-                  <Image src={svgUrl} height="100vh" width="100vw" />
+                  <Image src={svgUrl} height="100vh" />
                 </Slide>
               )
             })
