@@ -10,6 +10,7 @@ import RouteHome from 'components/RouteHome'
 import RouteCreateCorpse from 'components/RouteCreateCorpse'
 import RouteDrawingSidebar from 'components/RouteDrawingSidebar'
 import RouteMessagesGlobal from 'components/RouteMessagesGlobal'
+import RouteCorpseSlideshow from 'components/RouteCorpseSlideshow'
 import LayoutMain from 'components/LayoutMain'
 import Back from 'components/Back'
 import styled from 'styled-components'
@@ -59,6 +60,7 @@ class RouteApp extends Component {
           <RoutesContainer data-scroll data-grow>
             <Route exact path="/welcome" component={RouteHome}/>
             <Route exact path="/" component={RouteCorpses}/>
+            <Route exact path="/slideshow" component={RouteCorpseSlideshow}/>
             <Route path="/create" component={RouteCreateCorpse} />
             <Route path="/corpse/:corpseId" component={RouteCorpse}/>
             <Route path="/drawing/:drawingId" component={RouteDrawing}/>

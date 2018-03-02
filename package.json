@@ -85,6 +85,7 @@
     "redux-multi": "^0.1.12",
     "redux-thunk": "^2.2.0",
     "shortid": "^2.2.8",
+    "spectacle": "^4.0.5",
     "styled-components": "^1.4.5",
     "svg-sprite-loader": "^0.3.0",
     "svg2png": "^4.1.1",
