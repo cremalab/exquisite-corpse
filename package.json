@@ -61,6 +61,7 @@
     "html-webpack-plugin": "^2.28.0",
     "inert": "^4.1.0",
     "joi": "^10.2.2",
+    "moment": "^2.22.0",
     "mongodb": "^2.2.24",
     "nes": "^6.4.2",
     "nunjucks": "^3.0.0",
