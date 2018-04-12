@@ -168,24 +168,6 @@
         </div>
       </div>
       <div class='section'>
-        <h5>If you wanna be sure you can find your drawings later, log in with</h5>
-        <div class='row'>
-          {% for provider in enabledProviders %}
-            <div class='four columns'>
-              <a class="button button-primary u-full-width" href='{{ provider.route }}'>{{ provider.name }}</a>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-
-      <div class='row'>
-        <div class='five columns'><hr /></div>
-        <div class='two columns'><h5>OR</h5></div>
-        <div class='five columns'><hr /></div>
-      </div>
-
-      <div class='section'>
-        <h5>If you just wanna jump in and draw</h5>
         <form class="" action="/login/guest" method="post">
           <div class='row'>
             <div class='three columns'>&nbsp;</div>
